@@ -1,0 +1,22 @@
+Self-Assessment Quizzes
+Multiple choice (MC) and true/false (T/F) self-assessment quizzes. Take them and get instant feedback when you're through.
+
+    * Chapter 1 MC
+    * Chapter 1 T/F
+    * Chapter 2 MC
+    * Chapter 2 T/F
+    * Chapter 3 MC
+    * Chapter 3 T/F
+    * Chapter 4 MC
+    * Chapter 4 T/F
+    * Chapter 5 MC
+    * Chapter 5 T/F
+    * Chapter 6 MC
+    * Chapter 6 T/F
+    * Chapter 7 MC
+    * Chapter 7 T/F
+    * Chapter 8 MC
+    * Chapter 8 T/F
+    * Chapter 9 MC
+    * Chapter 9 T/F
+

@@ -1,0 +1,25 @@
+Day 1:
+
+-  twiddle, knob, in sight, glazed expression
+
+   Faced with an instrument like this, students typically respond either by twiddling every knob and pressing every button in sight, or by adopting a glazed expression.
+
+Day 2:
+
+-  comic strip expletive
+
+   ubiquitous strings of punctuation representing a regular expression: /^ (?:To:)\s*(\S*)$/—not comic strip expletives
+
+-  tinker 
+
+   nothing requires you to go tinkering under the hood.
+
+Day 3:
+
+-  Muster out
+
+   Don't muster youself out at this critical juncture
+
+-  lay out
+
+   Applications are laid out in virtual memory with a very large stack area.

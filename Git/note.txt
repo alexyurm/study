@@ -1,0 +1,115 @@
+Chapter1: Introduction
+
+1. A tool that manages and tracks different versions of software or other content is referred to generically as a version control system (VCS), a source code manager (SCM), a revision control system (RCS) and so on.
+
+2. Prior to Git, Linux Kernel was developed using the commercial BitKeeper VCS.
+
+
+Chapter 2: Installing Git
+
+1. Debian/Ubuntu
+
+   -  if you need to transfer a project from Arch, CVS, or Subversion to Git or vice versa, install one or more of these packages:
+
+      git-arch, git-cvs, giv-svn
+
+   -  If you prefer to browser repositories a graphical application or your Web browser, install these:
+
+      git-gui, gitk, gitweb.
+
+   -  git-email
+
+      This is essential if you want to send Git patches through electronic mail, which is a common practice in some projects.
+
+   -  git-daemon-run
+
+      To share your repository, install the package. It creates a daemon service that allows you to share your repository through anonymous download requests.
+
+2. While compiling Git, consult the INSTALL file in the Git source bundle. The file lists several external dependencies, including the zlib, openssl, and libcurl libraries.
+
+
+Chapter 3: Getting started
+
+1. For a complete (and somewhat daunting) list of git subcommands, type git help --all.
+
+   -  For convinence, documentation for each git subcommand is available using either git help subcommand or git subcommand --help.
+   -  You can seperate options from a list of arguments via the "bare double dash" convention. For instance, use the double dash to contrast portion of the command line from a list of operands, such as filenames;
+
+      $ git diff -w master origin -- tools/Makefile.
+
+      You may need to use the double dash to seperate and explicitly identify filenames if they might otherwise be mistaken for another part of the command:
+
+      # Checkout the tag named "main.c"
+      $ git checkout main.c
+      # Checkout the file named "main.c"
+      $ git checkout -- main.c
+      
+2. Create an Initial Respository
+
+   -  Go to your top-level folder (it doesn't matter whether it is empty or not);
+   -  Run: "$git init". Unlike CVS and Sub version, which place revision information in CVS and .svn subdirectories within each of your project's directories, Git place all its revision information in this one-top level “.git      ” directory at the top level of your project.
+
+3. Adding files to your Respository
+
+   -  $ git add index.html
+
+      to add all files in the directories. Use "git add ." (single period or "dot" in Unix parlance, is shorthand for current directory).
+     
+      So now the file is only staged. This is only the interim step before committal.
+   -  The command git status reveals the above in-between state of index.html.
+
+   -  Set the editor for interactive sessions:
+
+      e.g.  export GIT_EDITOR=vim.
+
+4. Configuring the Commit Author
+
+   -  Before making many commits to a repository, you should establish some basic environment and configuration options. 
+
+      $ git config user.name "Jon Loeliger"
+      $ git config user.email "jdl@example.com"
+
+      You can also tell Git your name and email address using the GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL environment variables. If set, these variables override all configuration settings.
+
+      Make changes to the repository:
+
+      $git commit.
+
+   -  You can view your commits by typing:
+
+      $git log 
+
+      This command shows all entries in order, from most recent to oldest.
+
+   -  To see more detail about a particular commit, use git show with a commit number;
+
+      $ git show 9da581d910c9c4ac93557ca4859e767f5caf5169
+
+   -  
+
+   -  To diff two commits:       
+
+      $ git diff 9da581d910c9c4ac93557ca4859e767f5caf5169 \
+            ec232cddfb94e0dfd5b5855af8ded7f5eb5c90d6
+
+5. Removing Files in Your Repository.
+      
+   $git rm porm.txt
+
+6. Rename Files in Your Repository.
+
+   $git mv foo.html bar.html
+
+   Git handles file move operations differently than most akin systems, employing a
+   mechanism based on the similarity of the content between two file versions. The spe-
+   cifics are described in Chapter 5.
+
+7. Making a copy of your repository
+
+   This is how people around the world use Git to pursue pet projects on the same files and keep in sync with other repositories.
+   
+   
+   
+
+
+

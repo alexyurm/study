@@ -1,0 +1,12 @@
+Chapter 1 Overview with perl
+
+-  Nouns 
+
+Type        Character      Example     Is a name used for
+Scalar      $              $cents      An individual value (number or string)
+Array       @              @large      A list of values, keyed by number
+Hash        %              %interest   A group of values, keyed by string
+Subroutine  &              &how        A callback chunk of Perl Code
+Typeglob    *              *struck     Everything named struck
+
+-  

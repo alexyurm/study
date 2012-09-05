@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  
+    <title>Lab: Proxy Cache</title>
+<style type="text/css">
+H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 19pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+P {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+A:link {
+	COLOR: #000066
+}
+A:visited {
+	COLOR: #666666
+}
+</style>
+
+  </head><body>
+    <h1>Programming Assignment 4: Proxy Cache</h1>
+
+<p>In this lab you will develop a small web proxy server which is
+also able to cache web pages. This is a very simple proxy server
+which only understands simple GET-requests, but is able to handle all
+kinds of objects, not just HTML pages, but also images.
+
+</p><h2>Code</h2>
+
+<p>The code is divided into three classes as follows:
+
+</p><ul>
+ 
+ <li> <a 
+href="http://media.pearsoncmg.com/aw/aw_kurose_network_3/labs/lab4/code.html#ProxyCache"
+ target="_blank"><code>ProxyCache</code></a>
+      holds the start-up code for the proxy and code for handling the
+	requests. 
+
+ </li><li> <a 
+href="http://media.pearsoncmg.com/aw/aw_kurose_network_3/labs/lab4/code.html#HttpRequest"
+ target="_blank"><code>HttpRequest</code></a>
+      contains the routines for parsing and processing the incoming
+      requests from clients.
+  
+</li><li> <a 
+href="http://media.pearsoncmg.com/aw/aw_kurose_network_3/labs/lab4/code.html#HttpResponse"
+ target="_blank"><code>HttpResponse</code></a>
+      takes care of reading the replies from servers and processing
+      them.
+</li></ul>
+
+<p>Your work will be to complete the proxy so that it is able to
+receive requests, forward them, read replies, and return those to the
+clients. You will need to complete the classes
+<code>ProxyCache</code>, <code>HttpRequest</code>, and
+<code>HttpResponse</code>. The places where you need to fill in code
+are marked with <tt>/* Fill in */</tt>. Each place may require one or
+more lines of code.
+
+</p><p><b><i>NOTE:</i></b> As explained below, the proxy uses
+DataInputStreams for processing the replies from servers. This is
+because the replies are a mixture of textual and binary data and the
+only input streams in Java which allow treating both at the same time
+are DataInputStreams. To get the code to compile, you must use the
+-deprecation argument for the compiler as follows:
+
+</p><pre>        javac -deprecation *.java
+</pre>
+
+<p>If you do not use the -deprecation flag, the compiler will refuse
+to compile your code!
+
+</p><h3>Running the Proxy</h3>
+
+<p>Running the proxy is as follows:
+
+</p><pre>       java ProxyCache <i>port</i>
+</pre>
+where <i>port</i> is the port number on which you want the proxy to
+listen for incoming connections from clients.
+
+<h3>Configuring Your Browser</h3>
+
+<p>You will also need to configure your web browser to use your
+proxy. This depends on your browser. In Internet Explorer, you can set
+the proxy in "Internet Options" in the Connections tab under LAN
+Settings. In Netscape (and derived browsers, such as Mozilla), you can
+set the proxy in Edit-&gt;Preferences and then select Advanced and
+Proxies.
+
+</p><p>In both cases you need to give the address of the proxy and the
+port number which you gave when you started the proxy. You can run the
+proxy and browser on the same computer without any problems.
+
+</p><h2>Proxy Functionality</h2>
+
+<p>The proxy works as follows.
+
+</p><ol>
+  <li> The proxy listens for requests from clients
+  </li><li> When there is a request, the proxy spawns a new thread for
+      handling the request and creates an HttpRequest-object which
+      contains the request.
+  </li><li> The new thread sends the request to the server and reads the
+      server's reply into an HttpResponse-object.
+  </li><li> The thread sends the response back to the requesting client.
+</li></ol>
+
+<p>Your task is to complete the code which handles the above
+process. Most of the error handling in the proxy is very simple and it
+does not inform the client about errors. When there are errors, the
+proxy will simply stop processing the request and the client will
+eventually get a timeout.
+
+</p><p>Some browsers also send their requests one at a time, without 
+using
+parallel connections. Especially in pages with lot of inlined images,
+this may cause the page to load very slowly. 
+
+
+</p><h3>Caching</h3>
+
+<p>Caching the responses in the proxy is left as an optional exercise,
+since it demands a significant amount of additional work. The basic
+functionality of caching goes as follows.
+
+</p><ol>
+  <li> When the proxy gets a request, it checks if the requested
+      object is cached, and if yes, then returns the object from the
+      cache, without contacting the server.
+  </li><li> If the object is not cached, the proxy retrieves the object
+      from the server, returns it to the client, and caches a copy for
+      future requests.
+</li></ol>
+
+<p>In practice, the proxy must verify that the cached responses are
+still valid and that they are the correct response to the client's
+request. You can read more about caching and how it is handled in HTTP
+in RFC 2068. For this lab, it is sufficient to implement the above
+simple policy.
+
+
+</p><h2>Programming Hints</h2>
+
+<p>Most of the code you need to write relates to processing HTTP
+requests and responses as well as handling Java sockets.
+
+</p><p>One point worth noting is the processing of replies from the
+server. In an HTTP response, the headers are sent as ASCII lines,
+separated by CRLF character sequences. The headers are followed by an
+empty line and the response body, which can be binary data in the case
+of images, for example.
+
+</p><p>Java separates the input streams according to whether they are
+text-based or binary, which presents a small problem in this
+case. Only DataInputStreams are able to handle both text and binary
+data simultaneously; all other streams are either pure text (e.g.,
+BufferedReader), or pure binary (e.g., BufferedInputStream), and
+mixing them on the same socket does not generally work.
+
+</p><p>The DataInputStream has a small gotcha, because it is not able to
+guarantee that the data it reads can be correctly converted to the
+correct characters on every platform (DataInputStream.readLine()
+function). In the case of this lab, the conversion usually works, but
+the compiler will flag the DataInputStream.readLine()-method as
+deprecated and will refuse to compile without the -deprecation flag.
+
+</p><p>It is highly recommended that you use the DataInputStream for
+reading the response.
+
+</p><h2>Optional Exercises</h2>
+
+<p>When you have finished the basic exercises, you can try the
+following optional exercises.
+
+</p><ol>
+  <li> Better error handling. Currently the proxy does no error
+      handling. This can be a problem especially when the client
+      requests an object which is not available, since the "404 Not
+      found" response usually has no response body and the proxy
+      assumes there is a body and tries to read it.
+  </li><li> Support for POST-method. The simple proxy supports only
+      GET-method. Add support for POST, by including the request body
+      sent in the POST-request.
+  </li><li> Add caching. Add the simple caching functionality described
+      above. You do not need to implement any replacement or
+      validation policies. Your implementation will need to be able to
+      write responses to the disk (i.e., the cache) and fetch them
+      from disk when you get a cache hit. For this you need to
+      implement some internal data structure in the proxy to keep
+      track of which objects are cached and where they are on
+      disk. You can keep this data structure in main memory; there is
+      no need to make it persist across shutdowns.
+</li></ol>
+
+
+<hr>
+
+  </body></html>

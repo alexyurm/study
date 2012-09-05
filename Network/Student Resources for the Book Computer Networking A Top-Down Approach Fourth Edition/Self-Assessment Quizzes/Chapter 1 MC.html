@@ -1,0 +1,2106 @@
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html lang="en">
+
+<head>
+	<title>Chapter 1 MC</title>
+
+
+
+
+
+
+
+
+<META NAME="VolumeId" CONTENT="4173749">
+
+
+
+     
+     <META NAME="BetterLink" CONTENT="/aw_kurose_network_4/63/16303/4173750.cw/-/4173756/index.html">
+
+
+
+     <!-- title -->
+     <META NAME="LinkType" CONTENT="Chapter 1 MC">
+	 
+
+   <!-- crumbs -->
+     <META NAME="NavBar" CONTENT="Computer Networking: A Top-Down Approach, 4/e&nbsp;&#62&nbsp;Student Resources&nbsp;&#62&nbsp;Self-Assessment Quizzes">
+
+
+
+
+	<link rel="StyleSheet" href="/wps/media/styles/1480/_skins_/D/default_silver/style.css" type="text/css">
+	<style type="text/css">
+	   <!--
+	   body
+	   {
+
+
+
+	   	background-color: white;
+
+
+	   	margin: 2px 60px 15px 10px;
+	   }
+	   
+	   h1#stylehead {
+	      padding: 0;
+          margin: 0;
+	   }
+	   
+	   h2.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+
+	   h3.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+	   
+	   .sr_only {
+            position:absolute;
+			left:-999px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+       }
+	   
+	   .nostyle_inline {
+		    font-size: 1em;
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    display: inline;
+	   }
+	   -->
+	</style>
+
+
+
+
+      
+
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  confirm(msg);
+
+}
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+
+	function ST_reset(confirmtext) { //v1.0
+		
+		//text must be passed into this
+		//confirm dialog box so that 
+		//the character entities will be
+		//interpretted, rather than being
+		//hard coded into the confirm line
+		//between "" or ''
+		
+	   if (window.confirm(confirmtext)) {
+					
+		
+		document.quizForm.reset()             
+               
+		if (window.location.hash != '#topofquiz1') {
+			window.location.hash = '#topofquiz1';
+		} else {
+                        window.location.hash = '#topofquiz2';
+                }
+		  
+		
+           }
+       }
+	
+//-->
+</script>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+
+
+
+function MM_nbGroup(event, grpName) { //v6.0
+  var i,img,nbArr,args=MM_nbGroup.arguments;
+  if (event == "init" && args.length > 2) {
+    if ((img = MM_findObj(args[2])) != null && !img.MM_init) {
+      img.MM_init = true; img.MM_up = args[3]; img.MM_dn = img.src;
+      if ((nbArr = document[grpName]) == null) nbArr = document[grpName] = new Array();
+      nbArr[nbArr.length] = img;
+      for (i=4; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+        if (!img.MM_up) img.MM_up = img.src;
+        img.src = img.MM_dn = args[i+1];
+        nbArr[nbArr.length] = img;
+    } }
+  } else if (event == "over") {
+    document.MM_nbOver = nbArr = new Array();
+    for (i=1; i < args.length-1; i+=3) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = (img.MM_dn && args[i+2]) ? args[i+2] : ((args[i+1])? args[i+1] : img.MM_up);
+      nbArr[nbArr.length] = img;
+    }
+  } else if (event == "out" ) {
+    for (i=0; i < document.MM_nbOver.length; i++) {
+      img = document.MM_nbOver[i]; img.src = (img.MM_dn) ? img.MM_dn : img.MM_up; }
+  } else if (event == "down") {
+    nbArr = document[grpName];
+    if (nbArr)
+      for (i=0; i < nbArr.length; i++) { img=nbArr[i]; img.src = img.MM_up; img.MM_dn = 0; }
+    document[grpName] = nbArr = new Array();
+    for (i=2; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = img.MM_dn = (args[i+1])? args[i+1] : img.MM_up;
+      nbArr[nbArr.length] = img;
+  } }
+}
+
+
+
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+
+
+
+
+
+function openHint(hinturl)
+{
+	var hintWindow = window.open(hinturl, 'Loading', 'height=400,width=400,toolbar=no,resizable=yes,scrollbars=yes');
+    if(hintWindow.opener == null) hintWindow.opener = window;
+	hintWindow.focus();
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+// This object holds question info
+function oAnswer(qnum, anum, text, rflag)
+{
+	this.qnum = qnum;
+	this.anum = anum;
+	this.text = text;
+	this.rflag = rflag;
+}
+
+// Takes an array and returns it in randomized order
+function makeRandom(aOrder)
+{
+	var num = aOrder.length - 1;
+
+	for(var i = num; i >= 0; --i)
+	{
+		if(! aOrder[i].rflag) continue;
+
+		var randNum = Math.round(Math.random() * i);
+
+		if(aOrder[randNum].rflag && (i != randNum))
+		{
+			// move selected item to back of array
+			// these will no longer be selectable
+			var temp = aOrder[i];
+			aOrder[i] = aOrder[randNum];
+			aOrder[randNum] = temp;
+		}
+	}
+	return aOrder;
+}
+	
+// Calls the randomizing function, and returns a string
+// which formats the answers for display.
+// st updated 2/23/02 to letter answers if needed (SAM)
+// also enhanced to provided problem-type specific css class name
+// st updated 5/12/04 to include id and label tags
+
+function showAnswer(aAnswers, numCorrect, spanclass)
+{
+	var string = '';
+	var aRandomized = makeRandom(aAnswers);
+
+	for (i in aRandomized)
+	{
+		if (aRandomized[i].anum != 0)
+		{
+			string += '<tr align="left" valign="top"><td align="left" valign="top"><input type="';
+			if (numCorrect > 1)
+			{
+				string += 'checkbox';
+			} else {
+				string += 'radio';
+			}
+			string += '" name="answer_';
+			string += aRandomized[i].qnum + '"';
+			string += ' id="answer_';
+			string += aRandomized[i].qnum + '_' + i + '"';
+			string += ' value="' + (aRandomized[i].anum - 1) + '">';
+			string += '\n&nbsp;\n';
+			string += '</td>';
+			string += '<td align="left" valign="top">';
+			string += '<label for="answer_' + aRandomized[i].qnum + '_' + i + '">';
+			string += '<span class="' + spanclass + '">';
+		
+		
+		
+		
+		
+			string += aRandomized[i].text + '</span></label></td></tr>';
+		}
+	}
+	return string;
+}
+
+
+
+
+
+
+function openLittleHint(hinturl)
+{
+	var hintWindow = window.open(hinturl, 'Loading', 'height=275,width=250,toolbar=no,resizable=yes,scrollbars=yes,location=no');
+	if(hintWindow.opener == null) hintWindow.opener = window;
+	hintWindow.focus();
+	return false;
+}
+
+
+// -->
+</script>
+
+
+
+
+
+<script language="javascript">
+<!-- 
+
+function updatenav(theurl)
+{
+    // if statement is used to 
+	// be sure the frame exists -st
+
+	
+		
+	
+	if (parent.navbar) {
+		parent.navbar.document.location.href = theurl;
+	}
+	
+	
+	// return true is important here
+	// allows the href to work -st
+return true;
+}
+
+// -->
+</script>
+
+
+	
+
+
+
+
+
+
+<!-- st reusing the js for expanding left nav -->
+<script type="text/javascript" language="Javascript">
+		<!-- Hide script from older browsers
+			
+		var submenus;
+		var myindex;
+        var thisMenu;
+		
+	// st this is how we degrade gracefully for older browsers
+	// also note that the expanded navs will be visible 
+	// in any browsers that dont support scripting at all
+	// as they will never have been made invisible
+	
+	document.write('<style type="text/css">');
+	if (document.getElementById) {	
+	   document.write('.submenu  {display:none}');
+	} else {
+  	   document.write('.submenu  {}');
+	}
+	document.write('</style>');
+	
+		
+		function expandMenu(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this opens the new item
+				// also used to show skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "block";
+					
+			}
+		}
+		
+		function hideSkip(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this hides skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "none";
+					
+			}
+		}
+		
+		
+
+		// End hiding script -->
+	</script>
+	
+	
+
+
+
+
+    
+
+</head>
+
+<body link="#7682CC" alink="#000000" vlink="#000000" onload="document.quizForm.reset();">
+<a name="topofpage" id="topofpage"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></a><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Content Frame" width="1" height="1" hspace="0" vspace="0" border="0"><br>
+
+
+
+
+     
+	    <DIV ID="div_entire_page"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Note for screen reader users: There is text between the form elements on this page. To be sure that you do not miss any text, use item by item navigation methods, rather than tabbing from form element to form element." width="1" height="1" hspace="0" vspace="0" border="0"><br>
+		
+	
+
+
+
+
+        
+
+
+
+
+
+<!-- skip stuff-->
+<a href="#lastcrumb" title="Skip Breadcrumb Navigation"
+		
+		onfocus="expandMenu('breadskip');"
+		onblur="hideSkip('breadskip');"
+		
+		><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" width="1" height="1" alt="Skip Breadcrumb Navigation" border="0" hspace="0" vspace="0"></a><div class="submenu" id="breadskip"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span><noscript>: <a href="#lastcrumb"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span></a></noscript><br>&nbsp;</div>
+
+<table border="0" cellspacing="2" cellpadding="0">
+	<tr align="left" valign="top">
+
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173749.cw/index.html" target="_top" class="breadcrumbs"  >Home</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173750.cw/index.html" target="_top" class="breadcrumbs"  >Student Resources</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173755.cw/content/index.html"  class="breadcrumbs" onclick="updatenav('/aw_kurose_network_4/63/16303/4173750.cw/leftnav/4173755/index.html');" >Self-Assessment Quizzes</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+        
+
+
+        <!-- Last Crumb -->
+		
+                     
+	<td align="left" valign="top"><span class="breadcrumbs"><a name="lastcrumb" id="lastcrumb">Chapter 1 MC</a></span></td>
+
+                        	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+	<br>
+	<h1 id="stylehead"><span class="contentHeader">Chapter 1 MC</span></h1>
+
+
+	<span class="basicContent">
+      
+           In the following 7 problems, we are sending a 30 Mbit MP3 file from a source host to a destination host. All links in the path between source and destination have a transmission rate of 10 Mbps. Assume that the propagation speed is 2 * 10<sup><font size="-1">8</font></sup> meters/sec, and the distance between source and destination is 10,000 km.
+      
+<br>
+
+<br></span>
+
+
+    
+	
+
+
+
+        <span class="randomAnswers">
+		
+
+     
+
+		This activity contains 10 questions.
+		<p />
+		
+		</span>
+
+
+
+
+      <div class="wps_quiz_hide"> 
+<a name="topofquiz1" id="topofquiz1"> </a>
+<a name="topofquiz2" id="topofquiz2"> </a>
+
+
+<form method="post" action="/wps/grader" name="quizForm">
+<script language="javascript">
+	document.write('<input type="hidden" name="base_url" value="' + location.href + '">');
+</script>
+<input type="hidden" name="url_path" value="/aw_kurose_network_4">
+<input type="hidden" name="id" value="4173756">
+<input type="hidden" name="timer" value="">
+
+<!-- for cls gb -->
+<input type="hidden" name="timer_hour" value="">
+<input type="hidden" name="timer_min" value="">
+<input type="hidden" name="timer_sec" value="">
+<input type="hidden" name="timer_started" value="">
+
+
+
+                
+
+     <input type="hidden" name="is_linking_host" value="false">
+
+
+
+      
+	       
+        <input type="hidden" name="ispreview" value="false">
+
+
+
+
+
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 1." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Initially suppose there is only one link between source and destination. Also suppose that the entire MP3 file is sent as one packet. The transmission delay is:</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_1.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173757, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173757, 1, '3 seconds', true);
+	
+		ans[2] = new oAnswer(4173757, 2, '50 milliseconds', true);
+	
+		ans[3] = new oAnswer(4173757, 3, '3.05 seconds', true);
+	
+		ans[4] = new oAnswer(4173757, 4, 'none of the above.', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173757" value="0" id="answer1_0"></td>
+			<td align="left" valign="top"><label for="answer1_0"><span class="multiChoiceAnswer">3 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173757" value="1" id="answer1_1"></td>
+			<td align="left" valign="top"><label for="answer1_1"><span class="multiChoiceAnswer">50 milliseconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173757" value="2" id="answer1_2"></td>
+			<td align="left" valign="top"><label for="answer1_2"><span class="multiChoiceAnswer">3.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173757" value="3" id="answer1_3"></td>
+			<td align="left" valign="top"><label for="answer1_3"><span class="multiChoiceAnswer">none of the above.</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 1" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 2." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Referring to the above question, the end-to-end delay (transmission delay plus propagation delay) is</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_2.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173758, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173758, 1, '6 seconds', true);
+	
+		ans[2] = new oAnswer(4173758, 2, '3 seconds', true);
+	
+		ans[3] = new oAnswer(4173758, 3, '3.05 seconds', true);
+	
+		ans[4] = new oAnswer(4173758, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173758" value="0" id="answer2_0"></td>
+			<td align="left" valign="top"><label for="answer2_0"><span class="multiChoiceAnswer">6 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173758" value="1" id="answer2_1"></td>
+			<td align="left" valign="top"><label for="answer2_1"><span class="multiChoiceAnswer">3 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173758" value="2" id="answer2_2"></td>
+			<td align="left" valign="top"><label for="answer2_2"><span class="multiChoiceAnswer">3.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173758" value="3" id="answer2_3"></td>
+			<td align="left" valign="top"><label for="answer2_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 2" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 3." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Referring to the above question, how many bits will the source have transmitted when the first bit arrives at the destination.</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_3.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173759, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173759, 1, '1 bit', true);
+	
+		ans[2] = new oAnswer(4173759, 2, '500,000 bits', true);
+	
+		ans[3] = new oAnswer(4173759, 3, '30,000,000 bits', true);
+	
+		ans[4] = new oAnswer(4173759, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173759" value="0" id="answer3_0"></td>
+			<td align="left" valign="top"><label for="answer3_0"><span class="multiChoiceAnswer">1 bit</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173759" value="1" id="answer3_1"></td>
+			<td align="left" valign="top"><label for="answer3_1"><span class="multiChoiceAnswer">500,000 bits</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173759" value="2" id="answer3_2"></td>
+			<td align="left" valign="top"><label for="answer3_2"><span class="multiChoiceAnswer">30,000,000 bits</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173759" value="3" id="answer3_3"></td>
+			<td align="left" valign="top"><label for="answer3_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 3" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 4." width="1" height="5" hspace="0" vspace="0" border="0"><br></h2><span class="multiChoiceQuestion">Now suppose there are two links between source and destination, with one router connecting the two links. Each link is 5,000 km long. Again suppose the MP3 file is sent as one packet. Suppose there is no congestion, so that the packet is transmitted onto the second link as soon as the router receives the entire packet. The end-to-end delay is</span></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_4.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173760, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173760, 1, '6.1 seconds', true);
+	
+		ans[2] = new oAnswer(4173760, 2, '6.05 seconds', true);
+	
+		ans[3] = new oAnswer(4173760, 3, '3.05 seconds', true);
+	
+		ans[4] = new oAnswer(4173760, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173760" value="0" id="answer4_0"></td>
+			<td align="left" valign="top"><label for="answer4_0"><span class="multiChoiceAnswer">6.1 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173760" value="1" id="answer4_1"></td>
+			<td align="left" valign="top"><label for="answer4_1"><span class="multiChoiceAnswer">6.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173760" value="2" id="answer4_2"></td>
+			<td align="left" valign="top"><label for="answer4_2"><span class="multiChoiceAnswer">3.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173760" value="3" id="answer4_3"></td>
+			<td align="left" valign="top"><label for="answer4_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 4" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 5." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Now suppose that the MP3 file is broken into 3 packets, each of 10 Mbits. Ignore headers that may be added to these packets. Also ignore router processing delays. Assuming store and forward packet switching at the router, the total delay is</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_5.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173761, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173761, 1, '3.05 seconds', true);
+	
+		ans[2] = new oAnswer(4173761, 2, '6.05 seconds', true);
+	
+		ans[3] = new oAnswer(4173761, 3, '4.05 seconds', true);
+	
+		ans[4] = new oAnswer(4173761, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173761" value="0" id="answer5_0"></td>
+			<td align="left" valign="top"><label for="answer5_0"><span class="multiChoiceAnswer">3.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173761" value="1" id="answer5_1"></td>
+			<td align="left" valign="top"><label for="answer5_1"><span class="multiChoiceAnswer">6.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173761" value="2" id="answer5_2"></td>
+			<td align="left" valign="top"><label for="answer5_2"><span class="multiChoiceAnswer">4.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173761" value="3" id="answer5_3"></td>
+			<td align="left" valign="top"><label for="answer5_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 5" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 6." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Now suppose there is only one link between source and destination, and there are 10 TDM channels in the link. The MP3 file is sent over one of the channels. The end-to-end delay is</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_6.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173762, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173762, 1, '30.05 seconds', true);
+	
+		ans[2] = new oAnswer(4173762, 2, '300 microseconds', true);
+	
+		ans[3] = new oAnswer(4173762, 3, '30 seconds', true);
+	
+		ans[4] = new oAnswer(4173762, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173762" value="0" id="answer6_0"></td>
+			<td align="left" valign="top"><label for="answer6_0"><span class="multiChoiceAnswer">30.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173762" value="1" id="answer6_1"></td>
+			<td align="left" valign="top"><label for="answer6_1"><span class="multiChoiceAnswer">300 microseconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173762" value="2" id="answer6_2"></td>
+			<td align="left" valign="top"><label for="answer6_2"><span class="multiChoiceAnswer">30 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173762" value="3" id="answer6_3"></td>
+			<td align="left" valign="top"><label for="answer6_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 6" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 7." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Now suppose there is only one link between source and destination, and there are 10 FDM channels in the link. The MP3 file is sent over one of the channels. The end-to-end delay is</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_7.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173763, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173763, 1, '300 microseconds', true);
+	
+		ans[2] = new oAnswer(4173763, 2, '30.05 seconds', true);
+	
+		ans[3] = new oAnswer(4173763, 3, '3 seconds', true);
+	
+		ans[4] = new oAnswer(4173763, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173763" value="0" id="answer7_0"></td>
+			<td align="left" valign="top"><label for="answer7_0"><span class="multiChoiceAnswer">300 microseconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173763" value="1" id="answer7_1"></td>
+			<td align="left" valign="top"><label for="answer7_1"><span class="multiChoiceAnswer">30.05 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173763" value="2" id="answer7_2"></td>
+			<td align="left" valign="top"><label for="answer7_2"><span class="multiChoiceAnswer">3 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173763" value="3" id="answer7_3"></td>
+			<td align="left" valign="top"><label for="answer7_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 7" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 8." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Review the car-caravan example in Section 1.6. Again assume a propagation speed of 100 km/hour. Suppose the caravan travels 200 km, beginning in front of one tollbooth, passing through a second tollbooth, and finishing just before a third tollbooth. What is the end-to-end delay?</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_8.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173764, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173764, 1, '64 minutes', true);
+	
+		ans[2] = new oAnswer(4173764, 2, '122 minutes', true);
+	
+		ans[3] = new oAnswer(4173764, 3, '62 minutes', true);
+	
+		ans[4] = new oAnswer(4173764, 4, '124 minutes', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173764" value="0" id="answer8_0"></td>
+			<td align="left" valign="top"><label for="answer8_0"><span class="multiChoiceAnswer">64 minutes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173764" value="1" id="answer8_1"></td>
+			<td align="left" valign="top"><label for="answer8_1"><span class="multiChoiceAnswer">122 minutes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173764" value="2" id="answer8_2"></td>
+			<td align="left" valign="top"><label for="answer8_2"><span class="multiChoiceAnswer">62 minutes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173764" value="3" id="answer8_3"></td>
+			<td align="left" valign="top"><label for="answer8_3"><span class="multiChoiceAnswer">124 minutes</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 8" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 9." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Referring to the above problem, suppose now that when a car arrives at the second tollbooth, it proceeds through the tollbooth without waiting for the cars behind it. What is the end-to-end delay?</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_9.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173765, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173765, 1, '124 minutes', true);
+	
+		ans[2] = new oAnswer(4173765, 2, '122 minutes and 24 seconds', true);
+	
+		ans[3] = new oAnswer(4173765, 3, '62 minutes', true);
+	
+		ans[4] = new oAnswer(4173765, 4, '122 minutes and 12 seconds', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173765" value="0" id="answer9_0"></td>
+			<td align="left" valign="top"><label for="answer9_0"><span class="multiChoiceAnswer">124 minutes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173765" value="1" id="answer9_1"></td>
+			<td align="left" valign="top"><label for="answer9_1"><span class="multiChoiceAnswer">122 minutes and 24 seconds</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173765" value="2" id="answer9_2"></td>
+			<td align="left" valign="top"><label for="answer9_2"><span class="multiChoiceAnswer">62 minutes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173765" value="3" id="answer9_3"></td>
+			<td align="left" valign="top"><label for="answer9_3"><span class="multiChoiceAnswer">122 minutes and 12 seconds</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 9" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 10." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Suppose there are two links between a source and a destination. The first link has transmission rate 100 Mbps and the second link has transmission rate 10 Mbps. Assuming that the only traffic in the network comes from the source, what is the throughput for a large file transfer?</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_10.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4599412, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4599412, 1, '10 Mbps', true);
+	
+		ans[2] = new oAnswer(4599412, 2, '1 Gbps', true);
+	
+		ans[3] = new oAnswer(4599412, 3, '100 Mbps', true);
+	
+		ans[4] = new oAnswer(4599412, 4, '110 Mbps', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599412" value="0" id="answer10_0"></td>
+			<td align="left" valign="top"><label for="answer10_0"><span class="multiChoiceAnswer">10 Mbps</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599412" value="1" id="answer10_1"></td>
+			<td align="left" valign="top"><label for="answer10_1"><span class="multiChoiceAnswer">1 Gbps</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599412" value="2" id="answer10_2"></td>
+			<td align="left" valign="top"><label for="answer10_2"><span class="multiChoiceAnswer">100 Mbps</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599412" value="3" id="answer10_3"></td>
+			<td align="left" valign="top"><label for="answer10_3"><span class="multiChoiceAnswer">110 Mbps</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 10" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+
+
+
+		  <!-- non-js submit & clear answers buttons -->
+		  <noscript>
+			   <br clear="all">
+			      <span class="basicContent">
+				  
+The Submit Answers for Grading feature requires scripting to function. Your browser either does not support scripting or you have turned scripting off.<p />So, the Submit Answers for Grading button below will not work.<p />The following Submit Answers for Grading button is provided in its place and will clear your answers: <input type="submit" value="Submit Answers for Grading">
+			      </span>
+				  			   
+			   <br clear="all">
+			      <span class="basicContent">
+				  
+The Clear Answers and Start Over feature requires scripting to function. Your browser either does not support scripting or you have turned scripting off.<p />
+				       So, the Clear Answers and Start Over button below will not work.<p />
+				       The following Clear Answers button is provided in its place and will clear your answers: <input type="reset" value="Clear Answers">
+			      </span>
+		</noscript>
+
+
+<div style="text-align:right;width:100%;">		
+	
+		
+
+
+
+	  
+		<input type="image" src="/wps/media/styles/1480/_skins_/D/default_silver/button_submit_off.gif" alt="Submit Answers for Grading" title="Submit Answers for Grading" hspace="20" vspace="0" border="0" style="float:right;" name="submitAnswer" 
+		
+		  
+		     onmouseover="MM_nbGroup('over','submitAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_submit_on.gif','',0);" 
+		     onfocus="MM_nbGroup('over','submitAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_submit_on.gif','',0);" 
+		     onmouseout="MM_nbGroup('out');" 
+		     onblur="MM_nbGroup('out');"
+		  
+		>
+		
+       
+	
+<!-- must close the quiz form -->
+    </form>
+
+<!-- js clear answers button -->
+		<form name="clear" 
+			  action="javascript:ST_reset('Are you sure you want to clear all of your answers?');"
+		>
+		
+		
+		
+		
+		
+		  
+				<input type="image" 
+						src="/wps/media/styles/1480/_skins_/D/default_silver/button_clear_off.gif" 
+		                hspace="20" vspace="0" border="0" style="float:right;"
+						title="Clear Answers and Start Over" 
+						alt="Clear Answers and Start Over"  hspace="0" vspace="0" border="0" 
+						name="clearAnswer"
+						
+		                
+					        onmouseover="MM_nbGroup('over','clearAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_clear_on.gif','',0);" 
+						    onfocus="MM_nbGroup('over','clearAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_clear_on.gif','',0);" 
+						    onmouseout="MM_nbGroup('out');" 
+						    onblur="MM_nbGroup('out');"
+		                
+					
+				>
+         
+</form>
+		
+	
+</div>
+
+<br><br>
+
+
+
+<noscript>
+   <br>
+      <span class="randomAnswers">Your browser either does not support scripting or you have turned scripting off. Because of this, the answer choices will NOT appear in a different order each time the page is loaded, though that is mentioned below. Note that you do not need this feature to use this site.</span>
+	  <br>
+	  
+</noscript>
+
+
+
+
+	<br><span class="randomAnswers">Answer choices in this exercise appear in a different order each time the page <nobr>is loaded.</nobr><br><br></span>
+ 
+
+ 
+
+ 
+
+
+
+</div> 
+
+
+
+<br><br><br>
+
+    
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tr align="left" valign="top">
+
+<td align="right" valign="top" width="50%">
+
+	<a href="http://www.pearson.com" target="new">
+		<img src="/wps/media/styles/1480/_style_/pearson_unframed_logo.gif" 
+		     title="Open Pearson site in a new window." 
+             alt="Pearson" 
+			 hspace="10" 
+			 vspace="0" 
+			 border="0">
+	</a>
+
+</td>
+
+
+
+<td align="left" valign="top" nowrap width="50%"><span class="footer copyright">
+   
+		
+
+
+
+
+Copyright &copy; 1995 - 2010 
+
+<a href="http://www.pearsoned.com" 
+   target="new" 
+   title="Open Pearson Education Web site in a new window"
+   class="legalNote">
+	   Pearson Education
+</a>.
+All rights reserved.
+
+
+	Pearson Addison Wesley is an imprint of 
+	<a href="http://www.pearson.com" 
+	   target="new" 
+	   title="Open Pearson Web site in a new window"
+	   class="legalNote">
+		   Pearson
+	</a>.
+
+<br>
+		
+		<a class="legalNote" 
+		   href="http://www.pearsoned.com/legal/" 
+		   target="new" 
+		   title="Open Legal Notice in a new window">Legal Notice</a> 
+		   
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+		      href="http://www.pearsoned.com/legal/privacy.htm" 
+			  target="new" 
+			  title="Open Privacy Policy in a new window">Privacy Policy</a> 
+			  
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+		      href="http://www.pearsoned.com/legal/permissions.htm" 
+			  target="new" 
+			  title="Open Permissions Policy in a new window">Permissions</a> 
+		   
+		
+		
+
+	
+
+</span></td>
+
+
+</tr></table>
+
+
+		
+
+</DIV>
+
+<p>		
+
+<div align="right" class="submenu" id="toppage"><span class="breadcrumbs">[Return to the Top of this Page]<noscript><a href="#topofpage" title="[Return to the Top of this Page]">: [Return to the Top of this Page]</a></noscript></span></div>
+
+<a href="#topofpage" title="[Return to the Top of this Page]"
+		
+		onfocus="expandMenu('toppage');"
+		onblur="hideSkip('toppage');"
+      
+		
+		
+		><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" width="1" height="1" alt="Return to the Top of this Page" border="0" hspace="0" vspace="0"></a>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+

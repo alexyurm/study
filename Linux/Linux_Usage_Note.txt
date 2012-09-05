@@ -1,0 +1,30 @@
+1. chown command -> Change the owner of files or directories
+
+2. ps command -> Report the process status
+
+3. Network File System (NFS protocol) -> A network file system protocol allowing a user on a client computer to access files over a network in a manner similar to how local storage is accessed. NFS, like many other protocols, builds on the Open Network Computing Remote Procedure Call (ONC RPC)system. The Network File System is an open standard defined in RFCs, allowing anyone to implement the protocol.
+
+4. tar command -> Tar stores and extracts files from a tape or disk archive.
+
+5. awk command
+
+6. udev -> udev is the device manager for Linux kernel. Primarily, it manages device nodes in /dev. It is the successor of devfs and hotplug, which means that it handles the /dev directory and all user space actions when adding/removing
+   devices, including firmware load.
+
+7. Set environment variable in Ubuntu:
+
+   -  To set variable only for current shell:
+
+      VARNAME="my value"
+   
+   -  To set it for current shell and all processes started from current shell:
+
+      export VARNAME="my value"      # shorter, less portable version
+      
+   -  To set it permanently for all future bash sessions add such line to your .bashrc file in your $HOME directory.
+
+      sudo vi ~/.bashrc
+
+   -  To set it permanently, and system wide (all users, all processes) add set variable in /etc/environment:
+
+      sudo vi /etc/environment

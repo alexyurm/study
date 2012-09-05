@@ -1,0 +1,2 @@
+armmake clean
+armmake all

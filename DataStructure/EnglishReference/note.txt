@@ -1,0 +1,16 @@
+Preface
+
+-  Designing correct, efficient, and implementable algorithms for real-world problems requires access to two distinct bodies of knowledge:
+
+   1) Techniques: Data Structures, dynamic programming, depth-first search, backtracking, heuristics and most importantly, modeling.
+
+   2) Resources: The top designers are familiar with many classic algorithmic problems, which provide sufficient source material to model most any application.
+
+ 1 Introduction to Algorithm Design
+
+-  An algorithm is a procedure to accomplish a specific task;
+
+-  Three properties for a good algorithm:
+   1) correct;
+   2) efficient;
+   3) easy to implement;

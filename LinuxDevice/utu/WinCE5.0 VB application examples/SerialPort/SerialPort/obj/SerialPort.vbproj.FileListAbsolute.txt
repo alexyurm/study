@@ -1,0 +1,60 @@
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Release\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\bin\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\Visual Studio 2005\Projects\SerialPort\SerialPort\obj\Release\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\bin\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\bin\Release\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\bin\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE application examples\VB\SerialPort\SerialPort\obj\Release\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\bin\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\bin\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\bin\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\WINCE application examples\VB\SerialPort\SerialPort\obj\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Debug\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Release\SerialPort.pdb
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\bin\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.FormMain.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.Resources.resources
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.vbproj.GenerateResource.Cache
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.exe
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.xml
+C:\Documents and Settings\lu\My Documents\workbench\YouTiYou\YCTEK\CD41\WinCE VB application examples\SerialPort\SerialPort\obj\Release\SerialPort.pdb

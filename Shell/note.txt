@@ -1,0 +1,25 @@
+Chapter 2 Getting Started
+
+2.3 A simple script
+
+$ who | wc -l
+
+The | (pipe) symbol creates a pipeline between two programs: who's output becomes wc's input. The next step is to make this pipeline into a seperate command. You do this by entering the commands into a regular file, and then making the file executable, with chmod, like so:
+
+$ cat > nusers          Create the file, copy the terminal input with cat
+who | wc -l             Program text
+^D
+$ chmod chmod +x nusers
+$ ./nusers
+6
+
+This shows the typical development cycle for small one- or two-line shell scripts.
+
+2.4 Self Contained Scripts:
+
+#!/bin/sh
+
+When the first two characters of a file are #!, the kernel scans the rest of the file of the line for the full pathname of an intepreter to use to run the program. (Any intervening whitespace is skipped). The kernel also scans
+for a single option to be passed to that intepreter. 
+
+

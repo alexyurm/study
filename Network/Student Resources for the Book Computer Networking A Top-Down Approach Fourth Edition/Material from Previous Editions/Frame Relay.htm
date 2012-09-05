@@ -1,0 +1,746 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<!-- style: cw_2005 default -->
+<!-- template: module -->
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+	<title>Frame Relay</title>
+
+
+
+
+
+
+
+
+<!-- META tags for site search -->
+<!--
+<META-NOSEARCH>nosearch</META-NOSEARCH>
+-->
+<!-- END META tags for site search -->
+	<link rel="StyleSheet" href="Frame%20Relay_files/style.css" 
+type="text/css">
+	<style type="text/css">
+	   <!--
+	   body
+	   {
+
+
+
+	   	background-color: white;
+
+
+	   	margin: 2px 60px 15px 10px;
+	   }
+	   
+	   h1#stylehead {
+	      padding: 0;
+          margin: 0;
+	   }
+	   
+	   h2.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+
+	   h3.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+	   
+	   .sr_only {
+            position:absolute;
+			left:-999px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+       }
+	   
+	   .nostyle_inline {
+		    font-size: 1em;
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    display: inline;
+	   }
+	   -->
+	</style>
+
+
+
+
+
+<script language="javascript">
+<!-- 
+
+function updatenav(theurl)
+{
+    // if statement is used to 
+	// be sure the frame exists -st
+
+	
+		
+	
+	if (parent.navbar) {
+		parent.navbar.document.location.href = theurl;
+	}
+	
+	
+	// return true is important here
+	// allows the href to work -st
+return true;
+}
+
+// -->
+</script>
+
+
+	
+
+
+
+
+
+
+<!-- st reusing the js for expanding left nav -->
+<script type="text/javascript" language="Javascript">
+		<!-- Hide script from older browsers
+			
+		var submenus;
+		var myindex;
+        var thisMenu;
+		
+	// st this is how we degrade gracefully for older browsers
+	// also note that the expanded navs will be visible 
+	// in any browsers that dont support scripting at all
+	// as they will never have been made invisible
+	
+	document.write('<style type="text/css">');
+	if (document.getElementById) {	
+	   document.write('.submenu  {display:none}');
+	} else {
+  	   document.write('.submenu  {}');
+	}
+	document.write('</style>');
+	
+		
+		function expandMenu(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this opens the new item
+				// also used to show skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "block";
+					
+			}
+		}
+		
+		function hideSkip(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this hides skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "none";
+					
+			}
+		}
+		
+		
+
+		// End hiding script -->
+	</script><style type="text/css">.submenu  {display:none}</style>
+	
+	
+
+
+
+
+</head><body link="#7682cc" alink="#000000" vlink="#000000">
+<a name="topofpage" id="topofpage"><img 
+src="Frame%20Relay_files/pixel.gif" alt="" border="0" height="1" 
+hspace="0" vspace="0" width="1"></a><img 
+src="Frame%20Relay_files/pixel.gif" alt="Content Frame" border="0" 
+height="1" hspace="0" vspace="0" width="1"><br>
+
+
+
+
+	  
+
+
+
+
+
+        
+
+
+
+
+
+<!-- skip stuff-->
+<a href="#lastcrumb" title="Skip Breadcrumb Navigation" 
+onfocus="expandMenu('breadskip');" onblur="hideSkip('breadskip');"><img 
+src="Frame%20Relay_files/pixel.gif" alt="Skip Breadcrumb Navigation" 
+border="0" height="1" hspace="0" vspace="0" width="1"></a><div 
+class="submenu" id="breadskip"><span class="breadcrumbs">[Skip 
+Breadcrumb Navigation]</span><noscript>: <a href="#lastcrumb"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span></a></noscript><br>&nbsp;</div>
+
+<table border="0" cellpadding="0" cellspacing="2">
+	<tbody><tr align="left" valign="top">
+
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173749.cw/index.html"
+ target="_top" class="breadcrumbs">Home</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Frame%20Relay_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173750.cw/index.html"
+ target="_top" class="breadcrumbs">Student Resources</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Frame%20Relay_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16304/4173958.cw/content/index.html"
+ class="breadcrumbs" 
+onclick="updatenav('/aw_kurose_network_4/63/16303/4173750.cw/leftnav/4173958/index.html');">Material
+ from Previous Editions</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Frame%20Relay_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+        
+
+
+        <!-- Last Crumb -->
+		
+                     
+	<td align="left" valign="top"><span class="breadcrumbs"><a 
+name="lastcrumb" id="lastcrumb">Frame Relay</a></span></td>
+
+                        	</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+	<br>
+	<h1 id="stylehead"><span class="contentHeader">Frame Relay</span></h1>
+
+
+	<span class="basicContent">
+      
+           <p><strong>[Section 5.10 of the Second Edition] </strong></p>
+<p>
+In this section we discuss two end-to-end wide-area-networking (WAN) 
+technologies,
+namely X.25 and Frame Relay. Introduced in the early 1980s and popular 
+in
+Europe up through the mid-1990s, X.25 is arguably the first public 
+packet-switching
+technology. Frame Relay, a successor to X.25, is another public 
+packet-switching
+technology that has been popular in North America throughout the 1990s.</p><p>
+Given that X.25 and Frame Relay are end-to-end WAN technologies, you may
+be wondering why we are discussing them in a chapter that is devoted to 
+the data
+link layer. We have chosen to discuss these technologies in this chapter
+ for the same
+reason we chose to discuss ATM in this chapter—all of these technologies
+ are often
+employed today to carry IP datagrams from one IP router to another. 
+Thus, from the
+perspective of IP (which is also an end-to-end WAN technology), X.25, 
+Frame Relay,
+and ATM are link-layer technologies. Because IP is one of the protocols 
+being
+highlighted in this book, we have put X.25, Frame Relay, and ATM where 
+IP (and
+most Internet zealots) believe these technologies belong, namely, in the
+ link layer.</p><p>
+X.25 networks are now almost extinct throughout the world. They were 
+designed
+almost 20 years ago for a technological context that is very different 
+from today’s
+wired networks. Frame Relay has had great appeal to corporate customers 
+but
+is increasingly fighting fierce competition from pure IP solutions. In 
+fact, due to this
+competition, Frame Relay may become a minor player in the mid-2000s. 
+Even
+though X.25 is on its way out and Frame Relay may disappear as well a 
+few years
+down the road, we have chosen to cover these technologies in this book 
+because of
+their immense historical importance.</p>
+
+
+<h3>5.10.1 The Historical Context</h3>
+<p>
+The X.25 protocol suite was designed in the late 1970s. To understand 
+the motivation
+behind the design, we need to understand the technological context of 
+that ancient
+era. Although the Apple II personal computer was making a big hit at 
+this time
+[Nerds 1996], PCs and workstations were not widespread and didn’t have 
+much networking
+support. Instead, most people were using inexpensive “dumb terminals” to
+access distant mainframes over computer networks. These dumb terminals 
+had minimal
+intelligence and storage (no disks); what appeared on their screens was 
+completely
+controlled by the mainframe at the other end of the network. In order to
+widely support dumb terminals, the designers of X.25 decided to “put the
+ intelligence
+in the network.” This philosophy, as we now know, is diametrically 
+opposed
+to the Internet philosophy, which places much of the complexity in the 
+end systems
+and makes minimal assumptions about network-layer services.</p><p>
+One way the designers put intelligence in the X.25 network was by 
+employing
+virtual circuits. Recall from Chapter 1 that virtual circuit networks 
+require the packet
+switches to maintain state information. In particular, the switch must 
+maintain a table.that maps 
+inbound interface/VC-number to outbound interface/VC-number. Moreover,
+complex signaling protocols are needed to establish VCs and tear them 
+down.
+As we learned in Chapter 4, the IP protocol is connectionless and, thus,
+ does not use
+VCs. When a node wants to send an IP datagram into the network, it just 
+stamps the
+datagram with a destination address and injects it into the network; it 
+does not first
+request the network to establish a virtual circuit between itself and 
+the destination.</p><p>
+Another important part of the technological context of the late 1970s 
+and early
+1980s concerns the physical links. In those days, almost all of the 
+wired links were
+noisy, error-prone copper links. Fiber-optic links were still in the 
+research laboratories
+at that time. Bit error rates over long-haul copper links were many 
+orders of
+magnitude higher than they are now over fiber links. Because of the high
+ error rates,
+it made sense to design the X.25 protocol with error recovery on a 
+hop-by-hop basis.
+In particular, whenever an X.25 switch sends a packet, it keeps a copy 
+of the
+packet until the next switch (in the packet’s route) returns an 
+acknowledgment. Thus
+each switch, when receiving a packet, performs error checking, and if 
+the packet is
+error-free, it sends an acknowledgment to the previous switch. 
+Hop-by-hop error recovery
+significantly reduces link transmission rates, and was consistent with 
+the
+technological context of the era—high link error rates and dumb 
+terminals. The
+X.25 design also called for flow control on a hop-by-hop basis. By 
+contrast, the TCP
+performs error recovery and flow control on an end-to-end basis, and 
+thus does not
+require the links to perform these tasks.</p>
+<h3>
+5.10.2 Frame Relay</h3>
+<p>
+Frame Relay, designed in the late 1980s and widely deployed in the 
+1990s, is in
+many ways a second-generation X.25. Like X.25, it uses virtual circuits.
+ However,
+because the fiber-based systems of the 1990s had much lower bit error 
+rates
+than the copper-based systems of the 1980s, Frame Relay was naturally 
+designed
+for much lower error rates. The essence of Frame Relay is a VC-based 
+packet-switching
+service with no error recovery and no flow control. Whenever a Frame
+Relay switch detects an error in a packet, its only possible course of 
+action is to
+discard the data. This results in a network with lower processing 
+overheads and
+higher transmission rates than X.25, but requires intelligent end 
+systems for data
+integrity. In most cases, the Frame Relay network is owned by a public 
+network
+service provider (such as AT&amp;T or British Telecom) and its use is 
+contracted out
+on a multiyear basis to corporate customers. Frame Relay is used today 
+to allow
+LANs on different corporate campuses to send data to each other at 
+reasonably
+high speeds. As shown in Figure 5.53, Frame Relay often interconnects 
+these
+LANs through IP routers, with each IP router in a different corporate 
+campus.
+Frame Relay offers a corporation an alternative to sending its 
+intercampus IP
+traffic over the public Internet, for which the corporation may have 
+reliability and
+security concerns.</p><p>
+Frame Relay networks can use either switched VCs (SVCs) or permanent
+virtual circuits (PVCs). For router interconnection, a PVC is often 
+permanently.established between each pair of routers.<i> N</i>(<i>N</i> 
+1)/2 PVCs are necessary to inter-connect
+<i>N</i> routers. Throughout our discussion we shall assume that the 
+frame relay
+network uses PVCs (which is the more common case).</p>
+<h3>
+Sending an IP Datagram from Ethernet to Frame Relay to Ethernet</h3>
+<p>
+Consider the transmission of an IP datagram between two end systems on 
+two
+Ethernets interconnected by a Frame Relay network. Let’s walk through 
+the steps
+in the context of Figure 5.53. When an Ethernet frame arrives at the 
+source router,
+the router’s Ethernet card strips off the Ethernet fields and passes the
+ IP datagram
+to the network layer. The network layer passes the IP datagram to the 
+Frame Relay
+interface card. This card encapsulates the IP datagram in the Frame 
+Relay
+frame, as shown in Figure 5.54. It also calculates the CRC (2 bytes) and
+ inserts
+the resulting value in the CRC field. The link-layer field (2 bytes) 
+includes a 10-
+bit virtual circuit number field. The interface card obtains the VC 
+number from a
+table that associates IP network numbers to VC numbers. The interface 
+card then
+transmits the packet.</p>
+<p> The interface card transmits the Frame Relay packet to a nearby 
+Frame Relay 
+  switch, owned by the Frame Relay service provider. The switch examines
+ the CRC 
+  field. If the frame has an error, the switch discards the frame; 
+unlike X.25, 
+  frame re-lay does not bother to retransmit packets on a hop-by-hop 
+basis. If 
+  there is no error in the frame, the switch uses the frame’s VC number 
+to route 
+  the frame to the next switch (or to the destination router). The 
+destination 
+  router removes the frame relay fields and then delivers the datagram 
+over Ethernet 
+  to the destination host. If TCP segments are lost or arrive out of 
+sequence, 
+  then TCP in the communicating hosts corrects the problem.</p>
+<p align="center"><img src="Frame%20Relay_files/fig5_002.gif" 
+alt="fig5.53.gif" align="center"></p>
+<h3>Committed Information Rate (CIR)</h3><p>
+Frame Relay makes use of an innovative mechanism referred to as the <b>committed
+information
+ rate (CIR)</b>. Every Frame Relay VC has a committed information rate.
+We will define the CIR rigorously below, but roughly, the CIR is a 
+commitment on
+the part of the Frame Relay network to dedicate to the VC a specified 
+transmission
+rate determined by the CIR. The CIR service, introduced by Frame Relay 
+in the
+early 1990s, is in many ways a forerunner to the Internet’s 
+differentiated service (see
+Chapter 6). As we shall shortly see, Frame Relay provides the CIR 
+service by marking
+packets.</p>
+<p> In Frame Relay networks, Frame Relay packets can belong to one of 
+two priority 
+  levels—either high priority or low priority. Packets are assigned 
+priorities 
+  by marking a special bit in the packet header—the so-called discard 
+eligibility 
+  (DE) bit—to either 0 for high priority and 1 for low priority. If a 
+frame is 
+  a high-priority frame, then the Frame Relay network should deliver the
+ packet 
+  to the destination under all but the most desperate network 
+conditions, including 
+  periods of congestion and backbone link failures. However, for 
+low-priority 
+  packets, the Frame Relay network is permitted to discard the frame 
+under congested 
+  conditions. Under particularly draconian conditions, the network can 
+even discard 
+  high-priority packets. Congestion is typically measured by the state 
+of output 
+  buffers in Frame Relay switches. When an output buffer in a Frame 
+Relay switch 
+  is about to overflow, the switch will first discard the low-priority 
+packets, 
+  that is, the packets in the buffer with the DE bit set to 1. The 
+actions that 
+  a Frame Relay switch takes on marked packets should be clear, but we 
+haven’t 
+  said anything about how packets get marked. This is where the CIR 
+comes in. 
+  To explain this, we need to introduce a little Frame Relay jargon, 
+which we 
+  do in the context of Figure 5.53. The <b>access rate</b> is the rate 
+of the 
+  access link, that is, the rate of the link from the source router to 
+the “edge” 
+  Frame Relay switch. This rate is often 64 Kbps, but integer multiples 
+of 64 
+  Kbps up to 1.544 Mbps are also common. Denote <i>R</i> for the access 
+rate. 
+  As we learned in Chapter 1, </p><p align="center"><img 
+src="Frame%20Relay_files/fig5.gif" alt="fig5.54.gif" align="center"> </p>each
+ packet sent over the link of rate <i>R</i> 
+  is transmitted at rate <i>R</i> bps. The edge switch is responsible 
+for marking 
+  packets that arrive from the source router. To perform the marking, 
+the edge 
+  switch examines the arrival times of packets from the source router 
+over short, 
+  fixed intervals of time, called the <b>measurement interval</b>, 
+denoted by 
+  <i>T<sub>c</sub></i> . Most Frame Relay service providers use a <i>T<sub>c</sub></i>
+ value that falls 
+  somewhere between 100 msec and 1 sec.
+<p>
+Now we can precisely describe the CIR. Each VC that emanates from the
+source router (there may be many, possibly destined to different LANs) 
+is assigned
+a <b>committed information rate (CIR)</b>, which is in units of 
+bits/sec. The CIR is
+never greater than <i>R</i>, the access rate. Customers pay for a 
+specific CIR; the higher
+the CIR, the more the customer pays to the Frame Relay service provider.
+ If the VC
+generates packets at a rate that is less than the CIR, then all of the 
+VC’s packets will
+be marked as high-priority packets (<i>DE</i> = 0). However, if the rate
+ at which the VC
+generates packets exceeds the CIR, then the fraction of the VC’s packets
+ that exceed
+the rate will be marked as low-priority packets. More specifically, over
+ each measurement
+interval <i>T<sub>c</sub></i>, for the first CIR • <i>T<sub>c</sub></i> 
+bits the VC sends, the edge switch marks
+the corresponding packets as high-priority packets (<i>DE</i> = 0). The 
+edge switch
+marks all additional packets sent over this interval as low-priority 
+packets (<i>DE</i> = 1).
+To get a feel for what is going on here, let us look at an example. Let 
+us suppose
+that the Frame Relay service provider uses a measurement interval of <i>T<sub>c</sub></i>
+ = 500-msec.
+Suppose that the access link is R 5 64 Kbps and that the CIR assigned to
+ a particular
+VC is 32 Kbps. Also suppose, for simplicity, that each Frame Relay 
+packet consists of
+exactly L 5 4,000 bits. This means that every 500 msec the VC can send 
+CIR • <i>T<sub>c</sub></i> /L =
+4 packets as high-priority packets. All additional packets sent within 
+the 500-msec interval
+are marked as low-priority packets. Note that up to four low-priority 
+packets can
+be sent over each 500-msec interval (in addition to four high-priority 
+packets). Because
+the goal of the Frame Relay network is to deliver all high-priority 
+packets to the
+destination Frame Relay node, the VC is essentially guaranteed a 
+throughput of at least
+32 Kbps. Frame Relay does not, however, make any guarantees about the 
+end-to-end
+delays of either the high- or low-priority packets.</p><p>
+Increasing the measurement interval <i>T<sub>c</sub></i> increases the 
+potential burstiness of the
+high-priority packets emitted from the source router. In the previous 
+example, if
+<i>T<sub>c</sub></i> = 0.5 sec, up to four high-priority packets can be 
+emitted back-to-back; for
+<i>T<sub>c</sub></i> = 1 sec, up to eight high-priority packets can be 
+emitted back-to-back. When the
+Frame Relay network uses a smaller value of <i>T<sub>c</sub></i>, it 
+forces the stream of high-priority
+packets to be smoother (less bursty); but a large value of <i>T<sub>c</sub></i>
+ gives the VC more flexibility.
+In any case, for every choice of <i>T<sub>c</sub></i>, the long-run 
+average rate of bits emitted as
+high-priority bits never exceeds the CIR of the VC.</p><p>
+We must keep in mind that many PVCs may emanate from the source router
+and travel over the access link. It is interesting to note that the sum 
+of the CIRs
+for all these VCs is permitted to exceed the access rate, <i>R</i>. This
+ is referred to as
+<b>overbooking</b>. Because overbooking is permitted, an access link may
+ transmit high-priority
+packets at a corresponding bit rate that exceeds the CIR (even though 
+each
+individual VC sends priority packets at a rate that does not exceed the 
+CIR). We conclude this section 
+by mentioning that the Frame Relay Forum
+[FRForum 2002] maintains a number of relevant specifications. An 
+excellent introductory
+course for Frame Relay is made available on the Hill Associates Web site
+[Hill 2002]. Walter Goralski has also written a readable yet in-depth 
+book about
+Frame Relay [Goralski 1999].</p>
+      
+<br>
+
+<br></span>
+
+
+    
+	
+
+
+
+
+
+
+
+<br><br><br>
+
+    
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr
+ align="left" valign="top">
+
+<td align="right" valign="top" width="50%">
+
+	<a href="http://www.pearson.com/" target="new">
+		<img src="Frame%20Relay_files/pearson_unframed_logo.gif" title="Open 
+Pearson site in a new window." alt="Pearson" border="0" hspace="10" 
+vspace="0">
+	</a>
+
+</td>
+
+
+
+<td nowrap="nowrap" align="left" valign="top" width="50%"><span 
+class="footer copyright">
+   
+		
+
+
+
+
+Copyright © 1995 - 2010 
+
+<a href="http://www.pearsoned.com/" target="new" title="Open Pearson 
+Education Web site in a new window" class="legalNote">
+	   Pearson Education
+</a>.
+All rights reserved.
+
+
+	Pearson Addison Wesley is an imprint of 
+	<a href="http://www.pearson.com/" target="new" title="Open Pearson Web 
+site in a new window" class="legalNote">
+		   Pearson
+	</a>.
+
+<br>
+		
+		<a class="legalNote" href="http://www.pearsoned.com/legal/" 
+target="new" title="Open Legal Notice in a new window">Legal Notice</a> 
+		   
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/privacy.htm" target="new" 
+title="Open Privacy Policy in a new window">Privacy Policy</a> 
+			  
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/permissions.htm" target="new" 
+title="Open Permissions Policy in a new window">Permissions</a> 
+		   
+		
+		
+
+	
+
+</span></td>
+
+
+</tr></tbody></table>
+
+
+		
+
+
+
+<p>		
+
+</p><div class="submenu" id="toppage" align="right"><span 
+class="breadcrumbs">[Return to the Top of this Page]<noscript><a href="#topofpage" title="[Return to the Top of this Page]">: [Return to the Top of this Page]</a></noscript></span></div>
+
+<a href="#topofpage" title="[Return to the Top of this Page]" 
+onfocus="expandMenu('toppage');" onblur="hideSkip('toppage');"><img 
+src="Frame%20Relay_files/pixel.gif" alt="Return to the Top of this Page"
+ border="0" height="1" hspace="0" vspace="0" width="1"></a>
+
+
+
+
+</body></html>

@@ -1,0 +1,1 @@
+-  DTMF is a dual tone multifrequency signaling tone gererated while pressing the telephone keypad numbers in tone mode. It is used to replace pulse dialing.

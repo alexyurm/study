@@ -1,0 +1,17 @@
+1. Understand the meanings of chinese names of the following idioms:
+
+- Proton
+- Electron
+- Neutron
+- Atom = Protons + Neutrons + Electrons
+- Nucleus = Protons + Neutrons
+- Valence shell
+- K, L, M, N, Valence(outmost) Shells
+
+2. Atom can be positive charged or negatively charged. The term "charge" in this sense denotes an imbalance between the number of electrons and protons present in this atom.
+
+3. Coulomb’s Law
+
+   F = k(Q1Q2 )/r.^2 where k = 9x10.^9
+
+4. The number of energy required to escape depends on the number of electrons   in the valence shell.

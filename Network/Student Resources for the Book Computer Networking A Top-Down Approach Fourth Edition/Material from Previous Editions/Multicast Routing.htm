@@ -1,0 +1,1370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<!-- style: cw_2005 default -->
+<!-- template: module -->
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+	<title>Multicast Routing</title>
+
+
+
+
+
+
+
+
+<!-- META tags for site search -->
+<!--
+<META-NOSEARCH>nosearch</META-NOSEARCH>
+-->
+<!-- END META tags for site search -->
+	<link rel="StyleSheet" href="Multicast%20Routing_files/style.css" 
+type="text/css">
+	<style type="text/css">
+	   <!--
+	   body
+	   {
+
+
+
+	   	background-color: white;
+
+
+	   	margin: 2px 60px 15px 10px;
+	   }
+	   
+	   h1#stylehead {
+	      padding: 0;
+          margin: 0;
+	   }
+	   
+	   h2.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+
+	   h3.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+	   
+	   .sr_only {
+            position:absolute;
+			left:-999px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+       }
+	   
+	   .nostyle_inline {
+		    font-size: 1em;
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    display: inline;
+	   }
+	   -->
+	</style>
+
+
+
+
+
+<script language="javascript">
+<!-- 
+
+function updatenav(theurl)
+{
+    // if statement is used to 
+	// be sure the frame exists -st
+
+	
+		
+	
+	if (parent.navbar) {
+		parent.navbar.document.location.href = theurl;
+	}
+	
+	
+	// return true is important here
+	// allows the href to work -st
+return true;
+}
+
+// -->
+</script>
+
+
+	
+
+
+
+
+
+
+<!-- st reusing the js for expanding left nav -->
+<script type="text/javascript" language="Javascript">
+		<!-- Hide script from older browsers
+			
+		var submenus;
+		var myindex;
+        var thisMenu;
+		
+	// st this is how we degrade gracefully for older browsers
+	// also note that the expanded navs will be visible 
+	// in any browsers that dont support scripting at all
+	// as they will never have been made invisible
+	
+	document.write('<style type="text/css">');
+	if (document.getElementById) {	
+	   document.write('.submenu  {display:none}');
+	} else {
+  	   document.write('.submenu  {}');
+	}
+	document.write('</style>');
+	
+		
+		function expandMenu(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this opens the new item
+				// also used to show skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "block";
+					
+			}
+		}
+		
+		function hideSkip(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this hides skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "none";
+					
+			}
+		}
+		
+		
+
+		// End hiding script -->
+	</script><style type="text/css">.submenu  {display:none}</style>
+	
+	
+
+
+
+
+</head><body link="#7682cc" alink="#000000" vlink="#000000">
+<a name="topofpage" id="topofpage"><img 
+src="Multicast%20Routing_files/pixel.gif" alt="" border="0" height="1" 
+hspace="0" vspace="0" width="1"></a><img 
+src="Multicast%20Routing_files/pixel.gif" alt="Content Frame" border="0"
+ height="1" hspace="0" vspace="0" width="1"><br>
+
+
+
+
+	  
+
+
+
+
+
+        
+
+
+
+
+
+<!-- skip stuff-->
+<a href="#lastcrumb" title="Skip Breadcrumb Navigation" 
+onfocus="expandMenu('breadskip');" onblur="hideSkip('breadskip');"><img 
+src="Multicast%20Routing_files/pixel.gif" alt="Skip Breadcrumb 
+Navigation" border="0" height="1" hspace="0" vspace="0" width="1"></a><div
+ class="submenu" id="breadskip"><span class="breadcrumbs">[Skip 
+Breadcrumb Navigation]</span><noscript>: <a href="#lastcrumb"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span></a></noscript><br>&nbsp;</div>
+
+<table border="0" cellpadding="0" cellspacing="2">
+	<tbody><tr align="left" valign="top">
+
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173749.cw/index.html"
+ target="_top" class="breadcrumbs">Home</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Multicast%20Routing_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173750.cw/index.html"
+ target="_top" class="breadcrumbs">Student Resources</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Multicast%20Routing_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16304/4173958.cw/content/index.html"
+ class="breadcrumbs" 
+onclick="updatenav('/aw_kurose_network_4/63/16303/4173750.cw/leftnav/4173958/index.html');">Material
+ from Previous Editions</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="Multicast%20Routing_files/breadcrumb_arrow.gif" alt=" arrow " 
+border="0" height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+        
+
+
+        <!-- Last Crumb -->
+		
+                     
+	<td align="left" valign="top"><span class="breadcrumbs"><a 
+name="lastcrumb" id="lastcrumb">Multicast Routing</a></span></td>
+
+                        	</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+	<br>
+	<h1 id="stylehead"><span class="contentHeader">Multicast Routing</span></h1>
+
+
+	<span class="basicContent">
+      
+           <strong>[Section 4.8 of the First Edition]</strong>
+<p>
+The transport- and network-layer protocols we have studied so far 
+provide for the delivery of packets from a single source to a single 
+destination. Protocols involving just one sender and one receiver are 
+often referred to as <b>unicast protocols.</b>
+
+</p><p>
+
+A number of emerging network applications require the delivery of 
+packets from one or more senders to a <i>group of receivers.</i> These 
+applications include bulk data transfer (for example, the transfer of a 
+software upgrade from the software developer to users needing the 
+upgrade), streaming continuous media (for example, the transfer of the 
+audio, video, and text of a live lecture to a set of distributed lecture
+ participants), shared data applications (for example, a whiteboard or 
+teleconferencing application that is shared among many distributed 
+participants), data feeds (for example, stock quotes), WWW cache 
+updating, and interactive gaming (for example, distributed interactive 
+virtual environments or multiplayer games such as Quake). For each of 
+these applications, an extremely useful abstraction is the notion of a <b>multicast:</b>
+ the sending of a packet from one sender to multiple receivers with a 
+single send operation.
+
+</p><p>
+
+In this section we consider the network-layer aspects of multicast. We 
+continue our primary focus on the Internet here, as multicast is much 
+more mature (although it is still undergoing significant development and
+ evolution) in the Internet than in ATM networks. We will see that as in
+ the unicast case, routing algorithms again play a central role in the 
+network layer. We will also see, however, that unlike the unicast case, 
+Internet multicast is <i>not</i> a connectionless service--state 
+information for a  multicast connection must be established and 
+maintained in routers that handle  multicast packets sent among hosts in
+ a so-called multicast group. This, in turn, will require a combination 
+of signaling and routing protocols in order to set up, maintain, and 
+tear down connection state in the routers.
+
+</p><p>
+
+</p><h3>4.8.1: Introduction: The Internet Multicast Abstraction and 
+Multicast Groups</h3>
+<p>
+
+From a networking standpoint, the multicast abstraction--a single send 
+operation that results in copies of the sent data being delivered to 
+many receivers--can be implemented in many ways. One possibility is for 
+the sender to use a separate unicast transport connection to each of the
+ receivers. An application-level data unit that is passed to the 
+transport layer is then duplicated at the sender and transmitted over 
+each of the individual connections. This approach implements a 
+one-sender-to-many-receivers multicast abstraction using an underlying 
+unicast network layer [Talpade 1995; Chu 2000]. It requires no explicit 
+multicast support from the network layer to implement the multicast 
+abstraction; multicast is emulated using multiple point-to-point unicast
+ connections. This is shown in the left of Figure 4.43, with network 
+routers shaded in grey to indicate that they are not actively involved 
+in supporting the multicast. Here, the multicast sender uses three <i>separate</i>
+ unicast connections to reach the three receivers.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-43.jpg" alt="Figure 
+4.43" height="157" width="450"><br>
+<font size="-1"><strong>Figure 4.43:</strong> Two approaches toward 
+implementing the multicast abstraction</font></center><p>
+</p><p>
+
+A second alternative is to provide explicit multicast support at the 
+network layer. In this latter approach, a <i>single</i> datagram is 
+transmitted from the sending host. This datagram (or a copy of this 
+datagram) is then replicated at a network router whenever it must be 
+forwarded on multiple outgoing links in order to reach the receivers. 
+The right side of Figure 4.43 illustrates this second approach, with 
+certain routers shaded in color to indicate that they are actively 
+involved in supporting the multicast. Here, a single datagram is 
+transmitted by the sender. That datagram is then duplicated by the 
+router within the network; one copy is forwarded to the uppermost 
+receiver and another copy is forwarded toward the rightmost receivers. 
+At the rightmost router, the multicast datagram is broadcast over the 
+Ethernet that connects the two receivers to the rightmost router. 
+Clearly, this second approach toward multicast makes more efficient use 
+of network bandwidth in that only a <i>single</i> copy of a datagram 
+will ever traverse a link. On the other hand, considerable network layer
+ support is needed to implement a multicast-aware network layer. For the
+ remainder of this section we will focus on a multicast-aware network 
+layer, as this approach is implemented in the Internet and poses a 
+number of interesting challenges.
+
+</p><p>
+
+With multicast communication, we are immediately faced with two problems
+ that are much more complicated than in the case of unicast--how to 
+identify the receivers of a multicast datagram and how to address a 
+datagram sent to these receivers.
+
+</p><p>
+
+In the case of unicast communication, the IP address of the receiver 
+(destination) is carried in each IP unicast datagram and identifies the 
+single recipient. But in the case of multicast, we now have multiple 
+receivers. Does it make sense for each multicast datagram to carry the 
+IP addresses of all of the multiple recipients? While this approach 
+might be workable with a small number of recipients, it would not scale 
+well to the case of hundreds or thousands of receivers; the amount of 
+addressing information in the datagram would swamp the amount of data 
+actually carried in the datagram's payload field. Explicit 
+identification of the receivers by the sender also requires that the 
+sender know the identities and addresses of all of the receivers. We 
+will see shortly that there are cases where this requirement might be 
+undesirable.
+
+</p><p>
+
+For these reasons, in the Internet architecture (and the ATM 
+architecture as well), a multicast datagram is addressed using <b>address
+ indirection.</b> That is, a single identifier is used for the group of 
+receivers, and a copy of the datagram that is addressed to the group 
+using this single identifier is delivered to all of the multicast 
+receivers associated with that group. In the Internet, the single 
+identifier that represents a group of receivers is a Class D multicast 
+address, as we saw earlier in Section 4.4. The group of receivers 
+associated with a class D address is referred to as a <b>multicast 
+group.</b> The multicast group abstraction is illustrated in Figure 
+4.44. Here, four hosts (shown with shaded color screens) are associated 
+with the multicast group address of 226.17.30.197  and will receive all 
+datagrams addressed to that multicast address. The difficulty  that we 
+must still address is the fact that each host has a unique IP unicast 
+address  that is completely independent of the address of the multicast 
+group in which it is  participating.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-44.jpg" alt="Figure 
+4.44" height="235" width="400"><br>
+<font size="-1"><strong>Figure 4.44:</strong> The multicast group: a 
+datagram addressed to the group is delivered to all members of the 
+multicast group</font></center><p>
+</p><p>
+
+While the multicast group abstraction is simple, it raises a host (pun 
+intended) of questions. How does a group get started and how does it 
+terminate? How is the group address chosen? How are new hosts added to 
+the group (either as senders or receivers)? Can anyone join a group (and
+ send to, or receive from, that group) or is group membership restricted
+ and if so, by whom? Do group members know the identities of the other 
+group members as part of the network-layer protocol? How do the network 
+routers interoperate with each other to deliver a multicast datagram to 
+all group members? For the Internet, the answers to all of these 
+questions involve the Internet Group Management Protocol [RFC 2236]. So,
+ let us next consider the IGMP protocol and then return to these broader
+ questions.
+
+</p><p>
+
+</p><h3>4.8.2: The IGMP Protocol</h3>
+<p>
+
+The <b>Internet Group Management Protocol, IGMP</b> version 2 [RFC 
+2236], operates between a host and its directly attached router 
+(informally, think of the directly attached router as the "first-hop" 
+router that a host would see on a path to any other host outside its own
+ local network, or the "last-hop" router on any path to that host), as 
+shown in Figure 4.45. Figure 4.45 shows three first-hop multicast 
+routers, each connected to its attached hosts via one outgoing local 
+interface. This local interface is attached to a LAN in this example, 
+and while each LAN has multiple attached hosts, at most a few of these 
+hosts will typically belong to a given multicast group at any given 
+time.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-45.jpg" alt="Figure 
+4.45" height="200" width="450"><br>
+<font size="-1"><strong>Figure 4.45:</strong> The two components of 
+network-layer multicast: IGMP and multicast routing protocols</font></center><p>
+</p><p>
+
+IGMP provides the means for a host to inform its attached router that an
+ application running on the host wants to join a specific multicast 
+group. Given that the scope of IGMP interaction is limited to a host and
+ its attached router, another protocol is clearly required to coordinate
+ the multicast routers (including the attached routers) throughout the 
+Internet, so that multicast datagrams are routed to their final 
+destinations. This latter functionalit is accomplished by the <b>network-layer
+ multicast routing algorithms</b> such as PIM, DVMRP and MOSFP. We will 
+study multicast routing algorithms in Sections 4.8.3 and 4.8.4. 
+Network-layer multicast in the Internet thus consists of two 
+complementary components: IGMP and multicast routing protocols.
+
+</p><p>
+
+Although IGMP is referred to as a "group membership protocol," the term 
+is a bit misleading since IGMP operates locally<i>,</i> between a host 
+and an attached router. Despite its name, IGMP is <i>not</i> a protocol 
+that operates among all the hosts that have joined a multicast group, 
+hosts that may be spread around the world. Indeed, there is <i>no</i> 
+network-layer multicast group membership protocol that operates among 
+all the Internet hosts in a group. There is no network-layer protocol, 
+for example, that  allows a host to determine the identities of all of 
+the other hosts, network-wide, that have joined the multicast group. 
+(See the homework problems for a further exploration of the consequences
+ of this design choice.)
+
+</p><p>
+
+IGMP version 2 [RFC 2236] has only three message types, as shown in 
+Table 4.4. A general membership_query message is sent by a router to all
+ hosts on an attached interface (for example, to all hosts on a local 
+area network) to determine the set of all multicast groups that have 
+been joined by the hosts on that interface. A router can also determine 
+if a specific multicast group has been joined by hosts on an attached 
+interface using a specific membership_query. The specific query includes
+ the multicast address of the group being queried in the multicast group
+ address field of the IGMP membership_query message, as shown in Figure 
+4.47.
+</p><p>
+<font size="-1"><strong>Table 4.4: IGMP v2 Message types</strong></font><br>
+
+</p><table border="1" cellpadding="3" width="100%">
+<tbody><tr align="left" valign="top">
+<td width="35%"><font size="-1">
+<strong>IGMP Message Types</strong>
+</font></td>
+<td width="15%"><font size="-1">
+<strong>Sent by</strong>
+</font></td>
+<td width="50%"><font size="-1">
+<strong>Purpose</strong>
+</font></td>
+</tr>
+
+<tr align="left" valign="top">
+<td><font size="-1">
+Membership query: general
+</font></td>
+<td><font size="-1">
+router
+</font></td>
+<td><font size="-1">
+Query multicast groups joined by attached hosts
+</font></td>
+</tr>
+
+<tr align="left" valign="top">
+<td><font size="-1">
+Membership query: specific
+</font></td>
+<td><font size="-1">
+router
+</font></td>
+<td><font size="-1">
+Query if specific multicast group joined by attached hosts
+</font></td>
+</tr>
+
+<tr align="left" valign="top">
+<td><font size="-1">
+Membership report
+</font></td>
+<td><font size="-1">
+host
+</font></td>
+<td><font size="-1">
+Report host wants to join or is joined to given multicast group
+</font></td>
+</tr>
+
+<tr align="left" valign="top">
+<td><font size="-1">
+Leave group
+</font></td>
+<td><font size="-1">
+host
+</font></td>
+<td><font size="-1">
+Report leaving given multicast group
+</font></td>
+</tr>
+</tbody></table>
+
+
+<p>
+
+Hosts respond to a membership_query message with an IGMP 
+membership_report message, as illustrated in Figure 4.46. 
+Membership_report messages can also be generated by a host when an 
+application first joins a multicast group without waiting for a 
+membership_query message from the router. Membership_report messages are
+ received by the router, as well as all hosts on the attached interface 
+(for example, in the case of a LAN). Each membership_report contains the
+ multicast address of a single group that the responding host has 
+joined. Note that an attached router doesn't really care <i>which</i> 
+hosts have joined a given multicast group or even <i>how many</i> hosts 
+on the same LAN have joined the same group. (In either case, the 
+router's work is the same--it must run a multicast routing protocol 
+together with other routers to ensure that it receives the multicast 
+datagrams for the appropriate multicast groups.) Since a router really 
+only cares about whether one or more of its attached hosts belong to a 
+given multicast group, it would ideally like to hear from only one of 
+the attached hosts that belongs to each group (why waste the effort to 
+receive identical responses from multiple hosts?). IGMP thus provides an
+ explicit mechanism aimed at decreasing the number of membership_report 
+messages generated when multiple attached hosts belong to the same 
+multicast group.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-46.jpg" alt="Figure 
+4.46" height="158" width="400"><br>
+<font size="-1"><strong>Figure 4.46:</strong> IGMP member query and 
+membership report</font></center><p>
+</p><p>
+
+Specifically, each membership_query message sent by a router also 
+includes a "maximum response time" value field, as shown in Figure 4.47.
+ After receiving  a membership_query message and before sending a 
+membership_report message for a given multicast group, a host waits a 
+random amount of time between zero and the maximum response time value. 
+If the host observes a membership_report message from some <i>other</i> 
+attached host for that given multicast group, it <i>suppresses</i> 
+(discards) its own pending membership_report message, since the host now
+ knows that the attached router already knows that one or more hosts are
+ joined to that multicast group. This form of <b>feedback suppression</b>
+ is thus a performance optimization--it avoids the transmission of 
+unnecessary membership_report messages. Similar feedback suppression 
+mechanisms have been used in a number of Internet protocols, including 
+reliable multicast transport protocols [Floyd 1997].
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-47.jpg" alt="Figure 
+4.47" height="102" width="350"><br>
+<font size="-1"><strong>Figure 4.47:</strong> IGMP message format</font></center><p>
+</p><p>
+
+The final type of IGMP message is the leave_group message. 
+Interestingly, this message is optional! But if it is optional, how does
+ a router detect that there are no longer any hosts on an attached 
+interface that are joined to a given multicast group? The answer to this
+ question lies in the use of the IGMP membership_query message. The 
+router infers that no hosts are joined to a given multicast group when 
+no host responds to a membership_query message with the given group 
+address. This is an example of what is sometimes called <b>soft state</b>
+ in an Internet protocol. In a soft-state protocol, the state (in this 
+case of IGMP, the fact that there are hosts joined to a given multicast 
+group) is removed via a timeout event (in this case, via a periodic 
+membership_query message from the router) if it is not explicitly 
+refreshed (in this case, by a membership_report message from an attached
+ host). It has been argued that soft-state protocols result in simpler 
+control than hard-state protocols, which not only require state to be 
+explicitly added and removed, but also require mechanisms to recover 
+from the situation where the entity responsible for removing state has 
+terminated prematurely or failed [Sharma 1997]. An excellent discussion 
+of soft state can be found in [Raman 1999].
+
+</p><p>
+
+The IGMP message format is summarized in Figure 4.47. Like ICMP, IGMP 
+messages are carried (encapsulated) within an IP datagram, with an IP 
+protocol number of 2.
+
+</p><p>
+
+Having examined the protocol for joining and leaving multicast groups, 
+we are now in a better position to reflect on the current Internet 
+multicast service model, which is based on the work of Steve Deering 
+[RFC 1112; Deering 1990]. In this multicast service model, any host can 
+join a multicast group at the network layer. A host simply issues a 
+membership_report IGMP message to its attached router. That router, 
+working in concert with other Internet routers, will soon begin 
+delivering multicast datagrams to the host. Joining a multicast group is
+ thus receiver-driven. A sender need not be concerned with explicitly 
+adding receivers to the multicast group but neither can it control who 
+joins the group and therefore who receives datagrams sent to that group.
+ Similarly, there is no control over who sends to the multicast group. 
+Datagrams sent by different hosts can be arbitrarily interleaved at the 
+various receivers (with different interleavings possible at different 
+receivers). A malicious sender can inject datagrams into the multicast 
+group datagram flow. Even with benign senders, since there is no 
+network-layer coordination of the use of multicast addresses, it is 
+possible that two different multicast groups will choose to use the same
+ multicast address. From a multicast application viewpoint, this will 
+result in interleaved extraneous multicast traffic.
+
+</p><p>
+
+These problems may seem to be insurmountable drawbacks for developing  
+multicast applications. All is not lost, however. Although the network 
+layer does not provide for filtering, ordering, or privacy of multicast 
+datagrams, these mechanisms can all be implemented at the application 
+layer. There is also ongoing work aimed at adding some of this 
+functionality into the network layer [Cain 1999]. In many ways, the 
+current Internet multicast service model reflects the same philosophy as
+ the Internet unicast service model--an extremely simple network layer 
+with additional functionality being provided in the upper-layer 
+protocols in the hosts at the edges of the network. This philosophy has 
+been unquestionably successful for the unicast case; whether the 
+minimalist network layer philosophy will be equally successful for the 
+multicast service model still remains an open question. An interesting 
+discussion of an alternate multicast service model is [Holbrook 1999].
+
+</p><p>
+
+</p><h3>4.8.3: Multicast Routing: The General Case</h3>
+<p>
+
+In the previous section we have seen how the IGMP protocol operates at 
+the edge of the network between a router and its attached hosts, 
+allowing a router to determine what multicast group traffic it needs to 
+receive for forwarding to its attached hosts. We can now focus our 
+attention on just the multicast routers: how should they route packets 
+amongst themselves in order to ensure that each router receives the 
+multicast group traffic that it needs?
+
+</p><p>
+
+Figure 4.48 illustrates the setting for the <b>multicast routing 
+problem.</b> Let us consider a single multicast group and assume that 
+any router that has an attached host that has joined this group may 
+either send or receive traffic addressed to this group. In Figure 4.48, 
+hosts joined to the multicast group are shaded in color; their 
+immediately attached router is also shaded in color. As shown in Figure 
+4.48, among the population of multicast routers, only a subset of these 
+routers (those with attached hosts that are joined to the multicast 
+group) actually need to receive the multicast traffic. In Figure 4.48, 
+only routers A, B, E and F need to receive the multicast traffic. Since 
+none of the attached hosts to router D are joined to the multicast group
+ and since router C has no attached hosts, neither C nor D need to 
+receive the multicast group traffic.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-48.jpg" alt="Figure 
+4.48" height="285" width="300"><br>
+<font size="-1"><strong>Figure 4.48:</strong> Multicast hosts, their 
+attached routers, and other routers</font></center><p>
+</p><p>
+
+The goal of multicast routing then is to find a tree of links that 
+connects all of the routers that have attached hosts belonging to the 
+multicast group. Multicast packets will then be routed along this tree 
+from the sender to all of the hosts belonging to the multicast tree. Of 
+course, the tree may contain routers that do not have attached hosts 
+belonging to the multicast group (for example, in Figure 4.48, it is 
+impossible to connect routers A, B, E, and F in a tree without involving
+ either routers C and/or D).
+
+</p><p>
+
+In practice, two approaches have been adopted for determining the 
+multicast routing tree. The two approaches differ according to whether a
+ single tree is used to distribute the traffic for <i>all</i> senders in
+ the group, or whether a source-specific routing tree is constructed for
+ each individual sender:
+
+</p><p>
+
+</p><ul>
+<li> <i>Group-shared tree.</i> In the group-shared tree approach, only a
+ <i>single</i> routing tree is constructed for the entire multicast 
+group. For example, the single multicast tree shown with thicker shaded 
+lines in the left of Figure 4.49, connects routers A, B, C, E, and F. 
+(Following our conventions from Figure 4.48, router C is not shaded. 
+Although it participates in the multicast tree, it has no attached hosts
+ that are members of the multicast group). Multicast packets will flow 
+only over those links shaded. Note that the links are bi-directional, 
+since packets can flow in either  direction on a link.
+
+<p>
+</p><center><img src="Multicast%20Routing_files/04-49.jpg" alt="Figure 
+4.49" height="180" width="450"><br>
+<font size="-1"><strong>Figure 4.49:</strong> A single, shared tree 
+(left), and two source-based trees (right)</font></center><p>
+</p><p>
+
+</p></li><li> <i>Source-based trees.</i> In a source-based approach, an 
+individual routing tree is constructed for <i>each</i> sender in the 
+multicast group. In a multicast group with <i>N</i> hosts, <i>N</i> 
+different routing trees will be constructed for that <i>single</i> 
+multicast group. Packets will be routed to multicast group members in a 
+source-specific manner. In the right of Figure 4.49, two source-specific
+ multicast trees are shown, one rooted at A and another rooted at B. 
+Note that not only are there different links than in the group-shared 
+tree case (for example, the link from BC is used in the source-specific 
+tree routed at B, but not in the group-shared tree in the left of Figure
+ 4.49), but that some links may also be used only in a single direction.
+
+</li></ul>
+<p>
+
+<strong>Multicast Routing Using a Group-Shared Tree</strong>
+</p><p>
+
+Let us first consider the case where all packets sent to a multicast 
+group are to be routed along the same single multicast tree, regardless 
+of the sender. In this case, the multicast routing problem appears quite
+ simple: find a tree within the network that connects all routers having
+ an attached host belonging to that multicast group. In Figure 4.49 
+(left), the tree composed of thick links is one such tree. Note that the
+ tree contains routers that have attached hosts belonging to the 
+multicast group (that is, routers A, B, E and F) as well as routers that
+ have no attached hosts belonging to the multicast group. Ideally, one 
+might also want the tree to have minimal "cost." If we assign a "cost" 
+to each link (as we did for unicast routing in Section 4.2) then an 
+optimal multicast routing tree is one having the smallest sum of the 
+tree link costs. For the link costs given in Figure 4.50, the optimum 
+multicast tree (with a cost of 7) is shown with thick lines.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-50.jpg" alt="Figure 
+4.50" height="180" width="203"><br>
+<font size="-1"><strong>Figure 4.50:</strong> A minimum-cost multicast 
+tree</font></center><p>
+</p><p>
+
+The problem of finding a minimum cost tree is known as the <b>Steiner 
+tree problem</b> [Hakimi 1971]. Solving this problem has been shown to 
+be NP-complete [Garey 1978], but the approximation algorithm in [Kou 
+1981] has been proven to be within a constant of the optimal solution. 
+Other studies have shown that, in general, approximation algorithms for 
+the Steiner tree problem do quite well in practice [Wall 1980; Waxman 
+1988; Wei 1993].
+
+</p><p>
+
+Even though good heuristics exist for the Steiner tree problem, it is 
+interesting to note that none of the existing Internet multicast routing
+ algorithms have been based on this approach. Why? One reason is that 
+information is needed about all links in the network. Another reason is 
+that in order for a minimum-cost tree to be maintained, the algorithm 
+needs to be rerun whenever link costs change. Finally, we will see that 
+other considerations, such as the ability to leverage the routing tables
+ that have already been computed for unicast routing, play an important 
+role in judging the suitability of a multicast routing algorithm. In the
+ end, performance (and optimality) is but one of many concerns.
+
+</p><p>
+
+An alternate approach toward determining the group-shared multicast 
+tree, one that is used in practice by several Internet multicast routing
+ algorithms, is based on the notion of defining a center node (also 
+known as a <b>rendezvous point</b> or a <b>core</b>) in the single 
+shared multicast routing tree. In the <b>center-based approach,</b> a 
+center node is first identified for the multicast group. Routers with 
+attached hosts belonging to the multicast group then unicast so-called 
+join messages addressed to the center node. A join message is forwarded 
+using unicast routing toward the center until it either arrives at a 
+router that already belongs to the multicast tree or arrives at the 
+center. In either case, the path that the join message has followed 
+defines the branch of the routing tree between the edge router that 
+initiated the join message and the center. One can think of this new 
+path as being grafted onto the existing multicast tree for the group.
+
+</p><p>
+
+Figure 4.51 illustrates the construction of a center-based multicast 
+routing tree. Suppose that router <i>E</i> is selected as the center of 
+the tree. Node <i>F</i> first joins the multicast group and forwards a 
+join message to <i>E</i>. The single link <i>EF</i> becomes the initial 
+multicast tree. Node <i>B</i> then joins the multicast tree by sending 
+its join message to <i>E</i>. Suppose that the unicast path route to <i>E</i>
+ from <i>B</i> is via<i> D</i>. In this case, the join message results 
+in the path <i>BDE</i> being grafted onto the multicast tree. Finally, 
+node <i>A</i> joins the multicast group by forwarding its join message 
+toward <i>E</i>. Let us assume that <i>A</i>'s unicast path to <i>E</i> 
+is through <i>B</i>. Since <i>B</i> has already joined the multicast 
+tree, the arrival of <i>A</i>'s join message at <i>B</i> will result in 
+the <i>AB</i> link being immediately grafted onto the multicast tree.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-51.jpg" alt="Figure 
+4.51" height="200" width="419"><br>
+<font size="-1"><strong>Figure 4.51:</strong> Constructing a 
+center-based tree</font></center><p>
+</p><p>
+
+A critical question for center-based tree multicast routing is the 
+process used  to select the center. Center-selection algorithms are 
+discussed in [Wall 1980; Thaler 1997; Estrin 1997]. [Wall 1980] shows 
+that centers can be chosen so that the resulting tree is within a 
+constant factor of optimum (the solution to the Steiner tree problem).
+
+</p><p>
+
+<strong>Multicast Routing Using a Source-Based Tree</strong>
+</p><p>
+
+While the multicast routing algorithms we have studied above construct a
+ single, shared routing tree that is used to route packets from <i>all</i>
+ senders, the second broad class of multicast routing algorithms 
+construct a multicast routing tree for <i>each</i> source in the 
+multicast group.
+
+</p><p>
+
+We have already studied an algorithm (Dijkstra's link-state routing 
+algorithm, in Section 4.2.1) that computes the unicast paths that are 
+individually the least-cost paths from the source to all destinations. 
+The union of these paths might be thought of as forming a <b>least 
+unicast-cost path tree</b> (or a shortest unicast path tree, if all link
+ costs are identical). Figure 4.52 shows the construction of the least 
+cost path tree rooted at <i>A</i>. By comparing the tree in Figure 4.52 
+with that of Figure 4.50, it is evident that the least-cost path tree is
+ <i>not</i> the same as the minimum overall cost tree computed as the 
+solution to the Steiner tree problem. The reason for this difference is 
+that the goals of these two algorithms are different: least unicast-cost
+ path tree minimizes the cost from the source to each of the 
+destinations (that is, there is no other tree that has a shorter 
+distance path from the source to any of the destinations), while the 
+Steiner tree minimizes the sum of the link costs in the tree. You might 
+also want to convince yourself that the least unicast-cost path tree 
+often differs from one source to another (for example, the source tree 
+rooted at A is different from the source tree rooted at E in Figure 
+4.52).
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-52.jpg" alt="Figure 
+4.52" height="200" width="326"><br>
+<font size="-1"><strong>Figure 4.52:</strong> Construction of a 
+least-cost path routing tree</font></center><p>
+</p><p>
+
+The least-cost path multicast routing algorithm is a link-state 
+algorithm. It  requires that each router know the state of each link in 
+the network in order to be able to compute the least-cost path tree from
+ the source to all destinations. A simpler multicast routing algorithm, 
+one that requires much less link state information than the least-cost 
+path routing algorithm, is the <b>reverse path forwarding (RPF)</b> 
+algorithm.
+
+</p><p>
+
+The idea behind reverse path forwarding is simple, yet elegant. When a 
+router receives a multicast packet with a given source address, it 
+transmits the packet on all of its outgoing links (except the one on 
+which it was received) only if the packet  arrived on the link that is 
+on its own shortest path back to the sender. Otherwise, the router 
+simply discards the incoming packet without forwarding it on any of its 
+outgoing links. Such a packet can be dropped because the router knows it
+ either will receive, or has already received, a copy of this packet on 
+the link that is on its own shortest path back to the sender. (You might
+ want to convince yourself that this will, in fact, happen.) Note that 
+reverse path forwarding does not require that a router know the complete
+ shortest path from itself to the source; it need only know the next hop
+ on its unicast shortest path to the sender.
+
+</p><p>
+
+Figure 4.53 illustrates RPF. Suppose that the links with thicker lines 
+represent the least cost paths from the receivers to the source (<i>A</i>).
+ Router <i>A</i> initially multicasts a source-S packet to routers <i>C</i>
+ and<i> B</i>. Router <i>B</i> will forward the source-S packet it has 
+received from <i>A</i> (since <i>A</i> is on its least-cost path to<i> A</i>)
+ to both <i>C</i> and <i>D. B</i> will ignore (drop, without forwarding)
+ any source-S packets it receives from any other routers (for example, 
+from routers <i>C</i> or <i>D</i>).
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-53.jpg" alt="Figure 
+4.53" height="206" width="400"><br>
+<font size="-1"><strong>Figure 4.53:</strong> Reverse path forwarding</font></center><p>
+</p><p>
+
+Let us now consider router <i>C</i>, which will receive a source-S 
+packet directly from <i>A</i> as well as from <i>B</i>. Since <i>B</i> 
+is not on <i>C</i>'s own shortest path back to <i>A, C</i> will ignore 
+(drop) any source-S packets it receives from <i>B</i>. On the other 
+hand, when <i>C</i> receives a source-S packet directly from <i>A</i>, 
+it will forward the packet to routers <i>B, E</i>, and <i>F</i>.
+
+</p><p>
+
+RPF is a nifty idea. But consider what happens at router <i>D</i> in 
+Figure 4.53. It will forward packets to router <i>G</i>, even though 
+router <i>G</i> has no attached hosts that are joined to the multicast 
+group. While this is not so bad for this case where <i>D</i> has only a 
+single downstream router, <i>G</i>, imagine what would happen if there 
+were thousands of routers downstream from <i>D</i>! Each of these 
+thousands of routers would receive unwanted multicast packets. (This 
+scenario is not as far-fetched as it might seem. The initial MBone 
+[Casner 1992; Macedonia 1994], the first global multicast network 
+suffered from precisely this problem at first!)
+
+</p><p>
+
+The solution to the problem of receiving unwanted multicast packets 
+under RPF is known as <b>pruning.</b> A multicast router that receives 
+multicast packets and has no attached hosts joined to that group will 
+send a prune message to its upstream router. If a router receives prune 
+messages from each of its downstream routers, then it can forward a 
+prune message upstream. Pruning is illustrated in Figure 4.54.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-54.jpg" alt="Figure 
+4.54" height="211" width="400"><br>
+<font size="-1"><strong>Figure 4.54:</strong> Pruning an RPF tree</font></center><p>
+</p><p>
+
+While pruning is conceptually straightforward, two subtle issues arise. 
+First, pruning requires that a router know which routers downstream are 
+dependent on it for receiving their multicast packets. This requires 
+additional information beyond that required for RPF alone. A second 
+complication is more fundamental: if a router sends a prune message 
+upstream, then what should happen if a router later needs to join that 
+multicast group? Recall that under RPF, multicast packets are "pushed" 
+down the RPF tree to all routers. If a prune message removes a branch 
+from that tree, then some mechanism is needed to restore that branch. 
+One possibility is to add a graft message that allows a router to 
+"unprune" a branch. Another option is to allow pruned branches to 
+time-out and be added again to the multicast RPF tree; a router can then
+ re-prune the added branch if the multicast traffic is still not wanted.
+
+</p><p>
+
+</p><h3>4.8.4: Multicast Routing in the Internet</h3>
+<p>
+
+Having now studied multicast routing algorithms in the abstract, let's 
+now consider how these algorithms are put into practice in today's 
+Internet by examining the three currently standardized Internet 
+multicast routing protocols: DVMRP, MOSPF, CBT, and PIM.
+
+</p><p>
+
+<strong>DVMRP: Distance Vector Multicast Routing Protocol</strong>
+</p><p>
+
+The first multicast routing protocol used in the Internet and the most 
+widely supported multicast routing algorithm [IP Multicast Initiative 
+1998] is the Distance Vector Multicast Routing Protocol (DVMRP) [RFC 
+1075]. DVMRP implements source-based trees with reverse path forwarding,
+ pruning, and grafting. DVMRP uses a distance vector algorithm (see 
+Section 4.2) that allows each router to compute the outgoing link (next 
+hop) that is on its shortest path back to each possible source. This 
+information is then used in the RPF algorithm, as discussed above. A 
+public copy of DVMRP software is available at [mrouted 1996].
+
+</p><p>
+
+In addition to computing next-hop information, DVMRP also computes a 
+list of dependent downstream routers for pruning purposes. When a router
+ has received a prune message from all of its dependent downstream 
+routers for a given group, it will propagate a prune message upstream to
+ the router from which it receives its multicast traffic for that group.
+ A DVMRP prune message contains a prune lifetime (with a default value 
+of two hours) that indicates how long a pruned branch will remain pruned
+ before being automatically restored. DVMRP graft messages are sent by a
+ router to its upstream neighbor to force a previously pruned branch to 
+be added back on to the multicast tree.
+
+</p><p>
+
+Before examining other multicast routing algorithms, let us consider how
+ multicast routing can be deployed in the Internet. The crux of the 
+problem is that only a small fraction of the Internet routers are 
+multicast-capable. If one router is multicast-capable but all of its 
+immediate neighbors are not, is this lone island of multicast-routing 
+lost in a sea of unicast routers? Most decidedly not! Tunneling, a 
+technique we examined earlier in the context of IP version 6 (Section 
+4.7), can be used to create a virtual network of multicast-capable 
+routers on top of a physical network that contains a mix of unicast and 
+multicast routers. This is the approach taken in the Internet MBone.
+
+</p><p>
+
+Multicast tunnels are illustrated in Figure 4.55. Suppose that multicast
+ router <i>A</i> wants to forward a multicast datagram to multicast 
+router <i>B</i>. Suppose that <i>A</i> and  <i>B</i> are not physically 
+connected to each other and that the intervening routers between <i>A</i>
+ and <i>B</i> are not multicast capable. To implement tunneling, router <i>A</i>
+ takes the multicast datagram and "encapsulates" it [RFC 2003] inside a 
+standard unicast datagram. That is, the entire multicast datagram 
+(including source and multicast address fields) is carried as the 
+payload of an IP unicast datagram--a complete multicast IP datagram 
+inside of a unicast IP datagram! The unicast datagram is then addressed 
+to the unicast address of router <i>B</i> and forwarded toward <i>B</i> 
+by router <i>A</i>. The unicast routers between <i>A</i> and <i>B</i> 
+dutifully forward the unicast packet to <i>B</i>, blissfully unaware 
+that the unicast datagram itself contains a multicast datagram. When the
+ unicast datagram arrives at <i>B, B</i> then extracts the multicast 
+datagram. <i>B</i> may then forward the multicast datagram on to one of 
+its attached hosts, forward the packet to a directly attached 
+neighboring router that is multicast-capable, or forward the multicast 
+datagram to another logical multicast neighbor via another tunnel.
+
+</p><p>
+</p><center><img src="Multicast%20Routing_files/04-55.jpg" alt="Figure 
+4.55" height="156" width="450"><br>
+<font size="-1"><strong>Figure 4.55:</strong> Multicast tunnels</font></center><p>
+</p><p>
+
+<strong>MOSPF: Multicast Open Shortest Path First</strong>
+</p><p>
+
+The Multicast Open Shortest Path First protocol (MOSPF) [RFC 1584] 
+operates in an autonomous system (AS) that uses the OSPF protocol (see 
+Section 4.5) for unicast routing. MOSPF extends OSPF by having routers 
+add their multicast group membership to the link state advertisements 
+that are broadcast by routers as part of the OSPF protocol. With this 
+extension, all routers have not only complete topology information, but 
+also know which edge routers have attached hosts belonging to various 
+multicast groups. With this information, the routers within the AS can 
+build source-specific, pre-pruned, shortest-path trees for each 
+multicast group.
+
+</p><p>
+
+<strong>CBT: Core-Based Trees</strong>
+</p><p>
+
+The core-based tree (CBT) multicast routing protocol [RFC 2201; RFC 
+2189] builds a bi-directional, group-shared tree with a single "core" 
+(center). A CBT edge router unicasts a JOIN_REQUEST message toward the 
+tree core. The core, or the first router that receives this JOIN_REQUEST
+ and itself has already successfully joined the tree, will respond with a
+ JOIN_ACK message to the edge router. Once a multicast routing tree has 
+been built, it is maintained by having a downstream router send 
+keepalive messages (ECHO_REQUEST) to its immediate upstream router. The 
+immediate upstream router responds with an ECHO_REPLY message. These 
+messages are exchanged at a time granularity of minutes. If a downstream
+ router receives no reply to its ECHO_REQUEST, it will retry sending the
+ ECHO_REQUEST for a small number of times. If no ECHO_REPLY is received,
+ the router will dissolve the downstream tree by sending a FLUSH_TREE 
+message downstream.
+
+</p><p>
+
+<strong>PIM: Protocol Independent Multicast</strong>
+</p><p>
+
+The Protocol Independent Multicast (PIM) routing protocol [Deering 1996;
+ RFC 2362; Estrin 1998b] explicitly envisions two different multicast 
+distribution scenarios. In so-called <b>dense mode,</b> multicast group 
+members are densely located, that is, many or most of the routers in the
+ area need to be involved in routing multicast datagrams. In <b>sparse 
+mode,</b> the number of routers with attached group members is small 
+with respect to the total number of routers; group members are widely 
+dispersed.
+
+</p><p>
+
+The PIM designers noted several consequences of the sparse-dense 
+dichotomy. In dense mode, since most routers will be involved in 
+multicast (for example, have attached group members), it is reasonable 
+to assume that each and every router should be involved in multicast. 
+Thus, an approach like RPF that floods datagrams to every multicast 
+router (unless a router explicitly prunes itself), is well-suited to 
+this scenario. On the other hand, in sparse mode, the routers that need 
+to be involved in multicast forwarding are few and far between. In this 
+case, a data-driven multicast technique like RPF, which <i>forces</i> a 
+router to constantly do work (prune) simply to avoid receiving multicast
+ traffic, is much less satisfactory. In sparse mode, the default 
+assumption should be that a router is not involved in a multicast 
+distribution; the router should <i>not</i> have to do any work unless it
+ wants to join a multicast group. This argues for a center-based 
+approach, where routers send explicit join messages, but are otherwise 
+uninvolved in multicast forwarding. One can think of the sparse-mode 
+approach as being receiver-driven (that is, nothing happens until a 
+receiver explicitly joins a group) versus the dense-mode approach as 
+being data-driven (that is, that datagrams are multicast everywhere, 
+unless explicitly pruned).
+
+</p><p>
+
+PIM accommodates this dense versus sparse dichotomy by offering two 
+explicit modes of operation: dense mode and sparse mode. PIM Dense Mode 
+is a flood-and-prune reverse-path-forwarding technique similar in spirit
+ to DVMRP. Recall that PIM is protocol-independent, that is, independent
+ of the underlying unicast routing protocol. A better description might 
+be that it can interoperate with any underlying unicast routing 
+protocol. Because PIM makes no assumptions about the underlying routing 
+protocol, its reverse path forwarding algorithm is slightly simpler, 
+although slightly less efficient than DVMRP.
+
+</p><p>
+
+PIM Sparse Mode is a center-based approach. PIM routers send JOIN 
+messages toward a rendezvous point (center) to join the tree. As with 
+CBT, intermediate routers set up multicast state and forward the JOIN 
+message toward the rendezvous point. Unlike CBT, there is no 
+acknowledgment generated in response to a JOIN message. JOIN messages 
+are periodically sent upstream to refresh/maintain the PIM routing tree.
+ One novel feature of PIM is the ability to switch from a group-shared 
+tree to a source-specific tree after joining the rendezvous point. A 
+source-specific tree may be preferred due to the decreased traffic 
+concentration that occurs when multiple source-specific trees are used 
+(see homework problems).
+
+</p><p>
+
+In PIM Sparse Mode, the router that receives a datagram to send from one
+ of its attached hosts will unicast the datagram to the rendezvous 
+point. The rendezvous point then multicasts the datagram via the 
+group-shared tree. A sender is notified by the RP that it must stop 
+sending to the RP whenever there are no routers joined to the tree (that
+ is, no one is listening!).
+
+</p><p>
+
+PIM is implemented in numerous router platforms [IP Multicast Initiative
+ 1998] and has been deployed in UUnet as part of their streaming 
+multimedia delivery  effort [LaPolla 1997].
+
+</p><p>
+
+<strong>Inter-Autonomous System Multicast Routing</strong>
+</p><p>
+
+In our discussion above, we have implicitly assumed that all routers are
+ running the same multicast routing protocol. As we saw with unicasting,
+ this will typically be the case within a single autonomous system (AS).
+ However, different ASs may choose to run different multicast routing 
+protocols. One AS might choose to run PIM within its autonomous system, 
+while another may choose to run MOSPF. Interoperability rules have been 
+defined for all of the major Internet multicast routing protocols. (This
+ is a particularly messy issue due to the very different approaches 
+taken to multicast routing by sparse and dense mode protocols.) What is 
+still missing, however, is an <i>inter-AS</i> multicast routing protocol
+ to route multicast datagrams among different AS's.
+
+</p><p>
+
+DVMRP has been the <i>de facto</i> inter-AS multicast routing protocol. 
+However, as a dense-mode protocol, it is not particularly well-suited to
+ the rather sparse set of routers participating in today's Internet 
+MBone. The development of an inter-AS multicast protocol is an active 
+area of research and development being carried out by the <i>idmr</i> 
+working group of the IETF [IDMR 1998]. 
+
+</p><p>
+
+Having now considered the multicast routing problem and a number of 
+multicast protocols embodying the group-shared tree and source-based 
+tree approaches, let us conclude by enumerating some of the factors 
+involved in evaluating a multicast protocol:
+
+</p><p>
+</p><ul>
+<li> <i>Scalability.</i> What is the amount of state required in the 
+routers by a multicast routing protocol? How does the amount of state 
+change as the number of groups, or number of senders in a group, change?
+
+<p>
+
+</p></li><li> <i>Reliance on underlying unicast routing.</i> To what 
+extent does a multicast protocol rely on information maintained by an 
+underlying unicast routing protocol?  We have seen solutions that range 
+from reliance on one specific underlying  unicast routing protocol 
+(MOSPF), to a solution that is completely independent of the underlying 
+unicast routing (PIM), to a solution that implements much of the same 
+distance vector functionality that we saw earlier for the unicast case 
+(DVMRP).
+
+<p>
+
+</p></li><li> <i>Excess (un-needed) traffic received.</i> We have seen 
+solutions where a router receives  data only if it has an attached host 
+in the multicast group (MOSPF, PIM-Sparse Mode) to solutions where the 
+default is for a router to receive all traffic for all multicast groups 
+(DVMRP, PIM Dense Mode).
+
+<p>
+
+</p></li><li> <i>Traffic concentration.</i> The group-shared tree 
+approach tends to concentrate  traffic on a smaller number of links 
+(those in the single tree), whereas source-specific trees tend to 
+distribute multicast traffic more evenly.
+
+<p>
+
+</p></li><li> <i>Optimality of forwarding paths.</i> We have seen that 
+determining the minimum cost multicast tree (that is, solving the 
+Steiner problem) is difficult and that this approach has not been 
+adopted in practice. Instead, heuristic approaches, based on either 
+using the tree of shortest paths, or selecting a center router from 
+which to "grow" the routing multicast tree, have been adopted in 
+practice.
+</li></ul>
+      
+<br>
+
+<br></span>
+
+
+    
+	
+
+
+
+
+
+
+
+<br><br><br>
+
+    
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr
+ align="left" valign="top">
+
+<td align="right" valign="top" width="50%">
+
+	<a href="http://www.pearson.com/" target="new">
+		<img src="Multicast%20Routing_files/pearson_unframed_logo.gif" 
+title="Open Pearson site in a new window." alt="Pearson" border="0" 
+hspace="10" vspace="0">
+	</a>
+
+</td>
+
+
+
+<td nowrap="nowrap" align="left" valign="top" width="50%"><span 
+class="footer copyright">
+   
+		
+
+
+
+
+Copyright © 1995 - 2010 
+
+<a href="http://www.pearsoned.com/" target="new" title="Open Pearson 
+Education Web site in a new window" class="legalNote">
+	   Pearson Education
+</a>.
+All rights reserved.
+
+
+	Pearson Addison Wesley is an imprint of 
+	<a href="http://www.pearson.com/" target="new" title="Open Pearson Web 
+site in a new window" class="legalNote">
+		   Pearson
+	</a>.
+
+<br>
+		
+		<a class="legalNote" href="http://www.pearsoned.com/legal/" 
+target="new" title="Open Legal Notice in a new window">Legal Notice</a> 
+		   
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/privacy.htm" target="new" 
+title="Open Privacy Policy in a new window">Privacy Policy</a> 
+			  
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/permissions.htm" target="new" 
+title="Open Permissions Policy in a new window">Permissions</a> 
+		   
+		
+		
+
+	
+
+</span></td>
+
+
+</tr></tbody></table>
+
+
+		
+
+
+
+<p>		
+
+</p><div class="submenu" id="toppage" align="right"><span 
+class="breadcrumbs">[Return to the Top of this Page]<noscript><a href="#topofpage" title="[Return to the Top of this Page]">: [Return to the Top of this Page]</a></noscript></span></div>
+
+<a href="#topofpage" title="[Return to the Top of this Page]" 
+onfocus="expandMenu('toppage');" onblur="hideSkip('toppage');"><img 
+src="Multicast%20Routing_files/pixel.gif" alt="Return to the Top of this
+ Page" border="0" height="1" hspace="0" vspace="0" width="1"></a>
+
+
+
+
+</body></html>

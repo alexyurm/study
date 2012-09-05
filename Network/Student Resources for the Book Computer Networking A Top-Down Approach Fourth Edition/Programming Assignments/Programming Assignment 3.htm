@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<!-- saved from url=(0047)http://drturner.net/wikisite/view?title=PingLab -->
+<title>Ping Lab</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><link
+ href="Programming%20Assignment%203_files/styles.css" type="text/css" 
+rel="stylesheet">
+<meta content="Microsoft FrontPage 5.0" name="GENERATOR"></head><body 
+ondblclick="document.location='https://drturner.net:8443/wikisite/edit?title=PingLab'">
+<h1 style="font-weight: normal; font-size: 19pt; color: rgb(167, 124, 
+70); font-family: Arial,sans-serif; text-align: left;">
+Programming Assignment 3: UDP Pinger Lab </h1>
+In this lab, you will study a simple Internet ping server 
+written in the Java language, and implement a corresponding client. The 
+functionality provided by these programs are similar to the standard 
+ping 
+programs available in modern operating systems, except that they use UDP
+ rather 
+than Internet Control Message Protocol (ICMP) to communicate with each 
+other. 
+(Java does not provide a straightforward means to interact with ICMP.) 
+<br><br>The ping protocol allows a client machine to send a packet of 
+data to a 
+remote machine, and have the remote machine return the data back to the 
+client 
+unchanged (an action referred to as echoing). Among other uses, the ping
+ 
+protocol allows hosts to determine round-trip times to other machines. 
+<p>You are given the complete code for the Ping server below. Your job 
+is to 
+write the Ping client. </p>
+<h2 style="font-weight: bold; font-size: 16pt; color: rgb(167, 124, 70);
+ font-family: Arial,sans-serif;">
+Server Code</h2>
+The following code fully implements a ping server. You need to compile 
+and run 
+this code. You should study this code carefully, as it will help you 
+write your 
+Ping client.<p><font color="#a77c46">import java.io.*;<br>
+import java.net.*;<br>
+import java.util.*;<br>
+<br>
+/*<br>
+&nbsp;* Server to process ping requests over UDP.<br>
+&nbsp;*/<br>
+public class PingServer<br>
+{<br>
+&nbsp;&nbsp; private static final double LOSS_RATE = 0.3;<br>
+&nbsp;&nbsp; private static final int AVERAGE_DELAY = 100;&nbsp; // 
+milliseconds<br>
+<br>
+&nbsp;&nbsp; public static void main(String[] args) throws Exception<br>
+&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Get command line argument.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args.length != 1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+System.out.println("Required arguments: port");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int port = Integer.parseInt(args[0]);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Create random number generator for use
+ in simulating
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // packet loss and network delay.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Random random = new Random();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Create a datagram socket for receiving
+ and sending UDP packets<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // through the port specified on the 
+command line.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DatagramSocket socket = new 
+DatagramSocket(port);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Processing loop.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Create a datagram 
+packet to hold incomming UDP packet.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DatagramPacket request =
+ new DatagramPacket(new byte[1024], 1024);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Block until the host
+ receives a UDP packet.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+socket.receive(request);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Print the recieved 
+data.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printData(request);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Decide whether to 
+reply, or simulate packet loss.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (random.nextDouble()
+ &lt; LOSS_RATE) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+System.out.println("&nbsp;&nbsp; Reply not sent.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+continue; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Simulate network 
+delay.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thread.sleep((int) 
+(random.nextDouble() * 2 * AVERAGE_DELAY));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Send reply.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InetAddress clientHost =
+ request.getAddress();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int clientPort = 
+request.getPort();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte[] buf = 
+request.getData();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DatagramPacket reply = 
+new DatagramPacket(buf, buf.length, clientHost, clientPort);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; socket.send(reply);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+System.out.println("&nbsp;&nbsp; Reply sent.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp; /* <br>
+&nbsp;&nbsp;&nbsp; * Print ping data to the standard output stream.<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp; private static void printData(DatagramPacket request) 
+throws Exception<br>
+&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Obtain references to the packet's 
+array of bytes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte[] buf = request.getData();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Wrap the bytes in a byte array input 
+stream,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // so that you can read the data as a 
+stream of bytes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ByteArrayInputStream bais = new 
+ByteArrayInputStream(buf);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Wrap the byte array output stream in 
+an input stream reader,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // so you can read the data as a stream 
+of characters.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InputStreamReader isr = new 
+InputStreamReader(bais);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Wrap the input stream reader in a 
+bufferred reader,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // so you can read the character data a 
+line at a time.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // (A line is a sequence of chars 
+terminated by any combination of \r and \n.)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BufferedReader br = new 
+BufferedReader(isr);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The message data is contained in a 
+single line, so read this line.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String line = br.readLine();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Print host address and data received 
+from it.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Received from " + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+request.getAddress().getHostAddress() +
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ": " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new String(line) );<br>
+&nbsp;&nbsp; }<br>
+}</font><br>
+</p>
+The server sits in an infinite loop listening for incoming UDP packets. 
+When a packet comes in, the server simply sends the encapsulated data 
+back to 
+the client. 
+<p><font size="5" color="#a77c46" face="Arial">Packet Loss</font></p>
+<p>UDP provides applications with an unreliable transport 
+service, because messages may get lost in the network due to router 
+queue 
+overflows or other reasons. In contrast, TCP provides applications with a
+ 
+reliable transport service and takes care of any lost packets by 
+retransmitting 
+them until they are successfully received. Applications using UDP for 
+communication must therefore implement any reliability they need 
+separately in 
+the application level (each application can implement a different 
+policy, 
+according to its specific needs). <br><br>Because packet loss is rare or
+ even 
+non-existent in typical campus networks, the server in this lab injects 
+artificial loss to simulate the effects of network packet loss. The 
+server has a 
+parameter LOSS_RATE that determines which percentage of packets should 
+be lost. 
+<br><br>The server also has another parameter AVERAGE_DELAY that is used
+ to 
+simulate transmission delay from sending a packet across the Internet. 
+You 
+should set AVERAGE_DELAY to a positive value when testing your client 
+and server 
+on the same machine, or when machines are close by on the network. You 
+can set 
+AVERAGE_DELAY to 0 to find out the true round trip times of your 
+packets. </p>
+<p>&nbsp;</p>
+<p><font face="Arial"><font size="5" color="#a77c46">Compiling and 
+Running 
+Server</font><br></font><br>To compile the server, do the following: </p>
+<pre>   <font color="#a77c46">javac PingServer.java</font>
+</pre>To run the server, do the following: <pre>   <font color="#a77c46">java PingServer port</font>
+</pre>where port is the port number the server listens on. Remember that
+ you 
+have to pick a port number greater than 1024, because only processes 
+running 
+with root (administrator) privilege can bind to ports less than 1024. 
+<br><br>Note: if you get a class not found error when running the above 
+command, 
+then you may need to tell Java to look in the current directory in order
+ to 
+resolve class references. In this case, the commands will be as follows:
+ <pre>   <font color="#a77c46">java -classpath . PingServer port</font>
+</pre><font size="5" color="#a77c46" face="Arial">Your Job: The Client</font><p>You
+ should write the client so that it sends 10 ping 
+requests to the server, separated by approximately one second. Each 
+message 
+contains a payload of data that includes the keyword PING, a sequence 
+number, 
+and a timestamp. After sending each packet, the client waits up to one 
+second to 
+receive a reply. If one seconds goes by without a reply from the server,
+ then 
+the client assumes that its packet or the server's reply packet has been
+ lost in 
+the network. </p>
+<p><i>Hint: Cut and paste PingServer, rename the code PingClient, and 
+then 
+modify the code. </i></p>
+<p>You should write the client so that it starts with the following 
+command: </p>
+<pre>   <font color="#a77c46">java PingClient host port</font>
+</pre>where host is the name of the computer the server is running on 
+and port 
+is the port number it is listening to. Note that you can run the client 
+and 
+server either on different machines or on the same machine. <br><br>The 
+client 
+should send 10 pings to the server. Because UDP is an unreliable 
+protocol, some 
+of the packets sent to the server may be lost, or some of the packets 
+sent from 
+server to client may be lost. For this reason, the client can not wait 
+indefinitely for a reply to a ping message. You should have the client 
+wait up 
+to one second for a reply; if no reply is received, then the client 
+should 
+assume that the packet was lost during transmission across the network. 
+You will 
+need to research the API for DatagramSocket to find out how to set the 
+timeout 
+value on a datagram socket. <br><br>When developing your code, you 
+should run 
+the ping server on your machine, and test your client by sending packets
+ to 
+localhost (or, 127.0.0.1). After you have fully debugged your code, you 
+should 
+see how your application communicates across the network with a ping 
+server run 
+by another member of the class. 
+<p><font size="5" color="#a77c46" face="Arial">Message Format</font></p>
+<p>The ping messages in this lab are formatted in a simple 
+way. Each message contains a sequence of characters terminated by a 
+carriage 
+return character (<a href="http://drturner.net/wikisite/view?title=r">r</a>)
+ and 
+a line feed character (<a 
+href="http://drturner.net/wikisite/view?title=n">n</a>). The message 
+contains 
+the following string: </p>
+<pre>   <font color="#a77c46">PING sequence_number time CRLF</font>
+</pre>where sequence_number starts at 0 and progresses to 9 for each 
+successive 
+ping message sent by the client, time is the time when the client sent 
+the 
+message, and CRLF represent the carriage return and line feed characters
+ that 
+terminate the line. 
+<p><font size="5" color="#a77c46" face="Arial">Optional Exercises</font></p>
+<p>When you are finished writing the client, you may 
+wish to try one of the following exercises. <br><br>1) Currently the 
+program 
+calculates the round-trip time for each packet and prints them out 
+individually. 
+Modify this to correspond to the way the standard ping program works. 
+You will 
+need to report the minimum, maximum, and average RTTs. (easy) <br><br>2)
+ The basic 
+program sends a new ping immediately when it receives a reply. Modify 
+the 
+program so that it sends exactly 1 ping per second, similar to how the 
+standard 
+ping program works. Hint: Use the Timer and TimerTask classes in 
+java.util. 
+(difficult) <br><br>3) Develop two new classes ReliableUdpSender and 
+ReliableUdpReceiver, which are used to send and receive data reliably 
+over UDP. 
+To do this, you will need to devise a protocol (such as TCP) in which 
+the 
+recipient of data sends acknowledgements back to the sender to indicate 
+that the 
+data has arrived. You can simplify the problem by only providing one-way
+ 
+transport of application data from sender to recipient. Because your 
+experiments 
+may be in a network environment with little or no loss of IP packets, 
+you should 
+simulate packet loss. (difficult) </p>
+
+</body></html>

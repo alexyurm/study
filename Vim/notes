@@ -1,0 +1,35 @@
+Trick 1: ctag Indexing
+
+Installation
+
+-  Step 1: Install Exuberant ctags;
+
+-  Step 2: in vimrc file, add the following lines;
+
+   set tags=./tags;
+
+   Note: For windows version, try: set tags=tags;
+
+-  Step 3: To generate the tag file, go to the parent folder and do:
+
+   ctags -R
+
+Usage
+
+-  Ctrl-] to jump to the tag matching the selected text;
+-  Ctrl-t to return after a tag jump;
+-  g-] to get a list of matching tags if there are multiple matching tags.
+
+Trick 2: TlistToggle
+
+Installation:
+
+-  Step 1: Copy the download file to /plugin. E.g.
+
+   sudo cp taglist.vim /usr/share/vim/vim73/plugin/
+
+Usage
+
+   :TlistToggle
+
+  

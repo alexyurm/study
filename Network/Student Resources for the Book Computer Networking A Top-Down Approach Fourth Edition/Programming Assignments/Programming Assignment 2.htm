@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<title>A Mail User Agent in Java</title>
+<style type="text/css">
+H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 19pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+P {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+
+UL, OL {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+A:link {
+	COLOR: #000066
+}
+A:visited {
+	COLOR: #666666
+}
+</style>
+
+
+</head><body>
+<h1>Programming Assignment 2:  A Mail User Agent in Java</h1>
+
+<p>In this lab you will implement a mail user agent that sends mail to
+other users. Your task is to program the SMTP interaction between the
+MUA and the local SMTP server. The client provides a graphical user
+interface containing fields for entering the sender and recipient
+addresses, the subject of the message and the message itself.  Here's
+what the user interface looks like:<br><br>
+
+</p><center>
+<img src="Programming%20Assignment%202_files/interface.gif" 
+alt="[Interface]" height="342" width="420">
+</center>
+
+<p>With this interface, when you want to send a mail, you must fill in
+complete addresses for both the sender and the recipient, i.e.,
+<code>user@someschool.edu</code>, not just simply
+<code>user</code>. You can send mail to only one recipient. You will
+also need to give the name (or IP address) of your local
+mailserver. If you do not know the name of your local mailserver, see
+<a href="#dns">Querying the DNS</a> below for more information on how
+to obtain the address of the local mailserver.
+
+</p><p>When you have finished composing your mail, press <i>Send</i> to
+send it.
+
+
+
+</p><h2>The Code</h2>
+
+
+<p>The program consists of four classes:<br><br>
+<table>
+  <tbody><tr><td width="150">MailClient</td> <td width="300">The user 
+interface</td> </tr>
+  
+<tr><td width="150">Message</td> <td width="300"> Mail message</td></tr>
+
+  <tr><td width="150">Envelope</td> <td width="300"> SMTP envelope 
+around the Message</td></tr>
+  <tr><td width="150">SMTPConnection</td> <td width="300"> Connection to
+ the SMTP server</td></tr>
+
+</tbody></table>
+
+
+</p><p>You will need to complete the code in the
+<code>SMTPConnection</code> class so that in the end you will have a
+program that is capable of sending mail to any recipient. The code for
+the <code>SMTPConnection</code> class is at the <a 
+href="#smtpconnection">end of this page</a>. The code for the other
+three classes is provided <a 
+href="http://media.pearsoncmg.com/aw/aw_kurose_network_3/labs/lab2/othercode.html">on
+ this page</a>.
+
+</p><p>The places where you need to complete the code have been marked
+with the comments <code>/* Fill in */</code>. Each of the places
+requires one or more lines of code.
+
+</p><p>The <code>MailClient</code> class provides the user interface and
+calls the other classes as needed. When you press <i>Send</i>, the
+<code>MailClient</code> class constructs a <code>Message</code> class
+object to hold the mail message. The <code>Message</code> object holds 
+the actual message headers and body. Then the <code>MailClient</code>
+object builds the SMTP envelope using the <code>Envelope</code>
+class. This class holds the SMTP sender and recipient information, the 
+SMTP server of the recipient's domain, and the <code>Message</code>
+object. Then the <code>MailClient</code> object creates the
+<code>SMTPConnection</code> object which opens a connection to the
+SMTP server and the <code>MailClient</code> object sends the message
+over the connection. The sending of the mail happens in three phases:
+</p><ol>
+  <li> The <code>MailClient</code> object creates the
+      <code>SMTPConnection</code> object and opens the connection to
+      the SMTP server.
+  </li><li> The <code>MailClient</code> object sends the message using 
+the
+      function <code>SMTPConnection.send()</code>.
+  </li><li> The <code>MailClient</code> object closes the SMTP 
+connection.
+</li></ol>
+
+<p>The <code>Message</code> class contains the function
+<code>isValid()</code> which is used to check the addresses of the
+sender and recipient to make sure that there is only one address and
+that the address contains the @-sign. The provided code does not do
+any other error checking.
+
+</p><hr>
+
+<h2>Reply Codes</h2>
+
+<p>For the basic interaction of sending one message, you will only
+need to implement a part of SMTP. In this lab you need only
+to implement the following SMTP commands:<br> <br>
+
+<table>
+  <tbody><tr><th>Command </th><th>Reply Code</th></tr>
+  <tr><td>DATA </td><td>354</td></tr>
+  <tr><td>HELO </td><td>250</td></tr>
+  <tr><td>MAIL FROM </td><td>250</td></tr>
+  <tr><td>QUIT </td><td>221</td></tr>
+  <tr><td>RCPT TO </td><td>250</td></tr>
+</tbody></table>
+
+</p><p>The above table also lists the accepted reply codes for each of 
+the
+SMTP commands you need to implement. For simplicity, you can assume
+that any other reply from the server indicates a fatal error and abort
+the sending of the message. In reality, SMTP distinguishes between
+transient (reply codes 4xx) and permanent (reply codes 5xx) errors,
+and the sender is allowed to repeat commands that yielded in a
+transient error. See Appendix E of <a 
+href="http://www.ietf.org/rfc/rfc0821.txt?number=821">RFC 821</a> for
+more details.
+
+</p><p>In addition, when you open a connection to the server, it will
+reply with the code 220.
+
+</p><p><em>Note:</em> RFC 821 allows the code 251 as a response to a 
+RCPT
+TO-command to indicate that the recipient is not a local user. You may 
+want to verify manually with the <code>telnet</code> command what your 
+local SMTP server replies.
+
+</p><hr>
+
+<h2>Hints</h2>
+
+<p>Most of the code you will need to fill in is similar to the code
+you wrote in the WebServer lab.  You may want to use the code you have
+written there to help you.
+
+</p><p>To make it easier to debug your program, do not, at first, 
+include
+the code that opens the socket, but use the following definitions for
+<code>fromServer</code> and <code>toServer</code>. This way, your
+program sends the commands to the terminal. Acting as the SMTP server,
+you will need to give the correct reply codes. When your program
+works, add the code to open the socket to the server.
+
+</p><pre>       fromServer = new BufferedReader(new InputStreamReader(System.in));
+       toServer = System.out;
+</pre>
+
+<p>The lines for opening and closing the socket, i.e., the lines
+<code>connection = ...</code> in the constructor and the line
+<code>connection.close()</code> in function <code>close()</code>, have
+been commented out by default.
+
+</p><p>Start by completing the function <code>parseReply()</code>. You
+will need this function in many places. In the function
+<code>parseReply()</code>, you should use the
+<code>StringTokenizer</code>-class for parsing the reply strings. You
+can convert a string to an integer as follows:
+
+</p><pre>	   int i = Integer.parseInt(argv[0]);
+</pre>
+
+<p>In the function <code>sendCommand()</code>, you should use the
+function <code>writeBytes()</code> to write the commands to the
+server. The advantage of using <code>writeBytes()</code> instead of
+<code>write()</code> is that the former automatically converts the
+strings to bytes which is what the server expects. Do not forget to
+terminate each command with the string CRLF.
+
+</p><p>You can throw exceptions like this:
+
+</p><pre>           throw new Exception();
+</pre>
+
+<p>You do not need to worry about details, since the exceptions in
+this lab are only used to signal an error, not to give detailed
+information about what went wrong.
+
+</p><hr>
+
+<h2>Optional Exercises</h2>
+
+<p>You may want to try the following optional exercises to make your
+program more sophisticated. For these exercises, you will need to
+modify also the other classes (MailClient, Message, and Envelope).
+
+</p><ul>
+  <li> <b>Verify sender address</b>. Java's System-class contains
+      information about the username and the InetAddress-class
+      contains methods for finding the name of the local host. Use
+      these to construct the sender address for the Envelope instead
+      of using the user-supplied value in the From-header.
+  </li><li> <b>Additional headers</b>. The generated mails have only 
+four
+      header fields, From, To, Subject, and Date. Add other header
+      fields from RFC 822, e.g., Message-ID, Keywords. Check the <a 
+href="http://info.internet.isi.edu/in-notes/rfc/files/rfc822.txt">RFC</a>
+      for the definitions of the different fields.
+  </li><li> <b>Multiple recipients</b>. Currently the program only 
+allows
+      sending mail to a single recipient. Modify the user interface to 
+      include a Cc-field and modify the program to send mail to both
+      recipients. For a more challenging exercise, modify the program
+      to send mail to an arbitrary number of recipients.
+  </li><li> <b>More error checking</b>. The provided code assumes that 
+all
+      errors that occur during the SMTP connection are fatal. Add code 
+      to distinguish between fatal and non-fatal errors and add a
+      mechanism for signaling them to the user. Check the RFC to see
+      what the different reply codes mean. This exercise may require
+      large modifications to the <code>send()</code>,
+      <code>sendCommand()</code>, and <code>parseReply()</code>
+      functions.
+</li></ul>
+
+<hr>
+
+<h2><a name="dns">Querying the DNS</a></h2>
+
+<p>The Domain Name System (DNS) stores information in resource
+records. Normal name to IP-address mappings are stored in type A
+(Address) resource records. Type NS (NameServer) records hold
+information about nameservers and type MX (Mail eXchange) records tell
+which server is handling the mail delivery of the domain.
+
+</p><p>The server you need to find is the server handling the mail for
+      your school's domain. First, you must find the nameserver of
+      your school and then query this nameserver for the
+      MX-host. Assuming you are at Someschool and your domain is
+      <code>someschool.edu</code>, you would do the following:
+</p><ol>
+  <li> Find the address of a nameserver for the top-level
+      domain <code>.edu</code> (NS query)
+  </li><li> Query the nameserver for .edu about the nameserver for the
+      domain <code>someschool.edu</code> to get the address of
+      Someschool's nameserver. (NS query)
+  </li><li> Query Someschool's nameserver for MX-records for the domain
+      <code>someschool.edu</code>. (MX query)
+</li></ol>
+
+<p>Ask your local system administrator how to perform DNS queries
+manually. 
+
+</p><p>Under Unix you can query DNS manually with the
+<code>nslookup</code>-command. The syntax of the
+<code>nslookup</code>-command is as follows. Note that the argument
+<code>host</code> can also be a domain.
+
+<table>
+  <tbody><tr><td>Normal query </td><td><code>nslookup host</code></td></tr>
+  <tr><td>Normal query using a given server </td><td><code>nslookup host
+ server</code></td></tr>
+  <tr><td>NS-query </td><td><code>nslookup -type=NS host</code></td></tr>
+  <tr><td>MX-query </td><td><code>nslookup -type=MX host</code></td></tr>
+</tbody></table>
+
+
+</p><p>The reply to the MX-query may contain multiple mail
+exchangers. Each of them is preceded by a number which is the
+preference value for this server. Lower preference values indicate
+preferred servers so you should use the server with the lowest
+preference value.
+
+</p><hr>
+
+<h2><a name="smtpconnection">SMTPConnection.java</a></h2>
+
+<p>This is the code for the SMTPConncetion class that you will need to
+complete. The code for the other three classes is provided on <a 
+href="http://media.pearsoncmg.com/aw/aw_kurose_network_3/labs/lab2/othercode.html">this
+ page</a>.
+
+</p><pre>import java.net.*;
+import java.io.*;
+import java.util.*;
+
+/**
+ * Open an SMTP connection to a mailserver and send one mail.
+ *
+ */
+public class SMTPConnection {
+    /* The socket to the server */
+    private Socket connection;
+
+    /* Streams for reading and writing the socket */
+    private BufferedReader fromServer;
+    private DataOutputStream toServer;
+
+    private static final int SMTP_PORT = 25;
+    private static final String CRLF = "\r\n";
+
+    /* Are we connected? Used in close() to determine what to do. */
+    private boolean isConnected = false;
+
+    /* Create an SMTPConnection object. Create the socket and the 
+       associated streams. Initialize SMTP connection. */
+    public SMTPConnection(Envelope envelope) throws IOException {
+	// connection = /* Fill in */;
+	fromServer = /* Fill in */;
+	toServer =   /* Fill in */;
+	
+	/* Fill in */
+	/* Read a line from server and check that the reply code is 220.
+	   If not, throw an IOException. */
+	/* Fill in */
+
+	/* SMTP handshake. We need the name of the local machine.
+	   Send the appropriate SMTP handshake command. */
+	String localhost = /* Fill in */;
+	sendCommand( /* Fill in */ );
+
+	isConnected = true;
+    }
+
+    /* Send the message. Write the correct SMTP-commands in the
+       correct order. No checking for errors, just throw them to the
+       caller. */
+    public void send(Envelope envelope) throws IOException {
+	/* Fill in */
+	/* Send all the necessary commands to send a message. Call
+	   sendCommand() to do the dirty work. Do _not_ catch the
+	   exception thrown from sendCommand(). */
+	/* Fill in */
+    }
+
+    /* Close the connection. First, terminate on SMTP level, then
+       close the socket. */
+    public void close() {
+	isConnected = false;
+	try {
+	    sendCommand( /* Fill in */ );
+	    // connection.close();
+	} catch (IOException e) {
+	    System.out.println("Unable to close connection: " + e);
+	    isConnected = true;
+	}
+    }
+
+    /* Send an SMTP command to the server. Check that the reply code is
+       what is is supposed to be according to RFC 821. */
+    private void sendCommand(String command, int rc) throws IOException {
+	/* Fill in */
+	/* Write command to server and read reply from server. */
+	/* Fill in */
+
+	/* Fill in */
+	/* Check that the server's reply code is the same as the parameter
+	   rc. If not, throw an IOException. */
+	/* Fill in */
+    }
+
+    /* Parse the reply line from the server. Returns the reply code. */
+    private int parseReply(String reply) {
+	/* Fill in */
+    }
+
+    /* Destructor. Closes the connection if something bad happens. */
+    protected void finalize() throws Throwable {
+	if(isConnected) {
+	    close();
+	}
+	super.finalize();
+    }
+}
+</pre>
+
+
+
+</body></html>

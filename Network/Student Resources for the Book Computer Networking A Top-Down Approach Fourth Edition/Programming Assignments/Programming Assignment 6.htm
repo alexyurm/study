@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<!-- saved from url=(0065)http://media.pearsoncmg.com/aw/aw_kurose_network_2/labs/lab4.html -->
+<title>Programming Assignment 4: Implementing an Algorithm</title>
+<meta http-equiv="Content-Type" content="text/html; 
+charset=windows-1252">
+<style type="text/css">H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 19pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; COLOR: #A77C46; FONT-FAMILY: Arial, sans-serif
+}
+P {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+TD {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+TH {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+DD {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+LI {
+	FONT-SIZE: 10pt; FONT-FAMILY: Arial, sans-serif
+}
+A:link {
+	COLOR: #000066
+}
+A:visited {
+	COLOR: #666666
+}
+</style>
+
+<meta content="MSHTML 6.00.2800.1106" name="GENERATOR"></head><body>
+<h1>Programming Assignment 6: Implementing an Algorithm</h1>
+<p>
+</p><h3>Overview</h3>
+<p>In this lab, you will be writing a "distributed" set of procedures 
+that 
+implement a distributed asynchronous distance vector routing for the 
+network 
+shown in Figure Lab.4-1. 
+</p><center>
+<p><img src="Programming%20Assignment%206_files/pa3fig1.gif" 
+height="220" width="298"> <br><font size="-1"><strong>Figure Lab.4-1:</strong>
+ Network topology and link costs for DV 
+routing lab</font> </p></center>
+<p>
+</p><h3>The Basic Assignment</h3>
+<p><b>The routines you will write</b> For the basic part of the 
+assignment, you 
+are to write the following routines which will ``execute'' 
+asynchronously within 
+the emulated environment that we have written for this assignment. 
+</p><p>For node 0, you will write the routines: 
+</p><ul>
+  <li><tt>rtinit0()</tt> This routine will be called once at the 
+beginning of 
+  the emulation. <tt>rtinit0()</tt> has no arguments. It should 
+initialize the 
+  distance table in node 0 to reflect the direct costs of 1, 3, and 7 to
+ nodes 
+  1, 2, and 3, respectively. In Figure 1, all links are bi-directional 
+and the 
+  costs in both directions are identical. After initializing the 
+distance table, 
+  and any other data structures needed by your node 0 routines, it 
+should then 
+  send its directly-connected neighbors (in this case, 1, 2 and 3) the 
+cost of 
+  it minimum cost paths to all other network nodes. This minimum cost 
+  information is sent to neighboring nodes in a <i>routing packet</i> by
+ calling 
+  the routine <tt>tolayer2(),</tt> as described below. The format of the
+ routing 
+  packet is also described below. 
+  <p></p>
+  </li><li><tt>rtupdate0(struct rtpkt *rcvdpkt)</tt>. This routine will 
+be called 
+  when node 0 receives a routing packet that was sent to it by one if 
+its 
+  directly connected neighbors. The parameter <tt>*rcvdpkt</tt> is a 
+pointer to 
+  the packet that was received. </li></ul>
+<p><tt>rtupdate0()</tt> is the "heart" of the distance vector algorithm.
+ The 
+values it receives in a routing packet from some other node <i>i</i> 
+contain 
+<i>i</i>'s current shortest path costs to all other network nodes. 
+<tt>rtupdate0()</tt> uses these received values to update its own 
+distance table 
+(as specified by the distance vector algorithm). If its own minimum cost
+ to 
+another node changes as a result of the update, node 0 informs its 
+directly 
+connected neighbors of this change in minimum cost by sending them a 
+routing 
+packet. Recall that in the distance vector algorithm, only directly 
+connected 
+nodes will exchange routing packets. Thus nodes 1 and 2 will communicate
+ with 
+each other, but nodes 1 and 3 will node communicate with each other. 
+</p><p>As we saw in class, the distance table inside each node is the 
+principal data 
+structure used by the distance vector algorithm. You will find it 
+convenient to 
+declare the distance table as a 4-by-4 array of <tt>int</tt>'s, where 
+entry 
+<tt>[i,j] </tt>in the distance table in node 0 is node 0's currently 
+computed 
+cost to node i via direct neighbor j. If 0 is not directly connected to 
+<i>j,</i> you can ignore this entry. We will use the convention that the
+ integer 
+value 999 is ``infinity.'' 
+</p><p>Figure Lab.4-2 provides a conceptual view of the relationship of 
+the 
+procedures inside node 0. 
+</p><p>Similar routines are defined for nodes 1, 2 and 3. Thus, you will
+ write 8 
+procedures in all: <tt>rtinit0(), rtinit1(), rtinit2(), 
+rtinit3(),rtupdate0(), 
+rtupdate1(), rtupdate2(), rtupdate3()</tt> 
+</p><center>
+<p><img src="Programming%20Assignment%206_files/pa3fig2.gif" 
+height="298" width="364"> <br><font size="-1"><b>Figure Lab.4-2: </b>Relationship
+ between procedures inside node 
+0</font></p></center>
+<p>
+</p><h3>Software Interfaces</h3>
+<p>The procedures described above are the ones that you will write. We 
+have 
+written the following routines that can be called by your routines: 
+</p><dl>
+  <dt><tt>tolayer2(struct rtpkt pkt2send)</tt> 
+  </dt><dd>where <tt>rtpkt</tt> is the following structure, which is 
+already declared 
+  for you. The procedure <tt>tolayer2()</tt> is defined in the file <a 
+href="http://gaia.cs.umass.edu/kurose/network/prog3.c" target="_new">prog3.c</a>
+ 
+<pre><tt>extern struct rtpkt {
+  int sourceid;  /* id of node sending this pkt, 0, 1, 2, or 3 */
+  int destid;    /* id of router to which pkt being sent
+                    (must be an immediate neighbor) */
+  int mincost[4];    /* min cost to node 0 ... 3 */
+  };</tt>
+</pre>Note that <tt>tolayer2() </tt>is passed a structure, not a pointer
+ to a 
+  structure. 
+  </dd><dt><tt>printdt0()</tt> 
+  </dt><dd>will pretty print the distance table for node 0. It is passed
+ a pointer to 
+  a structure of type <tt>distance_table.</tt> <tt>printdt0()</tt> and 
+the 
+  structure declaration for the node 0 distance table are declared in 
+the file 
+  <tt>node0.c.</tt> Similar pretty-print routines are defined for you in
+ the 
+  files <tt>node1.c, node2.c node3.c.</tt> </dd></dl>
+<p>
+</p><h3>The simulated network environment</h3>
+<p>Your procedures <tt>rtinit0(), rtinit1(), rtinit2(), rtinit3()</tt> 
+and 
+<tt>rtupdate0(), rtupdate1(), rtupdate2(), rtupdate3()</tt> send routing
+ packets 
+(whose format is described above) into the medium. The medium will 
+deliver 
+packets in-order, and without loss to the specified destination. Only 
+directly-connected nodes can communicate. The delay between is sender 
+and 
+receiver is variable (and unknown). 
+</p><p>When you compile your procedures and my procedures together and 
+run the 
+resulting program, you will be asked to specify only one value regarding
+ the 
+simulated network environment: 
+</p><ul>
+  <li><b>Tracing.</b> Setting a tracing value of 1 or 2 will print out 
+useful 
+  information about what is going on inside the emulation (e.g., what's 
+  happening to packets and timers). A tracing value of 0 will turn this 
+off. A 
+  tracing value greater than 2 will display all sorts of odd messages 
+that are 
+  for my own emulator-debugging purposes. </li></ul>
+<p>A tracing value of 2 may be helpful to you in debugging your code. 
+You should 
+keep in mind that <i>real</i> implementors do not have underlying 
+networks that 
+provide such nice information about what is going to happen to their 
+packets! 
+</p><p>
+</p><h3>The Basic Assignment</h3>
+<p>You are to write the procedures <tt>rtinit0(), rtinit1(), rtinit2(), 
+rtinit3()</tt> and <tt>rtupdate0(), rtupdate1(), rtupdate2(), 
+rtupdate3()</tt> 
+which together will implement a distributed, asynchronous computation of
+ the 
+distance tables for the topology and costs shown in Figure 1. 
+</p><p>You should put your procedures for nodes 0 through 3 in files 
+called node0.c, 
+.... node3.c. You are <b>NOT</b> allowed to declare any global variables
+ that 
+are visible outside of a given C file (e.g., any global variables you 
+define in 
+<tt>node0.c.</tt> may only be accessed inside <tt>node0.c</tt>). This is
+ to 
+force you to abide by the coding conventions that you would have to 
+adopt is you 
+were really running the procedures in four distinct nodes. To compile 
+your 
+routines: <tt>cc prog3.c node0.c node1.c node2.c node3.&nbsp; </tt>Prototype
+ 
+versions of these files are here: <a 
+href="http://gaia.cs.umass.edu/kurose/network/node0.c" target="_new">node0.c</a>,
+ 
+<a href="http://gaia.cs.umass.edu/kurose/network/node1.c" target="_new">node1.c</a>,
+ <a href="http://gaia.cs.umass.edu/kurose/network/node2.c" target="_new">node2.c</a>,
+ 
+<a href="http://gaia.cs.umass.edu/kurose/network/node3.c" target="_new">node3.c</a>.
+ You can pick up a copy of the file prog3.c at <a 
+href="http://gaia.cs.umass.edu/kurose/network/prog3.c" target="_new">http://gaia.cs.umass.edu/kurose/network/prog3.c</a>.
+ 
+</p><p><b>This assignment can be completed on any machine supporting C. 
+It makes no 
+use of UNIX features.</b> 
+</p><p>As always, most instructors would expect you to hand in a code 
+listing, a 
+design document, and sample output. 
+</p><p>For your sample output, your procedures should print out a 
+message whenever 
+your <tt>rtinit0(), rtinit1(), rtinit2(), rtinit3()</tt> or <tt>rtupdate0(),
+ 
+rtupdate1(), rtupdate2(), rtupdate3()</tt> procedures are called, giving
+ the 
+time (available via my global variable <tt>clocktime</tt>). For <tt>rtupdate0(),
+ 
+rtupdate1(), rtupdate2(), rtupdate3()</tt> you should print the identity
+ of the 
+sender of the routing packet that is being passed to your routine, 
+whether or 
+not the distance table is updated, the contents of the distance table 
+(you can 
+use my pretty-print routines), and a description of any messages sent to
+ 
+neighboring nodes as a result of any distance table updates. 
+</p><p>The sample output should be an output listing with a TRACE value 
+of 2. 
+Highlight the final distance table produced in each node. Your program 
+will run 
+until there are no more routing packets in-transit in the network, at 
+which 
+point our emulator will terminate. 
+</p><p>
+</p><h3>The Advanced Assignment</h3>
+<p>You are to write two procedures, <tt>rtlinkhandler0(int linkid, int 
+newcost)</tt> and <tt>rtlinkhandler1(int linkid, int newcost)</tt>, 
+which will 
+be called if (and when) the cost of the link between 0 and 1 changes. 
+These 
+routines should be defined in the files <tt>node0.c</tt> and <tt>node1.c,</tt>
+ 
+respectively. The routines will be passed the name (id) of the 
+neighboring node 
+on the other side of the link whose cost has changed, and the new cost 
+of the 
+link. Note that when a link cost changes, these routines will have to 
+update the 
+distance table and may (or may not) have to send updated routing packets
+ to 
+neighboring nodes. 
+</p><p>In order to complete the advanced part of the assignment, you 
+will need to 
+change the value of the constant LINKCHANGES (line 3 in <tt>prog3.c)</tt>
+ to 1. 
+FYI, the cost of the link will change from 1 to 20 at time 10000 and 
+then change 
+back to 1 at time 20000. Your routines will be invoked at these times. 
+</p><p>We would again <b>STRONGLY</b> recommend that you first implement
+ the 
+undergraduate assignment and then extend your code to implement the 
+graduate 
+assignment. It will <b>not</b> be time wasted. (Believe me, I learned 
+this the 
+hard way!) 
+</p><p>
+</p><h3>Q&amp;A</h3>
+<p>When we've taught this lab in our introductory networking course, 
+students 
+have posed various questions. If you are interested in looking at the 
+questions 
+we've received (and answers), check out <a 
+href="http://gaia.cs.umass.edu/kurose/network/programming_assignment_QA.htm"
+ target="_new">http://gaia.cs.umass.edu/kurose/network/programming_assignment_QA.htm</a>
+ 
+</p></body></html>

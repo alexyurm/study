@@ -1,0 +1,526 @@
+/* ------- CW 2005 Default Silver Style Sheet------- */
+
+
+
+
+
+
+/* ----- Homepage Items ----- */
+
+.homepageTitle
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+
+.homepageContent
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.homepageTableColor { background-color: #F0F0F0; }
+
+
+
+
+
+
+/* ----- Global Items ----- */
+
+OL
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+UL
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.footer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #A77C46;
+	font-size: 9px;
+	font-weight: 800;
+}
+
+.legalNote
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #7682CC;
+	font-size: 10px;
+	font-weight: 800;
+}
+
+
+
+
+
+
+/* ----- Global Module Items ----- */
+
+.hintHeader
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.hintSubHeader
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: gray;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.hintContent
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.hintLink
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #805A2A;
+	font-size: 10px;
+	font-weight: 500;
+	font-style: normal;
+}
+
+.breadcrumbs
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 9px;
+	font-weight: 500;
+}
+
+.basicContent
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.contentHeader
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.contentSubHeader
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: gray;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.randomAnswers
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #805A2A;
+	font-size: 11px;
+	font-weight: 500;
+	font-style: italic;
+}
+
+.timerDetailText
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 11px;
+	line-height: 12px;
+	font-weight: 500;
+	font-style: normal;
+}
+
+
+
+
+
+
+/* ----- Leftnav Items ----- */
+
+.leftnavTitle
+{
+	font-family: Verdana;
+	font-weight: 800;
+	text-align: left;
+	color: black;
+	font-size: 8pt;
+}
+
+.leftnavModule
+{
+	font-family: Verdana;
+	font-weight: 700;
+	text-align: left;
+	color: #423F3B;
+	font-size: 8pt;
+}
+
+.leftnavCopyright { 
+	font-family: Verdana;
+	font-weight: normal;
+	text-align: left;
+	color: #000033;
+	font-size: 9px;
+}
+
+a.leftnavLegal:link { 
+
+	color: #000033;
+	text-decoration: underline;
+}
+
+a.leftnavLegal:hover { 
+
+	color: #992D2F;
+	text-decoration: underline;
+}
+
+
+
+
+
+
+/* ----- Table of Contents Items ----- */
+
+.tocListing1
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.tocListing2
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #6C6B6B;
+	font-size: 11px;
+	font-weight: 800;
+}
+
+.tocListing3
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 11px;
+	font-weight: 800;
+}
+
+.tocListing
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.tocSpacer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #7682CC;
+	font-size: 7px;
+	line-height: 7px;
+	font-weight: 800;
+}
+
+.tocTableColor { background-color: #F5F3F3; }
+
+
+
+
+
+
+/* ----- Problem Type Items ----- */
+
+.problemTypeBkgd { background-color: #F5F3F3; }
+
+.essayQuestions
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.trueQuestions
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.trueAnswer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.patternQuestions
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.multiChoiceQuestion
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.multiChoiceAnswer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.matchingHeader
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #192979;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.matchingQuestion
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.matchingTerm
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 12px;
+	font-weight: 600;
+	background-color: transparent;
+}
+
+.matchingAnswer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 10px;
+	font-weight: 400;
+}
+
+.matchingBkgd { background-color: #F5F5FB; }
+
+.matchingDivider { background-color: #E1E1F1; }
+
+.labelQuestion
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.labelTerm
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 12px;
+	font-weight: 600;
+	background-color: transparent;
+}
+
+.labelAnswer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 10px;
+	font-weight: 400;
+}
+
+.labelBkgd { background-color: transparent; }
+
+.labelDivider { background-color: #E1E1F1; }
+
+.fillBlankQuestion
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #353534;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.fillBlankAnswer
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.webSearchIntro
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+
+.webSearchBkgd { background-color: #F5F5FB; }
+
+.webSearchTableColor { background-color: #F0F0F0; }
+.destLink
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #7682CC;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+
+
+
+
+
+/* ----- Group Items ----- */
+
+.groupIntro
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.groupLink
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #7682CC;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.daisychain_bkgd { background-image: url(dc_center_bkgd.gif); }
+
+
+
+
+
+
+
+/* ----- Search Items ----- */
+
+.searchLink
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.searchNumber
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #32459A;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.searchBreadCrumb
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #7682CC;
+	font-size: 10px;
+	font-weight: 800;
+}
+
+.search_no_match
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+
+
+
+
+
+/* ----- Profile Items ----- */
+
+.profile_bkgd { background-image: url(profile_bar.gif); }
+
+.profileTable_bkgd
+{
+	background-image: url(profile_left_border.gif);
+	background-repeat: repeat-y;
+}
+
+.profileCourseTitle
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #4A4949;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.profileText
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 11px;
+	font-weight: 400;
+}
+
+.profileLabels
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: #4A4949;
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.profileSmall
+{
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 9px;
+	font-weight: 400;
+}
+
+.profileColor { background-color: #9999CC; }
+

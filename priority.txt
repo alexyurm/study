@@ -1,0 +1,7 @@
+1. Linux Device Driver (*)
+2. Data Structure + C (*)
+3. Understand the Linux kernel
+4. Vim
+5. CircuitAnalysis(*)
+6. Makefile
+7. Bash Shell

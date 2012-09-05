@@ -1,0 +1,20 @@
+1. major=$(awk "\\$2= =\"$module\" {print \\$1}" /proc/devices)
+
+   What is that mean?
+
+   - What is awk used here?
+
+   awk 
+
+2. rm -f /dev/${device}[0-3]
+
+   I am guessing this is to remove 4 files.
+
+3. grep -q '^staff:' /etc/group || group="wheel"
+
+   What is that mean?
+
+4. #/sbin/insmod ./$module.ko $* || exit 1
+
+   
+

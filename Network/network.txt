@@ -1,0 +1,29 @@
+Chapter 1: Protocol Layers and Their Service Models
+
+-  Five-layer internet protocol stack
+
+   1) Application
+
+   It is the layer where the network applications and their application-layer protocols reside:
+
+   HTTP (Hypertext Transfer Protocol)
+   SMTP (Symple Mail Transfer Protocol)
+   FTP (File Transfer Protocol)
+   DNS (Domain name system) -> translation of human-friendly names for Internet end systems like google.com to a 32-bit network address
+
+   2) Transport
+
+   The Internet's transport layer transports application-layer messages between application endpoints:
+   
+   TCP
+   UDP
+
+   3) Network
+
+   The network layer provides the service of delivering the segment to the transport layer in the detination host. The Internet's network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations.
+
+   IP
+
+   4) Link
+
+   5) Physical

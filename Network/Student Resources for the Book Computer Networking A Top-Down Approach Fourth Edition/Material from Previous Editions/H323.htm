@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<!-- style: cw_2005 default -->
+<!-- template: module -->
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+	<title>H.323</title>
+
+
+
+
+
+
+
+
+<!-- META tags for site search -->
+<!--
+<META-NOSEARCH>nosearch</META-NOSEARCH>
+-->
+<!-- END META tags for site search -->
+	<link rel="StyleSheet" href="H323_files/style.css" type="text/css">
+	<style type="text/css">
+	   <!--
+	   body
+	   {
+
+
+
+	   	background-color: white;
+
+
+	   	margin: 2px 60px 15px 10px;
+	   }
+	   
+	   h1#stylehead {
+	      padding: 0;
+          margin: 0;
+	   }
+	   
+	   h2.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+
+	   h3.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+	   
+	   .sr_only {
+            position:absolute;
+			left:-999px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+       }
+	   
+	   .nostyle_inline {
+		    font-size: 1em;
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    display: inline;
+	   }
+	   -->
+	</style>
+
+
+
+
+
+<script language="javascript">
+<!-- 
+
+function updatenav(theurl)
+{
+    // if statement is used to 
+	// be sure the frame exists -st
+
+	
+		
+	
+	if (parent.navbar) {
+		parent.navbar.document.location.href = theurl;
+	}
+	
+	
+	// return true is important here
+	// allows the href to work -st
+return true;
+}
+
+// -->
+</script>
+
+
+	
+
+
+
+
+
+
+<!-- st reusing the js for expanding left nav -->
+<script type="text/javascript" language="Javascript">
+		<!-- Hide script from older browsers
+			
+		var submenus;
+		var myindex;
+        var thisMenu;
+		
+	// st this is how we degrade gracefully for older browsers
+	// also note that the expanded navs will be visible 
+	// in any browsers that dont support scripting at all
+	// as they will never have been made invisible
+	
+	document.write('<style type="text/css">');
+	if (document.getElementById) {	
+	   document.write('.submenu  {display:none}');
+	} else {
+  	   document.write('.submenu  {}');
+	}
+	document.write('</style>');
+	
+		
+		function expandMenu(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this opens the new item
+				// also used to show skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "block";
+					
+			}
+		}
+		
+		function hideSkip(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this hides skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "none";
+					
+			}
+		}
+		
+		
+
+		// End hiding script -->
+	</script><style type="text/css">.submenu  {display:none}</style>
+	
+	
+
+
+
+
+</head><body link="#7682cc" alink="#000000" vlink="#000000">
+<a name="topofpage" id="topofpage"><img src="H323_files/pixel.gif" 
+alt="" border="0" height="1" hspace="0" vspace="0" width="1"></a><img 
+src="H323_files/pixel.gif" alt="Content Frame" border="0" height="1" 
+hspace="0" vspace="0" width="1"><br>
+
+
+
+
+	  
+
+
+
+
+
+        
+
+
+
+
+
+<!-- skip stuff-->
+<a href="#lastcrumb" title="Skip Breadcrumb Navigation" 
+onfocus="expandMenu('breadskip');" onblur="hideSkip('breadskip');"><img 
+src="H323_files/pixel.gif" alt="Skip Breadcrumb Navigation" border="0" 
+height="1" hspace="0" vspace="0" width="1"></a><div class="submenu" 
+id="breadskip"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span><noscript>: <a href="#lastcrumb"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span></a></noscript><br>&nbsp;</div>
+
+<table border="0" cellpadding="0" cellspacing="2">
+	<tbody><tr align="left" valign="top">
+
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173749.cw/index.html"
+ target="_top" class="breadcrumbs">Home</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="H323_files/breadcrumb_arrow.gif" alt=" arrow " border="0" 
+height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16303/4173750.cw/index.html"
+ target="_top" class="breadcrumbs">Student Resources</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="H323_files/breadcrumb_arrow.gif" alt=" arrow " border="0" 
+height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a 
+href="http://wps.aw.com/aw_kurose_network_4/63/16304/4173958.cw/content/index.html"
+ class="breadcrumbs" 
+onclick="updatenav('/aw_kurose_network_4/63/16303/4173750.cw/leftnav/4173958/index.html');">Material
+ from Previous Editions</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="H323_files/breadcrumb_arrow.gif" alt=" arrow " border="0" 
+height="9" hspace="0" vspace="2" width="21"> </td>
+	
+        
+        
+
+
+        <!-- Last Crumb -->
+		
+                     
+	<td align="left" valign="top"><span class="breadcrumbs"><a 
+name="lastcrumb" id="lastcrumb">H.323</a></span></td>
+
+                        	</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+	<br>
+	<h1 id="stylehead"><span class="contentHeader">H.323</span></h1>
+
+
+	<span class="basicContent">
+      
+           <strong>[Section 6.4.4 of the First Edition]</strong>
+<p>
+H.323 is a standard for real-time audio and video conferencing among end
+ systems on the Internet. As shown in Figure 6.13, the standard also 
+covers how end systems attached to the Internet communicate with 
+telephones attached to ordinary circuit-switched telephone networks. In 
+principle, if manufacturers of Internet telephony and video conferencing
+ all conform to H.323, then all their products should be able to 
+interoperate, and should be able to communicate with ordinary 
+telephones. We discuss H.323 in this section, as it provides an 
+application context for RTP. Indeed, we'll see below that RTP is an 
+integral part of the H.323 standard.
+
+</p><p>
+</p><center>
+<img src="H323_files/06-13.jpg" alt="Figure 6.13" height="224" 
+width="450"><br>
+<font size="-1"><strong>Figure 6.13:</strong> H.323 end systems attached
+ to the Internet can communicate with telephones attached to a 
+circuit-switched telephone network</font>
+</center>
+<p> </p><p>
+
+H.323 <b>end points</b> (terminals) can be standalone devices (for 
+example, Web phones and Web TVs) or applications in a PC (for example, 
+Internet phone or video conferencing software). H.323 equipment also 
+includes <b>gateways</b> and <b>gatekeepers.</b> Gateways permit 
+communication among H.323 end points and ordinary telephones in a 
+circuit-switched telephone network. Gatekeepers, which are optional, 
+provide address translation, authorization, bandwidth management, 
+accounting, and billing. We will discuss gatekeepers in more detail at 
+the end of this section.
+
+</p><p>
+
+The H.323 standard is an umbrella specification that includes:
+
+</p><p>
+</p><ul>
+<li> A specification for how endpoints negotiate common audio/video 
+encodings.  Because H.323 supports a variety of audio and video encoding
+ standards, a  protocol is needed to allow the communicating endpoints 
+to agree on a common encoding.
+
+<p>
+
+</p></li><li> A specification for how audio and video chunks are 
+encapsulated and sent over network. As you may have guessed, this is 
+where RTP comes into the picture.
+
+<p>
+
+</p></li><li> A specification for how endpoints communicate with their 
+respective gatekeepers.
+
+<p>
+
+</p></li><li> A specification for how Internet phones communicate 
+through a gateway with  ordinary phones in the public circuit-switched 
+telephone network.
+</li></ul>
+<p>
+
+Figure 6.14 shows the H.323 protocol architecture.
+
+</p><p>
+</p><center>
+<img src="H323_files/06-14.jpg" alt="Figure 6.14" height="262" 
+width="400"><br>
+<font size="-1"><strong>Figure 6.14:</strong> H.323 protocol 
+architecture</font>
+</center>
+<p> </p><p>
+
+Minimally, each H.323 endpoint <i>must</i> support the G.711 speech 
+compression standard. G.711 uses PCM to generate digitized speech at 
+either 56 Kbps or 64 Kbps. Although H.323 requires every endpoint to be 
+voice capable (through G.711), video capabilities are optional. Because 
+video support is optional, manufacturers of terminals can sell simpler 
+speech terminals as well as more complex terminals that support both 
+audio and video.
+
+</p><p>
+
+As shown in Figure 6.14, H.323 also requires that all H.323 end points 
+use the following protocols:
+
+</p><p>
+</p><ul>
+<li> <i>RTP.</i> The sending side of an endpoint encapsulates all media 
+chunks within RTP packets. The sending side then passes the RTP packets 
+to UDP.
+
+<p>
+
+</p></li><li> <i>H.245.</i> An "out-of-band" control protocol for 
+controlling media between H.323 endpoints. This protocol is used to 
+negotiate a common audio or video compression standard that will be 
+employed by all the participating endpoints in a  session.
+
+<p>
+
+</p></li><li> <i>Q.931.</i> A signaling protocol for establishing and 
+terminating calls. This protocol provides traditional telephone 
+functionality (for example, dial tones and ringing) to H.323 endpoints 
+and equipment.
+
+<p>
+
+</p></li><li> <i>RAS (Registration/Admission/Status) channel protocol.</i>
+ A protocol that allows end points to communicate with a gatekeeper (if a
+ gatekeeper is present).
+</li></ul>
+<p>
+
+<strong>Audio and Video Compression</strong>
+
+</p><p>
+
+The H.323 standard supports a specific set of audio and video 
+compression techniques. Let's first consider audio. As we just 
+mentioned, all H.323 end points must support the G.711 speech encoding 
+standard. Because of this requirement, two H.323 end points will always 
+be able to default to G.711 and communicate. But H.323 allows terminals 
+to support a variety of other speech compression standards, including 
+G.723.1, G.722, G.728, and G.729. Many of these standards compress 
+speech to rates that are suitable for 28.8 Kbps dial-up modems. For 
+example, G.723.1 compresses speech to either 5.3 Kbps or 6.3 Kbps, with 
+sound quality that is comparable to G.711.
+
+</p><p>
+
+As we mentioned earlier, video capabilities for an H.323 endpoint are 
+optional. However, if an endpoint does support video, then it must (at 
+the very least) support the QCIF H.261 (176 x144 pixels) video standard.
+ A video-capable endpoint may optionally support other H.261 schemes, 
+including CIF, 4CIF, 16CIF, and the H.263 standard. As the H.323 
+standard evolves, it will likely support a longer list of audio and 
+video compression schemes.
+
+</p><p>
+
+<strong>H.323 Channels</strong>
+
+</p><p>
+
+When an end point participates in an H.323 session, it maintains several
+ channels, as shown in Figure 6.15. Examining Figure 6.15, we see that 
+an end point can support many simultaneous RTP media channels. For each 
+media type, there will typically be one send media channel and one 
+receive media channel; thus, if audio and video are sent in separate RTP
+ streams, there will typically be four media channels. Accompanying the 
+RTP media channels, there is one RTCP media control channel, as 
+discussed in Section 6.4.3. All of the RTP and RTCP channels run over 
+UDP. In addition to the RTP/RTCP channels, two other channels are 
+required: the call control channel and the call signaling channel. The 
+H.245 call control channel is a TCP connection that carries H.245 
+control messages. Its principal tasks are (1) opening and closing media 
+channels, and (2) capability exchange, that is, before sending media, 
+endpoints agree on an encoding algorithm. H.245, being a control 
+protocol for real-time interactive applications, is analogous to RTSP, 
+the control protocol for streaming of stored multimedia that we studied 
+in Section 6.2.3. Finally, the Q.931 call signaling channel provides 
+classical telephone functionality, such as dial tone and ringing.
+
+</p><p>
+</p><center>
+<img src="H323_files/06-15.jpg" alt="Figure 6.15" height="288" 
+width="450"><br>
+<font size="-1"><strong>Figure 6.15:</strong> H.323 channels</font>
+</center>
+<p> </p><p>
+
+<strong>Gatekeepers</strong>
+
+</p><p>
+
+The gatekeeper is an optional H.323 device. Each gatekeeper is 
+responsible for an H.323 zone. A typical deployment scenario is shown in
+ Figure 6.16. In this scenario, the H.323 terminals and the gatekeeper 
+are all attached to the same LAN, and the H.323 zone is the LAN itself. 
+If a zone has a gatekeeper, then all H.323 terminals in the zone are 
+required to communicate with it using the RAS protocol, which runs over 
+TCP. Address translation is one of the more important gatekeeper 
+services. Each terminal can have an alias address, such as the name of 
+the person at the terminal, the e-mail address of the person at the 
+terminal, and so on. The gateway translates these alias addresses to IP 
+addresses. This address translation service is similar to the DNS 
+service, covered in Section 2.5. Another gatekeeper service is bandwidth
+ management: The gatekeeper can limit the number of simultaneous 
+real-time conferences in order to save some bandwidth for other 
+applications running over the LAN. Optionally, H.323 calls can be routed
+ through gatekeeper, which is useful for billing.
+
+</p><p>
+</p><center>
+<img src="H323_files/06-16.jpg" alt="Figure 6.16" height="249" 
+width="350"><br>
+<font size="-1"><strong>Figure 6.16:</strong> H.323 terminals and 
+gatekeeper on the same LAN</font>
+</center>
+<p> </p><p>
+
+The H.323 terminal must register itself with the gatekeeper in its zone.
+ When the H.323 application is invoked at the terminal, the terminal 
+uses RAS to send its IP address and alias (provided by user) to the 
+gatekeeper. If the gatekeeper is present in a zone, each terminal in the
+ zone must contact the gatekeeper to ask permission to make a call. Once
+ it has permission, the terminal can send the gatekeeper an e-mail 
+address, alias string, or phone extension for the terminal it wants to 
+call, which may be in another zone. If necessary, a gatekeeper will poll
+ other gatekeepers in other zones to resolve an IP address.
+
+</p><p>
+
+An excellent tutorial on H.323 is provided by [WebProForum 1999]. The 
+reader is also encouraged to see [Rosenberg 1999] for an alternative 
+architecture to H.323 for providing telephone service in the Internet.
+
+
+      
+<br>
+
+<br></p></span>
+
+
+    
+	
+
+
+
+
+
+
+
+<br><br><br>
+
+    
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr
+ align="left" valign="top">
+
+<td align="right" valign="top" width="50%">
+
+	<a href="http://www.pearson.com/" target="new">
+		<img src="H323_files/pearson_unframed_logo.gif" title="Open Pearson 
+site in a new window." alt="Pearson" border="0" hspace="10" vspace="0">
+	</a>
+
+</td>
+
+
+
+<td nowrap="nowrap" align="left" valign="top" width="50%"><span 
+class="footer copyright">
+   
+		
+
+
+
+
+Copyright © 1995 - 2010 
+
+<a href="http://www.pearsoned.com/" target="new" title="Open Pearson 
+Education Web site in a new window" class="legalNote">
+	   Pearson Education
+</a>.
+All rights reserved.
+
+
+	Pearson Addison Wesley is an imprint of 
+	<a href="http://www.pearson.com/" target="new" title="Open Pearson Web 
+site in a new window" class="legalNote">
+		   Pearson
+	</a>.
+
+<br>
+		
+		<a class="legalNote" href="http://www.pearsoned.com/legal/" 
+target="new" title="Open Legal Notice in a new window">Legal Notice</a> 
+		   
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/privacy.htm" target="new" 
+title="Open Privacy Policy in a new window">Privacy Policy</a> 
+			  
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+href="http://www.pearsoned.com/legal/permissions.htm" target="new" 
+title="Open Permissions Policy in a new window">Permissions</a> 
+		   
+		
+		
+
+	
+
+</span></td>
+
+
+</tr></tbody></table>
+
+
+		
+
+
+
+<p>		
+
+</p><div class="submenu" id="toppage" align="right"><span 
+class="breadcrumbs">[Return to the Top of this Page]<noscript><a href="#topofpage" title="[Return to the Top of this Page]">: [Return to the Top of this Page]</a></noscript></span></div>
+
+<a href="#topofpage" title="[Return to the Top of this Page]" 
+onfocus="expandMenu('toppage');" onblur="hideSkip('toppage');"><img 
+src="H323_files/pixel.gif" alt="Return to the Top of this Page" 
+border="0" height="1" hspace="0" vspace="0" width="1"></a>
+
+
+
+
+</body></html>

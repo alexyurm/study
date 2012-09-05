@@ -1,0 +1,3 @@
+-  I have a network configuration problem on my home machine: Each time when I brings up Eth0 interface, the default gateway of wlan0 is removed from the route table so that I have to manually add it back: "route add default gw 192.168.1.1 wlan0". Is there a way to automate this?
+
+   -> 

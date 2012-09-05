@@ -1,0 +1,15 @@
+Programming Assignments
+All labs open in a new window.
+
+    * Assignment 1: Building a Multi-Threaded Web Server in Java (Chapter 2)
+    * Assignment 2: A Mail User Agent in Java (Chapter 2)
+    * Assignment 2a: A Simplified Mail User Agent: Without GUI (Chapter 2)
+    * Assignment 3: UDP Pinger (Chapter 2)
+    * Assignment 4: Proxy Cache (Chapter 2)
+    * Assignment 5: Implementing a Reliable Transport Protocol (Chapter 3)
+    * Assignment 6: Implementing a Distributed, Asynchronous Distance Vector Routing Algorithm (Chapter 4)
+    * Assignment 7: Streaming Video with RTSP and RTP (Chapter 7)
+
+There are 6 socket programming assignments. 
+The two simplist are Asssigment 2a (Simplied Mail User Agent) and Assignment 3 (UDP Pinger).
+We recommend that beginner Java programmers start with Assignments 2a and 3.

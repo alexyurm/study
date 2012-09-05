@@ -1,0 +1,61 @@
+
+================================================================================
+
+Section Cross References
+
+    2440init.o(Init) refers to 2440lib.o(.text) for Port_Init
+    2440init.o(Init) refers to 2440loader.o(.text) for Main
+    2440loader.o(.text) refers to nand.o(.text) for FMD_ReadSector
+    2440loader.o(.text) refers to 2440lib.o(.text) for Uart_SendString
+    2440loader.o(.text) refers to 2440loader.o(.bss) for .bss$2
+    2440loader.o(.text) refers to 2440slib.o(C$$code) for MMU_EnableICache
+    nand.o(.text) refers to 2440lib.o(.text) for Uart_SendString
+    nand.o(.text) refers to nand_s.o(C$$code) for __RdPage512
+    2440lib.o(.text) refers to 2440lib.o(.bss) for .bss$2
+    2440lib.o(.text) refers to 2440slib.o(C$$code) for MMU_SetAsyncBusMode
+
+
+================================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000000
+
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000fbc, Max: 0xffffffff, ABSOLUTE)
+
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000fbc, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr  Idx  E Section Name        Object
+
+    0x00000000   0x000002d0   Code   RO     1   * Init                2440init.o
+    0x000002d0   0x000004f8   Code   RO     4     .text               2440loader.o
+    0x000007c8   0x000002e0   Code   RO     8     .text               nand.o
+    0x00000aa8   0x000002c8   Code   RO    10     .text               2440lib.o
+    0x00000d70   0x00000048   Code   RO     3     C$$code             2440slib.o
+    0x00000db8   0x00000204   Code   RO    13     C$$code             nand_s.o
+
+
+    Execution Region ER_RW (Base: 0x33ff0000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ER_ZI (Base: 0x33ff0000, Size: 0x00000208, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr  Idx  E Section Name        Object
+
+    0x33ff0000   0x00000204   Zero   RW     5     .bss                2440loader.o
+    0x33ff0204   0x00000002   Zero   RW    11     .bss                2440lib.o
+
+
+
+  Load Region LR$$Debug (Base: 0x00000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    Execution Region ER$$Debug (Base: 0x00000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr  Idx  E Section Name        Object
+
+    0x00000000   0x000000ac   Dbug   RW     7     .debug_frame        2440loader.o
+    0x000000ac   0x000000b0   Dbug   RW     9     .debug_frame        nand.o
+    0x0000015c   0x000000d8   Dbug   RW    12     .debug_frame        2440lib.o
+

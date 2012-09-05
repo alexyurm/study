@@ -1,0 +1,2370 @@
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html lang="en">
+
+<head>
+	<title>Chapter 4 MC</title>
+
+
+
+
+
+
+
+
+<META NAME="VolumeId" CONTENT="4173749">
+
+
+
+     
+     <META NAME="BetterLink" CONTENT="/aw_kurose_network_4/63/16303/4173750.cw/-/4173822/index.html">
+
+
+
+     <!-- title -->
+     <META NAME="LinkType" CONTENT="Chapter 4 MC">
+	 
+
+   <!-- crumbs -->
+     <META NAME="NavBar" CONTENT="Computer Networking: A Top-Down Approach, 4/e&nbsp;&#62&nbsp;Student Resources&nbsp;&#62&nbsp;Self-Assessment Quizzes">
+
+
+
+
+	<link rel="StyleSheet" href="/wps/media/styles/1480/_skins_/D/default_silver/style.css" type="text/css">
+	<style type="text/css">
+	   <!--
+	   body
+	   {
+
+
+
+	   	background-color: white;
+
+
+	   	margin: 2px 60px 15px 10px;
+	   }
+	   
+	   h1#stylehead {
+	      padding: 0;
+          margin: 0;
+	   }
+	   
+	   h2.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+
+	   h3.websearch {
+			font-weight: bold;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+	   }
+	   
+	   .sr_only {
+            position:absolute;
+			left:-999px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+       }
+	   
+	   .nostyle_inline {
+		    font-size: 1em;
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    display: inline;
+	   }
+	   -->
+	</style>
+
+
+
+
+      
+
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  confirm(msg);
+
+}
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+
+	function ST_reset(confirmtext) { //v1.0
+		
+		//text must be passed into this
+		//confirm dialog box so that 
+		//the character entities will be
+		//interpretted, rather than being
+		//hard coded into the confirm line
+		//between "" or ''
+		
+	   if (window.confirm(confirmtext)) {
+					
+		
+		document.quizForm.reset()             
+               
+		if (window.location.hash != '#topofquiz1') {
+			window.location.hash = '#topofquiz1';
+		} else {
+                        window.location.hash = '#topofquiz2';
+                }
+		  
+		
+           }
+       }
+	
+//-->
+</script>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+
+
+
+function MM_nbGroup(event, grpName) { //v6.0
+  var i,img,nbArr,args=MM_nbGroup.arguments;
+  if (event == "init" && args.length > 2) {
+    if ((img = MM_findObj(args[2])) != null && !img.MM_init) {
+      img.MM_init = true; img.MM_up = args[3]; img.MM_dn = img.src;
+      if ((nbArr = document[grpName]) == null) nbArr = document[grpName] = new Array();
+      nbArr[nbArr.length] = img;
+      for (i=4; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+        if (!img.MM_up) img.MM_up = img.src;
+        img.src = img.MM_dn = args[i+1];
+        nbArr[nbArr.length] = img;
+    } }
+  } else if (event == "over") {
+    document.MM_nbOver = nbArr = new Array();
+    for (i=1; i < args.length-1; i+=3) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = (img.MM_dn && args[i+2]) ? args[i+2] : ((args[i+1])? args[i+1] : img.MM_up);
+      nbArr[nbArr.length] = img;
+    }
+  } else if (event == "out" ) {
+    for (i=0; i < document.MM_nbOver.length; i++) {
+      img = document.MM_nbOver[i]; img.src = (img.MM_dn) ? img.MM_dn : img.MM_up; }
+  } else if (event == "down") {
+    nbArr = document[grpName];
+    if (nbArr)
+      for (i=0; i < nbArr.length; i++) { img=nbArr[i]; img.src = img.MM_up; img.MM_dn = 0; }
+    document[grpName] = nbArr = new Array();
+    for (i=2; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = img.MM_dn = (args[i+1])? args[i+1] : img.MM_up;
+      nbArr[nbArr.length] = img;
+  } }
+}
+
+
+
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+
+
+
+
+
+function openHint(hinturl)
+{
+	var hintWindow = window.open(hinturl, 'Loading', 'height=400,width=400,toolbar=no,resizable=yes,scrollbars=yes');
+    if(hintWindow.opener == null) hintWindow.opener = window;
+	hintWindow.focus();
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+// This object holds question info
+function oAnswer(qnum, anum, text, rflag)
+{
+	this.qnum = qnum;
+	this.anum = anum;
+	this.text = text;
+	this.rflag = rflag;
+}
+
+// Takes an array and returns it in randomized order
+function makeRandom(aOrder)
+{
+	var num = aOrder.length - 1;
+
+	for(var i = num; i >= 0; --i)
+	{
+		if(! aOrder[i].rflag) continue;
+
+		var randNum = Math.round(Math.random() * i);
+
+		if(aOrder[randNum].rflag && (i != randNum))
+		{
+			// move selected item to back of array
+			// these will no longer be selectable
+			var temp = aOrder[i];
+			aOrder[i] = aOrder[randNum];
+			aOrder[randNum] = temp;
+		}
+	}
+	return aOrder;
+}
+	
+// Calls the randomizing function, and returns a string
+// which formats the answers for display.
+// st updated 2/23/02 to letter answers if needed (SAM)
+// also enhanced to provided problem-type specific css class name
+// st updated 5/12/04 to include id and label tags
+
+function showAnswer(aAnswers, numCorrect, spanclass)
+{
+	var string = '';
+	var aRandomized = makeRandom(aAnswers);
+
+	for (i in aRandomized)
+	{
+		if (aRandomized[i].anum != 0)
+		{
+			string += '<tr align="left" valign="top"><td align="left" valign="top"><input type="';
+			if (numCorrect > 1)
+			{
+				string += 'checkbox';
+			} else {
+				string += 'radio';
+			}
+			string += '" name="answer_';
+			string += aRandomized[i].qnum + '"';
+			string += ' id="answer_';
+			string += aRandomized[i].qnum + '_' + i + '"';
+			string += ' value="' + (aRandomized[i].anum - 1) + '">';
+			string += '\n&nbsp;\n';
+			string += '</td>';
+			string += '<td align="left" valign="top">';
+			string += '<label for="answer_' + aRandomized[i].qnum + '_' + i + '">';
+			string += '<span class="' + spanclass + '">';
+		
+		
+		
+		
+		
+			string += aRandomized[i].text + '</span></label></td></tr>';
+		}
+	}
+	return string;
+}
+
+
+
+
+
+
+function openLittleHint(hinturl)
+{
+	var hintWindow = window.open(hinturl, 'Loading', 'height=275,width=250,toolbar=no,resizable=yes,scrollbars=yes,location=no');
+	if(hintWindow.opener == null) hintWindow.opener = window;
+	hintWindow.focus();
+	return false;
+}
+
+
+// -->
+</script>
+
+
+
+
+
+<script language="javascript">
+<!-- 
+
+function updatenav(theurl)
+{
+    // if statement is used to 
+	// be sure the frame exists -st
+
+	
+		
+	
+	if (parent.navbar) {
+		parent.navbar.document.location.href = theurl;
+	}
+	
+	
+	// return true is important here
+	// allows the href to work -st
+return true;
+}
+
+// -->
+</script>
+
+
+	
+
+
+
+
+
+
+<!-- st reusing the js for expanding left nav -->
+<script type="text/javascript" language="Javascript">
+		<!-- Hide script from older browsers
+			
+		var submenus;
+		var myindex;
+        var thisMenu;
+		
+	// st this is how we degrade gracefully for older browsers
+	// also note that the expanded navs will be visible 
+	// in any browsers that dont support scripting at all
+	// as they will never have been made invisible
+	
+	document.write('<style type="text/css">');
+	if (document.getElementById) {	
+	   document.write('.submenu  {display:none}');
+	} else {
+  	   document.write('.submenu  {}');
+	}
+	document.write('</style>');
+	
+		
+		function expandMenu(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this opens the new item
+				// also used to show skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "block";
+					
+			}
+		}
+		
+		function hideSkip(currMenu) {
+	
+			if (document.getElementById) {
+						
+			    // this hides skip nav links
+				thisMenu = document.getElementById(currMenu).style;
+				thisMenu.display = "none";
+					
+			}
+		}
+		
+		
+
+		// End hiding script -->
+	</script>
+	
+	
+
+
+
+
+    
+
+</head>
+
+<body link="#7682CC" alink="#000000" vlink="#000000" onload="document.quizForm.reset();">
+<a name="topofpage" id="topofpage"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></a><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Content Frame" width="1" height="1" hspace="0" vspace="0" border="0"><br>
+
+
+
+
+     
+	    <DIV ID="div_entire_page"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Note for screen reader users: There is text between the form elements on this page. To be sure that you do not miss any text, use item by item navigation methods, rather than tabbing from form element to form element." width="1" height="1" hspace="0" vspace="0" border="0"><br>
+		
+	
+
+
+
+
+        
+
+
+
+
+
+<!-- skip stuff-->
+<a href="#lastcrumb" title="Skip Breadcrumb Navigation"
+		
+		onfocus="expandMenu('breadskip');"
+		onblur="hideSkip('breadskip');"
+		
+		><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" width="1" height="1" alt="Skip Breadcrumb Navigation" border="0" hspace="0" vspace="0"></a><div class="submenu" id="breadskip"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span><noscript>: <a href="#lastcrumb"><span class="breadcrumbs">[Skip Breadcrumb Navigation]</span></a></noscript><br>&nbsp;</div>
+
+<table border="0" cellspacing="2" cellpadding="0">
+	<tr align="left" valign="top">
+
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173749.cw/index.html" target="_top" class="breadcrumbs"  >Home</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173750.cw/index.html" target="_top" class="breadcrumbs"  >Student Resources</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+	
+		
+
+                
+
+                  <!-- crumb name -->
+             
+			<td align="left" valign="top"><a href="/aw_kurose_network_4/63/16303/4173755.cw/content/index.html"  class="breadcrumbs" onclick="updatenav('/aw_kurose_network_4/63/16303/4173750.cw/leftnav/4173755/index.html');" >Self-Assessment Quizzes</a></td>
+                        <!-- crumb divider -->
+			<td align="left" valign="middle">
+<img src="/wps/media/styles/1480/_skins_/D/default_silver/breadcrumb_arrow.gif" alt=" arrow " width="21" height="9" hspace="0" vspace="2" border="0"> </td>
+	
+        
+        
+
+
+        <!-- Last Crumb -->
+		
+                     
+	<td align="left" valign="top"><span class="breadcrumbs"><a name="lastcrumb" id="lastcrumb">Chapter 4 MC</a></span></td>
+
+                        	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+	<br>
+	<h1 id="stylehead"><span class="contentHeader">Chapter 4 MC</span></h1>
+
+
+	<span class="basicContent">
+      
+           
+      
+<br>
+
+<br></span>
+
+
+    
+	
+
+
+
+        <span class="randomAnswers">
+		
+
+     
+
+		This activity contains 12 questions.
+		<p />
+		
+		</span>
+
+
+
+
+      <div class="wps_quiz_hide"> 
+<a name="topofquiz1" id="topofquiz1"> </a>
+<a name="topofquiz2" id="topofquiz2"> </a>
+
+
+<form method="post" action="/wps/grader" name="quizForm">
+<script language="javascript">
+	document.write('<input type="hidden" name="base_url" value="' + location.href + '">');
+</script>
+<input type="hidden" name="url_path" value="/aw_kurose_network_4">
+<input type="hidden" name="id" value="4173822">
+<input type="hidden" name="timer" value="">
+
+<!-- for cls gb -->
+<input type="hidden" name="timer_hour" value="">
+<input type="hidden" name="timer_min" value="">
+<input type="hidden" name="timer_sec" value="">
+<input type="hidden" name="timer_started" value="">
+
+
+
+                
+
+     <input type="hidden" name="is_linking_host" value="false">
+
+
+
+      
+	       
+        <input type="hidden" name="ispreview" value="false">
+
+
+
+
+
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 1." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">The link-state algorithm in Section 4.5 has the following properties:</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_1.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173823, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173823, 1, 'it requires the source node to know the costs between every pair of adjacent nodes in the graph', true);
+	
+		ans[2] = new oAnswer(4173823, 2, 'after the <em>k</em>th iteration, the least-cost paths are known to <em>k</em> nodes', true);
+	
+		ans[3] = new oAnswer(4173823, 3, 'it determines the shortest path from the source node to all other nodes', true);
+	
+		ans[4] = new oAnswer(4173823, 4, 'all of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173823" value="0" id="answer1_0"></td>
+			<td align="left" valign="top"><label for="answer1_0"><span class="multiChoiceAnswer">it requires the source node to know the costs between every pair of adjacent nodes in the graph</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173823" value="1" id="answer1_1"></td>
+			<td align="left" valign="top"><label for="answer1_1"><span class="multiChoiceAnswer">after the <em>k</em>th iteration, the least-cost paths are known to <em>k</em> nodes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173823" value="2" id="answer1_2"></td>
+			<td align="left" valign="top"><label for="answer1_2"><span class="multiChoiceAnswer">it determines the shortest path from the source node to all other nodes</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173823" value="3" id="answer1_3"></td>
+			<td align="left" valign="top"><label for="answer1_3"><span class="multiChoiceAnswer">all of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 1" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 2." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Suppose that c(E,F) = 6 instead of 2 in Figure 4.27. Then the link state algorithm finds the shortest path to F in</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_2.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173824, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173824, 1, 'step 5', true);
+	
+		ans[2] = new oAnswer(4173824, 2, 'step 6', true);
+	
+		ans[3] = new oAnswer(4173824, 3, 'step 3', true);
+	
+		ans[4] = new oAnswer(4173824, 4, 'step 4', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173824" value="0" id="answer2_0"></td>
+			<td align="left" valign="top"><label for="answer2_0"><span class="multiChoiceAnswer">step 5</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173824" value="1" id="answer2_1"></td>
+			<td align="left" valign="top"><label for="answer2_1"><span class="multiChoiceAnswer">step 6</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173824" value="2" id="answer2_2"></td>
+			<td align="left" valign="top"><label for="answer2_2"><span class="multiChoiceAnswer">step 3</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173824" value="3" id="answer2_3"></td>
+			<td align="left" valign="top"><label for="answer2_3"><span class="multiChoiceAnswer">step 4</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 2" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 3." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">In routing among ASs, which of the following issues dominants:</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_3.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173825, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173825, 1, 'current congestion levels in the ASs', true);
+	
+		ans[2] = new oAnswer(4173825, 2, 'policy', true);
+	
+		ans[3] = new oAnswer(4173825, 3, 'number of ASs traversed', true);
+	
+		ans[4] = new oAnswer(4173825, 4, 'geographical distance between ASs', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173825" value="0" id="answer3_0"></td>
+			<td align="left" valign="top"><label for="answer3_0"><span class="multiChoiceAnswer">current congestion levels in the ASs</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173825" value="1" id="answer3_1"></td>
+			<td align="left" valign="top"><label for="answer3_1"><span class="multiChoiceAnswer">policy</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173825" value="2" id="answer3_2"></td>
+			<td align="left" valign="top"><label for="answer3_2"><span class="multiChoiceAnswer">number of ASs traversed</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173825" value="3" id="answer3_3"></td>
+			<td align="left" valign="top"><label for="answer3_3"><span class="multiChoiceAnswer">geographical distance between ASs</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 3" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 4." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Suppose an application generates chunks of 60 bytes of data every second, and each chunk gets encapsulated in a TCP segment and then an IP datagram. What percentage of each datagram will contain application data.</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_4.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173826, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173826, 1, '80%', true);
+	
+		ans[2] = new oAnswer(4173826, 2, '20%', true);
+	
+		ans[3] = new oAnswer(4173826, 3, '40%', true);
+	
+		ans[4] = new oAnswer(4173826, 4, '60%', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173826" value="0" id="answer4_0"></td>
+			<td align="left" valign="top"><label for="answer4_0"><span class="multiChoiceAnswer">80%</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173826" value="1" id="answer4_1"></td>
+			<td align="left" valign="top"><label for="answer4_1"><span class="multiChoiceAnswer">20%</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173826" value="2" id="answer4_2"></td>
+			<td align="left" valign="top"><label for="answer4_2"><span class="multiChoiceAnswer">40%</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173826" value="3" id="answer4_3"></td>
+			<td align="left" valign="top"><label for="answer4_3"><span class="multiChoiceAnswer">60%</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 4" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 5." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Consider sending a 1300 byte datagram into a link that has an MTU of 500 bytes.</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_5.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173827, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173827, 1, 'Three fragments are created with offsets 0, 480 and 960.', true);
+	
+		ans[2] = new oAnswer(4173827, 2, 'Three fragments are created with offsets 0, 500 1000', true);
+	
+		ans[3] = new oAnswer(4173827, 3, 'Three fragments are created, with offsets 0, 460 and 920.', true);
+	
+		ans[4] = new oAnswer(4173827, 4, 'None of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173827" value="0" id="answer5_0"></td>
+			<td align="left" valign="top"><label for="answer5_0"><span class="multiChoiceAnswer">Three fragments are created with offsets 0, 480 and 960.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173827" value="1" id="answer5_1"></td>
+			<td align="left" valign="top"><label for="answer5_1"><span class="multiChoiceAnswer">Three fragments are created with offsets 0, 500 1000</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173827" value="2" id="answer5_2"></td>
+			<td align="left" valign="top"><label for="answer5_2"><span class="multiChoiceAnswer">Three fragments are created, with offsets 0, 460 and 920.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173827" value="3" id="answer5_3"></td>
+			<td align="left" valign="top"><label for="answer5_3"><span class="multiChoiceAnswer">None of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 5" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 6." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">The ICMP protocol</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_6.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173828, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173828, 1, 'runs on top of UDP', true);
+	
+		ans[2] = new oAnswer(4173828, 2, 'runs on top of TCP', true);
+	
+		ans[3] = new oAnswer(4173828, 3, 'runs directly on top of IP', true);
+	
+		ans[4] = new oAnswer(4173828, 4, 'none of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173828" value="0" id="answer6_0"></td>
+			<td align="left" valign="top"><label for="answer6_0"><span class="multiChoiceAnswer">runs on top of UDP</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173828" value="1" id="answer6_1"></td>
+			<td align="left" valign="top"><label for="answer6_1"><span class="multiChoiceAnswer">runs on top of TCP</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173828" value="2" id="answer6_2"></td>
+			<td align="left" valign="top"><label for="answer6_2"><span class="multiChoiceAnswer">runs directly on top of IP</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173828" value="3" id="answer6_3"></td>
+			<td align="left" valign="top"><label for="answer6_3"><span class="multiChoiceAnswer">none of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 6" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 7." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">In a router, queuing can occur</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_7.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173829, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173829, 1, 'in the input ports', true);
+	
+		ans[2] = new oAnswer(4173829, 2, 'in an interconnection network', true);
+	
+		ans[3] = new oAnswer(4173829, 3, 'in the output ports', true);
+	
+		ans[4] = new oAnswer(4173829, 4, 'all of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173829" value="0" id="answer7_0"></td>
+			<td align="left" valign="top"><label for="answer7_0"><span class="multiChoiceAnswer">in the input ports</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173829" value="1" id="answer7_1"></td>
+			<td align="left" valign="top"><label for="answer7_1"><span class="multiChoiceAnswer">in an interconnection network</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173829" value="2" id="answer7_2"></td>
+			<td align="left" valign="top"><label for="answer7_2"><span class="multiChoiceAnswer">in the output ports</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173829" value="3" id="answer7_3"></td>
+			<td align="left" valign="top"><label for="answer7_3"><span class="multiChoiceAnswer">all of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 7" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 8." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">In a high-performance router, shadow copies of the routing table are kept in</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_8.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173830, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173830, 1, 'the switching fabric', true);
+	
+		ans[2] = new oAnswer(4173830, 2, 'the output ports', true);
+	
+		ans[3] = new oAnswer(4173830, 3, 'the input ports', true);
+	
+		ans[4] = new oAnswer(4173830, 4, 'all of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173830" value="0" id="answer8_0"></td>
+			<td align="left" valign="top"><label for="answer8_0"><span class="multiChoiceAnswer">the switching fabric</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173830" value="1" id="answer8_1"></td>
+			<td align="left" valign="top"><label for="answer8_1"><span class="multiChoiceAnswer">the output ports</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173830" value="2" id="answer8_2"></td>
+			<td align="left" valign="top"><label for="answer8_2"><span class="multiChoiceAnswer">the input ports</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173830" value="3" id="answer8_3"></td>
+			<td align="left" valign="top"><label for="answer8_3"><span class="multiChoiceAnswer">all of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 8" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 9." width="1" height="5" hspace="0" vspace="0" border="0"><br></h2><span class="multiChoiceQuestion">Suppose a router has n input ports each with identical line speeds, n output ports each with identical line speeds, and the line speed of an output port is at least n times as that of an input port. Further suppose that the switching fabric speed is at least n times as fast as an input line speed. Then</span></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_9.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173831, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173831, 1, 'queuing can occur in an input port', true);
+	
+		ans[2] = new oAnswer(4173831, 2, 'queuing can occur in an output port', true);
+	
+		ans[3] = new oAnswer(4173831, 3, 'queuing can occur in the switching fabric', true);
+	
+		ans[4] = new oAnswer(4173831, 4, 'there is no queuing delay in the router', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173831" value="0" id="answer9_0"></td>
+			<td align="left" valign="top"><label for="answer9_0"><span class="multiChoiceAnswer">queuing can occur in an input port</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173831" value="1" id="answer9_1"></td>
+			<td align="left" valign="top"><label for="answer9_1"><span class="multiChoiceAnswer">queuing can occur in an output port</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173831" value="2" id="answer9_2"></td>
+			<td align="left" valign="top"><label for="answer9_2"><span class="multiChoiceAnswer">queuing can occur in the switching fabric</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173831" value="3" id="answer9_3"></td>
+			<td align="left" valign="top"><label for="answer9_3"><span class="multiChoiceAnswer">there is no queuing delay in the router</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 9" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 10." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">Suppose one IPv6 router wants to send a datagram to another IPv6 router, but are connected together by intervening IPv4 routers. If the two routers use tunneling, then</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_10.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4173832, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4173832, 1, 'The sending IPv6 router creates an IPv6 datagram and puts it in the data filed of an IPv4 datagram.', true);
+	
+		ans[2] = new oAnswer(4173832, 2, 'The sending IPv6 router creates an IPv4 datagram and puts it in the data field of an Ipv6 datagram.', true);
+	
+		ans[3] = new oAnswer(4173832, 3, 'The sending IPv6 router one or more IPv6 fragments, none of which is larger than the maximum size of an IPv4 datagram.', true);
+	
+		ans[4] = new oAnswer(4173832, 4, 'None of the above', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173832" value="0" id="answer10_0"></td>
+			<td align="left" valign="top"><label for="answer10_0"><span class="multiChoiceAnswer">The sending IPv6 router creates an IPv6 datagram and puts it in the data filed of an IPv4 datagram.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173832" value="1" id="answer10_1"></td>
+			<td align="left" valign="top"><label for="answer10_1"><span class="multiChoiceAnswer">The sending IPv6 router creates an IPv4 datagram and puts it in the data field of an Ipv6 datagram.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173832" value="2" id="answer10_2"></td>
+			<td align="left" valign="top"><label for="answer10_2"><span class="multiChoiceAnswer">The sending IPv6 router one or more IPv6 fragments, none of which is larger than the maximum size of an IPv4 datagram.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4173832" value="3" id="answer10_3"></td>
+			<td align="left" valign="top"><label for="answer10_3"><span class="multiChoiceAnswer">None of the above</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 10" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 11." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">IPsec can provide:</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_11.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4599424, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4599424, 1, 'Origin authentication', true);
+	
+		ans[2] = new oAnswer(4599424, 2, 'Data integrity.', true);
+	
+		ans[3] = new oAnswer(4599424, 3, 'Encryption of IP datagram payloads.', true);
+	
+		ans[4] = new oAnswer(4599424, 4, 'All of the above.', false);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599424" value="0" id="answer11_0"></td>
+			<td align="left" valign="top"><label for="answer11_0"><span class="multiChoiceAnswer">Origin authentication</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599424" value="1" id="answer11_1"></td>
+			<td align="left" valign="top"><label for="answer11_1"><span class="multiChoiceAnswer">Data integrity.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599424" value="2" id="answer11_2"></td>
+			<td align="left" valign="top"><label for="answer11_2"><span class="multiChoiceAnswer">Encryption of IP datagram payloads.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599424" value="3" id="answer11_3"></td>
+			<td align="left" valign="top"><label for="answer11_3"><span class="multiChoiceAnswer">All of the above.</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 11" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+	
+	
+
+
+<!-- style: cw_2005 default -->
+<!-- template: multiplechoice -->
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="problemTypeBkgd">
+	<tr align="center" valign="middle">
+		<td align="left" valign="top" height="9" width="10"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="9" hspace="0" vspace="0" border="0"></td>
+						<td align="right" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_upper_right.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+	<td align="center" valign="top" height="8"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+		<td align="center" valign="top">
+		
+
+
+
+<table border="0" width="100%" cellspacing="3" cellpadding="0" class="problemTypeBkgd" >
+
+	<tr align="left" valign="top">
+	    <td height="1"></td>
+		<td align="left" valign="top" rowspan="2"><h2 class="nostyle_inline"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="Question 12." width="1" height="5" hspace="0" vspace="0" border="0"><br><span class="multiChoiceQuestion">As part of hierarchical routing, hot-potato routing does the following:</span></h2></td>
+	</tr>
+	
+		<tr align="left" valign="top">
+		<td align="left" valign="top" width="60"><img src="/wps/media/styles/1480/_skins_/D/default_silver/problem_type_12.gif" alt="" width="37" height="26" hspace="0" vspace="0" border="0"></td></tr>
+	
+	<tr align="left" valign="top">
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		
+		<table border="0" cellspacing="5" cellpadding="0">
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	
+	<!--
+		var ans = new Array();
+		// the 0th element is just a placeholder
+		
+		ans[0] = new oAnswer(4599425, 0, '', false);
+	
+	
+		ans[1] = new oAnswer(4599425, 1, 'Chooses the gateway that has the smallest cost.', true);
+	
+		ans[2] = new oAnswer(4599425, 2, 'Provides information to a router about the existence of external networks.', true);
+	
+		ans[3] = new oAnswer(4599425, 3, 'Labels suspicious packets as &#8220;hot&#8221;.', true);
+	
+		ans[4] = new oAnswer(4599425, 4, 'Determines the number of ASes in the shortest AS path from router to destination.', true);
+	
+	
+		document.write(showAnswer(ans, 1, 'multiChoiceAnswer'));
+		
+	// -->
+	</SCRIPT>
+	
+    <noscript>
+	
+	
+	
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599425" value="0" id="answer12_0"></td>
+			<td align="left" valign="top"><label for="answer12_0"><span class="multiChoiceAnswer">Chooses the gateway that has the smallest cost.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599425" value="1" id="answer12_1"></td>
+			<td align="left" valign="top"><label for="answer12_1"><span class="multiChoiceAnswer">Provides information to a router about the existence of external networks.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599425" value="2" id="answer12_2"></td>
+			<td align="left" valign="top"><label for="answer12_2"><span class="multiChoiceAnswer">Labels suspicious packets as &#8220;hot&#8221;.</span></label></td>
+		</tr>
+	
+		
+
+                 
+		<tr align="left" valign="top">
+			<td align="left" valign="top"><input type="radio" name="answer_4599425" value="3" id="answer12_3"></td>
+			<td align="left" valign="top"><label for="answer12_3"><span class="multiChoiceAnswer">Determines the number of ASes in the shortest AS path from router to destination.</span></label></td>
+		</tr>
+	
+	
+	</noscript>
+
+
+</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+		</td>
+		<td align="center" valign="top" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" alt="" width="1" height="1" hspace="0" vspace="0" border="0"></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="left" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_left.gif" alt="" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+				<td align="center" valign="top" height="9"></td>
+						<td align="right" valign="bottom" height="9"><img src="/wps/media/styles/1480/_skins_/D/default_silver/ps_bkgd_lower_right.gif" alt="End of Question 12" width="9" height="9" hspace="0" vspace="0" border="0"></td>
+	</tr>
+</table>
+
+	
+		
+
+
+		<br><br>
+	
+	
+	
+
+
+
+
+		  <!-- non-js submit & clear answers buttons -->
+		  <noscript>
+			   <br clear="all">
+			      <span class="basicContent">
+				  
+The Submit Answers for Grading feature requires scripting to function. Your browser either does not support scripting or you have turned scripting off.<p />So, the Submit Answers for Grading button below will not work.<p />The following Submit Answers for Grading button is provided in its place and will clear your answers: <input type="submit" value="Submit Answers for Grading">
+			      </span>
+				  			   
+			   <br clear="all">
+			      <span class="basicContent">
+				  
+The Clear Answers and Start Over feature requires scripting to function. Your browser either does not support scripting or you have turned scripting off.<p />
+				       So, the Clear Answers and Start Over button below will not work.<p />
+				       The following Clear Answers button is provided in its place and will clear your answers: <input type="reset" value="Clear Answers">
+			      </span>
+		</noscript>
+
+
+<div style="text-align:right;width:100%;">		
+	
+		
+
+
+
+	  
+		<input type="image" src="/wps/media/styles/1480/_skins_/D/default_silver/button_submit_off.gif" alt="Submit Answers for Grading" title="Submit Answers for Grading" hspace="20" vspace="0" border="0" style="float:right;" name="submitAnswer" 
+		
+		  
+		     onmouseover="MM_nbGroup('over','submitAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_submit_on.gif','',0);" 
+		     onfocus="MM_nbGroup('over','submitAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_submit_on.gif','',0);" 
+		     onmouseout="MM_nbGroup('out');" 
+		     onblur="MM_nbGroup('out');"
+		  
+		>
+		
+       
+	
+<!-- must close the quiz form -->
+    </form>
+
+<!-- js clear answers button -->
+		<form name="clear" 
+			  action="javascript:ST_reset('Are you sure you want to clear all of your answers?');"
+		>
+		
+		
+		
+		
+		
+		  
+				<input type="image" 
+						src="/wps/media/styles/1480/_skins_/D/default_silver/button_clear_off.gif" 
+		                hspace="20" vspace="0" border="0" style="float:right;"
+						title="Clear Answers and Start Over" 
+						alt="Clear Answers and Start Over"  hspace="0" vspace="0" border="0" 
+						name="clearAnswer"
+						
+		                
+					        onmouseover="MM_nbGroup('over','clearAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_clear_on.gif','',0);" 
+						    onfocus="MM_nbGroup('over','clearAnswer','/wps/media/styles/1480/_skins_/D/default_silver/button_clear_on.gif','',0);" 
+						    onmouseout="MM_nbGroup('out');" 
+						    onblur="MM_nbGroup('out');"
+		                
+					
+				>
+         
+</form>
+		
+	
+</div>
+
+<br><br>
+
+
+
+<noscript>
+   <br>
+      <span class="randomAnswers">Your browser either does not support scripting or you have turned scripting off. Because of this, the answer choices will NOT appear in a different order each time the page is loaded, though that is mentioned below. Note that you do not need this feature to use this site.</span>
+	  <br>
+	  
+</noscript>
+
+
+
+
+	<br><span class="randomAnswers">Answer choices in this exercise appear in a different order each time the page <nobr>is loaded.</nobr><br><br></span>
+ 
+
+ 
+
+ 
+
+
+
+</div> 
+
+
+
+<br><br><br>
+
+    
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tr align="left" valign="top">
+
+<td align="right" valign="top" width="50%">
+
+	<a href="http://www.pearson.com" target="new">
+		<img src="/wps/media/styles/1480/_style_/pearson_unframed_logo.gif" 
+		     title="Open Pearson site in a new window." 
+             alt="Pearson" 
+			 hspace="10" 
+			 vspace="0" 
+			 border="0">
+	</a>
+
+</td>
+
+
+
+<td align="left" valign="top" nowrap width="50%"><span class="footer copyright">
+   
+		
+
+
+
+
+Copyright &copy; 1995 - 2010 
+
+<a href="http://www.pearsoned.com" 
+   target="new" 
+   title="Open Pearson Education Web site in a new window"
+   class="legalNote">
+	   Pearson Education
+</a>.
+All rights reserved.
+
+
+	Pearson Addison Wesley is an imprint of 
+	<a href="http://www.pearson.com" 
+	   target="new" 
+	   title="Open Pearson Web site in a new window"
+	   class="legalNote">
+		   Pearson
+	</a>.
+
+<br>
+		
+		<a class="legalNote" 
+		   href="http://www.pearsoned.com/legal/" 
+		   target="new" 
+		   title="Open Legal Notice in a new window">Legal Notice</a> 
+		   
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+		      href="http://www.pearsoned.com/legal/privacy.htm" 
+			  target="new" 
+			  title="Open Privacy Policy in a new window">Privacy Policy</a> 
+			  
+		   <span class="legalNote">|</span> 
+		   
+		   <a class="legalNote" 
+		      href="http://www.pearsoned.com/legal/permissions.htm" 
+			  target="new" 
+			  title="Open Permissions Policy in a new window">Permissions</a> 
+		   
+		
+		
+
+	
+
+</span></td>
+
+
+</tr></table>
+
+
+		
+
+</DIV>
+
+<p>		
+
+<div align="right" class="submenu" id="toppage"><span class="breadcrumbs">[Return to the Top of this Page]<noscript><a href="#topofpage" title="[Return to the Top of this Page]">: [Return to the Top of this Page]</a></noscript></span></div>
+
+<a href="#topofpage" title="[Return to the Top of this Page]"
+		
+		onfocus="expandMenu('toppage');"
+		onblur="hideSkip('toppage');"
+      
+		
+		
+		><img src="/wps/media/styles/1480/_skins_/D/default_silver/pixel.gif" width="1" height="1" alt="Return to the Top of this Page" border="0" hspace="0" vspace="0"></a>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+Material from Previous Editions
+
+To keep the textbook up-to-date and a manageable size, the authors have removed, or significantly abbreviated, 
+some of the sections in earlier editions. 
+You can access much of this earlier material by visiting the links below.
+
+Chapter 2:
+- Building a Simple Web Server
+Chapter 3:
+- HTTP Delay Modeling
+Chapter 4:
+- Multicast Routing
+Chapter 5:
+- Frame Relay
+- PPP
+Chapter 7:
+- H.323
+- RSVP
+Chapter 8:
+- The Key Distribution Center and Kerberos
+- Internet Commerce Using SET

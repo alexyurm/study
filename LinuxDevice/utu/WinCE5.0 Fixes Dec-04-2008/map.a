@@ -1,0 +1,72 @@
+;      TITLE("P2 Firmware Initialization")
+;++
+;
+; Copyright (c) 2001. Samsung Electronics, co. ltd  All rights reserved.
+;
+; Module Name:
+;
+;    map920.h
+;
+; Abstract:
+;
+;   This module contains the OEM memory map for the S3c2440
+;
+;--
+
+
+;
+; OEMAddressTable defines the mapping from the 4GB physical address space
+; to the kernel's 512MB "un-mapped" spaces.  The kernel will create two ranges
+; of virtual addresses from this table. One from 0x80000000 to 0x9FFFFFFF which
+; has caching & buffering enabled and one from 0xA0000000 to 0xBFFFFFFF which
+; has the cache & buffering disabled.
+;
+; Each entry in the table consists of the Virtual Base Address to map to,
+; the Physical Base Address to map from, and the number of megabytes to map.
+;
+; The order of the entries is arbitrary, but DRAM should be placed first for
+; optimal performance. The table is zero-terminated, so the last entry MUST
+; be all zeroes.
+;
+	
+; Mapped for S3C2400X01
+
+    EXPORT      OEMAddressTable[DATA]
+
+OEMAddressTable
+    ;;;-------------------------------------------------------------
+    ;;; Virt Addr   Phys Addr   MB
+    ;;;-------------------------------------------------------------
+    DCD 0x80000000, 0x02000000, 30  ; 30 MB SRAM(SRAM/ROM) BANK 0
+    DCD 0x82000000, 0x08000000, 32  ; 32 MB SROM(SRAM/ROM) BANK 1
+    DCD 0x84000000, 0x10000000, 32  ; 32 MB SROM(SRAM/ROM) BANK 2
+    DCD 0x86000000, 0x18000000, 32  ; 32 MB SROM(SRAM/ROM) BANK 3
+    DCD 0x88000000, 0x20000000, 32  ; 32 MB SROM(SRAM/ROM) BANK 4
+    DCD 0x8A000000, 0x28000000, 32  ; 32 MB SROM(SRAM/ROM) BANK 5
+    DCD 0x8C000000, 0x30000000, 64  ; Hanson change:64 MB DRAM BANK 0, 1
+    DCD 0x90800000, 0x48000000,  1  ; Memory control register
+    DCD 0x90900000, 0x49000000,  1  ; USB Host register
+    DCD 0x90A00000, 0x4A000000,  1  ; Interrupt Control register
+    DCD 0x90B00000, 0x4B000000,  1  ; DMA control register
+    DCD 0x90C00000, 0x4C000000,  1  ; Clock & Power register
+    DCD 0x90D00000, 0x4D000000,  1  ; LCD control register
+    DCD 0x90E00000, 0x4E000000,  1  ; NAND flash control register
+    DCD 0x90F00000, 0x4F000000,  1  ; Camera control register 
+    DCD 0x91000000, 0x50000000,  1  ; UART control register
+    DCD 0x91100000, 0x51000000,  1  ; PWM timer register
+    DCD 0x91200000, 0x52000000,  1  ; USB device register
+    DCD 0x91300000, 0x53000000,  1  ; Watchdog Timer register
+    DCD 0x91400000, 0x54000000,  1  ; IIC control register
+    DCD 0x91500000, 0x55000000,  1  ; IIS control register
+    DCD 0x91600000, 0x56000000,  1  ; I/O Port register
+    DCD 0x91700000, 0x57000000,  1  ; RTC control register
+    DCD 0x91800000, 0x58000000,  1  ; A/D convert register
+    DCD 0x91900000, 0x59000000,  1  ; SPI register
+    DCD 0x91A00000, 0x5A000000,  1  ; SD Interface register
+    DCD 0x91B00000, 0x5B000000,  1  ; AC97 Interface register
+    DCD 0x91C00000, 0x5C000000,	 1  ; ATAPI register cs0 add by fly 
+    DCD 0x91D00000, 0x5D000000,	 1  ; ATAPI register cs1 add by fly 
+    DCD 0x00000000, 0x00000000,  0  ; End of Table (MB MUST BE ZERO!)
+
+    END
+

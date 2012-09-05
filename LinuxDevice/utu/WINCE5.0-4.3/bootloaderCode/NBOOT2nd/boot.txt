@@ -1,0 +1,56 @@
+/*=====================================================================
+
+    Memory layout on NAND flash:
+    
+    Block 0 has the NAND boot loader (NBOOT.BIN)
+    Block 1 is the TOC block which specifies the layout on the NAND
+    Block 2 is the start block for secondary bootloader
+    Block n is the start of image. n is defined in the block 1 structure
+    
+    
+    structures:
+    
+    #define MAX_SG_SECTORS      10
+    
+    IMAGE_DESCRIPTOR: (116 bytes)
+    
+    typedef struct _IMAGE_DESCRIPTOR {
+        DWORD       dwVersion;
+        DWORD       dwSignature;
+        UCHAR       ucString[IMAGE_STRING_LEN];
+        DWORD       dwFileType;
+        DWORD       dwLoadAddress;
+        DWORD       dwJumpAddress;
+        DWORD       dwTtlSectors;
+        SG_SECTOR   sgList[MAX_SG_SECTORS];
+    } IMAGE_DESCRIPTOR, *PIMAGE_DESCRIPTOR;
+    
+    where SG_SECTOR is defined as:
+    
+    SG_SECTOR: (8 bytes)
+    
+    typedef struct _SG_SECTOR {
+        DWORD       dwSector;
+        DWORD       dwLength;
+    } SG_SECTOR, *PSG_SECTOR;
+    
+    The layout on the first sector of TOC block is:
+    
+    typedef struct _TOC_SECTOR {
+        DWORD               dwSignature;        //  4 bytes
+        IMAGE_DESCRIPTOR    id[4];              //  480 bytes
+        UCHAR               Pad[32];            //  32 bytes
+    } TOC_SECTOR, *PTOC_SECTOR;
+
+    Here is what we are doing in the first stage bootloader:
+    
+    1.  Do the usual things to initialize the hardware
+    2.  By default, it will always boot the id[0], unless App4 button is pressed
+        and at the same time another app button is pressed. NBOOT will boot from 
+        id[num] where num is the app button that is pressed.
+    
+        For development, we can write our own TOC sector so that id[0] points to 
+        Block2 which is the start block for secondary bootloader, more than likely
+        Eboot. 
+        
+*/ 
