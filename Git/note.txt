@@ -110,4 +110,22 @@ Chapter 3: Getting started
    
     $git clone http://github.com/alexyuisme/study.git
 
+8. Configuring an Alias
+
+   $git config --global alias.show-graph \
+   'log --graph -- abbrev-commit --pretty=oneline'
+
+
+Chapter 4 basic Git Concepts
+
+1. Repositories
+
+   -  A git repository is simply a database containing all the information needed to retain and manage the revisions and history of a project.
+   -  Git repositories not only contain a complete working copy of all the files in repository but also a copy of the repository itself with which to work.
+   -  Git manages and inspects configuration and setup information on a per-site, per-user, and per-repository basis.
+   -  Two main data structures are maintined within a repository: 1) the object store; 2) the index.
+
+2. Git Object Types
+
    
+
