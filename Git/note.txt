@@ -108,8 +108,6 @@ Chapter 3: Getting started
 
    This is how people around the world use Git to pursue pet projects on the same files and keep in sync with other repositories.
    
+    $git clone http://github.com/alexyuisme/study.git
+
    
-   
-
-
-
