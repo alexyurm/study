@@ -139,9 +139,47 @@ Chapter 4 basic Git Concepts
 
    -  Tags: a tag object assigns an arbitrary yet presumably human-readable name to a specific object, usually a commit. Although 9da581d910c9c4ac93557ca4859e767f5caf5169 refers to an exact and well-defined commit, a more familiar tag name like Ver-1.0-Alpha might make more sense!
 
-   Save more space, Git compresses and stores the objects in pact files, which are also placed in the object store. 
+   To save more space, Git compresses and stores the objects in pact files, which are also placed in the object store. 
 
  3.Index
 
    The index is a temporary and dynamic binary file that describes the directory structure of the entire repository. More specifically, the index captures a version of the project's overall structure at some moments in time. The project's state could be represented by a commit and a tree from any point in the project's history, or it could be a future state toward which you are actively developing.  
+
+4. Content-Addressable names
+
+  The Git object store is organized and implemented as a content-addressable storage system. Specifically, each object in the object store has a unique name produced by applying SHA1 to the contents of the object, yielding an unique SHA1 hash value. Any tiny changes to a file causes the SHA hash to change, causing the new version of the file to be indexed seperately.
+
+5. Git Track Content
+
+   - First, Git's objects store is based on the hashed computation of the contents of its objects, not on the file or directory names from the user's original file layout. Again, Git tracks content instead of file.
+
+   - If one files is changed, Git computes a new SHA1 for it(How?). Determines that it is now a different blob object, and adds the new blob to the object store. The original blob remains in the object store for the unchanged file to use.
+
+   - Git computes the history of changes on a file as a set of changes between different blobs with varying hashes, rather than storing a filename and a set of differences directly(?It seems quite odd for me. How can the difference be restored if only hashes are saved). 
+
+6. Object Store Pictures
+
+   The following shows how Git's objects fit and work together to form the complete system.
+
+  (V1.0)                      (branch name)
+   tag  ------>"Commit" <--------master
+                  |
+                  |
+                  |
+                  v
+                 tree
+                  |
+                  |
+            |------------|
+            |            |  
+            |            |
+            v            v
+           blob         blob
+          (dead23)    (feeble)
+
+   -  blob is the bottom of the data structure;
+   -  tree points to blobs or other tree object as well;
+   -  a commit points to one particular tree that is introduced into the repository by the commit.
+   -  each tag is represented by a parallelogram. It can only points to at most one commit.
+   -  branch is not a Git object but still plays a crucial role in naming commits.
 
