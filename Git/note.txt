@@ -123,9 +123,25 @@ Chapter 4 basic Git Concepts
    -  A git repository is simply a database containing all the information needed to retain and manage the revisions and history of a project.
    -  Git repositories not only contain a complete working copy of all the files in repository but also a copy of the repository itself with which to work.
    -  Git manages and inspects configuration and setup information on a per-site, per-user, and per-repository basis.
-   -  Two main data structures are maintined within a repository: 1) the object store; 2) the index.
+   -  Two main data structures are maintined within a repository: 1) the object store; 2) the index. Those two data structures are described below:
 
 2. Git Object Types
 
-   
+   This data structure is designed to be efficiently copied during a clone operation as part of the mechanism that supports a fully distributed CVS. It contains your original data files and all the log messages, author information, dates, and other information required to rebuild any version or branch of the project.
+
+   Git places only four types of objects in the object store: 1) blobs; 2) trees; 3) commits; 4) tags.
+
+   -  Blobs: stands for "binary large objects". It holds a file's data but does not contain any metadata about the file or even its name.
+
+   -  trees: A tree object represents one level of directory information. It records blob identifiers, pathnames, , and a bit of metadata. Also, it can recurively reference other (sub)tree objects. 
+
+   -  Commits: A commit object holds metadata for each change introduced into repository, including the author, commiter, commit date, and log message.
+
+   -  Tags: a tag object assigns an arbitrary yet presumably human-readable name to a specific object, usually a commit. Although 9da581d910c9c4ac93557ca4859e767f5caf5169 refers to an exact and well-defined commit, a more familiar tag name like Ver-1.0-Alpha might make more sense!
+
+   Save more space, Git compresses and stores the objects in pact files, which are also placed in the object store. 
+
+ 3.Index
+
+   The index is a temporary and dynamic binary file that describes the directory structure of the entire repository. More specifically, the index captures a version of the project's overall structure at some moments in time. The project's state could be represented by a commit and a tree from any point in the project's history, or it could be a future state toward which you are actively developing.  
 
