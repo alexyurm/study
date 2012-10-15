@@ -32,4 +32,19 @@ Usage
 
    :TlistToggle
 
-  
+Trick2: config the vim editor:
+
+To configure vim, edit the file /etc/vim/vimrc by adding the following lines (just as an example) to the bottom of the file:
+
+set nobackup
+set nowritebackup
+set noswapfile
+set tabstop=3
+set shiftwidth=3
+set expandtab
+set nu
+set ignorecase
+set tags=tags;
+color torte
+set guifont=monospace
+
