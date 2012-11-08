@@ -97,37 +97,14 @@ Status Pop(SqStack *stack_p, ElemType *elem_p )
    }
 }
 
-int main()
+Status StackEmpty(SqStack stack)
 {
-   Status st;
-   SqStack sq;
-   int i;
-   
-   ElemType e1 = 1;
-   ElemType e2 = 100;
-   ElemType e3 = -200;
-   ElemType e4 = 34;
-
-   /* Initizlize a stack */
-   st = InitStack(&sq);
-
-   printf("InitStack's status = %d\n", st);
- 
-   for (i = 0; i < 100; i++)
+   if (stack.top_p == stack.base_p)
    {
-      Push(&sq, e1);
-      Push(&sq, e2);
-      Push(&sq, e3);
-      Push(&sq, e4);
+      return TRUE;
    }
-
-   printf("The size of the stack is %d\n", sq.stacksize);
-
-   /* Destroy a stack */
-   st = DestroyStack(&sq);
-   printf("DestroyStack's status = %d\n", st);
-
-   return 0;
+   else
+   {
+      return FALSE;
+   }
 }
-
-

@@ -20,31 +20,32 @@ Usage
 -  Ctrl-t to return after a tag jump;
 -  g-] to get a list of matching tags if there are multiple matching tags.
 
-Trick 2: TlistToggle
+-  TlistToggle
 
-Installation:
+   Installation:
 
--  Step 1: Copy the download file to /plugin. E.g.
+   -  Step 1: Copy the download file to /plugin. E.g.
 
-   sudo cp taglist.vim /usr/share/vim/vim73/plugin/
+      sudo cp taglist.vim /usr/share/vim/vim73/plugin/
 
-Usage
+   Usage
 
-   :TlistToggle
+      :TlistToggle
 
-Trick2: config the vim editor:
+-  config the vim editor:
 
-To configure vim, edit the file /etc/vim/vimrc by adding the following lines (just as an example) to the bottom of the file:
+   To configure vim, edit the file /etc/vim/vimrc by adding the following lines (just as an example) to the bottom of the file:
 
-set nobackup
-set nowritebackup
-set noswapfile
-set tabstop=3
-set shiftwidth=3
-set expandtab
-set nu
-set ignorecase
-set tags=tags;
-color torte
-set guifont=monospace
+   set nobackup
+   set nowritebackup
+   set noswapfile
+   set tabstop=3
+   set shiftwidth=3
+   set expandtab
+   set nu
+   set ignorecase
+   set tags=tags;
+   color torte
+   set guifont=monospace
 
+   
