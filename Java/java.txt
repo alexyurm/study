@@ -1,0 +1,9 @@
+Chapter 1 
+
+-  In Java, everything goes in class. You'll type your source code file (with java extension), then compile it into a new class file (with a .class extension). When you run your program, you're really running a class.
+
+-  Running a program means telling the Java Virtual Machine to "Load the Hello class then start executing its main()".
+
+Chapter 2 Objects and Classes
+
+
