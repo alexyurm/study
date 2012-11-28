@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "queue.h"
 
 Status InitQueue(LinkQueue *queue_p)
 {
@@ -19,7 +19,7 @@ Status DestroyQueue(LinkQueue *queue_p)
 {
    while(queue_p->front)
    {
-      queue_p->rear = queue_p->front->next;
+      queue_p->rear = (QueuePtr)(queue_p->front->next);
       free(queue_p->front);
       queue_p->front = queue_p->rear;
    }
@@ -29,7 +29,7 @@ Status DestroyQueue(LinkQueue *queue_p)
 
 Status EnQueue(LinkQueue *queue_p, ElemType elem)
 {
-   QNode *node_p = (QNode)malloc(sizeof(QNode));
+   QNode *node_p = (QNode *)malloc(sizeof(QNode));
    if (node_p == NULL)
    {
       printf("Failed to create a new node!\n");
@@ -37,7 +37,7 @@ Status EnQueue(LinkQueue *queue_p, ElemType elem)
    }
    else
    {
-      queue_p->rear->next = node_p;
+      (queue_p->rear->next) = node_p;
       node_p->data = elem;
       node_p->next = NULL;
       queue_p->rear = node_p;
@@ -80,7 +80,12 @@ Status QueueEmpty(LinkQueue queue)
 Status QueueLength(LinkQueue queue)
 {
    int num = 0;
-   QNode *node_p;
-   while()
-   
+   QNode *node_p = queue.front;
+   while(node_p != queue.rear)
+   {
+      num++;
+      node_p = (node_p->next);  
+   }
+
+   return OK;
 }

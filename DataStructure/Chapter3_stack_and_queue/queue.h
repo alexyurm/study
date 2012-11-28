@@ -34,7 +34,7 @@ Status GetHead(LinkQueue queue, ElemType *elem_p);
 Status EnQueue(LinkQueue *quque_p, ElemType elem);
 
 /* Dequeue the an element from a queue */
-Status EnQueue(LinkQueue *queue_p, ElemType *elem_p);
+Status DeQueue(LinkQueue *queue_p, ElemType *elem_p);
 
 /* From the front to the rear, every element is called by visit(). If visit() returns error */
 /* this function returns error */
