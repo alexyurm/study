@@ -190,11 +190,11 @@ Chapter 2: Memory addressing
 
    The Memory Management Unix(MMU):
 
-   Logical Address ---->  Segmentation Unit ----> Linear Address ----> Paging Unit ----> Physical address
+   Logical Address ---->  Segmentation Unit ----> Virtual Address ----> Paging Unit ----> Physical address
 
    2.2   Segmentation in Hardware
 
-   2.2.1 A logical Selectors and Segmentation Registers
+   2.2.1 Logical address and Segmentation Registers
 
    A logical address consists of two parts: 
 
@@ -203,6 +203,14 @@ Chapter 2: Memory addressing
 
    To make it easy to retrieve segment selectors quickly, the processor provides segmentation registers whose purpose
    is to hold Segment Selectors. These registers are:
+
+   Segment Selector: 
+
+        Index	TI   RPL
+   bit: 15-3	2    1-0
+
+   Note: TI:  Table Indicator
+         RPL: Requestor Privilege Level
 
    CS:
 
@@ -215,3 +223,12 @@ Chapter 2: Memory addressing
    ds:
 
    The data segment register, which points to a segment containing global and static data.
+
+   Note: the remaining registers are for generic usage.
+
+   2.2.2 Segment Descriptors
+
+   Each segment is represented by an 8-byte Segment Descriptor that describes the segment characteristics. Segment Descriptors are stored either in the Global Descriptor Table (GDT) or in the Local Descriptor Table (LDT).
+
+   Usually only one GDT is defined while each process is permitted to have its own LDT if it needs to create additional segments besides those stored in the GDT. The address and size of the GDT in main memory are contained
+   in the gdtr control register while the address and size of the currently used LDT are contained in the ldtr control register.
