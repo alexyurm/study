@@ -46,4 +46,4 @@ Usage
    set ignorecase
    set tags=tags;
    color torte
-   set guifont=monospace
+   set guifont=monospace\ 12
