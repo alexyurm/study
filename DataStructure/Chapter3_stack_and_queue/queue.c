@@ -2,26 +2,26 @@
 
 Status InitQueue(LinkQueue *queue_p)
 {
-   queue_p->front = queue_p->rear = (QueuePtr)malloc(sizeof(QNode));
-   if (queue_p->front == NULL)
+   queue_p->front_p = queue_p->rear_p = (QNode *)malloc(sizeof(QNode));
+   if (queue_p->front_p == NULL)
    {
       printf("Failed to initialize a queue!\n");
       return OVERFLOW;
    }
    else
    {
-      queue_p->front->next = NULL;   
+      queue_p->front_p->next_p = NULL;   
       return OK;
    }
 }
 
 Status DestroyQueue(LinkQueue *queue_p)
 {
-   while(queue_p->front)
+   while(queue_p->front_p)
    {
-      queue_p->rear = (QueuePtr)(queue_p->front->next);
-      free(queue_p->front);
-      queue_p->front = queue_p->rear;
+      queue_p->rear_p = queue_p->front_p->next_p;
+      free(queue_p->front_p);
+      queue_p->front_p = queue_p->rear_p;
    }
 
    return OK;
@@ -37,22 +37,22 @@ Status EnQueue(LinkQueue *queue_p, ElemType elem)
    }
    else
    {
-      (queue_p->rear->next) = node_p;
+      (queue_p->rear_p->next_p) = node_p;
       node_p->data = elem;
-      node_p->next = NULL;
-      queue_p->rear = node_p;
+      node_p->next_p = NULL;
+      queue_p->rear_p = node_p;
       
       return OK;
    }
 }
 
-Status DeQueue(LinkQueue *queue_p, ElemType, *elem_p)
+Status DeQueue(LinkQueue *queue_p, ElemType *elem_p)
 {
    /* If the queue is not empty */
-   if (queue_p->front != queue_p->rear)
+   if (queue_p->front_p != queue_p->rear_p)
    {
-      QNode *node_p = queue_p->front;
-      queue_p->front = node_p->next;
+      QNode *node_p = queue_p->front_p;
+      queue_p->front_p = node_p->next_p;
       *(elem_p) = node_p->data;
       free(node_p);
 
@@ -67,7 +67,7 @@ Status DeQueue(LinkQueue *queue_p, ElemType, *elem_p)
 
 Status QueueEmpty(LinkQueue queue)
 {
-   if(queue.front == NULL)
+   if(queue.front_p == NULL)
    {
       return TRUE;
    }
@@ -80,11 +80,11 @@ Status QueueEmpty(LinkQueue queue)
 Status QueueLength(LinkQueue queue)
 {
    int num = 0;
-   QNode *node_p = queue.front;
-   while(node_p != queue.rear)
+   QNode *node_p = queue.front_p;
+   while(node_p != queue.rear_p)
    {
       num++;
-      node_p = (node_p->next);  
+      node_p = (node_p->next_p);  
    }
 
    return OK;

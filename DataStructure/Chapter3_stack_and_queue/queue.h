@@ -1,15 +1,15 @@
 #include "header.h"
 
-typedef struct
+typedef struct QNode
 {
    ElemType data;
-   struct QNode *next;        
-}QNode, *QueuePtr;
+   struct QNode *next_p;
+}QNode;
 
 typedef struct
 {
-   QueuePtr front;
-   QueuePtr rear;
+   QNode *front_p;
+   QNode *rear_p;
 }LinkQueue;
 
 /* Initialize an empty queue */

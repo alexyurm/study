@@ -6,7 +6,6 @@ int main()
 {
    LinkQueue queue;
    int status;
-   int i;
 
    /* Initialize a queue */
    status = InitQueue(&queue);
