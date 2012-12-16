@@ -58,3 +58,38 @@
 
    In C++, all struct/union/enum/class declarations act like they are implicitly typedef'ed, as long as the name is not hidden by another declaration with the same name. 
    See Michael Burr's answer for the full details.
+
+   Why the following code gives me the warning "warning: assignment from incompatible pointer type [enabled by default]".
+
+   typedef struct
+   {
+      ElemType data;
+      struct QNode *next_p;
+   }QNode;
+
+   typedef struct
+   {
+      QNode *front_p;
+      QNode *rear_p;
+   }LinkQueue;
+
+   int main()
+   {
+      ...
+      queue_p->front_p->next_p = (QNode*)malloc(sizeof(QNode));
+      return 0;
+   }
+
+   It seems to me that next_p is not refered to type QNode as there is no QNode in the tag domain. If I do:
+
+   typedef struct QNode
+   {
+      ElemType data;
+      struct QNode *next_p;
+   }QNode;
+
+   The warning is gone. 
+
+
+   
+

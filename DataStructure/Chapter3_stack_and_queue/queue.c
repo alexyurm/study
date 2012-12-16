@@ -17,12 +17,14 @@ Status InitQueue(LinkQueue *queue_p)
 
 Status DestroyQueue(LinkQueue *queue_p)
 {
-   while(queue_p->front_p)
+   while(queue_p->front_p->next_p)
    {
       queue_p->rear_p = queue_p->front_p->next_p;
       free(queue_p->front_p);
-      queue_p->front_p = queue_p->rear_p;
+      queue_p->front_p = queue_p->rear_p; /* rear_p is a temporary variable here. It is not useful anymore. But does this is a good approach in terms of coding quality? */
    }
+
+   free(queue_p->front_p);
 
    return OK;
 }
@@ -42,6 +44,8 @@ Status EnQueue(LinkQueue *queue_p, ElemType elem)
       node_p->next_p = NULL;
       queue_p->rear_p = node_p;
       
+      printf("%d\n", queue_p->rear_p->data);
+
       return OK;
    }
 }
@@ -51,9 +55,12 @@ Status DeQueue(LinkQueue *queue_p, ElemType *elem_p)
    /* If the queue is not empty */
    if (queue_p->front_p != queue_p->rear_p)
    {
-      QNode *node_p = queue_p->front_p;
-      queue_p->front_p = node_p->next_p;
+      QNode *node_p = queue_p->front_p->next_p;
+      queue_p->front_p->next_p = node_p->next_p;
       *(elem_p) = node_p->data;
+      
+      printf("%d\n", *(elem_p));
+
       free(node_p);
 
       return OK;
@@ -80,12 +87,12 @@ Status QueueEmpty(LinkQueue queue)
 Status QueueLength(LinkQueue queue)
 {
    int num = 0;
-   QNode *node_p = queue.front_p;
-   while(node_p != queue.rear_p)
+   QNode *node_p = queue.front_p->next_p;
+   while(node_p != queue.rear_p->next_p)
    {
       num++;
       node_p = (node_p->next_p);  
    }
 
-   return OK;
+   return num;
 }
