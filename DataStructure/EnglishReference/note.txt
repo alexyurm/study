@@ -1,0 +1,19 @@
+Chapter 1: The Role of Algorithms in Computing
+
+-  What is algorithm?
+
+   Informally, an algorithm is any well-defined computational procedure that takes
+   some value, or set of values, as input and produces some value, or set of values, as
+   output. An algorithm is thus a sequence of computational steps that transform the
+   input into the output.
+
+-  What is data structure?
+
+   A data structure is a way to store and organize data in order to facilitate access
+   and modifications.
+   
+Chapter 2: Getting started
+
+-  One example: Insert Sort
+
+   
