@@ -14,6 +14,78 @@ Chapter 1: The Role of Algorithms in Computing
    
 Chapter 2: Getting started
 
--  One example: Insert Sort
+-  One example: Insert Sort ( it takes time roughly equal to c1*n.^2 )
+
+   for j = 2 to A.length
+      key = A[j]
+      /* Insert A[j] into the sorted sequence A[1...j-1] */
+      i = j - 1
+      while i > 0 and A[i] > key
+         A[i+1] = A[i]
+         i = i - 1
+      A[i+1] = key   <---This line doesn't belong to the above while loop (line 23 to line 25)
+
+-  Loop variants
+
+   Loop variants are to help us understand why an algorithm is correct:
+
+   Initialization: It is true prior to the first iteration of the loop.
+
+   Maintenance: If it is true before an iteration of the loop, it remains true before the next iteration.
+
+   Termination: When the loop terminates, the invariant gives us a useful property that helps show that the algorithm is correct.
+
+-  2.1-3
+
+   Input:   A sequence of n numbers A = <a1, a2, ..., an> and a value v.
+   Output:  An index i such that v = A[i] or the special value NIL if v does not appear in A
+
+   Write pseudocode for linear search, which scans through the sequence, looking
+   for . Using a loop invariant, prove that your algorithm is correct. Make sure that
+   your loop invariant fulfills the three necessary properties.
+
+   v = NIL
+   for i = 1 to A.length
+      if v = A[i]
+      v = A[i]
+      return
+   
+   Initialization: v=NIL, i = 1.
+   Maintenance: i<=A.length, or, v != A[i] while i <= A.length.
+   Termination: v=A[i] while i < A.length+1, or, i=A.length+1
+
+-  Analyzing algorithms
+
+   Running time: the running time of an algorithm on a particular input is the number of primitive operations or "steps" executed. 
+
+   Loop running time: When a for or while loop exits in the usual way (i.e. due to the test in the loop header), the test is executed one time more than the loop body.
+
+   Worst case running time: We shall usually concentrate on finding only the worst-case running time, that is, the longest running time for any input of size n.
+
+   Order of growth: To make analizing algorithms more simplified, we use the rate of growth,or order of growth, of the running time that really interests us. E.g.
+
+   Insert Sort's running time (of course in the worst case)is a*n.^2 + b*n + c. For a given large value of n, b*n and c are relatively insignificant so we consider only
+   the leading term of a formula: a*n.^2. We also ignore the leading term's constant coefficient, since constant factors are less significant for large values of n. In summary,
+   We use "theata of n-squared" to represent the running time of insert sort: O(n.^2). 
+
+   We usually consider one algorithm to be more efficient than another if its worst-case running time has a lower order of growth. Due to constant factors and lower-order terms,
+   an algorithm whose running time has a higher order of growth might take less time for small inputs than an apgorithm whose running time has a lower order of growth. But for large
+   inputs, a O(n.^2) algorithm, for example, will run more quickly in the worst case than a O(n.^3) algorithm.
+
+-  Designing algorithms
+
+   The divide-and-conquer approach: Recursion functions are one of those functions that can call itself recursively one or more time to deal with closely related sub problems.
+
+   Divide: divide the problem into a number of subproblems that are smaller instances of the same problem.
+   
+   Conquer: Conquer the subproblems by solving them recursively. If the subproblems are sizes are small enough, however, just solve the subproblems in a straightforward manner.
+
+   Combine: Combine the solutions to the subproblems into the solution for the original problem.
+
+   E.g. Merge sort:
+
+   
+
+   
 
    

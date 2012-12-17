@@ -63,6 +63,13 @@ Status DeQueue(LinkQueue *queue_p, ElemType *elem_p)
 
       free(node_p);
 
+      /* No more element to dequeue(or the last deququed element is the rear element), set front and rear the same */
+      //if (queue_p->front_p->next_p == NULL)
+      if (queue_p->rear_p == node_p)
+      {
+         queue_p->rear_p = queue_p->front_p;
+      }
+
       return OK;
       
    }
