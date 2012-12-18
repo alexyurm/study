@@ -88,26 +88,52 @@ Chapter 2: Getting started
    Conquer: Sort the two subsequences recursively using merge sort.
    Combine: Merge the two sorted subsequences to produce the sorted answer.
 
-   MERGE(A, p, q, r)
-   n1 = q-p+1
-   n2 = r-q
-   Let L[1, ...n1] and R[1, n2] be the new two arrays.
-   for i = 1 to n1
-      L[i] = A[p-1+i]
-   for j = 1 to n2
-      R[j] = A[q+j]
-   L[n1+1]=inf
-   R[n2+1]=inf
+   *  Merge:
 
-   i = 1
-   j = 1
+   1   MERGE(A, p, q, r)
+   1   n1 = q-p+1
+   2   n2 = r-q
+   3   Let L[1, ...n1] and R[1, n2] be the new two arrays.
+   4   for i = 1 to n1
+   5      L[i] = A[p-1+i]
+   6   for j = 1 to n2
+   7      R[j] = A[q+j]
+   8   L[n1+1]=inf
+   9   R[n2+1]=inf
+   10  i = 1
+   11  j = 1
+   12  for k = p to r
+   13    if L[i]<=R[j]
+   14       A[k] = L[i]
+   15       i = i + 1
+   16    else
+   17       A[k] = R[j]
+   18       j = j + 1
+
+   *  Merge_Sort:
+
+   MERGE-SORT(A, p, r)
+ 
+   1  if (p < r)
+   2  q = floor((p+r)/2)
+   3  MERGE-SORT(A, p, q)
+   4  MERGE-SORT(A, q+1, r)
+   5  MERGE(A, p, q, r)
+
+   Typically, we set p = 1 and r = n. Now we analyze divide-and-conquer algorithms.
+
+   When an algorithm contains a recursive call to itself, we can often describe its running time by a recurrence equation or recurrence, which describes the overall running time
+   ona a problem of size n in terms of the running time on smaller inputs. 
+
+   Tn = o(1)                           if n <= c
+      = a*T(n/b) + D(n) + C(n)         otherwise
    
-   for k = p to r
-      if L[i]<=R[j]
-         A[k] = L[i]
-         i = i + 1
-      else
-         A[k] = R[j]
-         j = j + 1
+   1) If the problem is smaller enough (e.g. sorting two numbers), say n<=c, for some constant c, the straightforward solution takes constant time, which we write o(1).
+   2) Suppose that our division of the problem yields a subproblems, each of which is 1=b the size of the original. (For merge sort, both a and b are 2, each of which is 
+   the size of the original. (For merge sort, both  andbut we shall see many divide-and-conquer algorithms in which a ¤ b.) time T .n=b/ to solve one subproblem of size 
+   n=b, and so it takes time a*T(n/b).
+   3) If we take D(n) time to divide the problem into subproblems and C(n) time to combine the solutions to the subproblems into the original problem. 
+
+   * Analysis of Merge Sort
 
    
