@@ -137,3 +137,71 @@ Chapter 2: Getting started
    * Analysis of Merge Sort
 
    
+
+Chapter 3: Growth of functions
+
+Chapter 4: Divide-and-Conquer
+
+   This chapter fouses on three methods for solving recurrences - that is, for obtaining asymptotic "O" bounds on the solution.
+
+   -  Recurrences:
+
+   A recurrence is an equation or inequality that describes a function in terms of its value on smaller inputs. For example, the worst-case running time T(n) of the MERGE-SORT
+   produce by recurrence:
+
+   T(n) = o(1) if n = 1;
+        = 2T(n/2) + o(n) if n > 1
+
+   whose solution we claim to be:
+
+   T(n) = o(n*lgn)
+
+   1) Method 1: substitution method. We guess a bound and then use mathematical induction to prove our guess correct.
+
+   2) Method 2: recursion-tree method. converts the recurrence into a tree whose nodes represent the costs incurred at 
+   various levels of the recursion. We use techniques for bounding summations to solve the recurrence.
+
+   3) Method3 3: master method provides bounds for recurrences of the form
+   T(n) = a*T(n/b) + f(n)
+   
+   where a >= 1, b > 1, and f (n) is a given function. A recurrence of this form characterizes a divide-and-conquer algorithm that
+   creates a subproblems, each of which is 1/b the size of the original problem, and in which the divide and combine steps together
+   take f(n) time.
+
+   Example: Find the max values of sub-array:
+
+   FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high):
+
+   1 left-sum = -inf
+   2 sum = 0
+   3 for i = mid downto low
+   4     sum = sum + A[i]
+   5     if sum > left-sum
+   6        left-sum = sum
+   7        max-left = i
+   8 right-sum = -inf
+   9 sum = 0
+   10 for j = mid + 1 to high
+   11 sum = sum + A[j]
+   12    if sum > right-sum
+   13       right-sum = sum
+   14       max-right = j
+   15 return (max-left, max-right; left-sum + right-sum)
+
+   FIND-MAXIMUM-SUBARRAY.A; low; high/
+   1 if high == low
+   2 return (low, high, A[low]) // base case: only one element
+   3 else mid = floor((low+high)/2)
+   4  (left-low, left-high, left-sum) = FIND-MAXIMUM-SUBARRAY(A, low, mid)
+   5  (right-low, right-high, right-sum) = FIND-MAXIMUM-SUBARRAY(A, mid, high)
+   6  (cross-low; cross-high, cross-sum) = FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)
+   7 if left-sum >= right-sum and left-sum >= cross-sum
+   8 return (left-low, left-high, left-sum)
+   9 elseif right-sum >= left-sum and right-sum >= cross-sum
+   10 return (right-low, right-high, right-sum)
+   11 else return (cross-low; cross-high, cross-sum)
+
+   note: remember: mid = floor((low + high)/2)
+
+   -  Analysis of the divid-and-conquer algorithm.
+
