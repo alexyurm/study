@@ -1,1 +1,0 @@
-SJF2440 /f:nboot2nd.bin

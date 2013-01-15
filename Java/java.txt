@@ -6,4 +6,41 @@ Chapter 1
 
 Chapter 2 Objects and Classes
 
+-  A class is a blueprint for an object(or instance).
 
+-  Things that an object can do are called methods.
+
+-  As long you're in main(), you are not really in Objectville. It's fine for a test program to run within the main method. But in true OO application, you need objects talling
+   to other objects, as opposed to a static main() method creating and testing objects.
+
+-  A real Java application is nothing but objects talking to other objects. In this case, talking means objects calling methods of on one another.
+
+-  Java takes out the garbage:
+
+   Each time an object is created in Java, it goes into an area of memory known The Heap. The Java Heap, which is not like the heap memory in C/C++, is actually a Garbage-Collection
+   Heap. When JVM can 'see' that an object can never be used again, that object becomes eligible collection.
+
+-  It would be a big pain to deliver a huge bunch of individual files to your end-users but you won't have to. You can put all of your application files into Java Archive - a .jar file
+   that is based on the pkzip format. In the jar file, you can include a simple text file formatted as something called a manifest, that defines which class in that jar holds the main()
+   method that should run.
+
+-  A class can inherit instance variables and methods from a more abstract superclass.
+
+Chapter 3  Primitives and References.
+
+-  A primitive variable (int, float...) is full of bits representing the actual value of the variable, an object reference variable is full of bits representing a way to get to 
+   the object. Remember again, objects live in one place and one place only - the garbage collectible heap.
+
+-  Dog myDog = new Dog();
+
+   Step1: Dog myDog: Tells the JVM to allocate space for a reference variable and names that variable myDog.
+
+   Question: Where is the space allocated from?
+
+   Step2: new Dog();: Tells the JVM to allocate space for a new Dog object on the heap.
+
+   Step3: Dog myDog = new Dog();: Assigns the new Dog to the reference variable myDog.
+
+-  We cannot do arithmetic on a reference variable, e.g. increment it.
+
+-  An array itself (e.g. int[] and dog[]) is an object.

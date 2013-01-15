@@ -1,1 +1,0 @@
-SJF2440 /f:YC2440_umon.bin

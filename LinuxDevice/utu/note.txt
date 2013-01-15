@@ -1,5 +1,0 @@
-While setting up NFS server under Ubuntu 11.10:
-
-- Try this thread: https://help.ubuntu.com/11.10/serverguide/C/network-file-system.html
-
-- When "exportfs: scandir /etc/exports.d: No such file or directory" is shown, create a new folder by doing "sudo mkdir /etc/exports.d".

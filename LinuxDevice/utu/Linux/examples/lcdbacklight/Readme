@@ -1,4 +1,0 @@
-compile:
-	make or make all
-remove:
-	make clean
