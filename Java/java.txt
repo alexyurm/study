@@ -44,3 +44,7 @@ Chapter 3  Primitives and References.
 -  We cannot do arithmetic on a reference variable, e.g. increment it.
 
 -  An array itself (e.g. int[] and dog[]) is an object.
+
+-  A reference variable has value of null when it is not referencing any object.
+
+-  An array is alwasy an object, even if the array is declared to hold primitives. There is no such thing as a primitive array, only an array that holds primitives.
