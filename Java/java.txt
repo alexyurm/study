@@ -48,3 +48,13 @@ Chapter 3  Primitives and References.
 -  A reference variable has value of null when it is not referencing any object.
 
 -  An array is alwasy an object, even if the array is declared to hold primitives. There is no such thing as a primitive array, only an array that holds primitives.
+
+Chapter 4 How objects behave
+
+-  A class describes what an object knows and what an object does.
+
+-  Java is pass-by-value. That means pass by copy.
+
+-  As the encapsulation starter rule of thumb: mark your instance variables private and provide public getters and setters for access control.
+
+-  
