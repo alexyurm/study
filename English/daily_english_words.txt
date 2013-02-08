@@ -23,3 +23,15 @@ Day 3:
 -  lay out
 
    Applications are laid out in virtual memory with a very large stack area.
+
+Day 4:
+
+-  Feline: 
+
+   Lions, Tigers and Cats are felines.
+
+-  Canine:
+
+   Dogs and wolfs are canines.
+
+

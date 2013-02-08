@@ -6,6 +6,7 @@ public class Egg
    {
       //Make an Egg ArrayList
       ArrayList<Egg> myList = new ArrayList<Egg>();
+
       //put something in it
       Egg s = new Egg();
       myList.add(s);
@@ -28,5 +29,8 @@ public class Egg
      
      //Remove something from it
      myList.remove(s);
+
+     isIn = myList.contains(s);
+     System.out.println("Does the array list contain s? " + isIn);
    }
 }

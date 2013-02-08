@@ -121,3 +121,57 @@ Chapter 6 Using the Java Library
    size
    get
    ...
+
+-  Although an ArrayList holds objects and not primitives, the compiler will automatically "wrap" (and "unwrap" when you take it out) a primitive into an Object, and place that
+   object in the ArrayList instead of primitive.
+
+-  You declare the type of the array using a type parameter, which is a type name in angle brackets. E.g.
+
+   ArrayList<Button> means ArrayList will be able to hold only objects of type Button (or subclass of Button as you will learn in the next couple of chapters)
+
+-  In the java API, classes are grouped into packages. to use a class in the API, you have to know which package the class is in. Using a class from the API is simple, somewhere
+   in your code, you have to indicate the full name of the library class you want to use, and that means package name + class name
+   
+   E.g.
+
+   java.util.ArrayList;
+   
+   where
+
+   "java.util" is the package name and "ArrayList" is the class name.
+
+-  You have to tell Java which ArrayList you want to use. You have two options:
+
+   Put an import statement at the top of your source code file:
+
+   java.util.ArrayList;
+   public class MuClass {...}
+
+   or
+
+   Type the full name everywhere in your code each time you use it.
+
+   1) When you declare and/or instantiate it:
+   
+      java.util.ArrayList<Dog> list = new java.util.ArrayList<Dog>();
+
+   2) When you use it as an argument type:
+   
+      public void go(java.util.ArrayList<Dog> list) { }
+
+   3) When you use it as a return type:
+   
+      public java.util.ArrayList<Dog> foo() {...}
+
+-  "import" is different from "include" in C. An import is simply the way you give Java the full name of a class.
+
+-  Remember, you have to tell Java the full name of every class you use, unless the class is in the java.lang.
+   
+Chapter 7 inheritance and polymorphism
+
+-  When you call a method on an object reference, you're calling the most specific version of the method for that object type. In other words, the lowest one wins. Here "Lowest"
+   means lowest on the inheritance tree.
+
+-  Remember that when one class inherits from another, we say that the subclass extends the supercla. We use "IS-A" test to test if the inheritance makes sense. To know if you've
+   designed your types correctly, ask, "Does it make sense to say type X IS-A type of Y?"
+   
