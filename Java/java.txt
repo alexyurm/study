@@ -57,6 +57,67 @@ Chapter 4 How objects behave
 
 -  As the encapsulation starter rule of thumb: mark your instance variables private and provide public getters and setters for access control.
 
--  
+<<<<<<< HEAD
+-  You don't have to initialize instance variables, because they always have a default value. Number primitives (including char) get 0, booleans get false, 
+   and objects reference variables get null. Remember null just means a remote control that isn't controlling/programmed to anything. A reference, but no actual object.
 
+-  The difference between instance and local variables:
 
+   Instance variables are declared inside a class but not within a method.
+
+   class Horse
+   {
+      private double height = 15.2;
+      private String breed;
+
+      //more code...
+   }
+
+   Local variables are declared within a method. Local variables must be initilized before use!
+
+   class Foo
+   {
+      public void go()
+      {
+         int x;
+         int z = x + 3;  <--- It won't compile!! You declare x without a value, but as soon as you try to use it, the compiler freaks out.
+      }
+   }
+
+-  Comparing variables.
+
+   == : to know if two primitives are the same.
+
+-  Developing a Class:
+
+   prep code:  A form of pseudocode to help you focus on the logic without stressing about syntax;
+
+   test code: A class or methods that will test the real code and validate that it's doing the right thing;
+
+   real code: The actual implementation of the class.
+
+Chapter 5 Extra-Strength Methods
+
+-  The enhanced for loop
+
+   Beginning with java 5.0(Tiger), the Java language has a second kind of for loop called the "enhanced for", that makes it easier to iterate over all the elements
+   in an array or other kinds of collections.
+
+   for (String name: nameArray){}
+   
+   What it means in plain English: For each element in nameArray, assign the element to the 'name' variable, and run the body of the loop.
+
+   Note: the colon(:) means "IN"
+
+Chapter 6 Using the Java Library
+
+-  "ArrayList" is a class in the core Java library (the API).
+
+   add
+   remove
+   contains
+   isEmpty
+   indexOf
+   size
+   get
+   ...
