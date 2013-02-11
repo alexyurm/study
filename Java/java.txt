@@ -175,3 +175,50 @@ Chapter 7 inheritance and polymorphism
 -  Remember that when one class inherits from another, we say that the subclass extends the supercla. We use "IS-A" test to test if the inheritance makes sense. To know if you've
    designed your types correctly, ask, "Does it make sense to say type X IS-A type of Y?"
    
+-  In a subclass, how to use both the superclass version and my overriding subclass version of a method?
+
+   public void roam() {
+   super.roam(); //this calls the inherited version of roam()
+   // my own roam stuff
+   }
+
+-  A subclass inherits members(instance variables and methods) of the superclass. A superclass can choose whether or not it wants a subclass to inherit a particular member by the
+   level of access the particular member is given.
+
+   There are 4 access levels covered in this book:
+
+   private: public members are inherited.
+   default: private members are not inherited.
+   protected:
+   public:
+
+-  Inherited methods can be overridden; instance variables cannot be overriden (although they can be redefined in the subclass, but that's not the same thing, and there's almost never
+   a need to it.)
+
+-  Inheritance lets you guarantee that all classes grouped under a certain supertype have all the methods that the supertype has. In other words, you define a common protocol for
+   a set of classes related though inheritance.
+
+-  With polymorphism, the reference type can be a superclass of the actual object type.
+
+   Animal myDog = new Dog();
+
+   Also, you can have polymorphic arguments and return types. E.g.
+
+   class Vet {
+      public void giveShot (Animal a) {
+      // do horrible things to the Animal at
+      // the other end of the 'a' parameter
+      a.makeNoise();
+   }
+
+   class PetOwner {
+      public void Start() {
+         Vet v = new Vet();
+         Dog d = new Dog();
+         Hippo h = new Hippo();
+         v.giveShot(d); //dog's makeNoise runs
+         v.giveShot(d); //Hippo's makeNoise() runs
+
+   With polymorphism, you can write code that doesn't have to change when you introduce new subclass types into the program. Let's say if others want to take advantage of your
+   your Vet class, all they have to do is make sure their new Animal types extend class Animal. The Vet methods will still work, even though the Vet class was written without
+   any knowledge of the new Animal subtypes the Vet will be working on.
