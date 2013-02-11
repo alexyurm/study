@@ -57,7 +57,6 @@ Chapter 4 How objects behave
 
 -  As the encapsulation starter rule of thumb: mark your instance variables private and provide public getters and setters for access control.
 
-<<<<<<< HEAD
 -  You don't have to initialize instance variables, because they always have a default value. Number primitives (including char) get 0, booleans get false, 
    and objects reference variables get null. Remember null just means a remote control that isn't controlling/programmed to anything. A reference, but no actual object.
 
