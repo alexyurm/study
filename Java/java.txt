@@ -222,4 +222,65 @@ Chapter 7 inheritance and polymorphism
    your Vet class, all they have to do is make sure their new Animal types extend class Animal. The Vet methods will still work, even though the Vet class was written without
    any knowledge of the new Animal subtypes the Vet will be working on.
 
+-  If you want to protect a specific method from being overriden, mark the method with the "final" modifier. Mark the whole class as final if you want to guarantee that none
+   of the methods in that class will ever be overriden.
 
+-  Overriding: The arguments and return types of your overriding method must look to the outside world exactly like the overriden method in the superclass. E.g.
+
+   Appliance:
+
+      boolean turnOn()
+
+      boolean turnOff()
+
+   Toaster:
+
+      boolean turnOn(int level) <--This is actually overload but not override as the arguments have been changed!
+
+   Also, the access level must be the same or friendlier. That means you cannot for example override a public method and make it private.
+
+-  Overloading: It means two methods with the same name but different argument lists. remember, there is no polymorphism involved with overloaded methods.
+
+   Overloading lets you make multiple versions of a method. Something to remember about overload:
+
+   1) The return types can be different;
+   2) You cannot change only the return type;
+   3) You can vary the access levels in any direction.
+
+Chapter 8 Serious Polymorphism
+
+-  Abstract classes
+
+   Some classes just should not be instantiated. E.g. Animals. By marking the class as abstact, the compiler will stop any code, anywhere, from ever creating an instance
+   of that type. to mark a class as abstract, put the keyword "abstract" before the class declaration:
+
+   abstract class Canine extends Animal {
+      public void roam {}
+   }
+
+   By doing this, the compiler won't let you instantiate an abstract class
+
+   abstract class Canine extends Animal {
+      public void roam {}
+   }
+
+   public class MakeSense {
+      public void go() {
+         Canine c;
+         c = new Dog(); // <--- This is OK
+         c = new Canine(); <---class Canine is marked abstract so the compiler will Not let you do this.
+
+-  Abstract methods
+
+   You can mark methods abstract too. An abstract class means the class must be extended; an abstract method means the method must be overriden.
+
+   An abstract method has no body:
+
+   public abstract void eat(); 
+
+   Also, if you declare an abstract method, you MUST mark the class abstract as well. You can’t have an abstract method in a non-abstract class.
+
+   The point of using abstract methods is...Polymorphism! Image how you'd have to change the Vet class, if it didn't use Animal as its argument type of methods. You'd have to
+   have a seperate method for every single Animal subclass!
+
+   Abstract methods don't have a body; that means the first concrete class in the inheritance tree must implement all abstract methods.
