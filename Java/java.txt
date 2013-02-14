@@ -278,9 +278,133 @@ Chapter 8 Serious Polymorphism
 
    public abstract void eat(); 
 
-   Also, if you declare an abstract method, you MUST mark the class abstract as well. You can’t have an abstract method in a non-abstract class.
+   Also, if you declare an abstract method, you MUST mark the class abstract as well. You can’t have an abstract method in a non-abstract class. In other words, if a class has
+   even one abstract method, the class must be marked abstract.
 
    The point of using abstract methods is...Polymorphism! Image how you'd have to change the Vet class, if it didn't use Animal as its argument type of methods. You'd have to
    have a seperate method for every single Animal subclass!
 
    Abstract methods don't have a body; that means the first concrete class in the inheritance tree must implement all abstract methods.
+
+-  Every class in Java extends class "Object". That means "Object" is the superclass of everything. It also means that every class you write extends "Object".
+
+   public class Dog extends Objext{}
+
+   But wait a minute, Dog already extends Canine. It is OK becasue the compiler will make Canine extend Object instead. Except Canine extends Animal. No problem, then the compiler
+   will just make Animal extend Object.
+
+-  So what's in this ultra-super-megaclass Object?
+
+   1) equals(object o) ->> tells you if two objects are equal.
+
+   e.g. a.equals(c) <--a, c are objects
+   
+   2) getClass --> Gives you back the class that object was instantiated from
+
+   3) hashCode --> Prints out a hashcode for the object
+
+   4) toString --> Prints out a String message with the name of the class and some other number we rarely care about.
+
+-  The compiler decides whether you can call a method based on the reference type, not the actual object type. E.g.
+
+   Object o = al.get(index);
+   int i = o.hashCode(); <-- this is fine as every object in Java can call hashCode().
+   o.bark(); <-- Can't do this. The Object class has not idea what it means to bark(), Even though you know it's really a Dog at that index, the compiler doesn't.
+
+   The compiler checks the class of the reference type, not the object type - to see if you can call a method using that reference.
+
+-  Casting an object reference back to its real type
+
+   You must ensure that the object is really dog, e.g.,    
+
+   Object o = al.get(index);
+   Dog d = (Dog) o;
+   d.roam();
+
+   If you not sure it's a Dog, you can use instanceof operator to check:
+
+   if (o instanceof Dog) {
+      Dog d = (Dog) o;
+   }
+
+-  A Java interface solves your multiple inheritance problem by giving you much of the polymorphic benefits of multiple inheritance without the pain and suffering from the
+   Deadly Diamond of Death (DDD).
+
+   Note: What is Deadly diamond of Death?
+
+   The way to handle that is very simple: make all the methods abstract.
+
+   Pet:
+
+   abstract void beFriendly();
+   abstract void play();
+
+   1) To DEFINE an interface:
+
+   public interface Pet {...}
+               ^
+               |-----------------> Use the keyword "interface" instead of "class"
+
+   2) To IMPLEMENT an interface:
+   
+   public class Dog extends Canine implements Pet {...}
+                                       ^
+                                       |
+                                       |-----------------Use the keyword "implements" followed by the inferface name. Note that when you implement an interface you still get
+                                                         to extend a class.
+
+   3) Making and Implementing the Pet interface:
+
+   public interface Pet {
+
+      public abstract void beFriendly();  <--no body as it is an abstract method.
+      public abstract void play(); <--no body as it is an abstract method.
+
+   public class Dog extends Canine implements Pet {
+   
+      public abstract void beFriendly() {...} <---Implement the pet method
+      public abstract void play() {...} <--Implement the pet method
+
+      public void roam() {...} <-- This is just normal overriding method.
+      public void eat() {...} <-- This is just normal overriding method.
+
+-  In summary, how do you know whether to make a class, a subclass, an abstract class, or an inferface:
+
+   1) Make a class that doesn’t extend anything (other than Object) when your new class doesn’t pass the IS-A test for any other type.
+
+   2) Make a subclass (in other words, extend a class) only when you need to make a more specific version of a class and need to override or add new behaviors.
+
+   3) Use an abstract class when you want to define a template for a group of subclasses, and you have at least some implementation code that all subclasses 
+      could use. Make the class abstract when you want to guarantee that nobody can make objects of that type.
+
+   4) Use an interface when you want to define a role that other classes can play, regardless of where those classes are in the inheritance tree.
+
+-  Invoking the superclass version of a method
+
+   If you want to invoke the superclass version of a method instead of the overriden one, use the keyword "super" lets you invoke a superclass version of an overridden method, 
+   from within the subclass. E.g.
+
+   abstract class Report {
+      void runReport() {
+         //setup a report
+      }
+      void printReport() {
+         //generic printing
+      }
+   }
+
+   class BuzzwordsReport extends Report {
+      
+      void runreport () {
+         super.runReport(); //call superclass version then come back and do some subclass-specific stuff.
+         buzzwordCompliance();
+         printReport();
+      }
+      
+      void buzzwordCompilance() {...}
+
+  The "super" keyword is really a reference to the superclass portion of an object. 
+
+Chapter 9 Life and Death of an Object
+
+

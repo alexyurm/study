@@ -136,7 +136,7 @@ Chapter 2: Getting started
 
    * Analysis of Merge Sort
 
-   
+   Read pages 36 to 38. The rate of growth is O(n*lg(n))
 
 Chapter 3: Growth of functions
 
@@ -205,4 +205,38 @@ Chapter 4: Divide-and-Conquer
 
    -  Analysis of the divid-and-conquer algorithm.
 
-   
+Chapter 6 Heap Sort
+
+-  The (binary) head data structure is an array object that we can view as a nearly binary tree.
+
+   Each node of the tree corresponds to an element of the array. The tree is completetly filled on all levels except possibly the lowest(??), which is filled from
+   the left up to a point. An array A that represents a heap is an object with two attributes:
+
+   1) A.length, which (as usual) gives the number of elements in the array, and 2) A.heap-size, which represents how many elements in the heap are stored within array A.
+
+   Assuming the root of the tree is A[1], and given the index i of a node, we can easily computer the indices of its parents, left child and right child.
+
+   PARENT(i)   -> return floor(i/2)
+   LEFT(i)     -> return i*2
+   RIGHT(2)    -> return i*2+1
+
+   There are two types of heaps:
+
+   max-heap: A[PARENT(i)] >= A[i];  -> The largetst element of the heap is the root.
+   min-heap: A[PARENT(i)] <= A[i];  -> The smallest element of the heap is the root.
+
+   note: min-heaps are commonly implement priority queues.
+
+   -  The MAX-HEAPIFY procedure, which runs in O(lg(n)) time, is the key to maintaining the max-heap property.
+   -  The BUILD-MAX-HEAP procedure, which runs in linear time, produces a max-heap from an unordered input array.
+   -  The HEAPSORT procedure, which runs in O(n*(lg(n))) time, sorts an array in place.
+   -  The MAX-HEAP-INSERT , HEAP-EXTRACT-MAX, HEAP-INCREASE-KEY, and HEAP-MAXIMUM procedures, which run in O(lg(n))time, allow the heap
+      data structure to implement a priority queue. 
+
+-  Maintaining the heap property
+
+   In order to maintain the max-heap property, we call the procedure MAX-HEAPIFY:
+
+   input: an array A and an index i into the array.   
+
+   When it is called, MAX-HEAPIFY assumes that the binary tree rooted at LEFT(i)
