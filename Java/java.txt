@@ -47,7 +47,11 @@ Chapter 3  Primitives and References.
 
 -  A reference variable has value of null when it is not referencing any object.
 
--  An array is alwasy an object, even if the array is declared to hold primitives. There is no such thing as a primitive array, only an array that holds primitives.
+-  An array is alwasy an object, even if the array is declared to hold primitives. There is no such thing as a primitive array, only an array that holds primitives. E.g.
+
+   Dog[] myDogs = new Dog[3];
+   myDogs[0] = new Dog();
+   myDogs[0].name = "Fido"
 
 Chapter 4 How objects behave
 
@@ -190,6 +194,14 @@ Chapter 7 inheritance and polymorphism
    default: private members are not inherited.
    protected:
    public:
+
+   The following table shows the access to members permitted by each modifier:
+
+   | Modifier | Class    | Package |  Subclass | World |
+      public     Y            Y          Y         Y
+     protected   Y            Y          Y         N
+     default     Y            Y          N         N
+     private     Y            N          N         N
 
 -  Inherited methods can be overridden; instance variables cannot be overriden (although they can be redefined in the subclass, but that's not the same thing, and there's almost never
    a need to it.)
@@ -407,4 +419,166 @@ Chapter 8 Serious Polymorphism
 
 Chapter 9 Life and Death of an Object
 
+-  The STACK and the HEAP: where things live
 
+   Stack: method invocations and local variables live
+   Heap:  objects live
+
+   Instance variables: they are declared inside a class but not inside a method.
+   Local variables: they are declared inside a method, including method parameters.
+   The method on the top of the stack is always the currently-executing method.
+
+   Note: No matter where the object reference variable is declared (inside a method vs an instance variable of a class)the object always always always goes on the heap.
+   
+-  Instance variables live on the heap, inside the object they belong to.
+
+   1) If the instance variables are all primitives, Java makes space for the instance variables based on the primitive type. E.g. an int needs 32 bits.
+   2) How about the instance variables are objects? 
+
+      If the instance variable is declared but no object is assigned to it, then only the space for the reference variable (the remote control) is created.
+      
+      private Antenna ant;
+
+      No actual Antenna object is made on the heap unless or until the reference variable is assigned a new Antenna object:
+
+      private Antenna ant = new Antenna();
+
+   Instance variables are assigned a default value. even when you don't explicitly assign one. The default values are 0/0.0/false for primitives, and null for references.
+
+-  Constructor
+
+   A constructor is the code that runs when you say "new" on a class type. A constructor must have the same name as the class, and must not have a return type.
+   By default, there is nothing inside the constructor of a class:
+
+   public class Duck {
+      public Duck { 
+      
+      //empty here. Remember there is no code here. Also there is no return type.
+      }
+   }
+
+   You can do more with constructor. E.g.
+
+   public Duck(int duckSize) {
+      size = duckSize; //size is the instance variable.
+   }
+
+   Remember, the compiler gets involved with constructor making only if you don't say anything at all about constructors. That means no to the question: Doesn't the compiler
+   always make no-arg constructor for you?
+
+   If you write a constructor that takes arguments, and you still want a no-arg constructor, you'll have to build the no-arg constructor yourself! That means if you touch the
+   constructor, you need to write two versions of it. Overloaded constructors means you have more than one constructor in your class. To copmpile, each constructor must have
+   diffeent argument list!
+
+-  The big point there was that every object holds not just its own declared instance variables, but also everything from its superclasses(which, at minimum, means class Object
+   , since every class extends Object). But how does a superclass constructor gets involked?
+
+   call super(). E.g.
+
+   public class Duck extends Animal {
+      int size;
+
+      public Duck(int newSize) {
+         super();
+         size = newSize;
+      }
+   }
+
+   The compiler gets involved in constructor-making in two ways:
+
+   1) If you don't provide a constructor, the compiler puts one in that looks like:
+
+      public ClassName() {
+         super();
+      }
+
+   2) If you do provide a constructor but you do not put in the call to super():
+
+      The compiler will put a call to super() in each of your overloaded constructors(unless the constructor calls another overloaded constructor). The compiler-supplied 
+      call looks like:
+      
+      super();
+
+      It always looks like that. The compiler-inserted call to super() is always no-arg call. If the superclass has overloaded constructors, only the no-arg
+      one is called.
+
+   Can you pass something in to the super() call? Yes!
+
+   E.g.
+
+   public abstract class Animal {
+      private String name;
+
+      public String getName() {
+         return name;
+      }
+
+      public Animal(String theName) {
+         name = theName;
+      }
+   }
+
+   public class Hippo extends Animal {
+      public Hippo(String name ){
+         super(name);//it sends the name up the stack to the Animal constructor
+      }
+   {
+
+   public class MakeHippo {
+      public static void main (String[] args) {
+         Hippo h = new Hippo("Buffy");
+         System.out.println(h.getName());
+      }
+   }
+
+-  What if you have overloaded constructors that, with the exception of handling different argument types, and do all the same thing? You know that you don't want to
+   duplicate code sitting in each of the constructors (pain to maintain, etc.). You can use this() to call a constructor from another overloaded constructor in the same
+   class. The call to this() can be used only in a constructor, and must be the first statement in a constructor. Remember, Every constructor can have a call to super()
+   or this(), but never both!
+
+   class Mini extends Car {
+      Color color;
+      
+      public Mini() {
+         this(Color.Red); //The no-arg constructor supplies a default Color and calls to the overloaded Real Constructor (the one that calls super()).
+      }
+
+      public Mini(color c) {
+         super("Mini"); //This is the Real Constructor that does the real work of initializing the object (including the call to super()).
+         color = c;
+         //more initialization
+      }
+
+      public Mini(int size) {
+         this(Color.Red);
+         super(size); //<<- won't work! Can't have super() and this() in the same constructor, because they each must be the first statement!
+      }
+
+-  How long does an object live?
+
+   An object's life depends entirely on the life of references referring to it. So how long does a variable live?
+
+   That depends on whether the variable is a local variable or an instance variable. A local variable lives only within the method that declared the variable. An instance
+   variable lives as long as the object does. If the object is still alive, so are its instance variables.
+
+   An object becomes eligible for GC(garbage collectable) when its last live reference disappears. Three ways to get rid of an object's reference:
+
+   1) The reference goes out of scope, permanently
+
+      void go() {
+         Life z = new Life(); //reference 'z' dies at end of method.
+      }
+
+   2) The reference is assigned another object
+
+   Life z = new Life(); //the first object is abandoned when z is 'reprogrammed' to a new object.
+   z = new Life(); 
+
+   3) The reference is explicitly set to null
+
+   Life z = new Life(); //the first object is abandoned when z is deprogrammed.
+   z = null;
+
+Chapter 10 numbers and statics
+
+-  The difference between regular (non-static) and static methods

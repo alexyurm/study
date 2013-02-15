@@ -1,0 +1,8 @@
+-  Linked Lists
+
+   A linked list is a set of items where each item is part of a node that also contains a link to a node.
+
+   1) It is a null link that points to no node;
+   2) It refers to a dummy node that contains no item;
+   3) it refers back to the first node, making the list a circular list.
+   
