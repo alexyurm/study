@@ -581,4 +581,323 @@ Chapter 9 Life and Death of an Object
 
 Chapter 10 numbers and statics
 
--  The difference between regular (non-static) and static methods
+-  The difference between regular (non-static) and static methods methods.
+
+   Java is object-oriented, but once in a while you have a special case, typically a utility method (like the Math methods), where there is no need to have an instance of the class.
+   
+   The keyword "static" lets a method run without any instance of the class. A static method means "behavior not dependent on an instance variable, so no instance/object is required. 
+   Just the class."
+
+-  Static methods cannot use non-static (instance) variables.
+
+   public class Duck {
+      private int size;
+   
+      public static void main(String [] args) {
+         System.out.println("Size of duck is " + size); //<<---which duck? whose size? if there is Duck on the heap somewhere, we don't know about it.
+      }
+
+      public setSize (int s) {
+         size = s;
+      }
+
+      public int getSize() {
+         return size;
+      }
+   }
+   
+-  Static methods can't use non-static methods either. E.g.
+
+   public static void main(String [] args) {
+      System.out.println("Size of duck is " + getSize()); //whose size?
+   }
+
+   Also, if you have a class with only static methods, and you do not want the class to be instanciated, you can mark the constructor private.
+
+-  Static variable: value is the same for all instances of the class
+
+   A value shared by all instances of a class. In other words, one value per class, instead of one value per instance.
+
+   public class Duck {
+      private int size;
+      private static int duckCount = 0; // The static duckCount variable is initialized ONLY when the class is first loaded, Not each time a new instance is made.
+   
+   public Duck() {
+      duckCount++; //Now it will keep incrementing each time the Duck constructor runs, because duckCount is static and won't be reset to 0. With this static variable, you can
+                   //count how many duck instances are being created while your program is running.
+   }
+
+   All static variables in a class are initialized before any object of that class can be created. Default values for declared but uninitialized static and instance variables
+   are the same:
+
+   primitive integers (long, short, etc...): 0
+   primitive floating points (float, double): 0.0
+   boolean: false
+   object reference: null
+
+   Note: A static method can access a static variable.
+
+-  static final variables are constants
+
+   A variable marked "final" means that - once initialized - it can never change. E.g.
+
+   public static final double PI = 3.141592653589793;
+
+   note: Constants variable names should be in all caps.
+
+   Assigning a value to a final instance variable must be either at the time it is declared, or in the constructor.
+
+   1) At the time you declare it:
+
+   public class Foo {
+      public static final int FOO_X = 25;
+   }
+
+   or
+
+   2) In a static initializer in the constructor
+
+   public class Bar {
+      public static final double BAR_SIGN;
+   
+      static {
+
+         BAR_SIGN = (double) Math.random();
+      }
+
+   }
+
+-  "final" isn't just for static variables...
+   
+   You can use "final" to modify non-static variables too, including instance variables, local variables and even method parameter.
+
+   A final variable means you can't change its value.
+
+   A final method means you can't override the method.
+
+   A final class means you can't extend the class (i.e. you can't make a subclass).
+
+-  In summary, we should follow the following order of defining a variable:
+
+   [access type][static or not][final or not]type variableName;
+
+   access type could be: private, (default), "public" and "protected".
+
+-  Wrapping a primitive
+
+   In all version of Java prior to 5.0, you cannot put a primitive directly into a collection like AllayList and HashMap:
+
+   To treat a primitive like an object, there is a wrapper class for every primitive type(you don't need to import them as the wrapper classes are in the java.lang package).
+   Each wrapper class is named after the primitive type it wraps, but with the first letter capitalized to follow the class naming convention:
+
+   Boolean
+   Character
+   Byte
+   Short
+   Integer
+   Long
+   Float
+   Double
+
+   Wrapping a value:
+
+   int i = 288;
+   Integer iWrap = new Integer(i);
+
+   Unwrapping a value:
+
+   int unWrapped = iWrap.intValue.
+
+-  Autoboxing: blurring the line between primitive and object.
+
+   The autoboxing feature added to Java 5.0 does the conversion from primitive to wrapper object automatically!
+
+   public void doNumNewWay () {
+      ArrayList<Integer> listOfNumbers = new ArrayList<Integer>(); //<---Make an ArrayList of type Integer
+      listOfNumbers.add(3); //<---Although there is not a method in ArrayList, for add(int), the compiler does all the wrapping (boxing) for you. In other words, there is an Integer
+                            //object stored in the ArrayList, but you get to "pretend" that the ArrayList takes ints.(You can add both ints and Integers to an ArrayList<Integer>).
+      int num = listOfNumbers.get(0);//<---the compiler automatically unwraps(unboxes) the Integer object to you can assign the int value directly to 
+                                     //a primitive without having to call intValue() method on the Integer object.
+   }
+
+   Beside doing wrapping and unwrapping, autobox also lets you use either a primitive or its wrapper type virtually anywhere one or the other is expected.
+
+   1) Method arguments
+
+   void takeNumber(Integer i) {}
+
+   2) Return values
+
+   int giveNumber() {
+      return x;
+   }
+
+   3) Boolean expressions
+
+   if (bool) {
+      System.out.println("true");
+   }
+
+   4) Operations on numbers
+
+   Integer i = new Integer(42);
+   i++;
+
+   or
+
+   Integer j = new Integer(5);
+   Integer k = j + 3;
+
+   5) Assignments
+
+   Double d = x;
+
+   But wait! There's more! Wrappers have static utility methods too!
+
+   6) converting a String to a primitive value is easy:
+
+   String s = "2";
+   int x = Integer.parseInt(s); //<---No problem to parse "2" into 2.
+   double d = Double.parseDouble("420.24");
+   boolean b = new Boolean("true").booleanValue();//<--There is no method called "Boolean.parseBoolean()". Fortunatelly, there is a Boolean constructor that takes (and parses) a String
+                                                  //, and then you just get the primitive value by unwrapping it.
+
+   But if you try this:
+
+   String t = "two";
+   int y = Integer.parseInt(t); //<---You get runtime error as Anything that can't be parse as a number will cause a Number FormatException.
+
+-  Turning a primitive number into a String.
+
+   There are a couple ways to turn a number into a String.
+
+   1) concatenate the number to an existing String.
+
+   double d = 42.5;
+   String doubleString "" + d; //<---The "+" operator is overloaded in Java (the only overloaded operator) as a String concatenator. Anything added to a String becomes Stringified.
+
+   2) Using a static method in class Double.
+
+   double d = 42.5;
+   String doubleString = Double.toString(d);
+
+-  Number formatting
+
+   1) Formatting a number to use commas;
+
+   public class TestFormats {
+      public static void main (String[] args) {
+         String s = String.format("%, d", 1000000000); //<---The formatting instructions for how to format the second argument. Remember, there are only two arguments to this method
+                                                       //here - the first comma is inside the string literal, so it isn't seperating arguments to the format method.
+      }
+   }
+
+   Output:
+   
+   1,000,000,000
+
+-  Formatting deconstructor...
+
+   format("%, d", 1000000000);
+
+   1) "%, d" ---> Use these instructions;
+   2) 1000000000 ---> on this argument(s).
+
+   The percent (%) says, "Insert argument here" (and format it using these instructions).
+
+   When you see the % sign, think of the percent sign as a variable that represents the other argument to the method.
+
+   format("I have %.2f bugs to fix.", 476578.09876);
+
+   %.2f --> The "%" sign tells the formatter to insert the other method argument (the second argument to format(), the number) here, AND format it using the ".2f" character
+            after the percent sign. Then the rest of the format String, "bugs to fix", is added to the final output.
+
+   Output:
+
+   I have 476578.10 bugs to fix.
+
+   Adding a comma:
+
+   format(“I have %,.2f bugs to fix.”, 476578.09876);
+
+   Output:
+
+   I have 476,578.10 bugs to fix.
+
+   In summary:
+
+   %,d means "insert commas and format the number as a decimal integer"
+
+   %.2f means "format the number as a floating point with a precision of two decimal places."
+
+   %,.2f means "insert commas and format the number as a floating point with a precision of two decimal places."
+
+-  The format specifier
+
+   A format specifier can have up to five different parts (not including the "%"). Everything in brackets [] below is optional, so only the percent(%) and the type are required.
+   But the order is also mandatory, so any parts you Do use must go in this order.
+
+   %[argument number][flags][width][.precision]type
+
+   E.g.
+
+   format(“%,6.1f”, 42.000);
+   
+   Note; We will talk about [argument number] later.
+
+   1) type
+
+   %d decimal
+   %f float
+   %x hex
+   $c character
+
+   What happens if you have more than one argument:
+
+   int one = 20456654;
+   double two = 100567890.248907;
+   String s = String.format(“The rank is %,d out of %,.2f”, one, two);
+
+   output:
+
+   The rank is 20,456,654 out of 100,567,890.25.
+
+-  How about dates?
+
+   1) The complete date and type: %tc
+
+   String.format(“%tc”, new Date());
+
+   output:
+
+   Sun Nov 28 14:52:41 MST 2004
+
+   2) Just the time: %tr
+
+   String.format(“%tr”, new Date());
+
+   03:01:47 PM
+
+   3) Day of the week, month and day: %tA %tB %td
+
+   There isn't single format specifier that will do exactly what we want, so we have to combine three of them for day of the week (%tA), month(%tB), and day of the month(%td).
+
+   Same as above, but without duplicating the arguments
+
+   Date today = new Date();
+   String.format(“%tA, %<tB %<td”,today); //<---The angle-bracket "<" is just another flag in the specifier that tells the formatter to "Use the previous argument again.", instead
+                                          //you format the same argument three different ways.
+
+   
+
+   
+
+   
+
+   
+   
+Questions
+
+1) Is it ture that the name of a public class must be the same as the file name?
+
+   

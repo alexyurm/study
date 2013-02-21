@@ -70,32 +70,25 @@ class Linklist
       }
    }
 
-   public boolean remove(Node o)
+   public boolean remove()
    {
-      int index = length-1;
-      int i;
-      Node target = null;
-      Node targetPrior = null;
-      //Find the target which will be removed from the list
-      for (i = 0; i < index; i++)
+      if (length == 0)
       {
-         targetPrior = target;
-         target = target.next;
+         System.out.println("The list is already empty. Nothing to remove.");
+         return false;
       }
-
-      targetPrior.next = null;
-
-      return false;
-   }
-
-   public boolean remove(int index, Node o)
-   {
-      if (index <= length-1)
+      else if (length == 1)
       {
+         head = null;
+         length--;
+         return true;
+      }
+      else
+      {
+         int index = length-1;
          int i;
-         Node target = null;
+         Node target = head;
          Node targetPrior = null;
-            
          //Find the target which will be removed from the list
          for (i = 0; i < index; i++)
          {
@@ -103,12 +96,48 @@ class Linklist
             target = target.next;
          }
 
-         targetPrior.next = target.next;
-
+         length--;
          return true;
+      }
+   }
+
+   public boolean remove(int index)
+   {
+      if (length == 0)
+      {
+         System.out.println("The list is already empty. Nothing to remove.");
+         return false;
+      }
+      else if (index <= length-1)
+      {
+         int i;
+         Node target = head;
+         Node targetPrior = null;
+
+         if (index == 0)
+         {
+            head = target.next;
+            length--;
+            return true;
+         }
+         else
+         {
+            //Find the target which will be removed from the list
+            for (i = 0; i < index; i++)
+            {
+               targetPrior = target;
+               target = target.next;
+            }
+            
+            targetPrior.next = target.next;
+
+            length--;
+            return true;
+         }
       }
       else
       {
+         System.out.println("The index is not correct. Remove failed!");
          return false;
       }
    }
@@ -129,8 +158,10 @@ class Linklist
       list.insert(nodes[1]);
       //Insert another new node
       list.insert(nodes[2]);
-      //remove node
-      list.remove
-      
+      //remove nodes
+      list.remove();
+      list.remove();
+      list.remove();
+      System.out.println("list.length = " + list.length);
    }
 } 
