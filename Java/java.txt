@@ -51,7 +51,7 @@ Chapter 3  Primitives and References.
 
    Dog[] myDogs = new Dog[3];
    myDogs[0] = new Dog();
-   myDogs[0].name = "Fido"
+   myDogs[0].name = "Fido";
 
 Chapter 4 How objects behave
 
@@ -175,7 +175,7 @@ Chapter 7 inheritance and polymorphism
 -  When you call a method on an object reference, you're calling the most specific version of the method for that object type. In other words, the lowest one wins. Here "Lowest"
    means lowest on the inheritance tree.
 
--  Remember that when one class inherits from another, we say that the subclass extends the supercla. We use "IS-A" test to test if the inheritance makes sense. To know if you've
+-  Remember that when one class inherits from another, we say that the subclass extends the superclass. We use "IS-A" test to test if the inheritance makes sense. To know if you've
    designed your types correctly, ask, "Does it make sense to say type X IS-A type of Y?"
    
 -  In a subclass, how to use both the superclass version and my overriding subclass version of a method?
@@ -228,7 +228,7 @@ Chapter 7 inheritance and polymorphism
          Dog d = new Dog();
          Hippo h = new Hippo();
          v.giveShot(d); //dog's makeNoise runs
-         v.giveShot(d); //Hippo's makeNoise() runs
+         v.giveShot(h); //Hippo's makeNoise() runs
 
    With polymorphism, you can write code that doesn't have to change when you introduce new subclass types into the program. Let's say if others want to take advantage of your
    your Vet class, all they have to do is make sure their new Animal types extend class Animal. The Vet methods will still work, even though the Vet class was written without
@@ -900,4 +900,36 @@ Questions
 
 1) Is it ture that the name of a public class must be the same as the file name?
 
-   
+2) What is an iterator/
+
+   An iterator enables you cycle through a collection, obtaining or removing elements. Listiterator extends iterator to allow bidirectional traversal of a list, and the modification
+   of elements. In general, to use an iterator to cycle through the contents of a collection, follow these steps:
+
+   -  Obtain an iterator to the start of the collection by calling the collections's iterator() method. 
+
+   -  Set up a loop that makes a call to hashNext(). Have the loop iterate as long as hashNext() returns true.
+
+   -  Within the loop, obtain each element by calling next().
+
+3) What is "<? super T>" mean?
+
+   public static <T> void copy(List<? super T> dest, List<? extends T> src) {
+        int srcSize = src.size();
+        if (srcSize > dest.size())
+            throw new IndexOutOfBoundsException("Source does not fit in dest");
+
+        if (srcSize < COPY_THRESHOLD ||
+            (src instanceof RandomAccess && dest instanceof RandomAccess)) {
+            for (int i=0; i<srcSize; i++)
+                dest.set(i, src.get(i));
+        } else {
+            ListIterator<? super T> di=dest.listIterator();
+            ListIterator<? extends T> si=src.listIterator();
+            for (int i=0; i<srcSize; i++) {
+                di.next();
+                di.set(si.next());
+            }
+        }
+    }
+
+4) 

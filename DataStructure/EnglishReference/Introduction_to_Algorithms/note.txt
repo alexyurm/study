@@ -240,3 +240,163 @@ Chapter 6 Heap Sort
    input: an array A and an index i into the array.   
 
    When it is called, MAX-HEAPIFY assumes that the binary tree rooted at LEFT(i)
+
+Chapter 11 Hash Tables
+
+-  Many applications require a dynamic set that supports only the dictionary operation INSERT, SEARCH and DELETE. Although searching for an element data structure in a hash table
+   can take as long as searching for an element in a link-list:O(n). In practice, hashing performs extremely well. Under resonable assumptions, the average time to search for an
+   element in a hash table is O(1).
+
+-  Direct-address tables
+
+   The Direct-address tables is used for a dynamic set in which each element has a key drawn from the universe U = {0, 1, ..., m-1} where m is not too large. We shall assume that
+   no two elements have the same key(x1.key == x2.key, where x1 and x2 belong to U).
+
+   The direct address table: T[0..m-1]
+   slot k corresponds to a key in the set with key k. If the set contains no element with key k, then T[k] = NIL;
+   
+   
+   The operations are trival to implement:
+
+   1) DIRECT-ADDRESS-SEARCH(T,k)
+   
+   return T[k]
+
+   2) DIRECT-ADDRESS-INSERT(T,x)
+
+   T[x.key] = x;
+
+   3) DIRECT-ADDRESS-DELETE(T,x)
+   
+   T[x.key] = NIL;
+
+   Each operation takes O(1) time
+
+-  Hash Tables
+
+   Storing a table T of size |U| may be impractical, or even impossible due to memory limitation. With direct addressing, an element with key k is stored in slot k. With hashing,
+   this element is stored in slot h(k); that is, we use a hash function h to compute the slot from the key k. Here, h maps the universe U of keys into the slots of a hash table
+   T[0..m-1].
+
+   h: U -> {0, 1, ..., m-1}.
+
+   where the size of m of the hash table is typically much less than |U|. We also say that h(k) is the hash value of key k.
+
+-  Two keys hash to the same slot. We call it collision. The dictionary operations on a hash table are easy to implement when collisions are resolved by chaining:
+
+   1) CHAINED-HASH-INSERT(T,x) ---> Running time: O(1）, assuming the linked list is a double linked list.
+
+   Insert x at the head of list T[h(x.key)].
+
+   2) CHAINED-HASH-SEARCH(T,k) ---> The running time is O(1+alpha) where alpha = n/m.
+
+   search for an element with key k in list T[h(k)].
+
+   3) CHAINED-HASH-DELETE(T,x) ---> Running time: O(1), assuming the linked list is a double linked list.
+
+   remove the element x from the list T[h(x.key)].
+
+-  Hashing functions
+
+   A good hash function satisfies (approximately) the assumption of simple uniform hashing.
+
+   If we know the distribution. For example, if we know that keys are random real numbers k independently and uniformly distributed in the range 0 <= k < 1, then the hash function.
+   
+   h(k) = floor(km);
+
+-  Interpreting keys as natural numbers
+
+   We can find a way to inteprete non-natural number keys as natural numbers. E.g.
+
+   p = 112 and t = 116 in ASCII code. Thus
+
+   ( 112 * 128 ) + 116 = 14452;
+
+-  The division methods
+
+   h(k) = k mod m;
+
+   m should not be the power of 2 becasue the hash value becomes the p lowest-order bits of k. (m = 2.^p).
+
+   A prime not too close to an exact power of 2 is often a good choice.
+
+-  The multiplication methods
+
+-  Universal hashing
+
+-  Open addressing
+
+   In open addressing, all elements occupy the hash table itself. That is, each table entry contains either an element of the dynamic set or NIL. No elements are stored outside
+   the table, unlike in chaining. Thus in open addressing, the hash table can "fill up" so that no further insertions can be made; one consequence is that the load factor alpha
+   can never exceed 1.
+
+   To perform insertion using open addressing, we successively examine, or probe the hash table until we find an empty slot in which to put the key. Instead of being fixed in order
+    0, 1,...,m-1 (which requires O(n) search time), the sequence of positions probed depends upon the key being inserted. 
+
+   To determine which slots to probe, we extend the hash function to include the probe number (starting from 0) as a second input. Thus the hash function becomes:
+
+   h: U x {0, 1,..., m-1} -> {0, 1, ..., m-1}
+   
+   With open addressing, we require that for every key k, the probe sequence
+
+   <h(k,0), h(k,1), ...,h(k,m-1) be a permutation of <0,1,...,m-1>, so that every hash-table position is eventually considered as a slot for a new key as the table fills up.
+
+   1) Insertion
+
+   HASH-INSERT(T,k)
+   1 i = 0
+   2 repeat
+   3  j = h(k,i)
+   4  if T[j] == NIL
+   5     T[j] = k
+   6     return j
+   7  else i = i + 1
+   8  until i == m
+   9  error "hash table overflow"
+
+   2) Search
+   
+   The search can terminate (unsuccessfully) when it finds an empty slot, since k would have been inserted and not later in its probe sequence. The procedure HASH-SEARCH 
+   takes as input a hash table T and a key k, returning j if it finds that slot j contains key k, or NIL if key k is not present in table T.
+
+   HASH-SEARCH(T,k)
+   1 i = 0 
+   2 repeat 
+   3  j = h(k,i)
+   4  if T[j] == k
+   5     return j
+   6  i = i + 1
+   7  until T[j] == NIL or i == m
+   8  return NIL
+
+   3) Deletion
+
+   When we delete a key from slot i, we cannot simply mark that slot as empty by storing NIL in it. If we did, we might be unable to retrieve any key k during whose insertion 
+   we had probed slot i and found it occupied. What we are going to do then?
+
+   We can mark the removed slot as "DELETED" so for insertion operation, we need to modify it so that it can inserted to the slot marked as "DELETED". There is no need to change
+   the search procedure as it will pass over DELETED values while searching.
+
+   In our analysis, we assume uniform hashing: the probe sequence of each key is equally likely to be any of the m! permutations of <0, 1, ..., m - 1>.
+
+-  Linear probing
+
+   Given an ordinary funcion h': U -> {0,1,...,m-1}, which refers to as an auxiliary hash function, the method of linear probing uses the hash function:
+
+   h(k) = ( h'(k) + i ) mod m
+
+   Problem: primary clustering. Long runs of occupied slots build up, increasing the average search time. Clusters arise because an empty slot preceded by i full slots get filled
+   next with probability (i+1)/m(??). Long runs of occupied slots tend to get longer, and the average search time increases.
+
+-  Quadratic probing
+
+   h(k,i) = (h'(k) + c1*i + c2*i.^2 ) mod m
+
+   where c1 and c2 are positive constants.
+
+-  Double hashing
+
+   h(k,i) = (h1(k) + ih2(k)) mod m , 
+   
+
+   
