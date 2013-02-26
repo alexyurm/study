@@ -188,13 +188,6 @@ Chapter 7 inheritance and polymorphism
 -  A subclass inherits members(instance variables and methods) of the superclass. A superclass can choose whether or not it wants a subclass to inherit a particular member by the
    level of access the particular member is given.
 
-   There are 4 access levels covered in this book:
-
-   private: public members are inherited.
-   default: private members are not inherited.
-   protected:
-   public:
-
    The following table shows the access to members permitted by each modifier:
 
    | Modifier | Class    | Package |  Subclass | World |
@@ -888,14 +881,337 @@ Chapter 10 numbers and statics
    String.format(“%tA, %<tB %<td”,today); //<---The angle-bracket "<" is just another flag in the specifier that tells the formatter to "Use the previous argument again.", instead
                                           //you format the same argument three different ways.
 
+-  Getting an object that extends Calendar
+
+   How do you get an "instance" of an abstract class?
+
+   This won't work:
+
+   Calendar cal = new Calendar(); //<---it won't work because the constructor Calendar() is a protected method.
+
+   Instead, use the static "getInstance()" method.
+
+   Calendar cal = Calendar.getInstance(); //<---This is not an instance of Calendar as Calendar is an abstract class. This static method returns an instance of a concrete subclass
+                                          //. Something that extends Calendar. In most of the world, and by default for most versions of Java, you will be getting back a
+                                          //java.util.GregorianCalendar instance.
+
+-  Even more Statics!...static imports.
+
+   New to Java 5.0...The basic idea is that whenever you're using a static class, a static variable, or an enum(more on those later), you can import them, and save yourself some 
+   typing. The downside to static imports is that if you are not careful - using them can make your code a lot harder to read.
+
+   Some old-fashioned code:
+
+   import java.lang.Math;
+   class NoStatic {
+      public static void main(String[] args) {
+         System.out.println("sqrt " + Math.sqrt(2.0));
+         System.out.println("tan " + Math.tan(2.0));
+      }
+   }
+
+   Same code with static imports:
+
+   import static java.lang.System.out; //The syntax to use when declaring static imports.
+   import static java.lang.Math.*; 
+
+   class WithStatic {
+      public static void main(String[] args) {
+         out.println("sqrt " + Math.sqrt(2.0));
+         out.println("tan " + Math.tan(2.0));
+      }
+   }
+
+Chapter 11 Risky Behavior
+
+-  Tha JavaSound API
+
+   JavaSound is a collection of classes and interfaces added to Java starting with version 1.3. They are not add-ons but part of the standard J2SE class library.
+
+   1) First, we need a Sequencer
+
+   The sequencer is the object that takes all the MIDI data and sends it to the right instruments. A sequencer can do a lot of different things, but in this book, we
+   are using it strictly as a playback device. Like a CD-player on your stereo but with added features.
+
+   import javax.sound.midi.*
+
+   public class MusicTest1 {
+      
+      public void play() {
+         Sequencer sequencer = MidiSystem.getSequencer();
+
+         System.out.println("We got a sequencer");
+      } //close play
+
+      public static void main(String[] args) {
+         MusicTest mt = new MusicTest1();
+         mt.play();
+      }
+   }
+
+   The code won't compile! The compiler says there's an "unreported exception" that must be caught or declared
+
+   alexyu@alexyu:~/Desktop/study/Java/beatBox$ javac MusicTest1.java 
+   MusicTest1.java:6: unreported exception javax.sound.midi.MidiUnavailableException；must be caught or declared to be thrown
+            Sequencer sequencer = MidiSystem.getSequencer();
+
    
+   1 errors
+   
+-  What happens when a method you want to call(probably in a class you didn't write) is risky?
+
+   Methods in Java use exception to tell the calling code, "Something Bad Happened. I failed". This approach is based on you knowing that the method you're calling is risky.
+   (e.g. that the method might generate an exception), so that you can write code to deal with that possibility.
+
+   How do you know if a method throws an exception? You find a throws clauses in the risky method's declaration. You can read the Java API to understand under what circumstances, 
+   Exceptions can happen.
+
+   If you wrap the risky code in something called a "try/catch", the compiler will relax. A "try/catch" block tells the compiler that you know an exceptional thing could happen
+   in the method you're calling, and that you're prepared to handle it. The compiler doesn't care how you handle it; it cares only that you say you're taking care of it.
+
+   import javax.sound.midi.*
+
+      public class MusicTest1 {
+         
+         public void play() {
+         
+            try {
+            Sequencer sequencer = MidiSystem.getSequencer();
+            System.out.println("We got a sequencer");
+            
+         } catch (MidiUnavailableException ex) {
+
+            System.out.println("Bummer");
+            
+         }
+
+         public static void main(String[] args) {
+            MusicTest mt = new MusicTest1();
+            mt.play();
+         }
+      }
+
+-  An exception is an object...of type Exception.
+
+   Remember from your polymorphism chapters that an object of type Exception can be an instance of any subclass of Exception. Because an Exception is an object, what you catch
+   is an object. If the following code, the catch arguments is declared as type Exception, and the parameter reference variable is ex
+
+   try {
+      // do risky thing
+   } catch (Exception ex) {  //<---This is just like declaring a method argument
+      //try to recover   //<---The code only runs if an Exception is thrown.
+   }
+
+-  If it is your code that catches the exception, then whose code throw it?
+
+          
+            ---------(2)--------
+            |                  |
+            v                  |
+   Your code ---(1)----> class with a risky method 
+
+   1) Call risky method
+
+   When somebody write code that could throw an exception, they must declare the exception.
+
+                              |--------This method MUST tell the world (by declaring) that it throws a BadException
+                              v      
+   public void takeRisk() throws BadException { 
+      if (abadonAllHope) {
+         throw new BadException(); //<---Create a new Exception and throw it
+      }
+      
+   }   
+
+   2) throws an exception back
+
+   public void crossFingers() {
+      try {
+         anObject.takeRisk();
+      } catch (BadException ex) {
+         System.out.println("Aaargh!");
+         ex.printStackTrace(); //<---If you can't recover from the exception, at LEAST get a stack trace using the printStackTrack() method that all exceptions inherit.
+      }
+   }
+
+-  The compiler checks for everything except RunTimeExceptions.
+
+   Exceptions that are not subclass of RuntimeException are checked for by the compiler. They're called "checked exceptions".
+
+                     Exception
+                           |
+                           ^
+         ----------------------------------------
+         |                 |                    |
+      IOEXception    InterruptException   RuntimeException (RuntimeExceptions are NOT checked by the compiler. They've known as (big surprise here) "unchecked exceptions")
+                                                      |--------------|
+                                                      ^              ^
+                                           ClassCastException NullPointerException    
+
+   But why RuntimeExceptions the compiler doesn't care about those runtime exceptions? Becasue most RuntimeExceptions come from a problem in your code logic，rather than a
+   condition that fails at runtime in ways that you cannot predict or prevent. You cannot guarantee the server is up. You cannot guarantee the server is up. But you can make
+   sure you code doesn't index off the end of the array.
+   
+-  Flow control in try/catch blocks
+
+   try {
+      Foo f = x.doRiskyThing();
+      int b = f.getNum(); //<---------------------It doRishkyThing() failed, the rest of the try block never runs, which is a good thing as the rest depends on the success of 
+                          //the call to doRiskyThing().
+   } catch (Exception ex) {
+      System.out.println("failed");
+   }
+   System.out.println("We made it!");
+
+-  Finally: for the things you want to do no matter what.
+
+   A finally block is where you put code that must run regardless of an exception.
+
+   try {
+      turnOvenOn();
+   } catch (BakingException ex) {
+      ex.printStackTrace();
+   } finally {
+      turnOvenOff();
+   }
+
+   Without finally, you have to put the turnOverOff() in both the try and the catch becasue you have to turn off the oven no matter what. A finally block lets you put all
+   your important cleanup code in one place instead of duplicating the code.
+
+   Note: 
+
+   If the try block fails (an exception) --> catch block runs ---> finally block runs
+
+   If the try block succeeds -> skip catch block ---> finally block runs
+
+   If the try or catch block has a return statement, finally will still run!
+
+-  A method can throw multiple exceptions
+
+   public class Laundry {
+      public void doLaundry() throws PantsException, LingerieException {
+      // code that could throw either exception.
+      }
+   }
+
+   public class Foo {
+      public void go() {
+         Laundry laundry = new Laundry();
+         
+         try {
+            laundry.doLaundry();
+         } catch (PantsException) {
+            //recovery code
+         } catch (LingerieException) {
+            //recovery code
+         }
+      }
+   }
+
+-  Exceptions are polymorphic
+
+   Exceptions are objects that can be thrown. All exceptions have "Exception" as a superclass. Becasue you CAN catch everything with one big super polymorphic catch, doesn't alwasy
+   mean you SHOULD.
+
+   try {
+      laundry.doLaundry();
+   } catch (Exception ex) {
+      //recovery code...   //<---Recovery from what? This catch block will catch ANY and all exceptions, so you won't automatically know what went wrong.
+   }
+
+   Instead, write a different catch block for each exception that you need to handle uniquely. Multiple catch blocks must be ordered from smallest to biggest
+   
+                     ClothingException
+
+   PantsException    LingerieException    ShirtException    UniformException
+        
+                                  TeeShirtException DressShirtException
+
+   try {
+      laundry.doLaundry ();
+   
+   } catch (TeeShirtException tex) {
+      //recovery from TeeShirtException
+   } catch (LingerieException tex) {
+      //recovery from LingerieException
+   } catch (ClothingException tex) {
+      //recovery from all others
+   }
+
+-  When you don't want to handle an exception...Just duck it by clearing it.
+
+-  Exception Rules
+
+   1) You cannot have a catch or finally without a try.
+   2) You cannot put code between the try and the catch.
+   3) A try MUST be followed by either a catch or a finally.
+   4) A try with only a finally (no catch) must still declare the exception.
+
+-  Making actual sound
+
+   1) The thing that plays the music;
+   2) The music to be played...a song;
+   3) The part of the Sequence that holds the actual information;
+   4) The actual music information; note to play, how long, etc...
+
+   
+                  plays                         has                  holds
+   Sequencer   ----------->   Sequence    -------------> Track    -------------->   MidiEvents...
+
+   Note: A MIDI event is a message that the Sequencer can understand such as play Middle C, play this fast and play this hard...
+
+-  Making a MidiEvent (song data)
+
+   Skip it for now.
+
+Chapter 12 A very Graphic story
+
+-  Skip it for now
+
+Chapter 13 Work on your Swing
+
+-  Skip it for now
+
+Chapter 14 Saving Objects
+
+-  Skip it for now
+
+Chapter 15 Making a connection
+
+-  Skip it for now
+
+Chapter 16 Data Structure
+
+-  ArrayList has a lot of methods, but there is nothing can do sorting. ArrayList is not the only collection. Some of the key collection classes are:
+
+   -  TreeSet
+
+      Keeps the elements sorted and prevents duplicates.
+
+   -  HashMap
+
+      Let's you store and access elements as name/value pairs.
+
+   -  LinkedList
+
+      Designed to give better performance when you insert or delete elements from the middle of the collection.
+
+   -  HashSet
+
+      Prevents duplicates in the collection, and given an element, can find that element in the collection quickly.
+
+   -  LinkedHashMap
+
+      Like a regular HashMap except it can remember then order in which elements (name/value pairs) were inserted, or it can be configured to remember the order in which elements
+      were last accessed.
+      
 
    
 
    
 
-   
-   
+
+
 Questions
 
 1) Is it ture that the name of a public class must be the same as the file name?
