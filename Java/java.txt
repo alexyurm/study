@@ -1205,7 +1205,333 @@ Chapter 16 Data Structure
       Like a regular HashMap except it can remember then order in which elements (name/value pairs) were inserted, or it can be configured to remember the order in which elements
       were last accessed.
       
+-  You could use a TreeSet...or you could use the Collection.sort() method.
 
+   TreeSet: If you put all the strings into a TreeSet instead of an ArrayList, the Strings would automatically land in the right place, alphbetically sorted. There is a trade-off:
+   every time you insert into a TreeSet, the TreeSet has to take time to figure out where in the tree the new element must go.
+
+   Collection.sort(): The Collection.sort() method sorts a list of Strings alphabetically. E.g.
+
+   import java.util.*;
+   import java.io.*;
+
+   public class Jukebox1 {
+
+      ArrayList <String> songList = new ArrayList<String>();
+
+      public static void main(String[] args) {
+         new Jukebox1().go();
+      }
+   
+      public void go() {
+         getSongs();
+         System.out.println(songList);
+         Collection.sort(songList); //<---Call the static Collections sort() method.
+         System.out.println(songList);
+      }
+
+   ...
+   }
+
+-  But if you need Song objects not just simple Strings to store in the list?
+
+   class Song {
+      String title;
+      String artist;
+      String rating;
+      String bpm;
+   }
+
+   Thus we need to change thd code a littie bit:
+
+   ...
+   public class Jukebox3 {
+      ArrayList<Song> songList = new ArrayList<Song>();
+   }
+
+   Unfortunatelly, it won't compile
+
+   symbol : method sort(java.util.ArrayList<Song>)
+   location: class java.util.Collections
+                     Collections.sort(songList);
+                                ^
+
+   1 error
+
+-  Generic
+
+   From the Java API docs:
+
+   public static <T extends Comparable<? super T>> void sort(List<T> list)
+
+   Why the definition of sort is so strange...this is because the sort() method (along with other things in the whole collection framework in Java) makes heavy use of generics.
+   Anytime you see something with angle brackets in Java source code or documentations, it means generics - a feature added to Java 5.0.
+
+   Generics means more type-safety. The main point of generics is to let you write type-safe collections. In other words, code that makes the compiler stop you from putting a Dog
+   into a list of Ducks.
+
+   Without generics:
+
+   Objects go IN as a reference of type of Object and OUT as a reference to type of Object.
+
+   With generics:
+
+   Objects go IN as a reference to only Fish (for example) objects
+
+   ArrayList<Fish>
+   
+   and come OUT as a reference of type Fish. With Generics now, you can put only Fish Objects in the ArrayList<FISH>, so the objects come out as  Fish references.
+
+   Of the dozens of things you could learn about generics, there are really three things that matter to most programmers:
+
+   1) Creating instances of generified classes (like ArrayList)
+
+   You have to tell the type of objects you'll allow in the list, just as you do with plain old arrays. 
+
+   new ArrayList<Song>();
+
+   2) Declaring and assigning variables of generic types
+
+   List<Song> songList = new ArrayList<Song>();
+
+   3) Declaring (and involking) methods that take generic types
+
+   void foo(List<Song> list) 
+      
+   x.foo(songList)
+
+   void foo(List<Song> list)
+   
+   x.foo(songList)
+
+-  Using generic CLASSES
+
+   A generic class: it means that the class declaration includes a type parameter.
+
+   A generic method: it means that the method declaration uses a type parameter in its signature.
+
+   You can use type parameters in a method in several different ways:
+
+   1) Using a type parameter defined in the class declaration
+
+   public class ArrayList<E> extends AbstractList<E> ... {
+      public boolean add (E o) //<-- You can use the "E" here ONLY because it's already been defined as part of the class.
+   }
+
+   The type declared in the method argument is essentially replaced with the type you use when you instantiate the class.
+
+   2) Using a type parameter that was NOT defined in the class declaration
+
+   public <T extends Animal> void takeThing(ArrayList<T> list)
+
+   If the class itself doesn't use a type parameter, you can still specify one for a method, by declaring it in a really unusual (but available) space - before the return type.
+   This method says that T can be "any type of Animal".
+
+-  Revisiting the sort() method
+
+   The sort() method can take only lists of Comparable objects.
+
+   Song is not a subtype Comparable, so you cannot use sort() the list of Songs.
+
+   public static <T extends Comparable<? super T>> void sort(List<T> list)   
+                           |                |                     |
+                           |                |                     |---------> You can only pass in only a List(or subtype of List, like ArrayList that uses parameterized type that
+                           |                |                                 ("extends Comparable" )
+                           |                |
+                           |                |-----> it means the type parameter for Comparable must be of type T or one of T's supertypes(??).
+                           |
+                           |
+                           -----> This says "Whatever" 'T' is must be of type Comparable
+
+   But the docs for String say String doesn't EXTEND Comparable -- it IMPLEMENTS it. Comparable is an interface. So it's nonsense to say <T extends Comparable>:
+
+   public final class String extends Object implements Serializable, Comparable<String>, CharSequence
+
+   In generics, "extends" means "extends or implements".
+
+-  Here is the detail of the Comparable interface
+
+   java.lang.Comparable
+
+   public interface Comparable<T> {
+      int compareTo(T o);
+   }
+
+   There is only one method to implement and it is called compareTo:
+
+   Returns:
+
+   Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than 
+   the specified object.
+
+   Your job now is to implement compareTo for the class Song to decide what mekes one song greater than another.
+
+   Thus we have the new, comparable Song class:
+
+   class Song implements Comparable<Song> {
+      String title;
+      String artist;
+      String rating;
+      String bpm;
+   
+      public int compareTo(Song s) {
+         return title.compareTo(s.getTitle()); //<---Very simple!
+      }
+
+-  There's new problem - if you want two different views of the song list, one by song title and one by artist.
+
+   There is another sort() method in the Class Collections.
+
+   public static <T> void sort(List<T> list, Comparator<? super T> c)
+
+-  using a custom Comparator
+
+   An element in a list can compare itself to another of its own type in only one way, using its compareTo() method. But a Comparator is external to the element type you're comparing
+   - it's a seperate class. You can make as many of these as you like! E.g. ArtistComparator, BPMComparator...
+
+   The sort() method that takes a Comparator will use the Comparator instead of the element's own compareTo()method, when it puts the elements in order. In other words, if your sort()
+   method gets a Comparator, it won't even call the compareTo method of the elements in the list. The sort() method will instead invoke the compare() method on the Comparator.
+
+-  Updating the Jukebox to use a Comparator
+
+   ...
+   public class JukeBox5 {
+      ArrayList<Song> songList = new ArrayList<Song>();
+      public static void main(String[] args) {
+         new Jukebox5.go();
+      }
+
+      class ArtistCompare implements Comparator<Song> {
+         public int compare(Song one, Song two) {
+            return one.getArtist().compareTo(two.getArtist());//<--We're letting the String variable (for artist do the actual comparision, since Strings already know how to 
+                                                              //alphbetize themselves)
+         }
+
+      public void go() {
+         getSongs();
+         System.out.println(songList);
+         Collections.sort(songList);
+         System.out.println(songList);
+
+         ArtistCompare artistCompare = new ArtistCompare(); //<---Make an instance of the Comparator inner class
+         Collections.sort(songList, artistCompare); //<---Invoke sort(), passing it the list and a reference to the new custom Comparator object.
+         ...
+      }
+   }
+
+-  We can use "Set" instead of "List" to resolve the dublicate elements stored in a list.
+
+   1) LIST
+
+   Collections that know about index position. Lists know where something is in the list. You can have more than one element referencing the same object.
+
+   2) SET
+
+   collections that do not allow duplicates. Sets know whether something is already in the collection. You can never have more than one element referencing
+   the same object (or more than one element referencing two objects that are considered equal—we’ll look at what object equality means in a moment).
+
+   3）MAP
+
+   When finding something by key matters
+
+   Collections that use key-value pairs. Maps know the value associated with a given key. You can have two keys that reference the same value, but you cannot have
+   dublicate keys. Although keys are typically String names (so that you can make name/value property lists, for example), a key can be any object.
+
+-  Using a HashSet instead of ArrayList.
+
+   ...public void go() {
+      getSongs();
+      System.out.println(songList);
+      Collections.sort(songList);
+      System.out.println(songList);
+
+      HashSet<Song> songSet = new HashSet<Song>();
+      songSet.addAll(songList);//<---HashSet has a simple addAll() method that can take another collection and use it to populate the HashSet. It is the same as if we
+                               //added each some one at a time(except much simpler).
+      System.out.println(songList);
+   }  
+
+   But there are still duplicate elements in above method using HashSet. Why?
+
+-  What makes two objects equal?
+
+   This brings up a key issue: reference equality vs. object equality.
+
+   1) Reference equality
+
+   Two references, one object on the heap
+
+   Two references that refer to the same object on the heap are equal. If you call hashCode() method on both references you will get the same result.
+
+   2) Object equality
+
+   Two references, two objects on the heap, but the objects are considered meaningfully equilvalent.
+
+   If you want to treat two different Song objects as equal (for example if you needed that two songs are the same if you they have matching title variables), you must
+   override both the hashCode() and equals() methods inherited from class Object.
+
+   If you don't override hashCode(), the default behavior (from Object ) is to give each object a unique hashcode value. Also, you must override equals() so that if you call
+   it on either object, passing in the other object, always return true. 
+
+   if (foo.equals(bar) && foo.hashCode() == bar.hashCode()) {
+      //both references are referring to either a single object, or to two objects that are equal.
+   }
+
+-  The Song class with overridden
+
+   class Song implements Comparable<Song>{
+      String title;
+      String artist;
+      String rating;
+      String bpm;
+
+      public boolean equals(Object aSong) { 
+         Song s = (Song) aSong;
+         return getTitle().equals(s.getTitle()); //<---The great news is that title is a String, and Strings have an overriden equals() method. So all we have to do is to ask
+                                                 // one title if it's equal to the other song's title.
+      }
+
+      public int hashCode() {
+         return title.hashCode(); //<---Same deal here...the String class has an overriden hashCode method, so you can just return the result of calling hashCode() on the title.
+                                  //Notice how hashCode() and equals() are using the SAME instance variable.
+      }
+
+      Java Object Law For HashCode() and equals()
+
+      The API docs for class Object state the rules you MUST follow:
+
+      1) If two objects are equal, they MUST have matching hashcodes.
+
+      2) If two objects are equal, calling equals on either object MUST return true. In other words, if (a.equals(b)) then (b.equals(a)).
+
+      3) If two objects have the same hashcode value, they are NOT required to be equal. But if they're equal, they MUST have the same hashcode value.
+
+      4) So, if you override equals(), you MUST override hashCode().
+
+      5) The default behavior of hashCode() is to generate a unique integer for each object on the heap. So if you don't override hashCode() in a class, no two objects of that type
+         can EVER be considered equal.
+
+      6) The default behavior of equals() is do do an == comparision. In other words, to test whether the two references refer to a single object on the heap. So if you don't override
+         equals() in a class, no two objects can EVER be considered equal since references to two different objects will always contain a different bit pattern.
+
+      7) a.equals(b) must also mean that a.hashCode() == b.hashCode().
+      
+      8) But a.hashCode() == b.hashCode() does NOT have to mean a.equals(b).
+
+-  And if we want the set to stay sorted, we've got TreeSet.
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+   
    
 
    
