@@ -1205,7 +1205,7 @@ Chapter 16 Data Structure
       Like a regular HashMap except it can remember then order in which elements (name/value pairs) were inserted, or it can be configured to remember the order in which elements
       were last accessed.
       
--  You could use a TreeSet...or you could use the Collection.sort() method.
+-  You could use a TreeSet...or you could use the Collections.sort() method.
 
    TreeSet: If you put all the strings into a TreeSet instead of an ArrayList, the Strings would automatically land in the right place, alphbetically sorted. There is a trade-off:
    every time you insert into a TreeSet, the TreeSet has to take time to figure out where in the tree the new element must go.
@@ -1516,14 +1516,95 @@ Chapter 16 Data Structure
 
       7) a.equals(b) must also mean that a.hashCode() == b.hashCode().
       
-      8) But a.hashCode() == b.hashCode() does NOT have to mean a.equals(b).
+      8) But a.hashCode() == b.hashCode() does NOT have to mean a.equals(b). (??)
 
 -  And if we want the set to stay sorted, we've got TreeSet.
 
-   
+   TreeSet is similar to Hashset but it also keeps the list sorted.
 
-   
+   public void go() {
+      getSong();
+      System.out.println(songList);
+      Collections.sort(songList);
+      System.out.println(songList);
 
+      TreeSet<Song> songSet = new TreeSet<Song>();
+      songSet.addAll(songList);//<---Calling the addAll method.
+      System.out.println(songList);
+   }
+
+   import java.util.*;
+
+   public class TestTree {
+      public static void main(String[] args) {
+         new TestTree().go();
+      }
+
+      public void go() {
+         Book b1 = new Book("How Cats Work");
+         Book b2 = new Book("Remix your Body");
+         Book b3 = new Book("Finding Emo");
+
+         TreeSet<Book> tree = new TreeSet<Book>();
+         tree.add(b1);
+         tree.add(b2);
+         tree.add(b3);
+         System.out.println(tree);
+      }
+   }
+
+   class Book implements Comparable<Book>{
+      String title;
+      public Book(String t) {
+         title = t;
+      }
+
+      public int compareTo(Book b) {
+         return title.compareTo(b.title);
+      }
+   }
+
+   The above program won't compile! It is simply becasue the elements in the list must be of a type that implements Comparable. 
+
+   class Book implements Comparable {
+      String title;
+      public Book(String t) {
+         title = t;
+      }
+      
+      public int compareTo(Object b) {
+         Book book = (Book) b;
+         return (title.compareTo(book.title));
+      }
+   }
+   
+   Or you use the TreeSet's overloaded constructor that takes a Comparator:
+
+   public class BookCompare implements Comparetor<Book> {
+      public int compare(Book one, Book two) {
+         return (one.title.compareTo(two.title));
+      }
+   }
+
+   class Test {
+      public void go() {
+         Book b1 = new Book("How Cats Work");
+         Book b2 = new Book("Remix your Body");
+         Book b3 = new Book("Finding Emo");
+         BookCompare bCompare = new BookCompare();//Create a new BookCompare instance
+         TreeSet<Book> tree = new TreeSet<Book>(bCompare);
+         tree.add(new Book("How Cats Work"));
+         tree.add(new Book("Remix your Body"));
+         tree.add(new Book("Finding Emo"));
+         System.out.println(tree);
+      }  
+   }
+
+-  We've seen Lists and Sets, now we'll use a Map.
+
+   Sometimes a Map is the best. Each element in a Map is actually TWO objects - a key and a value. You can have dulpicate values, but NOT duplicate keys.
+
+-  Finally, back to generics.
    
 
    
