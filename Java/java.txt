@@ -1605,6 +1605,76 @@ Chapter 16 Data Structure
    Sometimes a Map is the best. Each element in a Map is actually TWO objects - a key and a value. You can have dulpicate values, but NOT duplicate keys.
 
 -  Finally, back to generics.
+
+   If you declare a method to take ArrayList<Animal> it can take ONLY an ArrayList<Animal>, not ArrayList<Dog> or ArrayList<Cat>.
+
+   But why that doesn't happen in Array?
+
+   Because Array types are checked again at runtime, but collection type checks happen only wheny when you compile. You will get store exception when you add a new dog object 
+   into a Animal array.
+
+-  Widecards to the rescue
+
+   It looks unusual, but there is a way to create a method argument that can accept an ArrayList of any Animal subtype. The simplest way is to use a widecard - The
+   simplest way is to use a widecard. 
+
+   public void takeAnimals(ArrayList<? extends Animal> animals) { //<---the keyword "extends" here means either extends OR implements depending on the type. So if you want to tak
+      for (Animal a : animals) {                                  //an ArrayList of types that implement the Pet interface, you'd declare it as ArrayList<? extends Pet>
+         a.eat();
+      }
+   }
+
+   When you use a widecard in your method argument, the compiler will STOP you from doing anything that could hurt the list referenced by the method parameter.
+
+   You still can invoke methods on the elements in the list, but you cannot add elements to the list. In other words, you can do things with the list elements, but you can't 
+   put new things in the list. So you're safe at runtime, because the compiler won't let you do anything that might be horrible at runtime.
+
+   So this is OK inside takeAnimals();
+
+   for (Animal a: animals) {
+      a.eat();
+   }
+
+   But This would not compile:
+
+   animals.add(new Cat());
+
+-  Alternative syntax for doing the same thing:
+
+   The type parameter can also be declared before the return type. The results are the same.
+
+   This:
+
+   public <T extends Animal> void takeThing(ArrayList <T> list)
+
+   Does the same thing as this:
+
+   public void takeThing(ArrayList<? extends Animal> list)
+
+   If they both do the same thing, why would you use one over the other?
+
+   It is all depends on whether you want to use "T" some-where else. For example, what if you want the method to have two arguments - both of which are lists of a type
+   that extend Animal? In this case, it's more efficient to just declare the type parameter once:
+
+   public <T extends Animal> void takeThing(ArrayList<T> one, ArrayList<T> two)
+
+   instead of typing:
+
+   public void takeThing(ArrayList<? extends Animal> one, ArrayList<? extends Animal> two)
+
+Chapter 17 Release Code
+
+-  Skip it for now
+
+Chapter 18 Distriburted Computing
+
+-  Methods are always between two objects on the same heap. What if you want to invoke a method on an object running on another machine?
+
+   
+
+   
+
+   
    
 
    
@@ -1656,3 +1726,4 @@ Questions
     }
 
 4) 
+   public void takeThing(ArrayList<? extends Animal>)
