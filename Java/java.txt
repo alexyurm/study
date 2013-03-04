@@ -1670,7 +1670,24 @@ Chapter 18 Distriburted Computing
 
 -  Methods are always between two objects on the same heap. What if you want to invoke a method on an object running on another machine?
 
-   
+-  You want to cause a method invocation on a remote object (i.e. an object in a heap somewhere else.) but with code that lets
+   you pretend that you are invoking a method on a local object. That's what RMI (Remote Method Invocation) gives you!
+
+-  A design for remote methdo calls:
+
+   Create four things: server, client, server helper, client helper
+
+   1) The server app is the remote service that has an object with the method that the client wants to invoke.
+
+   2) The client/server 'helpers'. They will handle all the low-level networking and I/O details so your client and service
+      can pretend like they're in the same heap.
+
+-  The role of the 'helpers'
+
+   The client calls a method on the client helper, as if the client helper were the actual service. The client helper is a proxy
+   for the Real Thing.
+
+
 
    
 
