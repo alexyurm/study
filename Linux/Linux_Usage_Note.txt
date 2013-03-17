@@ -28,3 +28,21 @@
    -  To set it permanently, and system wide (all users, all processes) add set variable in /etc/environment:
 
       sudo vi /etc/environment
+
+8. Check the ubuntu upate history:
+
+   less /var/log/apt/histor.log
+
+9. The following commands explain how to remove, install and reconfigure xorg, without reinstalling ubuntu. This is very useful if you messup with your xorg file.
+
+   -  Remove existing xorg using the following command:
+
+      sudo apt-get remove --purge xserver-xorg
+
+   -  Install xorg using the following command:
+
+      sudo apt-get install xserver-xorg
+
+   -  Reconfigure xorg using the following command
+
+      sudo dpkg-reconfigure xserver-xorg
