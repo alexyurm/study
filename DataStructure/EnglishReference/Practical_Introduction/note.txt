@@ -1,0 +1,5 @@
+Chapter 5 Binary Tree
+
+-  Tree structures permit both efficient access and update to large collections of data. 
+
+-  If n1, n2,..., nk is a sequence of nodes in the tree such that ni is the parent of ni+1 for 1<=i<k, then this sequence is called a path from n1 to nk.

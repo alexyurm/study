@@ -243,9 +243,23 @@ Chapter 6 Heap Sort
 
 Chapter 11 Hash Tables
 
+-  The process of finding a record using some computation to map its key value to a position in the table is called Hashing.
+
+-  The function that maps key values to positions is called hash function.
+
+-  Hashing only works to store sets. That is, hashing cannot be used for applications where multiple records with the same key values are permitted. Hashing is not a good method
+   for answering range searches. In other words, we cannot easily find all records (if any) whose key values fall within a certain range. Hashing is most appripriate for answering
+   the question "What record, if any, has key value K?"
+
 -  Many applications require a dynamic set that supports only the dictionary operation INSERT, SEARCH and DELETE. Although searching for an element data structure in a hash table
    can take as long as searching for an element in a link-list:O(n). In practice, hashing performs extremely well. Under resonable assumptions, the average time to search for an
    element in a hash table is O(1).
+
+-  Finding a record with key value K in a database organized by hashing follows a two-step procedure:
+
+   1) Compute the table location h(k);
+
+   2) Starting with slot h(K), locate the record containing key K using (if necessary) a collision resolution policy.
 
 -  Direct-address tables
 
@@ -254,7 +268,6 @@ Chapter 11 Hash Tables
 
    The direct address table: T[0..m-1]
    slot k corresponds to a key in the set with key k. If the set contains no element with key k, then T[k] = NIL;
-   
    
    The operations are trival to implement:
 
@@ -297,6 +310,8 @@ Chapter 11 Hash Tables
    remove the element x from the list T[h(x.key)].
 
 -  Hashing functions
+
+   The goal of a hash function is to minimize collisions.
 
    A good hash function satisfies (approximately) the assumption of simple uniform hashing.
 
@@ -381,12 +396,25 @@ Chapter 11 Hash Tables
 
 -  Linear probing
 
+   It is a closed hashing with no bucketing, and a collision resolution policy that can potentially use any slot in the hashtable. 
+
+   INSERT:
+
+   We can view any collision resolution method as generating a sequence of hash table slots that can potentially hold the record. The first slot in the sequence will be the home
+   position. If the home is occupied, then go to the next slot in the sequence and so on.
+
    Given an ordinary funcion h': U -> {0,1,...,m-1}, which refers to as an auxiliary hash function, the method of linear probing uses the hash function:
 
    h(k) = ( h'(k) + i ) mod m
 
    Problem: primary clustering. Long runs of occupied slots build up, increasing the average search time. Clusters arise because an empty slot preceded by i full slots get filled
-   next with probability (i+1)/m(??). Long runs of occupied slots tend to get longer, and the average search time increases.
+   next with probability (i+1)/m. Long runs of occupied slots tend to get longer, and the average search time increases.
+
+   How can we avoid primary clustering?
+
+-  One possible improvement might be to use linear probing, but to skip slots by a constant c other than 1. This would make the probe function:
+
+   p(K, i) = ci. This is still not good. 
 
 -  Quadratic probing
 
@@ -399,4 +427,3 @@ Chapter 11 Hash Tables
    h(k,i) = (h1(k) + ih2(k)) mod m , 
    
 
-   

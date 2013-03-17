@@ -1742,5 +1742,68 @@ Questions
         }
     }
 
-4) 
-   public void takeThing(ArrayList<? extends Animal>)
+Answer: It is "generics". <? super T> dest must be the type of class T or the super class of T. <? extends T> means src must be the type of class T or T's sub-class.
+
+4) We can create a container class for a pair of value. E.g.
+
+   /** Container class for a key-value pair */
+
+   class KVpair<Key, E> {
+     private Key k;
+     private E e;
+
+     /** Constructors */
+     KVpair()
+       { k = null; e = null; }
+     KVpair(Key kval, E eval)
+       { k = kval; e = eval; }
+
+     /** Data member access functions */
+     public Key key() { return k; }
+     public E value() { return e; }
+   }
+
+   Note: <Key, E> is the key-value pair value that implementing the "generics" feature.
+
+5) What is that comment used for in Java?
+
+   /**  */
+
+6) Why I cannot create generics arrays. E.g.
+
+   BSTNode<Integer>[] nodes = new BSTNode<Integer>[11];
+
+   Answer: Generics and arrays don't mix. Basically, the short answer is that you can work around this problem. The longer answer is that you probably shouldn't. Here is the explanation
+   of why?
+
+   Arrays are covariant. That means they retain the type of their elements at runtime. Java's generics are not. They use type erasure to basically mask the implicit casting that 
+   is going
+   on. It's important to understand that.
+
+   The following example is perfectly legal:
+
+   List<String> list = new ArrayList<String>();
+   List<Integer> list2 = new (List<Integer>)list;
+   list.add(3);
+
+   It is also why you can't do this:
+
+   public <T> T newInstance(T t) {
+      return new T();
+   }
+
+   ie at runtime, there is no knowledge of T's class. This is why the above code is more often written as:\
+
+   public <T> T newInstance(T t, Class<T> clazz) {
+      return clazz.newInstance();
+   }
+
+   because there is no runtime type for the generics argument. But with arrays:
+
+   String arr[] = new String[10];
+   Integer arr2[] = (Integer[])arr; //error
+
+   What you should be doing in this case (imho) is not using arrays but using an ArrayList. In all honesty, there is very little reason to use arrays over an ArrayList and generics
+   is just one example of that.
+
+   
