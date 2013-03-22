@@ -1,48 +1,62 @@
-1. chown command -> Change the owner of files or directories
+1.    chown command -> Change the owner of files or directories
 
-2. ps command -> Report the process status
+2.    ps command -> Report the process status
 
-3. Network File System (NFS protocol) -> A network file system protocol allowing a user on a client computer to access files over a network in a manner similar to how local storage is accessed. NFS, like many other protocols, builds on the Open Network Computing Remote Procedure Call (ONC RPC)system. The Network File System is an open standard defined in RFCs, allowing anyone to implement the protocol.
+3.    Network File System (NFS protocol) -> A network file system protocol allowing a user on a client computer to access files over a network in a manner similar to how local storage is accessed. NFS, like many other protocols, builds on the Open Network Computing Remote Procedure Call (ONC RPC)system. The Network File System is an open standard defined in RFCs, allowing anyone to implement the protocol.
 
-4. tar command -> Tar stores and extracts files from a tape or disk archive.
+4.    tar command -> Tar stores and extracts files from a tape or disk archive.
 
-5. awk command
+5.    awk command
 
-6. udev -> udev is the device manager for Linux kernel. Primarily, it manages device nodes in /dev. It is the successor of devfs and hotplug, which means that it handles the /dev directory and all user space actions when adding/removing
+6.    udev -> udev is the device manager for Linux kernel. Primarily, it manages device nodes in /dev. It is the successor of devfs and hotplug, which means that it handles the /dev directory and all user space actions when adding/removing
    devices, including firmware load.
 
 7. Set environment variable in Ubuntu:
 
-   -  To set variable only for current shell:
+      -  To set variable only for current shell:
 
-      VARNAME="my value"
-   
-   -  To set it for current shell and all processes started from current shell:
-
-      export VARNAME="my value"      # shorter, less portable version
+         VARNAME="my value"
       
-   -  To set it permanently for all future bash sessions add such line to your .bashrc file in your $HOME directory.
+      -  To set it for current shell and all processes started from current shell:
 
-      sudo vi ~/.bashrc
+         export VARNAME="my value"      # shorter, less portable version
+         
+      -  To set it permanently for all future bash sessions add such line to your .bashrc file in your $HOME directory.
 
-   -  To set it permanently, and system wide (all users, all processes) add set variable in /etc/environment:
+         sudo vi ~/.bashrc
 
-      sudo vi /etc/environment
+      -  To set it permanently, and system wide (all users, all processes) add set variable in /etc/environment:
 
-8. Check the ubuntu upate history:
+         sudo vi /etc/environment
 
-   less /var/log/apt/histor.log
+8.    Check the ubuntu upate history:
 
-9. The following commands explain how to remove, install and reconfigure xorg, without reinstalling ubuntu. This is very useful if you messup with your xorg file.
+      less /var/log/apt/histor.log
 
-   -  Remove existing xorg using the following command:
+9.    The following commands explain how to remove, install and reconfigure xorg, without reinstalling ubuntu. This is very useful if you messup with your xorg file.
 
-      sudo apt-get remove --purge xserver-xorg
+      -  Remove existing xorg using the following command:
 
-   -  Install xorg using the following command:
+         sudo apt-get remove --purge xserver-xorg
 
-      sudo apt-get install xserver-xorg
+      -  Install xorg using the following command:
 
-   -  Reconfigure xorg using the following command
+         sudo apt-get install xserver-xorg
 
-      sudo dpkg-reconfigure xserver-xorg
+      -  Reconfigure xorg using the following command
+
+         sudo dpkg-reconfigure xserver-xorg
+
+10.   Adding Launched PPA Repositories
+
+      PPA (Personal Package Archive) repositories. This command is the same as addrepo available on Debian.
+
+      E.g.
+
+      sudo add-apt-repository ppa:fcitx-team/stable
+
+11.   gnome-tweak-tool
+
+      sudo apt-get install gnome-tweak-tool
+
+      This tool is for displaying trash can on the Mint13 desktop.
