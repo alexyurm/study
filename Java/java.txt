@@ -17,7 +17,7 @@ Chapter 2 Objects and Classes
 
 -  Java takes out the garbage:
 
-   Each time an object is created in Java, it goes into an area of memory known The Heap. The Java Heap, which is not like the heap memory in C/C++, is actually a Garbage-Collection
+   Each time an object is created in Java, it goes into an area of memory known the Heap. The Java Heap, which is not like the heap memory in C/C++, is actually a Garbage-Collection
    Heap. When JVM can 'see' that an object can never be used again, that object becomes eligible collection.
 
 -  It would be a big pain to deliver a huge bunch of individual files to your end-users but you won't have to. You can put all of your application files into Java Archive - a .jar file
@@ -1343,6 +1343,10 @@ Chapter 16 Data Structure
                            |
                            -----> This says "Whatever" 'T' is must be of type Comparable
 
+   Note: "super" in Generics is the opposite of "extends". Instead of saying the comparable's generic type has to be a subclass of T, it is saying it has to be a superclass
+   of T. This is important because extends tells you what you can get out of a class(you get at least this, perhaps a subclass). super tells you what you can put into 
+   the class(at most this, perhaps a superclass).
+
    But the docs for String say String doesn't EXTEND Comparable -- it IMPLEMENTS it. Comparable is an interface. So it's nonsense to say <T extends Comparable>:
 
    public final class String extends Object implements Serializable, Comparable<String>, CharSequence
@@ -1793,5 +1797,45 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
 
    What you should be doing in this case (imho) is not using arrays but using an ArrayList. In all honesty, there is very little reason to use arrays over an ArrayList and generics
    is just one example of that.
+
+7) If you see the following error while running a java compiled program:
+
+   Exception in thread "main" java.lang.UnsupportedClassVersionError: BinTree : Unsupported major.minor version 51.0
+      at java.lang.ClassLoader.defineClass1(Native Method)
+      at java.lang.ClassLoader.defineClass(ClassLoader.java:634)
+      at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+      at java.net.URLClassLoader.defineClass(URLClassLoader.java:277)
+      at java.net.URLClassLoader.access$000(URLClassLoader.java:73)
+      at java.net.URLClassLoader$1.run(URLClassLoader.java:212)
+      at java.security.AccessController.doPrivileged(Native Method)
+      at java.net.URLClassLoader.findClass(URLClassLoader.java:205)
+      at java.lang.ClassLoader.loadClass(ClassLoader.java:321)
+      at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:294)
+      at java.lang.ClassLoader.loadClass(ClassLoader.java:266)
+   Could not find the main class: BinTree. Program will exit.
+
+   That means you have are using classes compiled with different versions of java.
+   
+8) How can I resolve this issue?
+
+   BinTree.java:285: warning: [unchecked] unchecked call to setRight(BinNode<E>) as a member of the raw type BinNode
+         u.parent().setRight(v); 
+
+9) The assertion in Java
+
+   Two forms of assertions in Java:
+
+   1) assert Expression1;
+
+   E.g.  assert a>0;
+
+   2) assert Expression1 : Expression2 where Expression1 is a boolean expression; Expression2 is an expression that has a value. Use this version of the assert statement
+   to provide a detail message for AssertionError. The system passes the value of Expression2 to the appropriate AssertionError constructor, which uses the string representation
+   of the value as the error's detail message.
+
+10) How can I create generics array in Java:
+
+   No, you can't! It is because Java's arrays (unlike generics) contain, at runtime, information about its component type. So you must know the component type when you create
+   the array. Since you don't know what T is at runtime, you cannot create the array. 
 
    

@@ -1,0 +1,9 @@
+Chapter 1 Introduction to JavaScript
+
+-  The traid of technologies that all Web developers must learn:
+
+   -  HTML to specify the content of web pages;
+   -  CSS to specify the presentation of web pages;
+   -  JavaScript to specify the behavior of web pages.
+
+-  

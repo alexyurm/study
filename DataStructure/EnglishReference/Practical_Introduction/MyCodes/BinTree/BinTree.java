@@ -1,42 +1,26 @@
 import java.util.*;
 import java.lang.Integer;
 
-/** ADT for binary tree nodes */
-interface BinNode <E> {
-   /** Return and set the element value */
-   public E element();
-   public void setElement(E v);
-
-   /** Return the left child */
-   public BinNode<E> left();
-
-   /** Return the right child */
-   public BinNode<E> right();
-
-   /** Return true if this is a leaf node */
-   public boolean isLeaf();
-}
-
 /** Binary tree node implementation: Pointers to children  */
-class BSTNode<E> implements BinNode<E> {
+class BinNode<E> {
    private int key;       //Key for this node
    private E element;   //Element for this node
-   private BSTNode<E> left;    //Pointer to the left child
-   private BSTNode<E> right;   //Pointer to the right child
-   private BSTNode<E> parent;  //Pointer to the parent
+   private BinNode<E> left;    //Pointer to the left child
+   private BinNode<E> right;   //Pointer to the right child
+   private BinNode<E> parent;  //Pointer to the parent
 
    /** Constructors */
-   public BSTNode() {
+   public BinNode() {
       parent = left = right = null;
    }
 
-   public BSTNode(int k, E val) {
+   public BinNode(int k, E val) {
       parent = left = right = null;
       key = k;
       element = val;
    }
 
-   public BSTNode(int k, E val, BSTNode<E> l, BSTNode<E> r) {
+   public BinNode(int k, E val, BinNode<E> l, BinNode<E> r) {
       key = k;
       element = val;
       left = l;
@@ -45,7 +29,7 @@ class BSTNode<E> implements BinNode<E> {
       r.setParent(this);
    }
 
-   public BSTNode(int k, E val, BSTNode<E> l, BSTNode<E> r, BSTNode<E> p) {
+   public BinNode(int k, E val, BinNode<E> l, BinNode<E> r, BinNode<E> p) {
       key = k;
       element = val;
       left = l;
@@ -73,11 +57,11 @@ class BSTNode<E> implements BinNode<E> {
    }
 
    /** Return and set the left child */
-   public BSTNode<E> left() {
+   public BinNode<E> left() {
       return left;
    }
 
-   public void setLeft(BSTNode<E> p) {
+   public void setLeft(BinNode<E> p) {
       if (p != null) {
          left = p;
          p.setParent(this);
@@ -87,11 +71,11 @@ class BSTNode<E> implements BinNode<E> {
    }
 
    /** Return and set the right child */
-   public BSTNode<E> right() {
+   public BinNode<E> right() {
       return right;
    }
 
-   public void setRight(BSTNode<E> p) {
+   public void setRight(BinNode<E> p) {
       if (p != null) {
          right = p;
          p.setParent(this);
@@ -101,11 +85,11 @@ class BSTNode<E> implements BinNode<E> {
    }
 
    /** Return and set the parent  */
-   public void setParent(BSTNode<E> p) {
+   public void setParent(BinNode<E> p) {
       parent = p;
    }
 
-   public BSTNode<E> parent() {
+   public BinNode<E> parent() {
       return parent;
    }
 
@@ -117,25 +101,25 @@ class BSTNode<E> implements BinNode<E> {
 
 public class BinTree {
 
-   private BSTNode root;
+   private BinNode root;
    private int count;
    
    /** Constructors */
    public BinTree() {
-      root = new BSTNode();
+      root = new BinNode();
    }
 
-   public BinTree(BSTNode node) {
+   public BinTree(BinNode node) {
       root = node;
    }
 
    /** Return the root */
-   BSTNode root() {
+   BinNode root() {
       return root;
    }
 
    /** Set the root */
-   BSTNode setRoot(BSTNode rt) {
+   BinNode setRoot(BinNode rt) {
       root = rt;
       return root;
    }
@@ -145,7 +129,7 @@ public class BinTree {
       return count;
    }
    
-   void preorder(BSTNode rt) {
+   void preorder(BinNode rt) {
       if (rt == null) return;
       visit(rt);
       preorder(rt.left());
@@ -154,26 +138,26 @@ public class BinTree {
    
    /** The second implementation of preorder. It is more efficient than preorder because it makes only half
     as many as recursive calls */   
-   void preorder2(BSTNode rt) {
+   void preorder2(BinNode rt) {
    if (rt == null) return;
       visit(rt);
       if (rt.left()!= null) preorder2(rt.left());
       if (rt.right()!= null) preorder2(rt.right());
    }
 
-   void postorder(BSTNode rt) {
+   void postorder(BinNode rt) {
       if (rt == null) return;
       postorder(rt.left());
       postorder(rt.right());
       visit(rt);
    }
 
-   int count(BSTNode rt) {
+   int count(BinNode rt) {
       if (rt == null) return 0;
       return 1 + count(rt.left()) + count(rt.right());
    }
 
-   static void visit(BSTNode rt) {
+   static void visit(BinNode rt) {
       if (rt != null) {
          System.out.println(rt.key());
       } else {
@@ -182,9 +166,9 @@ public class BinTree {
    }
 
    /** Return the maximum element of the tree rooted by rt */
-   BSTNode maximum(BSTNode rt) {
+   BinNode maximum(BinNode rt) {
       if (rt != null) {
-         BSTNode x = rt;
+         BinNode x = rt;
          while (x.right() != null) {
             x = x.right();
          }
@@ -195,9 +179,9 @@ public class BinTree {
    }
 
    /** Return the Minimum element of the tree rooted by rt*/
-   BSTNode minimum(BSTNode rt) {
+   BinNode minimum(BinNode rt) {
       if (rt != null) {
-         BSTNode x = rt;
+         BinNode x = rt;
          while( x.left() != null) {
             x = x.left();   
          }
@@ -208,16 +192,16 @@ public class BinTree {
    }
 
    /** Return the largest key smaller than x */
-   BSTNode predecessor(BSTNode rt) {
+   BinNode predecessor(BinNode rt) {
       if (rt.left() != null) {
          return maximum(rt.left());   
       } else {
-         BSTNode x = rt;
-         BSTNode y = rt.parent();   
-         //while (y != null && x.key() == y.left().key )
+         BinNode x = rt;
+         BinNode y = rt.parent();   
+
          while (y != null) {
             if (y.left() != null) {
-               //We simply go up the tree x until encounter a node that is the left child of its parent.
+               //!!We simply go up the tree x until encounter a node that is the right child of its parent.
                //Remember the binary search tree's property: a given node's right subtrees >= that node.
                if (x.key() != y.left().key()) { 
                   break;
@@ -234,19 +218,22 @@ public class BinTree {
    }
 
    /** Return the smallest key greater than x */
-   BSTNode successor(BSTNode rt) {
+   BinNode successor(BinNode rt) {
       if (rt.right() != null) {
-         //return successor(rt.right());
+         //If the right subtree of x is nonempty, then the successor of x is just the leftmost node in x's right subtree.
          return minimum(rt.right());
       } else {
-         BSTNode x = rt;
-         BSTNode y = rt.parent();
-         //while ( y != null && x.key() == y.right().key() ) {
+         BinNode x = rt;
+         BinNode y = rt.parent();
+
          while (y != null) {
             if (y.right() != null) {
-               //We simply go up the tree x until encounter a node that is the left child of its parent.
+               //!!We simply go up the tree from x until encounter a node that is the left child of its parent.
                //Remember the binary search tree's property: a given node's left subtree <= that node.
-               if (x.key() != y.right().key()) { 
+               
+               //exercise 12.2-6 asks you to show, if the right subtree of node x is empty and
+               //x has a successor y, then y is the lowest ancestor of x whose left child is also an ancestor of x.
+               if (x.key() != y.right().key()) {
                   break;
                }
             } else {
@@ -261,9 +248,11 @@ public class BinTree {
    }
 
    /** Insert a node */
-   void insert(BSTNode z) {
-      BSTNode y = null;
-      BSTNode x = root;
+   // The procedure takes a node z for which z.key = v, z.left = NIL, and z.right = NIL. It modifies T and some of the attributes of z in such a way
+   // that it inserts z into an appropriate position in the tree.
+   void insert(BinNode z) {
+      BinNode y = null;
+      BinNode x = root;
       
       while (x != null) {
          y = x;
@@ -289,7 +278,7 @@ public class BinTree {
    // In order to move subtrees around within the binary search tree, we define a subroutine TRANSPLANT, which replaces one subtree as a child
    // of its parent with another subtree. When TRANSPLANT replaces the subtree rooted at node u with the subtree rooted at node v, node u's parent
    // becomes node v's parent, and u's parent ends up having v as its appropriate child.
-   void transplant(BSTNode u, BSTNode v) {
+   void transplant(BinNode u, BinNode v) {
       if (u.parent() == null) {
          root = v;
       } else if(u == u.parent().left())  {
@@ -316,15 +305,17 @@ public class BinTree {
    // We want to splice y out of its current location and have it replace z in the tree:
    // 3.1 If y is z's right child, then we replace z by y, leaving y's right child alone.
    // 3.2 Otherwise, y lies within z's right subtree but is not z's right child. In this case, we first replace y by its own right child,
-   // And then we replace z by y.
+   // and then we replace z by y.
     
-   BSTNode delete(BSTNode rt, BSTNode z) {
+   BinNode delete(BinTree t, BinNode z) {
+      BinNode rt = t.root();
+
       if (z.left() == null ) {
          rt.transplant(z, z.right());
       } else if ( z.right() == null ) {
          rt.transplant(z, z.left());
       } else {
-         BSTNode y = rt.minimum(z.right()); //find y, which is the successor of z
+         BinNode y = rt.minimum(z.right()); //find y, which is the successor of z
          if ( y.parent() != z) { // if z is not y's parent 
             rt.transplant(y, y.right()); //replace y by y's right child and y's parent ends up having y's right child as its appropriate child
             y.setRight(z.right());
@@ -334,23 +325,22 @@ public class BinTree {
          y.setLeft(z.left());
          y.left().setParent(y);
       }
-
    }
 
    public static void main(String[] args) {
 
       /* Create a whole bunch new nodes */
-      BSTNode<Integer> node_0 = new BSTNode<Integer>(15, 0);
-      BSTNode<Integer> node_1 = new BSTNode<Integer>(6, 0);
-      BSTNode<Integer> node_2 = new BSTNode<Integer>(18, 0);
-      BSTNode<Integer> node_3 = new BSTNode<Integer>(3, 0);
-      BSTNode<Integer> node_4 = new BSTNode<Integer>(7, 0);
-      BSTNode<Integer> node_5 = new BSTNode<Integer>(17, 0);
-      BSTNode<Integer> node_6 = new BSTNode<Integer>(20, 0);
-      BSTNode<Integer> node_7 = new BSTNode<Integer>(2, 0);
-      BSTNode<Integer> node_8 = new BSTNode<Integer>(4, 0);
-      BSTNode<Integer> node_9 = new BSTNode<Integer>(13, 0);
-      BSTNode<Integer> node_10 = new BSTNode<Integer>(9, 0);
+      BinNode<Integer> node_0 = new BinNode<Integer>(15, 0);
+      BinNode<Integer> node_1 = new BinNode<Integer>(6, 0);
+      BinNode<Integer> node_2 = new BinNode<Integer>(18, 0);
+      BinNode<Integer> node_3 = new BinNode<Integer>(3, 0);
+      BinNode<Integer> node_4 = new BinNode<Integer>(7, 0);
+      BinNode<Integer> node_5 = new BinNode<Integer>(17, 0);
+      BinNode<Integer> node_6 = new BinNode<Integer>(20, 0);
+      BinNode<Integer> node_7 = new BinNode<Integer>(2, 0);
+      BinNode<Integer> node_8 = new BinNode<Integer>(4, 0);
+      BinNode<Integer> node_9 = new BinNode<Integer>(13, 0);
+      BinNode<Integer> node_10 = new BinNode<Integer>(9, 0);
 
       /* Create a new BinTree */
       BinTree bTree = new BinTree(node_0);
@@ -366,10 +356,10 @@ public class BinTree {
       bTree.insert(node_10);
 
       /* Do stuff */
-      //BSTNode x = bTree.successor(node_6);
+      //BinNode x = bTree.successor(node_6);
       //BinTree.visit(x);
 
-      BSTNode y = bTree.predecessor(node_7);
+      BinNode y = bTree.successor(node_1);
       BinTree.visit(y);
 
       return;

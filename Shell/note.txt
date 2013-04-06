@@ -8,8 +8,7 @@ The | (pipe) symbol creates a pipeline between two programs: who's output become
 
 $ cat > nusers          Create the file, copy the terminal input with cat
 who | wc -l             Program text
-^D
-$ chmod chmod +x nusers
+$ chmod +x nusers
 $ ./nusers
 6
 
@@ -19,7 +18,7 @@ This shows the typical development cycle for small one- or two-line shell script
 
 #!/bin/sh
 
-When the first two characters of a file are #!, the kernel scans the rest of the file of the line for the full pathname of an intepreter to use to run the program. (Any intervening whitespace is skipped). The kernel also scans
-for a single option to be passed to that intepreter. 
+When the first two characters of a file are #!, the kernel scans the rest of the file of the line for the full pathname of an intepreter to use to run the program. 
+(Any intervening whitespace is skipped). The kernel also scans for a single option to be passed to that intepreter. 
 
 
