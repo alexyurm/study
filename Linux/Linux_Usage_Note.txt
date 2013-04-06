@@ -60,3 +60,23 @@
       sudo apt-get install gnome-tweak-tool
 
       This tool is for displaying trash can on the Mint13 desktop.
+
+12.   How to resolve the X230 random freeze problem on 12.04.
+
+      Upgrade the kernel from 3.2 to 3.4:
+
+      1) Download the 3 deb packages files.
+
+      linux-image-3.4.0-030400-generic-pae_3.4.0-030400.201205210521_i386.deb
+      linux-headers-3.4.0-030400_3.4.0-030400.201205210521_all.deb
+      linux-headers-3.4.0-030400-generic-pae_3.4.0-030400.201205210521_i386.deb
+
+      2) Go to the download directory and do:
+
+      sudo dkpg -i *.deb
+
+      3) Restart the computer
+
+      sudo init 6
+
+13.   
