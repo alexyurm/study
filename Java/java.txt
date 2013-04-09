@@ -133,7 +133,7 @@ Chapter 6 Using the Java Library
    ArrayList<Button> means ArrayList will be able to hold only objects of type Button (or subclass of Button as you will learn in the next couple of chapters)
 
 -  In the java API, classes are grouped into packages. to use a class in the API, you have to know which package the class is in. Using a class from the API is simple, somewhere
-   in your code, you have to indicate the full name of the library class you want to use, and that means package name + class name
+   in your code, you have to indicate the full name of the library class you want to use, and that means "package name + class name"
    
    E.g.
 
@@ -335,9 +335,24 @@ Chapter 8 Serious Polymorphism
 -  A Java interface solves your multiple inheritance problem by giving you much of the polymorphic benefits of multiple inheritance without the pain and suffering from the
    Deadly Diamond of Death (DDD).
 
-   Note: What is Deadly diamond of Death?
+   Note: What is Deadly diamond of Death??
 
-   The way to handle that is very simple: make all the methods abstract.
+   The "diamond problem" (sometimes refereed to as the "deadly diamond of death") is an ambiguity that arises when two classes B and C inherit from A, and class D inherits from
+   B and C.
+
+         A
+       /   \
+      /     \
+      B     C           (the shape looks like a diamond)
+      ^     ^
+      \     /
+       \   /
+         D
+
+   If D calls a method defined in A (and does not override the method), and B and C override that method differently, this from which class does it inherit: B or C? It's 
+   called the "diamond problem" because of the shape of the class inheritance diagram in this situation.
+
+   The way to handle that is very simple: make all the methods abstract(How to solve the DDD using abstract methods?).
 
    Pet:
 
@@ -1690,12 +1705,6 @@ Chapter 18 Distriburted Computing
 
    The client calls a method on the client helper, as if the client helper were the actual service. The client helper is a proxy
    for the Real Thing.
-
-
-   
-
-   
-
 
 
 Questions
