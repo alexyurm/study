@@ -40,6 +40,10 @@
 *
 *        2.2) Grey vertices may have some adjacent white vertices; they represent the frontier between discovered and undiscovered vertices. 
 *
+*     -  BFS search constructs a breadth-first tree, initially containing only its root, which is the source vertex s. Whenever the search discovers vertex u
+*        , the vertex v and the edge (u,v) are added to the tree. We say that u is the predecessor or parent of v in the breadth-first tree. Since a vertex
+*        is discovered at most once, it has at most one parent. Ancestor and descendant relatiohships in the breadth-first tree are defined relative to the root
+*        s as usual: if u is on the simple path in the tree from the root s to vertex v, then u is an ancestor of v and v is a decendant of u. 
 *        
 *
 */ 
@@ -48,19 +52,113 @@ import java.util.*;
 import java.lang.Integer;
 
 class Vertex<T>{
-   int key;
-   T next;
+
+   private int key;
+   private Vertex pre;        //the predecessor
+   private Vertex next;       //the next vertex
+   private Color color; //the color of a node
+   private int dist;
+
+   Vertex() {
+      key = 0;
+      next = null;
+      color = Color.WHITE; //Can I just use WHITE instead?
+      dist = 0;
+   }
+
+   Vertex(Vertex v) {
+      key = v.getKey();
+      next = v.getNext();
+      color = v.getColor();
+      dist = v.getDist();
+   }
+
+   Vertex(int k, Vertex v, Color c, int d) {
+      key = k;
+      next = v;
+      color = c;
+      dist = d;
+   }
+
+   public void setKey(int k) {
+      key = k;
+   }
+
+   public void setPre(Vertex p) {
+      pre = p;
+   }
+
+   public void setNext(Vertex n) {
+      next = n;
+   }
+
+   public void setColor(Color c) {
+      color = c;
+   }
+
+   public void setDist(int d) {
+      dist = d;
+   }
+
+   public int getKey() {
+      return key;
+   }
+
+   public Vertex getPre() {
+      return pre;
+   }
+
+   public Vertex getNext() {
+      return next;
+   }
+
+   public Color getColor() {
+      return color;
+   }
+
+   public int getDist() {
+      return dist;
+   }
+
 }
 
 class Graph {
-      
-}
 
-class BFS {
-   public BFS() {
-      public static final int WHITE = 0;
-      public static final int GRAY = 1;
-      public static final int BLACK = 2;
+   private Vertex[] vertices;
+   private Vertex s; //the source vertex
+
+   Graph() {
+      s = null;
+      vertices = null;
    }
-}
 
+   Graph(Vertex[] vts) {
+      vertices = vts;
+      s = vertices[0];  //Default source vertex is the first element in the vertics string.
+   }
+
+   // Breadth-First-Search
+   void BFS() {
+      //Step 1: Initialization
+      for(Vertex u: vertices) {
+         if (u == s) continue;
+
+         u.setColor(Color.WHITE);
+         u.setDist(-1);
+         u.setPre(null);
+      }
+      s.setColor(Color.GRAY);
+      s.setDist(0);
+      Queue<Vertex> Q = new LinkedList<Vertex>();
+      Iterator it = Q.iterator();
+      
+   }
+
+   public static void main(String[] args) {
+
+      Queue<Vertex> queue = new Queue<Vertex>();
+
+      return;
+   }
+
+}

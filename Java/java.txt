@@ -1718,7 +1718,7 @@ Questions
 
    -  Obtain an iterator to the start of the collection by calling the collections's iterator() method. 
 
-   -  Set up a loop that makes a call to hashNext(). Have the loop iterate as long as hashNext() returns true.
+   -  Set up a loop that makes a call to hasNext(). Have the loop iterate as long as hashNext() returns true.
 
    -  Within the loop, obtain each element by calling next().
 
@@ -1847,4 +1847,14 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    No, you can't! It is because Java's arrays (unlike generics) contain, at runtime, information about its component type. So you must know the component type when you create
    the array. Since you don't know what T is at runtime, you cannot create the array. 
 
-   
+11) One can use enum in Java. E.g.
+
+   public enum Color {
+      WHITE, GRAY, BLACK;
+   }
+
+12) Why we can assign a LinkedList Object to a Queue reference?
+
+   Queue<String> q = new LinkedList<String>();
+
+   The class "LinkedList" implements the interface "Queue". Is it the same as polymorphism between a class and its subclasses?
