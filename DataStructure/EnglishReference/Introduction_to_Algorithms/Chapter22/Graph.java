@@ -55,27 +55,25 @@ class Vertex<T>{
 
    private int key;
    private Vertex pre;        //the predecessor
-   private Vertex next;       //the next vertex
    private Color color; //the color of a node
    private int dist;
 
    Vertex() {
       key = 0;
-      next = null;
       color = Color.WHITE; //Can I just use WHITE instead?
       dist = 0;
    }
 
    Vertex(Vertex v) {
       key = v.getKey();
-      next = v.getNext();
       color = v.getColor();
       dist = v.getDist();
+      pre = v.getPre();
    }
 
-   Vertex(int k, Vertex v, Color c, int d) {
+   Vertex(int k, Vertex p, Color c, int d) {
       key = k;
-      next = v;
+      pre = p;
       color = c;
       dist = d;
    }
@@ -86,10 +84,6 @@ class Vertex<T>{
 
    public void setPre(Vertex p) {
       pre = p;
-   }
-
-   public void setNext(Vertex n) {
-      next = n;
    }
 
    public void setColor(Color c) {
@@ -108,10 +102,6 @@ class Vertex<T>{
       return pre;
    }
 
-   public Vertex getNext() {
-      return next;
-   }
-
    public Color getColor() {
       return color;
    }
@@ -124,23 +114,14 @@ class Vertex<T>{
 
 class Graph {
 
-   private Vertex[] vertices;
+   private Vertex[] vs; //the vertexes 
+   private LinkedList<Vertex>[] adj; //the adjacent lists
    private Vertex s; //the source vertex
-
-   Graph() {
-      s = null;
-      vertices = null;
-   }
-
-   Graph(Vertex[] vts) {
-      vertices = vts;
-      s = vertices[0];  //Default source vertex is the first element in the vertics string.
-   }
 
    // Breadth-First-Search
    void BFS() {
-      //Step 1: Initialization
-      for(Vertex u: vertices) {
+      //Step 1: Initialization works
+      for(Vertex u: vs) {
          if (u == s) continue;
 
          u.setColor(Color.WHITE);
@@ -151,12 +132,17 @@ class Graph {
       s.setDist(0);
       Queue<Vertex> Q = new LinkedList<Vertex>();
       Iterator it = Q.iterator();
+      Q.add(s);
+
+      while(Q.peek() != null) {
+         Vertex u = Q.poll();
+              
+      }
       
    }
 
    public static void main(String[] args) {
 
-      Queue<Vertex> queue = new Queue<Vertex>();
 
       return;
    }
