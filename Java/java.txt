@@ -1858,3 +1858,21 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    Queue<String> q = new LinkedList<String>();
 
    The class "LinkedList" implements the interface "Queue". Is it the same as polymorphism between a class and its subclasses?
+
+13) How can I resolve this issue?
+
+   warning: [unchecked] unchecked conversion 
+
+14) Assuming there is a private memeber, which is a linkedlist in a class
+
+      class A {
+         private LinkedList llist;
+      }
+
+      If in main, we define a variable to store the llist
+
+      LinkedList l = a.getList;
+      l.removeLast();
+
+      Why we can use l to remove element in a.llist?
+

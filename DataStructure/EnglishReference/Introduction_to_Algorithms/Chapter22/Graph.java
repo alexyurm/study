@@ -40,28 +40,30 @@
 *
 *        2.2) Grey vertices may have some adjacent white vertices; they represent the frontier between discovered and undiscovered vertices. 
 *
-*     -  BFS search constructs a breadth-first tree, initially containing only its root, which is the source vertex s. Whenever the search discovers vertex u
-*        , the vertex v and the edge (u,v) are added to the tree. We say that u is the predecessor or parent of v in the breadth-first tree. Since a vertex
-*        is discovered at most once, it has at most one parent. Ancestor and descendant relatiohships in the breadth-first tree are defined relative to the root
-*        s as usual: if u is on the simple path in the tree from the root s to vertex v, then u is an ancestor of v and v is a decendant of u. 
+*     BFS search constructs a breadth-first tree, initially containing only its root, which is the source vertex s. Whenever the search discovers vertex u
+*     , the vertex v and the edge (u,v) are added to the tree. We say that u is the predecessor or parent of v in the breadth-first tree. Since a vertex
+*     is discovered at most once, it has at most one parent. Ancestor and descendant relatiohships in the breadth-first tree are defined relative to the root
+*     s as usual: if u is on the simple path in the tree from the root s to vertex v, then u is an ancestor of v and v is a decendant of u. 
 *        
 *
 */ 
 
 import java.util.*;
-import java.lang.Integer;
 
-class Vertex<T>{
+class Vertex{
 
    private int key;
-   private Vertex pre;        //the predecessor
+   private Vertex pre;  //the predecessor
    private Color color; //the color of a node
-   private int dist;
+   private int dist;    //the distance
+   //private Vertex[] adj;//the adjacency vertex nodes
+   private LinkedList<Vertex> adj;
 
    Vertex() {
-      key = 0;
+      key = -1;
       color = Color.WHITE; //Can I just use WHITE instead?
-      dist = 0;
+      dist = -1;
+      adj = new LinkedList<Vertex>();
    }
 
    Vertex(Vertex v) {
@@ -69,13 +71,15 @@ class Vertex<T>{
       color = v.getColor();
       dist = v.getDist();
       pre = v.getPre();
+      adj = v.getAdj();
    }
 
-   Vertex(int k, Vertex p, Color c, int d) {
+   Vertex(int k, Vertex p, Color c, int d, LinkedList<Vertex> a) {
       key = k;
       pre = p;
       color = c;
       dist = d;
+      adj = a;
    }
 
    public void setKey(int k) {
@@ -94,6 +98,10 @@ class Vertex<T>{
       dist = d;
    }
 
+   public void setAdj(LinkedList<Vertex> a) {
+      adj = a;
+   }
+
    public int getKey() {
       return key;
    }
@@ -110,13 +118,31 @@ class Vertex<T>{
       return dist;
    }
 
+   public LinkedList<Vertex> getAdj() {
+      return adj;
+   }
+
+   public void addAdjNode(Vertex n) {
+      adj.add(n);
+   }
 }
+
+/*
+*  Assuming the graph is undirected graph and we use adjacency list to store the vettexes and edges.
+*
+*/
 
 class Graph {
 
    private Vertex[] vs; //the vertexes 
-   private LinkedList<Vertex>[] adj; //the adjacent lists
    private Vertex s; //the source vertex
+
+   Graph() {};
+
+   Graph(Vertex[] vs) {
+      this.vs = vs;
+      s = vs[0]; //we set the first node as the source vertex by default.
+   }
 
    // Breadth-First-Search
    void BFS() {
@@ -134,15 +160,66 @@ class Graph {
       Iterator it = Q.iterator();
       Q.add(s);
 
+      Vertex u;
+      Vertex v;
+
       while(Q.peek() != null) {
-         Vertex u = Q.poll();
-              
+         u = Q.poll(); //Retrieve one node from the queue.
+         for (int i = 0; i < u.getAdj().size(); i++) {
+            v = u.getAdj().get(i);
+            if (v.getColor() == Color.WHITE) {
+               v.setColor(Color.GRAY);
+               v.setDist(u.getDist()+1);
+               v.setPre(u);
+               Q.add(v);
+            }
+         }
+         u.setColor(Color.BLACK);
+         System.out.println("the key = " + u.getKey() + " the distance = " + u.getDist());
       }
-      
    }
 
    public static void main(String[] args) {
 
+      //Create a vertex array.
+
+      Vertex v1 = new Vertex();
+      Vertex v2 = new Vertex();
+      Vertex v3 = new Vertex();
+      Vertex v4 = new Vertex();
+      Vertex v5 = new Vertex();
+
+      v1.setKey(1);
+      v2.setKey(2);
+      v3.setKey(3);
+      v4.setKey(4);
+      v5.setKey(5);
+
+      v1.addAdjNode(v2);
+      v1.addAdjNode(v5);
+
+      v2.addAdjNode(v1);
+      v2.addAdjNode(v5);
+      v2.addAdjNode(v3);
+      v2.addAdjNode(v4);
+
+      v3.addAdjNode(v2);
+      v3.addAdjNode(v4);
+
+      v4.addAdjNode(v2);
+      v4.addAdjNode(v5);
+      v4.addAdjNode(v3);
+
+      v5.addAdjNode(v4);
+      v5.addAdjNode(v1);
+      v5.addAdjNode(v2);
+
+      Vertex[] vs = new Vertex[]{v1, v2, v3, v4, v5};
+
+      //Create a graph
+      Graph gr = new Graph(vs);
+
+      gr.BFS();
 
       return;
    }
