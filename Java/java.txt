@@ -1893,4 +1893,29 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
 
    public int hashCode():
 
-   Returns a hash 
+   Return a hash code value for the object. This method is supported for the benefit of hashtables such as those provided by
+   java.util.Hashtable. The general contract oif hashCode is:
+
+   -  Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method
+      must consistently return the same integer, provide no info in equals comparision on the object is modified. The interger
+      need not remain consistent from one application to another execution of the same application.
+
+   -  If two objects are equal according to the equals(Objct) method, then calling the hashCode method on each of the two 
+      objects must produce the same integer result.
+
+   -  It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the 
+      hashCode method on each of the two objects must produce distinct integer results. However, the progrmmer should be
+      aware that producing distinct integer results for unequal objects may improve the performance of hashtables.
+   
+      The hashCode method defined by Object does not return distinct integers for distinct objects(This is typically implemented
+      by converting the internal address of the object into an integer, but this implementation technique is not required by
+      Java programming language). 
+
+      The default implementation of equals() method checks to see if the two objects have the same identity. Similarly, 
+      the default implementation of the hashCode() method returns an integer based on the object's identity and is not 
+      based on the values of instance (and class) variables of the object. No matter how many times the values of its 
+      instance variables (data fields) change, the hash code calculated by the default hashCode implementation does not 
+      change during the life of the object.
+
+      
+
