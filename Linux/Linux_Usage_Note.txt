@@ -79,4 +79,19 @@
 
       sudo init 6
 
-13.   
+13.   Enabling PAE manually: sudo apt-get install linux-generics-pae linux-headers-generic-pae
+
+      If PAE was successfully enabled you may want to remove the meta-package for the normal kernel. In order to disable unnecessary updates to the non-PAE kernels:
+
+      sudo apt-get remove linux-generic linux-image-generic linux-headers-generic
+
+      If you want to remove all of the old kernels from your boot menu, it seems like you have to do it all manually:
+
+      sudo apt-get remove linux-image-<version number>-generic linux-headers-<version number>-generic
+
+      If Something went wrong, just remove the PAE kernel packages using either synaptic or apt-get/aptitude. If you did not specifically remove the non-PAE kernel 
+      packages, they should still be present on the system and automatically selected as the default when the PAE kernel is removed.
+
+      The relevant PAE kernel packages are:
+
+      linux-image-generic-pae  linux-image-<version number>-generic-pae linux-headers-generic-pae linux-headers-<version number>-generic-pae

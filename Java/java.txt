@@ -1876,3 +1876,13 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
 
       Why we can use l to remove element in a.llist?
 
+15) Hash Map
+
+   The Map interface that maps unique keys to value means it associate value to unique keys which you use to retrieve value at a later date. Some of they key points are:
+
+   -  Using a key and a value, you can store the value in Map object. You can retrieve it later by using it's key.
+   -  When no element exists in the involking Map, many methods throw a 'NoSuchElementException'
+   -  A ClassCastException is thrown when an object is incompatible with the elements in a map.
+   -  An UnsupportedOperation is thrown when an attempt is made to change an unmodified map.
+
+   
