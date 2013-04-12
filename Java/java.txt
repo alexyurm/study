@@ -1885,4 +1885,12 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    -  A ClassCastException is thrown when an object is incompatible with the elements in a map.
    -  An UnsupportedOperation is thrown when an attempt is made to change an unmodified map.
 
-   
+16) Why always override hashcode() method if overriding equals().
+
+   The default implementation of the equals() just simply compares the memory addresses of the objects. If you override the
+   equals(), you MUST also override hashCode(). Otherwise, a violation of the general contract for Object.hashCode will occur.
+   which can have unexpected repercussions when your class is in conjunction with all hash-based collections.
+
+   public int hashCode():
+
+   Returns a hash 

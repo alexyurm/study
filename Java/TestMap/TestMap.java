@@ -11,4 +11,4 @@ public class TestMap {
       System.out.println(scores);
       System.out.println(scores.get("Bert"));
    }
-} 
+}
