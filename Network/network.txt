@@ -22,8 +22,11 @@ Chapter 1: Protocol Layers and Their Service Models
 
    The network layer provides the service of delivering the segment to the transport layer in the detination host. The Internet's network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations.
 
-   IP
+   IPv4: 32-bit address
+   IPv6: 128-bit address
 
    4) Link
 
    5) Physical
+
+-  Traceroute: provides delay measurement from source to route along end-end internet path towards destination.
