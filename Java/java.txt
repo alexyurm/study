@@ -685,6 +685,10 @@ Chapter 10 numbers and statics
 
    A final class means you can't extend the class (i.e. you can't make a subclass).
 
+-  Using "final" immutable, final object with proper equals() and hashcode() implementation would act as perfect Java HashMap keys and
+   improve performance of Java HashMap by reducing collision(??). Immutability also allows catching there hashcode of different keys which
+   makes overall retrival process very fast.
+
 -  In summary, we should follow the following order of defining a variable:
 
    [access type][static or not][final or not]type variableName;
@@ -1706,6 +1710,226 @@ Chapter 18 Distriburted Computing
    The client calls a method on the client helper, as if the client helper were the actual service. The client helper is a proxy
    for the Real Thing.
 
+Chapter 19 Concurrency
+
+-  Each thread is associated with an instance of the class Thread. There are two basic strategies for using Thread objects to create a concurrent application.
+
+   -  To directly control thread creation and management, simply instantiate Thread each time the application needs to initiate an asynchronous task.
+   -  To abstract thread management from the rest of your application, pass the application's tasks to an executor.
+
+-  An application that creates an instance of Thread must provide the code that will run in that thread. Two ways to do this:
+
+   1) Provide a Runnable object. The Runnable interface defines a single method, run, meant to contain the code executed in the thread. The Runnable object is passed to
+      the Thread constructor. (A more general method because the Runnable object can subclass a class other than Thread)
+
+      E.g. 
+
+      class HelloRunnable implements Runnable {
+         public void run() {
+            System.out.println("Hello from a thread!");
+         }
+
+         public static void main(String[] args) {
+            (new Thread(new HelloRunnable())).start();//start a new thread using a Runnable Object by calling start();
+         }
+      }
+
+
+   2) The subclass thread itself implements Runnable, though its run method does nothing. An application can subclass Thread, providing its own implementation of run, as in
+      the HelloThread example: (easier to use but your class is limited by the fact that your task must be a descendant of Thread).
+
+      E.g.
+   
+      class HelloThread extends Thread {
+         public void run() {
+            System.out.println("Hello from a thread!");
+         }
+
+         public static void main(String[] args) {
+            (new HelloThread()).start();//start a new thread on a Thread subclass object
+         }
+      }
+
+-  The Interrupted Status Flag
+
+
+   The interrupt mechanism is implemented using an internal flag known as the interrupt status. Involking Thread.interrupt sets this flag. E.g.
+
+      if (Thread.interrupted()) {
+         throw new InterruptedException();
+      }
+
+   When a thread checks for an interrupt by involking the static method Thread.interrupted, interrupt status is cleared. The non-static isInterrupted method, which is used
+   by one thread to query the interrupt status of another, does not change the interrupt status flag.
+
+   By convention, any method that exists by throwing an InterruptedException clears interrupt status when it does so. However, it is always possible that interrupt status will
+   immediatedly be set again, by another thread invoking interrupt.
+
+-  Joins
+
+   The Join method allows one thread to wait for the completion of another. If t is a Thread object whose thread is currently executing,
+
+   t.join();
+
+   causes the current thread to pause execution until t's thread terminates. Like sleep, join responds to an interrupt by exiting with an InterruptedException.
+
+-  Some other thread methods:
+
+   t.isAlive() ---> check if t is still alive
+   t.interrupt() ---> send an InterruptedException to thread t
+   t.start() ---> start the thread
+
+-  Threads communicate primarily by sharing access to fields and the objects reference fields refer to. This form of communication is extremely efficient, but makes two kinds
+   of errors possible: but makes two kinds of errors possible: thread interface and memory consistency errors. The tool needed to prevent these errors is synchronization.
+
+   1) Thread Interference: It happens when two operations, running in different threads, but acting on the same data, interleave. This means that two operations consist of multiple
+                           steps, and the sequences of steps overlap. E.g.
+
+   Thread A: Retrieve c.
+   Thread B: Retrieve c.
+   Thread A: Increment retrieved value; result is 1.
+   Thread B: Decrement retrieved value; result is -1.
+   Thread A: Store result in c; c is now 1.
+   Thread B: Store result in c; c is now -1.    
+
+   2) Memory Consistency Errors: It occurs when different threads have inconsistent views of what should be the same data. 
+
+   int counter = 0;
+
+   Thread A: counter++;
+   Thread B: System.out.println(counter);
+
+   the ourput might be 0 or 1, depending on A finishes first or B finishes first.
+
+-  Two Synchronized methods:
+
+   1) Synchronized methods;
+
+   To make a method synchronized, simply add the synchronized keyword to its declaration:
+
+   -  First, it is not possible for two invocations of synchronized methods on the same object to interleave. When one thread is executing a synchronized method 
+   for an object, all other threads that invoke synchronized methods for the same object block (suspend execution) until the first thread is done with the object. 
+
+   -  Second, when a synchronized method exits, it automatically establishes a happen-before relationship with any subsequent invocation of a synchronized method
+      exits, it automatically establishes a happen-before relationship with any subsequent invocation of a synchronized method for the same object. This guarantees
+      that changes to the state of the object are visialbe to all threads.
+
+      instance.add(this);
+
+      Warning: When constructing an object that will be shared between threads, be very careful that a reference to that object does not "leak" prematurely. For example,
+      suppose you want to maintain a List called instances containing every instance of class. You might be tempted to add the following line to your constructor:
+
+      Note: final fields, which cannot be modified after the object is constructed, can be safely read through non-synchronized methods, once the object is constructed.
+
+      Synchronization is built around an internal entity known as the intrisic lock or monitor lock. As long as a thread owns an intrinsic lock, no other thread can acquire 
+      the same lock. The other thread will block when it attempts to acquire the lock until it is released by that thread.
+
+      What happens when a static synchronized method is invoked? Since a static method is associated with a class, not an object. In this case, the thread acquires the 
+      intrinsic lock for the Class object associated with the class. Thus access to class's static fields is controlled by a lock that's distinct from the lock for any 
+      instance of the class.
+
+
+   2) Synchronized statements
+
+   -  Unlike synchronized methods, synchronized statements must specify the object that provides the intrinsic lock:
+
+      public void addName(String name) {
+         synchronized(this) {
+            lastName = name;
+            nameCount++;
+         }
+         nameList.add(name);
+      }
+
+      The above example needs to synchronize changes to lastName and nameCount, but also needs to avoid synchronizing invocations of other object's methods(the Liveness problem).
+      Without synchronized statements, there would have to be a seperate, unsynchronized method for the sole purpose of involking nameList.add(??).
+
+      Synchronized statements are also useful for improving concurrency with fine-grained synchronization. E,g,
+
+      public class MsLunch {
+         private long c1 = 0;
+         private long c2 = 0;
+         private Object lock1 = new Object();
+         private Object lock2 = new Object();
+
+         public void inc1() {
+            synchronized(lock1);
+            c1++;
+         }
+
+         public void inc2() {
+            synchronized(lock2);
+            c2++;
+         }
+      }
+
+      Since c1 and c2 will never be used together, there is no reason to prevent an update of c1 from being interleaved with an update of c2 - and doing so reduces concurrency
+      by creating unnecessary blocking. Instead of using synchronized methods or otherwise using the lock associated with this, we create two objects solely to provide locks.
+
+-  Reentrant Synchronization
+
+   Allowing a thread to acquire the same lock more than once enables reentrant synchronization.
+
+-  Atomic Access
+
+   In programming, an atomic access is one that effectively happens all at once. An atomic action cannot stop in the middle; it either happens completely, or it doesn't 
+   happen at all. No side effects of an atomic action are visible until the action is complete.
+
+   - Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double).
+   - Reads and writes are atomic for all variables declared volatile (including long and double variables).
+
+   Atomic actions cannot be interleaved, so they can be used without fear of thread interference. However, this does not eliminate all need to synchronize atomic actions, 
+   because memory consistency errors are still possible. Using volatile variables reduces the risk of memory consistency errors, because any write to a volatile variable 
+   establishes a happens-before relationship with subsequent reads of that same variable. This means that changes to a volatile variable are always visible to other threads. 
+   What's more, it also means that when a thread reads a volatile variable, it sees not just the latest change to the volatile, but also the side effects of the code that 
+   led up the change.
+
+   Using simple atomic variable access is more efficient than accessing these variables through synchronized code, but requires more care by the programmer to avoid memory 
+   consistency errors. Whether the extra effort is worthwhile depends on the size and complexity of the application.
+
+-  Liveness
+
+   A concurrent application's ability to execute in a timely manner is known as its liveness. 
+
+   -  Deadlock: a situation where two or more threads are blocked forever, waiting for each other.
+
+   -  Starvation: a situation where a thread is unable to gain regular access to shared resources and is unable to make progress.
+
+   -  Livelock:   A thread often acts in response to the action of another thread. If the other thread action is also response to the action of another thread, 
+                  then livelock may result. As with deadlock, livelocked threads are unable to make further progress. However, the threads are not blocked — 
+                  they are simply too busy responding to each other to resume work. This is comparable to two people attempting to pass each other in a corridor: 
+                  Alphonse moves to his left to let Gaston pass, while Gaston moves to his right to let Alphonse pass. Seeing that they are still blocking each other, 
+                  Alphone moves to his right, while Gaston moves to his left. They're still blocking each other, so...
+
+-  Guarded Blocks
+
+   public void guardedJoy() {
+      //Simple loop guard. Wastes
+      //processor time. don't do this!
+      while(!joy) {}
+      System.out.println("Joy has been achieved!");
+   }
+
+   A more efficient way is to invoke Object.wait to suspend the current thread. The invocation of wait does not return until another thread has issued a notification
+   that some special event may have occured ----though not necessarily the event this thread is waiting for:
+
+   public synchronized guardedJoy() {
+       // This guard only loops once for each special event, which may not
+       // be the event we're waiting for.
+       while(!joy) {
+           try {
+               wait();
+           } catch (InterruptedException e) {}
+       }
+       System.out.println("Joy and efficiency have been achieved!");
+   }
+
+      
+
+   
+
+   
+
 
 Questions
 
@@ -1807,7 +2031,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    What you should be doing in this case (imho) is not using arrays but using an ArrayList. In all honesty, there is very little reason to use arrays over an ArrayList and generics
    is just one example of that.
 
-7) If you see the following error while running a java compiled program:
+7) If you see the following error while running a java compiled program: (resolved)
 
    Exception in thread "main" java.lang.UnsupportedClassVersionError: BinTree : Unsupported major.minor version 51.0
       at java.lang.ClassLoader.defineClass1(Native Method)
@@ -1830,7 +2054,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    BinTree.java:285: warning: [unchecked] unchecked call to setRight(BinNode<E>) as a member of the raw type BinNode
          u.parent().setRight(v); 
 
-9) The assertion in Java
+9) The assertion in Java (resolved)
 
    Two forms of assertions in Java:
 
@@ -1874,7 +2098,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
       LinkedList l = a.getList;
       l.removeLast();
 
-      Why we can use l to remove element in a.llist?
+      I can use l to remove element in a.llist?? by isn't llist a private variable?
 
 15) Hash Map
 
@@ -1917,5 +2141,41 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
       instance variables (data fields) change, the hash code calculated by the default hashCode implementation does not 
       change during the life of the object.
 
-      
+17) What are immutable objects(!!):
 
+   Immutable objects are simply objects whose state (the object's data) cannot change after construction. Examples of immutable objects from the JDK
+   include String and Integer. Immutable objects greatly simpilify your program. Since they are:
+
+   -  are simple to construct, test, and use.
+   -  are automatically thread-safe and have no synchronization issues(??)
+   -  do not need a copy constructor(??)
+   -  do not need an implementation of clone
+   -  allow hashCode to use lazy initialization, and to catch its return value(??)
+   -  do not need to be copied defensively when used as a field(??)
+   -  make good map keys and Set elements (these objects must not change state while in the collection)
+   -  have their class invariant established once upon construction, and it never needs to be checked again.
+
+   Immutable objects have a very compelling list of positive qualities. Without question, they are among the simplest and most robust kinds of classes you 
+   can possibly build. When you create immutable classes, entire categories of problems simply disappear.
+
+   Make a class immutable by following these guidelines:
+
+   -  Ensure the class cannot be overriden - make the class final, or use static factories and keep constructors private
+   -  make fields private and final
+   -  force callers to construct an object completely in a single step, instead of using a no-argument constructor combined with subsequent calls to
+      setXXX methods (that is, avoid the Java Beans convention)   
+   -  do not provide any methods which can change the state of the object in any way - not just setXXX methods, but any method which can change state.
+   -  If the class has any mutable object fields, then they must be defensively copied when passed between the class and its caller.
+
+   In Effective Java, Joshua Bloch makes this compelling recommendation:
+
+   "Classes should be immutable unless there is a very good reason to make them mutable...If a class cannot be made immutable, limit its mutability as much as 
+   possible." 
+
+18)  An Interesting way of thread creation.
+
+      new Thread(new Runnable() {
+         public void run() {alphonse,bow(gaston); }
+      }).start();
+
+19) 

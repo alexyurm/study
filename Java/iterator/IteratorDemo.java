@@ -1,5 +1,12 @@
 import java.util.*; 
 
+/*
+* -   Iterator itr = listIterator()/iterator()
+* -   Use the itr.hasNext() to check if there still element in the list.    
+* -   with listIterator, you can also use itr.hasPrevious() to traverse backward.
+*/
+
+
 public class IteratorDemo {
    public static void main(String[] args) {
       //Create an array list
