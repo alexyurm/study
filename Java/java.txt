@@ -1778,9 +1778,11 @@ Chapter 19 Concurrency
    t.isAlive() ---> check if t is still alive
    t.interrupt() ---> send an InterruptedException to thread t
    t.start() ---> start the thread
+   t.interrupted() ----> Check if thread t has been interrupted
+   t.join() ----> cause the current thread to pause execution until t's thread terminates.
 
--  Threads communicate primarily by sharing access to fields and the objects reference fields refer to. This form of communication is extremely efficient, but makes two kinds
-   of errors possible: but makes two kinds of errors possible: thread interface and memory consistency errors. The tool needed to prevent these errors is synchronization.
+-  Threads communicate primarily by sharing access to fields and the objects reference fields refer to. This form of communication is extremely efficient,  but makes 
+   two kinds of errors possible: thread interface and memory consistency errors. The tool needed to prevent these errors is synchronization.
 
    1) Thread Interference: It happens when two operations, running in different threads, but acting on the same data, interleave. This means that two operations consist of multiple
                            steps, and the sequences of steps overlap. E.g.
@@ -1799,7 +1801,7 @@ Chapter 19 Concurrency
    Thread A: counter++;
    Thread B: System.out.println(counter);
 
-   the ourput might be 0 or 1, depending on A finishes first or B finishes first.
+   the output might be 0 or 1, depending on A finishes first or B finishes first.
 
 -  Two Synchronized methods:
 
@@ -1924,7 +1926,51 @@ Chapter 19 Concurrency
        System.out.println("Joy and efficiency have been achieved!");
    }
 
-      
+   Note: Don't assume that the interrupt was for the particular care about the value of joy.
+
+   How that works? When wait is invoked, the thread releases the lock and suspends execution. At some future time, another thread will acquire the same lock and invoke
+   Object.notifyAll(??), informing all threads waiting on that lock that something important has happened.
+
+   public synchronized notifyJoy() {
+      joy = true;
+      notifyAll();
+   }
+
+   Some time after the second thread has released the lock, the first thread reacquires the lock and resumes by returning from the invocation of wait.
+
+-  Immutable Objects
+
+   An object is considered immutable if its state cannot change after it is constructed. Maximum reliance on immutable objects is widely accpted as a sound strategy for creating
+   simple, reliable code. 
+
+   Immutable objects are particularly useful in concurrent applications. Since they cannot change state, they cannot be corrupted by thread interference or observed in 
+   an inconsistent state.
+
+   Programmers are often reluctant to employ immutable objects, because they worry about the cost of creating a new object as opposed to updating an object in place. The 
+   impact of object creation is often overestimated, and can be offset by some of the efficiencies associated with immutable objects. These include decreased overhead due 
+   to garbage collection, and the elimination of code needed to protect mutable objects from corruption.
+
+   The following rules define a simple strategy for creating immutable objects. Not all classes documented as "immutable" follow these rules. This does not necessarily mean
+   the creators of these classes are sloppy(??) - they may have good reason for believing that instances of their classes never change after construction. However, such
+   strategies require sophisticated analysis are not for beginners.
+
+   1. Don't provide "setter" methods — methods that modify fields or objects referred to by fields.
+   2. Make all fields final and private.
+   3. Don't allow subclasses to override methods. The simplest way to do this is to declare the class as final. A more sophisticated approach is to make the constructor 
+      private and construct instances in factory methods.
+   4. If the instance fields include references to mutable objects, don't allow those objects to be changed: Don't provide methods that modify the mutable objects.
+      Don't share references to the mutable objects. Never store references to external, mutable objects passed to the constructor; if necessary, create copies, and 
+      store references to the copies. Similarly, create copies of your internal mutable objects when necessary to avoid returning the originals in your methods.
+
+   Applying this strategy to SynchronizedRGB results in the following steps:
+
+   1. There are two setter methods in this class. The first one, set, arbitrarily transforms the object, and has no place in an immutable version of the class. 
+      The second one, invert, can be adapted by having it create a new object instead of modifying the existing one.
+   2. All fields are already private; they are further qualified as final.
+   3. The class itself is declared final.
+   4. Only one field refers to an object, and that object is itself immutable. Therefore, no safeguards against changing the state of "contained" mutable objects
+      are necessary.
+         
 
    
 
@@ -2147,7 +2193,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    include String and Integer. Immutable objects greatly simpilify your program. Since they are:
 
    -  are simple to construct, test, and use.
-   -  are automatically thread-safe and have no synchronization issues(??)
+   -  are automatically thread-safe and have no synchronization issues
    -  do not need a copy constructor(??)
    -  do not need an implementation of clone
    -  allow hashCode to use lazy initialization, and to catch its return value(??)
@@ -2178,4 +2224,11 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
          public void run() {alphonse,bow(gaston); }
       }).start();
 
-19) 
+19) How to read number from System input stream:
+
+   import java.util.Scanner;
+
+   //...
+
+   Scanner in = new Scanner(System.in);
+   int num = in.nextInt();
