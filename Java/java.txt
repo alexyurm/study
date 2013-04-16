@@ -352,7 +352,7 @@ Chapter 8 Serious Polymorphism
    If D calls a method defined in A (and does not override the method), and B and C override that method differently, this from which class does it inherit: B or C? It's 
    called the "diamond problem" because of the shape of the class inheritance diagram in this situation.
 
-   The way to handle that is very simple: make all the methods abstract(How to solve the DDD using abstract methods?).
+   The way to handle that is very simple: make all the methods abstract(How to solve the DDD using abstract methods??).
 
    Pet:
 
