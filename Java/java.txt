@@ -333,7 +333,7 @@ Chapter 8 Serious Polymorphism
    }
 
 -  A Java interface solves your multiple inheritance problem by giving you much of the polymorphic benefits of multiple inheritance without the pain and suffering from the
-   Deadly Diamond of Death (DDD).
+   Deadly Diamond of Death (DDD)
 
    Note: What is Deadly diamond of Death??
 
@@ -1357,7 +1357,7 @@ Chapter 16 Data Structure
                            |                |                     |---------> You can only pass in only a List(or subtype of List, like ArrayList that uses parameterized type that
                            |                |                                 ("extends Comparable" )
                            |                |
-                           |                |-----> it means the type parameter for Comparable must be of type T or one of T's supertypes(??).
+                           |                |-----> it means the type parameter for Comparable must be of type T or one of T's supertypes.
                            |
                            |
                            -----> This says "Whatever" 'T' is must be of type Comparable
@@ -1534,12 +1534,12 @@ Chapter 16 Data Structure
       5) The default behavior of hashCode() is to generate a unique integer for each object on the heap. So if you don't override hashCode() in a class, no two objects of that type
          can EVER be considered equal.
 
-      6) The default behavior of equals() is do do an == comparision. In other words, to test whether the two references refer to a single object on the heap. So if you don't override
+      6) The default behavior of equals() is to do an == comparision. In other words, to test whether the two references refer to a single object on the heap. So if you don't override
          equals() in a class, no two objects can EVER be considered equal since references to two different objects will always contain a different bit pattern.
 
       7) a.equals(b) must also mean that a.hashCode() == b.hashCode().
       
-      8) But a.hashCode() == b.hashCode() does NOT have to mean a.equals(b). (??)
+      8) But a.hashCode() == b.hashCode() does NOT have to mean a.equals(b).
 
 -  And if we want the set to stay sorted, we've got TreeSet.
 
@@ -1981,7 +1981,7 @@ Questions
 
 1) Is it ture that the name of a public class must be the same as the file name?
 
-2) What is an iterator/
+2) What is an iterator? (resolved)
 
    An iterator enables you cycle through a collection, obtaining or removing elements. Listiterator extends iterator to allow bidirectional traversal of a list, and the modification
    of elements. In general, to use an iterator to cycle through the contents of a collection, follow these steps:
@@ -2117,7 +2117,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
    No, you can't! It is because Java's arrays (unlike generics) contain, at runtime, information about its component type. So you must know the component type when you create
    the array. Since you don't know what T is at runtime, you cannot create the array. 
 
-11) One can use enum in Java. E.g.
+11) One can use enum in Java(resolved). E.g.
 
    public enum Color {
       WHITE, GRAY, BLACK;
@@ -2232,3 +2232,212 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
 
    Scanner in = new Scanner(System.in);
    int num = in.nextInt();
+
+20)How is String[0] means here?? (resolved)
+
+   String[] a = c.toArray(new String[0]);//suppose c is known to contain only strings
+
+   Parameter of the method toArray: 
+
+   <T> T[] toArray(T[] a)
+
+   Parameter:  a- array into which the elements of this collection are to be stored, if it is big enough; otherwise, 
+               a new array of the same runtime type is allocated for this purpose.
+
+   It is creating an empty array(because you don't know the size of the empty array). As the parameter description says, 
+   If the array is not big enough, a new array of the same runtime type is allocated.
+
+21)Set<String> s = new HashSet<String>(); (resolved)
+
+   The above code always refers to the Collection by its interface type (Set) rather than by its implementation type (HashSet). This strongly recommanded
+   programming practice because it gives you the flexibility to change implementation merely by chaning the constructor. If either of the variables used to store a 
+   collection or the parameters used to pass it around are declared to be the Collection's implementation type rather than its interface type, all such variables and parame-
+   ters must be changed in order to change its implementation type.
+
+   Furthermore, there's no guarantee that the resulting program will work. If the program uses any nonstandard operations present in the original Implementation type but not in
+   the new one, the program will fail. Referring to collections only by their interface prevents you from using any nonstandard operations(??).
+
+   What is a nonstandard operation??
+
+   The implementation type of the Set is HashSet, which makes no guarantee as to the order of the elements in the Set. If you want the program to print the word list in alphabetical
+   order, merely change the Set's implementation type from HashSet to TreeSet. Making this trivial one-line change will change the output result.
+
+21) Interesting if statement:
+
+   public int indexOf(E e) {
+       for (ListIterator<E> it = listIterator(); it.hasNext(); )
+           if (e == null ? it.next() == null : e.equals(it.next())) //Interesting statement
+               return it.previousIndex();
+       // Element not found
+       return -1;
+   }
+
+22) What is the frist <K,V> used for?
+
+   static <K, V> Map<K, V> newAttributeMap(Map<K, V>defaults, Map<K, V> overrides) {
+       Map<K, V> result = new HashMap<K, V>(defaults);
+       result.putAll(overrides);
+       return result;
+   }
+
+23) I need to understand how to use Scanner to parse files.
+
+24) An interesting way to define an array(resolved):
+
+   Name nameArray[] = {
+      new Name("John", "Smith"),
+      new Name("Karl", "Ng"),
+      new Name("Jeff", "Smith"),
+      new Name("Tom", "Rich")
+   };
+
+25) TreeSet has a constructor which accepts a Comparator object as an parameter. That Comparator object is used to sort the elements stored in the set(resolved).
+
+E.g.
+
+   public class FindDups {
+
+    public static void main(String[] args) {
+        Comparator<String> comparator = new Comparator<String>() {
+            public int compare (String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        };
+      ...
+      SortedSet<String> s = new TreeSet<String>(comparator);
+
+26) What is the difference between HashSet and TreeSet(resolved):
+
+   HashSet is much faster than TreeSet (constant-time versus log-time for most operations like add, remove and contains) but offers 
+   no ordering guarantees like TreeSet.
+
+   HashSet:
+
+   -  class offers constant time performance for the basic operations (add, remove, contains and size).
+   -  it does not guarantee that the order of elements will remain constant over time
+   -  iteration performance depends on the initial capacity and the load factor of the HashSet.
+   -  It's quite safe to accept default load factor but you may want to specify an initial capacity
+      that's about twice the size to which you expect the set to grow.
+
+   TreeSet:
+
+   -  guarantees log(n) time cost for the basic operations (add, remove and contains)
+   -  guarantees that elements of set will be sorted (ascending, natural, or the one specified by you via it's constructor)
+   -  doesn't offer any tuning parameters for iteration performance
+   -  offers a few handy methods to deal with the ordered set like first(), last(), headSet(), and tailSet() etc
+   
+   Important points:
+   
+   -  Both guarantee duplicate-free collection of elements.
+   -  It is generally faster to add elements to the HashSet and then convert the collection to a TreeSet for a duplicate-free sorted traversal.
+   -  None of these implementation are synchronized. That is if multiple threads access a set concurrently, and at least one of the threads modifies 
+      the set, it must be synchronized externally(What is "synchronized externaly??").  
+   -  LinkedHashSet is in some sense intermediate between HashSet and TreeSet. Implemented as a hash table with a linked list running through it, 
+      however it provides insertion-ordered iteration. which is not same as sorted traversal guaranteed by TreeSet.
+
+      So choice of usage depends entirely on your needs but I feel that even if you need an ordered collection then you should still 
+      prefer HashSet to create the Set and then convert it into TreeSet.
+      
+      e.g.
+
+      SortedSet<String> s = new TreeSet<String>(hashSet);
+
+27)Arrays.asList can return a fixed-size list backed by the specified array(resolved). E.g.
+
+   List<String> stooges = Arrays.asList("Larry", "Moe", "Curly");
+
+28) System.out.format("\"%s\"%n", s);
+
+   I need to understand the usage of System.out.format.
+
+29)I need to understand how to use SortedSet
+
+30) What is the difference between HashSet and LinkedHashSet?
+
+31) What is custom cache?
+
+32) Difference between an abstract class and an interface.(resolved)
+
+Interface: An interface is a contract: the guy writing the interface says "hey, I accept things looking that way", and the guy using the interface says "OK, the 
+class I write looks that way". An interface is an empty shell, there are only the signatures (name/params/return type) of the method. The methods do not contain 
+anything. The interface can't do anything. It's just a pattern. E.g.
+
+//I say all motor vehicles should look like that:
+interface MotorVehicle
+{
+   void run();
+   int getFuel();
+}
+
+//my team compiles and write vehicle looking that way
+class Car implements MotorVehicle
+{
+   int fuel;
+   void run()
+   {
+      print("Wrooooooooooooom");
+   }
+   
+   int getFuel()
+   {
+      return this.fuel;
+   }
+}
+
+Implementing an interface consume very little CPU, because it's not a class, just a bunch of names, and therefore there is no expensive lookup to do. It's great when it
+matters such as in embedded devices.
+
+Abstract
+
+Abstract classes, unlike interfaces, are classes. There are more expensive to use because there is a lookup to do when you inherit from them.
+
+Abstract classes look a lot like interfaces, but they are something more: you can define a behavior for them. It's more a guy saying "these classes look like that, and they
+got that in common, so fill in the blanks!!"
+
+e.g.
+
+//I say all motor vehicles should look like that:
+abstract class MotorVehicle
+{
+   int fuel;
+
+   //they All have fuel, so why let others implement that?
+   int getFuel() {
+      return this.fuel;
+   }
+
+   //that can be very different, force them to provide their implementation
+   abstract void run();
+}
+
+//my team mate compiles and writes vehicles looking that way
+class Car extends MotorVehicle
+{
+   void run()
+   {
+      print("Wrrooooooooooooooom");
+   }
+}
+
+33) When do you favor abstract class over interface?
+
+When evolutioj(polymorphism) is concern, we should use abstract class.
+
+34) I need to understand AbstractList.
+
+35) What is transient variable?
+
+36) What is "native"?
+
+public native int hashCode()
+
+The "native" keyword is applied to a method to indicate that the method is implemented in native code using JNI(Java Native Interface).
+
+37) When you call "put" of HashMap to add a new entry for <key,value>, it first checks if the entry is already in the hashtable. If no, insert <key,value>. If yes, it do this check:
+
+if (e.hash == hash && ((k = e.key) == key || key.equals(k))). (e is the entry already there) 
+
+If the hashcode (e.hash is computed with this statement: int hash = hash(key.hashCode)) is the same and the key is the same(with the operator = or equals method). Then the the old
+entry e is replaced by the new one.
+
+Note: Object.hashCode() is used to compute the hash value in the hashmap table, itself is not the hash value.

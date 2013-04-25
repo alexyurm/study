@@ -1,3 +1,5 @@
 Java Programming
-Data Structure in Java
-Introduction to Algorithm
+Introduction to Algorithm(Data Structure in Java)
+Discrete Math
+Design Pattern
+MySql

@@ -44,7 +44,22 @@
 *     , the vertex v and the edge (u,v) are added to the tree. We say that u is the predecessor or parent of v in the breadth-first tree. Since a vertex
 *     is discovered at most once, it has at most one parent. Ancestor and descendant relatiohships in the breadth-first tree are defined relative to the root
 *     s as usual: if u is on the simple path in the tree from the root s to vertex v, then u is an ancestor of v and v is a decendant of u. 
+*     
+*  -  Shortest path
 *        
+*     Define the shortest-path distance d(s,v) from s to v as the minimum number of edges in any path from vertex s to vertex v; if there is no path from s to v
+*     then d(s,v) = inf
+*
+*     As previously shown the BFC builds a breadth-first tree as it searches the graph. The tree corresponds to the pi attributes. More formally, for a graph
+*     G = (V,E) with source s, we define the predecessor subgraph of G(pi) = (V(pi), E(pi)), where V(pi) = {v belongs to V: v.pi != NULL} U {s}
+*     
+*     and 
+*
+*     E(pi) = {v.pi, v : v belongs to V(pi)-{s}}. The predecessor subgraph G(pi) is a breadth-first tree if V(pi) consists of the vertices reachable from s and, for
+*     all v belongs to V(pi), the subgraph G(pi) contains a unique simple path from s to v that is also a shortest path from s to v in G. A breadth-first tree is in
+*     fact a tree, since it is connected and |E(pi)|=|V(pi)|-1.
+*
+*
 *
 */ 
 
