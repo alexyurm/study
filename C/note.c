@@ -90,6 +90,8 @@
 
    The warning is gone. 
 
+-  What does const mean here?
 
-   
+   float getX() const {return x;}
 
+   这个是常成员函数
