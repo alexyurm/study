@@ -1,3 +1,17 @@
 Chpater 1 Intro to Design Patterns
 
+-  Design Principle 1
+   
+   Identify the aspects of your application that vary
+   and seperate them from what stays the same.  
 
+-  Design Principle 2
+
+   Program to an interface, not an implementation.
+
+-  Design Principle 3
+
+   Favor composition over inheritance
+
+   Composition: when you put two classes together
+   
