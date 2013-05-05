@@ -11,7 +11,13 @@ Chpater 1 Intro to Design Patterns
 
 -  Design Principle 3
 
-   Favor composition over inheritance
+   Favor composition over inheritance (HAS-A can be better than Is-A)
 
-   Composition: when you put two classes together
+   Composition: put two classes together. Creating systems using composition
+   gives you a lot more flexibility. Not only does it let you encapsulate a
+   family of algorithms into their own set of classes, but it also lets you
+   change behavior at run time. As long as the object you're composing with
+   implements the correct behavior interface. Composition is used in many design
+   patterns and you'll see a lot more about its advantage and disadvantage throughout
+   the book.
    
