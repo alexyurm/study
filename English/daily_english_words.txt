@@ -39,3 +39,14 @@ Day 5:
 -  Clunky
 
    A pretty clunky building.
+
+Day 6:
+
+-  Beverage:
+
+   HouseBlend
+   DarkRoast
+   Decaf
+   Espressor
+   condiment
+   Whip

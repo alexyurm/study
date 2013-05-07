@@ -20,4 +20,129 @@ Chpater 1 Intro to Design Patterns
    implements the correct behavior interface. Composition is used in many design
    patterns and you'll see a lot more about its advantage and disadvantage throughout
    the book.
-   
+
+-  The power of shared pattern vocabulary
+
+Chapter 2 Keeping your objects in the know.
+
+-  Publishers + Subscribers = Observer Pattern
+
+   -  The subject and observers define the one-to-many relationship. The observers are depedent
+      on the subject such that when the subject's state chagnes, the observers get notified. 
+
+      The Observer Pattern defined:
+
+      The class diagram:
+
+                              Observers
+      <<interface>>        --------------->  <<interface>>
+         Subject                                Observer
+      registerObserver()                        update()
+      removeObserver()
+      notifyObservers()
+
+      
+                              subject
+      ConcreteSubject      <--------------   ConcreteObserver
+      registerObserver                         update()
+      removeObserver                          //Other Observer specific methods
+      notifyObservers
+      getState()
+      setState()
+
+   -  Design Principle 4: Strive for loosely coupled designs between objects that interact. The power of Loose Coupling
+
+      When two objects are loosely coupled, they can interact, but have little knowledge of each other.
+      
+      The Observer Pattern provides an object design where subjects and observers are loosely coupled. Why?
+
+      1. The only thing the subject knows about an observer is that it implements a certain interface.
+      2. We can add new observers at any time.
+      3. We never need to modify the subject to add new types of observers.
+      4. We can resue subjects or observers independently of each other.
+      5. Changes to either the subject or an observer will not affect the other.
+
+      Loosely coupled designs allow us to build flexible OO systems that can handle changes between they minimize
+      the interdependency between objects.
+
+   -  Using Java's built-in Observer Pattern
+      
+      Java already has built-in support in several of its APIs. The most general is the Observer interface and the Observable class in
+      the java.util.package.
+
+      1. For an Object to become an observer
+
+      As usual, implement the Observer interface (this time the java.util.Observer interface) and call addObserver() on any Observable object. 
+      Likewise, to remove yourself as an observer just call deleteObserver();
+
+      2. For the Observable to send notifications
+
+      2.1   You first must call the setChanged() method to signify that the state has changed in your object.
+
+      2.2   Then call one of the two notifyObservers() methods:
+
+            either notifyObservers() or notifyObservers(Object arg) <---This version takes an arbitrary data object that gets passed to each Observer when it is notified.
+
+   -  For an Observer to receive notifications
+
+      It implements the update method, as before, but the signature of the method is a bit different.
+
+      update(Observer o, Object arg)
+
+      If you want to "push" data to the observers, you can pass the data as a data object to the notifyObserver(arg) method. If not, then the Observer ahs to "pull" the data
+      it wants from the Observable object passed to it.
+
+   -  The setChanged() method is used to signify that the state has changed and that notifyObservers(), when it is called, should update its observers. 
+
+      setChanged() {
+         changed = true;
+      }
+
+      notifyObservers(Object arg) {
+         if (changed) {
+            for every observer on the list {
+               call update(this, arg)
+            }
+            changed = false;
+         }
+      }
+
+      notifyObservers() {
+         notifyObservers(null);
+      }
+
+      Why is the necessary? The setChanged() method is meant to give you more flexibility in how you update observers by allowing you to optimize the notifications. E.g.
+
+      If the temperature readings were constantly fluctuating, we might want to send out notifications only if the temperature changes more than half of a degree and we cann
+      could call setChanged() only after that. If the functionality is useful to you, you may also want to use the clearChanged() method, which sets the changed state back
+      to false, and the hasChanged() method, which tells you the current state of the changed flag.
+
+   -  The darkside of java.util.Observable
+
+      1. Observable is a class
+
+         You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another supclass(Java doesn't support multiple
+         inheritance). That limits its resue potential. 
+
+      2. Observable protects crucial methods
+
+         The setChanged() method is protected. That means you can't call setChanged() unless you've subclassed Observable. That means you can't even create an instance of the
+         Observable class and compose it with your own objects, you have to subclass. The design violates a second design principle here...favor composition over inheritance.
+
+Chapter 3: Decorating Objects.
+
+   -  Design Principle 5; Classes should be open for extension, but closed for modification.
+
+   -  The Decorator Pattern defined
+
+      -  Decorators have the same supertypes as the objects they decorate.
+
+      -  You can use one or more decorators to wrap an object.
+      
+      -  Given the decorator has the same supertype as the object it decorates, we can pass around a decorated object in place of the original (wrapped) object. Key Point!
+
+      -  Objects can be decorated at anytime, so we can decorate objects dynamically at runtime with as many decorators as we like.
+
+      The Decorator Pattern: attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
+
+      
