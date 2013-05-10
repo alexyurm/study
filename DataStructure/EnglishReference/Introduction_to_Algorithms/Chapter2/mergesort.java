@@ -55,7 +55,7 @@ class MergeSort {
    }
 
    public static <E extends Comparable<? super E>> void mergesort(ArrayList<E> A, int p, int r) {
-      //Make sure p is less than r: 1) if p == r, there is nothing to do because we are merging sort A[p], which is an element only; 2) if p < r, then order is not allowed.
+      //Make sure p is less than r: 1) if p == r, there is nothing to do because we are merging sort A[p], which is an element only; 2) if p > r, then order is not allowed.
       if ( p < r ) {
          int q = (p + r) / 2;
          mergesort(A, p, q);
