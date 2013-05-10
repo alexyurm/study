@@ -144,5 +144,79 @@ Chapter 3: Decorating Objects.
       -  Objects can be decorated at anytime, so we can decorate objects dynamically at runtime with as many decorators as we like.
 
       The Decorator Pattern: attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
-
       
+   -  Real World Decorators: Java I/O
+
+      Java I/O isn't so different from the StarBuzz design. It also points out the downsides of the Decorator Pattern: designs using this pattern often result in a large number
+      of small classes that can be overwhelming to a developer trying to use the Decorator-based API. 
+
+Chapter 4: Baking with OO Goodness
+      
+   -  Declaring a factory method
+
+      A factory method handles object creation and encapsulates it in a subclass. This decouples the client code in the 
+      superclass from the object creation code in the subclass.
+      
+      A factory method isolates the clients (the code in the superclass, like orderPizza()) from knowing what kind of
+      concrete Product is actually created:
+
+      abstract Product factoryMethod(String type)
+
+      Note:
+      abstract:   A factory method is abstract so the subclasses are counted on to handle object creation.
+      Product:    A factory method returns a Product that is typically used within methods defined in the superclass.
+
+   -  An example
+
+      PizzaStore
+         (abstract)createPizza()
+         orderPizza()
+
+      NYPizzaStore extends PizzaStore
+         createPizza()
+   
+      ChicagoPizzaStore extends PizzaStore
+         createPizza()
+
+      -  Classes that produce products are called concrete creator(NYPizzaStore and ChicagoPizzaStore)
+      -  The createPizza() method is our factory method. It produces products.
+
+   -  Factory Method Pattern defined
+
+      It's time to roll out the official definition of the Factory Method Pattern:
+
+      The Factory Method Pattern defines an interface for creating an object, but lets subclass decide which class to instantiate. Factory Method lets a class
+      defer instantiation to subclasses.
+
+      (abstract)Creator
+         (abstract)factoryMethod()
+         anOperation()
+
+      ^
+      |
+      |
+      ConcreteCreator ------> ConcreteProduct --------->(abstract)Product //All the products must implement the same interfac
+         factoryMethod           //The ConcreteProduct is responsible for creating one or more concrete products. It is the only class that has the knowledge of how to create
+                                 //these products
+
+   -  The Dependency Inversion Principle
+
+      Design Principle 6: Depend upon abstractions. Do not depend upon concrete classes.
+
+      A "high-level" component is a class with behavior defined in terms of other "low-level" components. For example, PizzaStore is a high-level component because
+      its behavior is defined in terms of pizzas - it creates all the different pizza objects, prepares, bakes, cuts and boxes them, while the pizzas it uses are
+      low-level components.
+
+      Why is called Dependency Inversion? Because now the low-level components depend on a higher level abstraction.
+
+   -  A few guidelines to help you follow the principle:
+
+      The following guidelines can help you avoid OO designs that violate the Dependency Inversion Principle:
+
+      1. No variable should hold a reference to a concrete class. -> Use a factory to get around that.
+      2. No class should derive from a concrete class.a -> Derive from an abstraction, like an interface or abstract class. 
+      3. No method should override an implemented method of any of its base classes.
+
+      These guidelines are built upon the fact that the class is likely to change in the future. Some Classes, e.g. the String class, are unliklely to change do not HAVE to
+      follow the principle.
+      guidelines.

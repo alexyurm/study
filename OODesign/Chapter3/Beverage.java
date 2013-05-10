@@ -32,7 +32,6 @@ class HouseBlend extends Beverage {
    }
 }
 
-
 class DarkRoast extends Beverage {
    public DarkRoast() {
       description = "DarkRoast";
