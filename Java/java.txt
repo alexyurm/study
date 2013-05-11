@@ -2660,7 +2660,100 @@ Levels.Items items = levels.new Items();
 Non-static inner classes are much more intimately tied to their enclosing classes than static inner classes. They have valid uses(for example, iterators are often implemented
 as non-static inner classes within the class of the data structure they iterate over).
 
-39)When is it necessary to use the keyword "new"?
+39)When is it necessary to use the keyword "new"(resolved)?
 
 You use the new keyword when a object is being explicitly created for the first time. Then fetching an object using a getter method new is not required because the object already
 exists in memory, thus do not need to be recreated.
+
+40) In HashMap implementation, what is the next member in Entry used for(resolved)?
+
+"Next" refers to the next entry in the same bucket.
+
+You can have multiple entries in each bucket -- a bucket contains all the entries with hash code equal to some i mod 2.^n for some n(really??), 
+not just the entry for one particular key.
+
+41) How the HashMap is implemented(resolved)?
+
+key.hashCode()
+     |
+     | 32-bit value
+     |                          hash table
+     V                        +------------+    +----------------------+
+HashMap.hash() ----+          | reference  | -> | key1 | value1 | null |
+                   |          |------------|    +----------------------+
+                   |          | null       |
+                   | index    |------------|    +---------------------+
+                   +--------> | reference  | -> | key1 | value1 | ref |
+                              |------------|    +---------------------+
+                              |    ....    |                       |
+                                                  +----------------+
+                                                  V
+                                                +----------------------+
+                                                | key2 | value2 | null |
+                                                +----------------------+
+
+Note: HashMap.hash() is the second hash function which cannot be overriden. It is used to calculate index of the hashtable
+
+int hash = hash(key.hashCode()); //The second un-overriden hash function
+int i = indexFor(hash, table.length);//the index calculation function uses the second hash value and table lenth to calculate the index of the hashtable.
+
+42) How the get() and put() methods work in HashMap(resolved)?
+
+   -  Entry<K,V> in the hashtable
+
+      K key
+      v value
+      Entry next
+      int hash
+
+      Note: hash is the hash value return by the second un-overridable hash function: hash(key.hashCode())
+
+   -  get(Object key)
+
+      1) Locate the index in the hashtable with key.hashCode():
+
+         int hash = hash(key.hashCode());
+         int i = indexFor(hash, table.length);
+
+      2) Going through all the linked entries until a null entry or a following match is found
+
+         The hash(second) and key are the same:
+
+         if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
+
+      3) Return the value:
+                   
+         return e.value;
+
+   -  put(K key, V value)
+
+      1) Locate the index in the hashtable with key.hashCode():
+
+         int hash = hash(key.hashCode());
+         int i = indexFor(hash, table.length);
+
+      2) Going through all the linked entries until a null entry or a following match is found
+
+         The hash(second) and the key are the same:
+
+         if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
+         
+         If the match is found, the entry e is replaced by the pair(K,V)
+
+      3) Else, create a new entry and the pair<K,V> will become the first entry in the bucket.
+
+-  What happens if the different values have the same hashCode(resolved)?
+
+   Given: V1 != V2 but V1.hashCode() == V2.hashCode().
+
+   If V1 is already in the hashtable, While we are trying to do put() for V2, then according to 
+
+   if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
+
+   V1 will be replaced by V2. This is very bad because we cannot retrieve V1 anymore. In other words, two different values V1 and V2 cannot co-exist in the same
+   hashtable if their hashcode is the same.
+
+-  An interesting way of defining an array(resolved).
+
+Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() };
+

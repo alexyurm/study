@@ -218,5 +218,12 @@ Chapter 4: Baking with OO Goodness
       3. No method should override an implemented method of any of its base classes.
 
       These guidelines are built upon the fact that the class is likely to change in the future. Some Classes, e.g. the String class, are unliklely to change do not HAVE to
-      follow the principle.
-      guidelines.
+      follow the above guidelines.
+
+   -  Abstract Factory Pattern defined.
+
+      We are adding yet another pattern to our pattern family, one that lets us create families of products. 
+
+      The Abstract Factory Pattern: provides an interface for creating families of related dependent objects without specifying their concrete classes. We've certainly seen that
+      Abstract Factory allows a client to use an abstract interface to create a set of related products without knowing (or caring) about the concrete products that are actually
+      produced.

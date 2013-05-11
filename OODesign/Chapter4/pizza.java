@@ -3,27 +3,143 @@ import java.lang.*;
 
 interface PizzaIngredientFactory {
    public Dough createDough();
-   public Dough createSauce();
-   public Dough createCheese();
+   public Sauce createSauce();
+   public Cheese createCheese();
    public Veggies[] createVeggies();
+   public Pepperoni createPepperoni();
    public Clams createClam();
+}
+
+abstract class Dough {
+}
+
+abstract class Sauce {
+}
+
+abstract class Cheese {
+}
+
+abstract class Veggies {
+}
+
+abstract class Pepperoni {
+}
+
+abstract class Clams {
+}
+
+class ThinCrustDough extends Dough {
+}
+
+class MarinaraSauce extends Sauce {
+}
+
+class PlumTomatoSauce extends Sauce {
+}
+
+class ReggianoCheese extends Cheese {
+}
+
+class Mozzzrella extends Cheese {
+}
+
+class Garlic extends Veggies {
+}
+
+class Onion extends Veggies {
+}
+
+class Mushroom extends Veggies {
+}
+
+class RedPepper extends Veggies {
+}
+
+class Spinach extends Veggies {
+}
+
+class EggPlant extends Veggies {
+}
+
+class BlackOlives extends Veggies {
+}
+
+class SlicedPepperoni extends Pepperoni {
+}
+
+class FrozenClams extends Clams {
+}
+
+class FreshClams extends Clams {
+}
+
+class NYPizzaIngredientFactory implements PizzaIngredientFactory {
+
+   public Dough createDough() {
+      return new ThinCrustDough();
+   }
+   
+   public Sauce createSauce() {
+      return new MarinaraSauce();
+   }
+
+   public Cheese createCheese() {
+      return new ReggianoCheese();
+   }
+
+   public Veggies[] createVeggies() {
+      Veggies[] veggies = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() };
+      return veggies;
+   }
+
+   public Pepperoni createPepperoni() {
+      return new SlicedPepperoni();
+   }
+   
+   public Clams createClam() {
+      return new FreshClams();
+   }
+}
+
+class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {
+
+   public Dough createDough() {
+      return new ThinCrustDough();
+   }
+   
+   public Sauce createSauce() {
+      return new PlumTomatoSauce();
+   }
+
+   public Cheese createCheese() {
+      return new Mozzzrella();
+   }
+
+   public Veggies[] createVeggies() {
+      Veggies[] veggies = { new Spinach(), new EggPlant(), new BlackOlives() };
+      return veggies;
+   }
+
+   public Pepperoni createPepperoni() {
+      return new SlicedPepperoni();   
+   }
+   
+   public Clams createClam() {
+      return new FrozenClams();
+   }
 }
 
 abstract class Pizza {
    protected String name;
-   protected String douge;
-   protected String sauce;
-   protected ArrayList<String> toppings = new ArrayList<String>();
+   protected Dough dough;
+   protected Cheese cheese;
+   protected Sauce sauce;
+   protected Veggies[] veggies;
+   protected Pepperoni pepperoni;
+   protected Clams clam;
 
-   protected void prepare() {
-      System.out.println("Preparing " + name);
-      System.out.println("Tossing dough...");
-      System.out.println("Adding source...");
-      System.out.println("Adding toppings:");
-      for (int i = 0; i < toppings.size(); i++) {
-         System.out.println("   " + toppings.get(i));
-      }
-   }
+   abstract protected void prepare();//We've now made the prepare method abstract. This is where we are going to collect the ingredients needed for the pizza, which of course will
+                                     //be come from the ingredient factory.
 
    protected void bake() {
       System.out.println("Bake for 25 minutes at 350");
@@ -40,28 +156,79 @@ abstract class Pizza {
    protected String getName() {
       return name;
    }
-}
 
-class NYStyleCheesePizza extends Pizza {
-   public NYStyleCheesePizza() {
-      name = "NY Style Sauce and Cheese Pizza";
-      douge = "Thin Crust Dough";
-      sauce = "Marinara Sauce";
-      
-      toppings.add("Grated Reggiano Cheese");
+   public String toString() {
+      //code to print pizza here
+      return null;
+   }
+
+   protected void setName(String name) {
+      this.name = name;
    }
 }
 
-class ChicagoStyleCheesePizza extends Pizza {
-   public ChicagoStyleCheesePizza() {
-      name = "Chicago Style Deep Dish Cheese Pizza";
-      douge = "Extra Thick Crust Dough";
-      sauce = "Plum Tomato Sauce";
-      toppings.add("Crated Reggiano Cheese");
+class CheesePizza extends Pizza {
+   PizzaIngredientFactory ingredientFactory;
+   
+   public CheesePizza(PizzaIngredientFactory ingredientFactory) {
+      this.ingredientFactory = ingredientFactory;
    }
 
-   protected void cut() {
-      System.out.println("Cutting the pizza into square slices");
+   //Here's where the magic happen!
+   //The prepare() method steps through creating a cheese pizza, and each time it needs an ingredient, it asks the factory to produce it.
+   public void prepare() {
+      System.out.println("Preparing " + name);
+      dough = ingredientFactory.createDough();
+      sauce = ingredientFactory.createSauce();
+      cheese = ingredientFactory.createCheese(); 
+   }
+}
+
+class ClamPizza extends Pizza {
+   PizzaIngredientFactory ingredientFactory;
+   
+   public ClamPizza(PizzaIngredientFactory ingredientFactory) {
+      this.ingredientFactory = ingredientFactory;
+   }
+
+   public void prepare() {
+      System.out.println("Preparing " + name);
+      dough = ingredientFactory.createDough();
+      sauce = ingredientFactory.createSauce();
+      cheese = ingredientFactory.createCheese(); 
+      clam = ingredientFactory.createClam(); 
+   }
+}
+
+class PepperoniPizza extends Pizza {
+   PizzaIngredientFactory ingredientFactory;
+   
+   public PepperoniPizza(PizzaIngredientFactory ingredientFactory) {
+      this.ingredientFactory = ingredientFactory;
+   }
+
+   public void prepare() {
+      System.out.println("Preparing " + name);
+      dough = ingredientFactory.createDough();
+      sauce = ingredientFactory.createSauce();
+      cheese = ingredientFactory.createCheese(); 
+      pepperoni = ingredientFactory.createPepperoni(); 
+   }
+}
+
+class VeggiePizza extends Pizza {
+   PizzaIngredientFactory ingredientFactory;
+   
+   public VeggiePizza(PizzaIngredientFactory ingredientFactory) {
+      this.ingredientFactory = ingredientFactory;
+   }
+
+   public void prepare() {
+      System.out.println("Preparing " + name);
+      dough = ingredientFactory.createDough();
+      sauce = ingredientFactory.createSauce();
+      cheese = ingredientFactory.createCheese(); 
+      veggies = ingredientFactory.createVeggies(); 
    }
 }
 
@@ -93,19 +260,23 @@ class NYPizzaStore extends PizzaStore {
    public Pizza createPizza(String type) {
       
       Pizza pizza = null;
+      PizzaIngredientFactory ingredientFactory = new NYPizzaIngredientFactory();
    
       if (type.equals("Cheese")) {
-         pizza = new NYStyleCheesePizza();
+         pizza = new CheesePizza(ingredientFactory);
+         pizza.setName("New York Style Cheese Pizza");
       } else if (type.equals("Pepperoni")) {
-         pizza = new NYStylePepperoniPizza();
+         pizza = new PepperoniPizza(ingredientFactory);
+         pizza.setName("New York Style Pepperoni Pizza");
       } else if (type.equals("Clam")) {
-         pizza = new NYStyleClamPizza();
+         pizza = new ClamPizza(ingredientFactory);
+         pizza.setName("New York Style Clam Pizza");
       } else if (type.equals("veggie")) {
-         pizza = new NYStyleVeggiePizza();
+         pizza = new VeggiePizza(ingredientFactory);
+         pizza.setName("New York Style Veggie Pizza");
       }
 
       return pizza;
-
    }
 }
 
@@ -113,15 +284,20 @@ class ChicagoPizzaStore extends PizzaStore {
    public Pizza createPizza(String type) {
       
       Pizza pizza = null;
+      PizzaIngredientFactory ingredientFactory = new ChicagoPizzaIngredientFactory();
    
       if (type.equals("Cheese")) {
-         pizza = new ChicagoStyleCheesePizza();
+         pizza = new CheesePizza(ingredientFactory);
+         pizza.setName("Chicago Style Cheese Pizza");
       } else if (type.equals("Pepperoni")) {
-         pizza = new ChicagoStylePepperoniPizza();
+         pizza = new PepperoniPizza(ingredientFactory);
+         pizza.setName("Chicago Style Pepperoni Pizza");
       } else if (type.equals("Clam")) {
-         pizza = new ChicagoStyleClamPizza();
+         pizza = new ClamPizza(ingredientFactory);
+         pizza.setName("Chicago Style Clam Pizza");
       } else if (type.equals("veggie")) {
-         pizza = new ChicagoStyleVeggiePizza();
+         pizza = new VeggiePizza(ingredientFactory);
+         pizza.setName("Chicago Style Veggie Pizza");
       }
 
       return pizza;
@@ -136,7 +312,7 @@ class PizzaTestDrive {
       Pizza pizza = nyStore.orderPizza("Cheese");
       System.out.println("Ethan ordered a " + pizza.getName() + "\n");
 
-      pizza = chicagoStore.orderPizza("Cheese");
+      pizza = chicagoStore.orderPizza("Pepperoni");
       System.out.println("Joel ordered a " + pizza.getName() + "\n");
    }
 }
