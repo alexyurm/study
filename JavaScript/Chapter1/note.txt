@@ -6,4 +6,10 @@ Chapter 1 Introduction to JavaScript
    -  CSS to specify the presentation of web pages;
    -  JavaScript to specify the behavior of web pages.
 
--  
+Chapter 2 Lexical Structure
+
+-  JavaScript programs are wirtten using the Unicode character set. Unicode
+   is a superset of ASCII and Latin-1 and supports virtually every written
+   language currently used on the planet.
+
+-  JavaScript is case-sensitive language(HTML is not case-sensitive).

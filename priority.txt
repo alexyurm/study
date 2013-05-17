@@ -2,4 +2,7 @@ Java Programming
 Introduction to Algorithm(Data Structure in Java)
 Discrete Math
 Design Pattern
-MySql
+MySql 
+
+-  SQL language 
+-  Joining table

@@ -227,3 +227,80 @@ Chapter 4: Baking with OO Goodness
       The Abstract Factory Pattern: provides an interface for creating families of related dependent objects without specifying their concrete classes. We've certainly seen that
       Abstract Factory allows a client to use an abstract interface to create a set of related products without knowing (or caring) about the concrete products that are actually
       produced.
+
+   -  Method and Abstract Factory compared(What are the difference between them??).
+
+      Abstract Factory: Provide an interface for creating families of related or depedent on objects without specifying their concrete classes.
+
+      Factory Method: Define an interface for creating an object, but let subclasses decide which class to instantiate. 
+
+Chapter 5 One of a Kind Objects.
+
+   -  There are many objects we only need one of: thread pools, caches, dialog boxes, objects that handle preferences and registry settings, objects used for logging, and
+      objects that act as device drivers to devices like printers and graphics cards. In fact, for many of these types of objects, if we were to instantiate more than one
+      we'd run into all sorts of problems like incorrect program behavior, overuse of resources, or inconsistent results.
+
+   -  In many ways, the Singleton Pattern is a convention for ensuring one and only one object is instantiated for a given class. 
+
+   -  The concise definition of the pattern:
+
+      The Singleton Pattern: ensures a class has only one instance, and provides a global point of access to it.
+
+      The diagram:
+
+      Singleton:
+
+      static uniqueInstance
+      //Other useful Singleton
+
+      static getInstance()
+      //Other useful Singleton methods
+
+   -  For most Java applications, we obviously need to ensure that the Singleton work in the presence of multiple threads. But it looks fairly expensive to synchronize getInstance()
+      method, so what do we do? We have a few options:
+
+      1. Do nothing if the performance of getInstance() isn't critical to your application. 
+   
+         Just keep in mind that synchronizing a method can decrease performance by a factor of 100, so if a high traffic part of your code begins using getInstance(), you must
+         have to reconsider.
+
+      2. Move to an eagerly created instance rather than a lazily created one.
+
+         If your application always creates and uses an instance of the Singleton or the overhead of creation and runtime aspects of the Singleton are not onerous(??).
+
+         public class Singleton {
+            private static singleton uniqueInstance = new Singleton(); //Go ahead and create an instance of Singleton in a static initializer. This code is guaranteed to be thread safe!
+
+            private Singleton() {}
+
+            public static Singleton getInstance() {
+               return uniqueInstance;//We have already got an instance, so just return it.
+            }
+         }
+
+         Using this method, we relay on the JVM to create the unique instance of the Singleton when the class is loaded. The JVM guarantees that the instance will be created before
+         any thread accesses the static uniqueInstance variable.
+
+      3. Use "double-checked locking" to reduce the use of synchronization in getInstance()
+
+         With double-checked locking, we first check to see if an instance is created, and if not, THEN we synchronize. This way, we only synchroniza the first time through, just
+         what we want.
+
+         public class Singleton {
+            private volatile static Singleton uniqueInstance; //The volatile keyword ensures that multiple threads handle the uniqueInstance variable correctly when it is being
+                                                              //initialized to the Singleton instance.
+
+            private Singleton() {}
+
+            public static Singleton getInstance() { //Check for an instance and if there isn't one, enter a synchronized block.
+               if (uniqueInstance == null) { //Note we only synchronized the first time through!
+                  synchronized(Singleton.class) { //?? It passes Singleton.class to the sunchronized method??
+                     if (uniqueInstance == null) {
+                        uniqueInstance = new Singleton(); //Once in the block, check again and if still null, create an instance
+                     }
+                  }
+               }
+            }
+         }
+
+         This method of implementing the Singleton can drastically reduce the overhead.
