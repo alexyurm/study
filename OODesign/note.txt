@@ -261,7 +261,7 @@ Chapter 5 One of a Kind Objects.
 
       1. Do nothing if the performance of getInstance() isn't critical to your application. 
    
-         Just keep in mind that synchronizing a method can decrease performance by a factor of 100, so if a high traffic part of your code begins using getInstance(), you must
+         Just keep in mind that synchronizing a method can decrease performance by a factor of 100(??), so if a high traffic part of your code begins using getInstance(), you must
          have to reconsider.
 
       2. Move to an eagerly created instance rather than a lazily created one.
@@ -304,3 +304,7 @@ Chapter 5 One of a Kind Objects.
          }
 
          This method of implementing the Singleton can drastically reduce the overhead.
+
+      Note: If you are using a JVM earlier than 1.5, the double-checked locking implementation is not thread safe.
+
+Chapter 6: Encapsulating Invocation

@@ -11,9 +11,9 @@ class ChocolateBoiler {
 
    public static ChocolateBoiler getInstance() {
          if (uniqueCBInstance == null) { //check for an instance and if there isn't one enter a synchronized block.
-            synchronized(Singleton.class) {
-            if (uniqueInstance == null) { //note we only synchronize the first time through.
-               uniqueInstance = new ChocolateBoiler(); //Once in the block, 
+            synchronized(ChocolateBoiler.class) {
+            if (uniqueCBInstance == null) { //note we only synchronize the first time through.
+               uniqueCBInstance = new ChocolateBoiler(); //Once in the block, 
             }
          }
       }
