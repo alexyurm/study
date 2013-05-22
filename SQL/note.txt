@@ -1,0 +1,326 @@
+Chapter1 The World of DataBase Systems
+
+-  DBMS: database management system
+
+-  Two distinct sources of commands to the DBMS:
+
+   1. Conventional users and application programs that ask for data or
+      modify data
+
+   2. A database administrator: a person or persons responsible for the
+      structure or schema of the database.
+
+Chapter2 The Ralational Model of Data
+
+-  Important Data Models
+
+   A data model is a notation for describing data or information. The description generally consists of three parts:
+
+   1) Structure of the data
+   2) Operations on the data
+   3) Constraints on the data
+
+-  Important Data Models
+
+   1. The relational model, including object-relational extensions.
+
+      It is based on tables.
+
+   2. The semistructured-data model, including XML and related standards.
+
+      Semistructured data resembles trees or graphs, rather than tables or
+      arrays. The principal manifestation of this viewpoint today is XML.
+      Constraints on the structure of data in this model often involve the
+      data type of values associated with a tag.
+
+-  Basic of the Relational Model
+
+   -  Schema
+
+      The name of a relationship and the set of attributes for a relation
+      is called the schema for that relation. E.g.
+      
+      Movies(title, year, length, genere). 
+
+      The attributes in a relation schema are a set, not a list.
+
+   -  Tuples
+
+      The rows of a relation, other than the header row containing the 
+      attribute names, called tuples. E.g,
+
+      (Gone With the Wind, 1939, 231, drama)
+
+      Note: when a tuple appears in isolation, the attributes do not appear.
+
+   -  Domain
+
+      The relational model requires that each component of each tuple be
+      atomic, which must be some elementary type such as integer or string.
+
+      It is further assumed that associated with each attribute of a relation
+      is a domain, that is, a particular elementary type. We shall append
+      a colon and a type after attributes. E.g.
+
+      Movies(title:string, year:integer, length:integer, genre:string)
+
+   -  Relationship Instances
+
+      We call a set of tuples for a given relation an instance of relation
+   
+   -  Key Constraints:
+      
+      A set of attributes forms a key for a relationship if we do not allow two typles
+      in a relationship instance to have the same values in all the attributes of the key.
+
+      We indicate the attribute or attributes that form a key for a relationship by underlining the key
+      attribute(s). E.g.
+
+      Movies(title, year, length, genre)
+            ------  ----
+
+      While we might be sure that title and year can serve as a key for Movies, many real-world databases use artificial keys, doubting
+      that it is safe to make any assumption about the values of attributes outside their control. E.g. Employee's ID, SIN number.
+
+   -  Defining the Relationship Schema in SQL
+
+      SQL is the principle language used to describe and manipulate relationship databases. Most commercial database management systems implement
+      something similar, but not identical to the standard SQL, which is SQL99.
+
+      Two aspects to SQL:
+
+      1. The Data-Defition sublanguage for declaring database schemas.
+      2. The Data-Manipulation sublanguage for querying (asking questions about) databases and for modifying the database.
+
+   -  Data-Definition
+
+      SQL makes a distinction between three kinds of relationships
+
+      1) Store relationships, which are called tables.
+
+      2) Views, which are relationships defined by a computation. These relationships are not stored, but are constructed, in whole or in part, when needed.
+
+      3) Temporary tables, which are constructed by the SQL language preprocessor when it performs its job of executing queries and data modifications. These
+         relationships are then thrown away and not stored.
+
+      -  Primitive Data Type
+
+         1. Character strings of fixed or varying length.
+
+         CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters.
+         VARCHAR(n) denotes a fixed-length of up to n characters. VARCHAR implies that endmarker or string-length is used(??). 
+
+
+         2. Bit strings of fixed or varying length.
+
+         Those datatypes are analogus to fixed and varying-length strings, but their values are strings of bits rather than characters. The type BIT(n) denotes
+         bit strings of length of n, while BIT VARYING(n) denotes bit strings of length up to n.
+
+         3. boolean
+
+         The possible values of BOOLEAN are: TRUE, FALSE and UNKNOWN
+
+         4. INT or INTEGER 
+
+         5. Floating point numbers
+
+         FLOAT or REAL
+         DOUBLE: with a higher precision
+         DECIMAL(n,d): allows value that consist of n decimal digits, with the decimal point assumed to be d positions from the right. Thus, 0123.45 is a possible value of type
+                        DECIMAL(6,2)
+         NUMERTC: is almost the same as DECIMAL, although there are possible implementation-dependent differences.
+         
+         6. Dates and times
+
+         DATA and TIME: These values are essential character strings of a special form.
+
+      -  Simple Table Declarations
+
+            1. Create a new table
+
+            E.g.
+
+            CREATE TABLE MovieStar (
+               name CHAR(30),
+               address VARCHAR(255),
+               gender CHAR(1),
+               birthdate DATE
+            )
+            
+            2. Modify relation schemas
+
+               2.1. We can delete a relation R by the SQL statement:
+         
+                     DROP TABLE R;
+
+                     R is no longer part of the database schema, and we can no longer access any of its tuples.
+
+               2.2   More frequently than we would drop a relation that is part of a long-lived database, we may need to modify the schema of an existing relation:
+
+                     1. ADD followed by an attribute name and its data type.
+            
+                     2. DROP followed by an attribute name. E.g.
+
+                     ALTER TABLE MovieStar ADD phone CHAR(16); //NULL is set to the newly added attribute phone.
+
+                     ALTER TABLE MovieStar DROP birthdate;
+
+               2.3   Default Values
+
+                     In general, any place we declare an attribute and its data type, we may add the keyword DEFAULT and an appropriate value. That value is either
+                     NULL or a constant. Certain other values that are provided by the system, such as the current time, may also be options. E.g.
+
+                     gender CHAR(1) DEFAULT '?',
+                     birthdate DATE DEFAULT DATE '0000-00-00'
+
+               2.4   Declaring keys
+
+                     Two ways to declare an attribute or set of attributes to be a key in the CREATE TABLE statement that defines a stored relation.
+
+                     1. We may declare one attribute to be a key when that attribute is listed in the relation schema.
+                     2. We may add to the list of items declared in the schema (which so far have only been attributes) an additional declaration that says a particular
+                        attribute or set of attributes forms the key.
+
+                     Two declarations are used to indicate keyness:
+
+                     a) PRIMARY KEY, or
+                     b) UNIQUE
+
+                     The effect of declaring a set of attributes S to be a key for relation R either using PRIMARY KEY or UNIQUE is the following:
+   
+                     Two tuples in R cannot agree on all of the attributes in set S, unless one of them is NULL. Any attempt to insert or update a tuple that violates
+                     this rule causes the DBMS to reject the action that caused the violation(??).
+
+                     In addition, if PRIMARY KEY is used, then attributes in S are not allowed to have NULL as a value for their components. Again, any attempt to 
+                     violate this rule is rejected by the system. NULL is permitted if the set S is declared UNIQUE, however, A DBMS may make other distinctions between
+                     the two terms, if it wishes.
+
+                     E.g.
+
+                     CREATE TABLE MovieStar (
+                        name CHAR(30) PRIMARY KEY,
+                        address VARCHAR(255),
+                        gender CHAR(1),
+                        birthdate DATE
+                     );
+                     
+                     or:
+      
+                     CREATE TABLE MovieStar (
+                        name CHAR(30)
+                        address VARCHAR(255),
+                        gender CHAR(1),
+                        birthdate DATE
+                        PRIMARY KEY (name)
+                     );
+                     
+                     or:
+
+                     CREATE TABLE Movies (
+                        title CHAR(100),
+                        year INT,
+                        length INT,
+                        genre CHAR(10),
+                        studioName CHAR(30),
+                        productC# INT,
+                        PRIMARY KEY(title, year)
+                     );
+
+                     Note: UNIQUE can replace PRIMARY KEY.
+
+      -  An Algebraic Query Language
+
+         An algebra, in general, consists of operators and atomic operands. Relational algebra is another example of an algebra. Its atomic operands are:
+
+         1. Variables that stand for relations;
+         2. Constants, which are finite relations.
+
+         The operations of the tradicional relational algebra fall into 4 broad classes:
+
+         1) The usual set operations - unions, intersection, and difference -- applied to relations.
+         2) Operations that remove parts of a relation: "selection" eliminates some rows(tuples), and "projection" eliminates some columns.
+         3) Operations that combine the tuples of two relations, including "Cartesian product", which pairs the tuples of two relations in all possible ways,
+            and various kinds of "join" operations, which selectively pair tuples from two relations.
+         4) An operation called "renaming" that does not affect the tuples of a relation, but changes the relation schema, i.e. the names of the attributes and/or
+            the name of the relation itself.
+
+         We generally shall refers to expressions of relational algebra as queries.
+
+         1) Set operations
+
+            union: R U S
+            intersection: R n S
+            difference: R - S
+
+            Conditions on R and S:
+
+            1) R and S must have schemas with identical sets of attributes, and the types (domains) for each attribute must be the same in R and S.
+            2) the columns of R and S must be ordered so that the order of attributes is the same for both relations.
+
+         2) Projection
+
+            The projection operator is used to produce from a relation R a new relation that has only some of R's columns.
+
+         3) Selection
+
+            The selection operator, applied to a relation R, produces a new relation with a subset of R's tuples. The tuples in the resulting relation are those that
+            satisfy some condition C that involves the attributes of R.
+
+         4) Cartesian Product
+
+            The Cartesian product (or cross-product, or just product) of two sets of R and S is the set of pairs that can be formed by choosing the first element of
+            the pair to be any element of R and the second any element of S. This product is denoted R x S. When R and S are relations, the product is essentially
+            the same. The relation schema for the resulting relation is the union of the schemas for R and S. However, if R and S should happen to have some attributes
+            in common, then we need to invent new names for at least one of each pair. 
+
+         5) Natural Joins
+
+            More often than we want to take the product of two relations, we find a need to join them by pairing only those tuples that match in some way. Let A1, A2,
+            ..., An be all the attributes that are in both schema of R and the schema of S. Then a tuple r from R and a tuple s from S are successfully paired if and
+            only if r and s agree on each of the attribtes A1, A2, ...An.
+
+         6) Theta-Joins
+
+            Sometimes, it is desirable to pair tuples from two relations on some other basis. for that purposes, we have a related notation called the thetajoin. Historically,
+            the "theta" refers to an arbitrary condition, which we shall represent by C rather then @. The result of this operation is constructed as follows:
+
+            1. Take the product of R and S;
+            2. Select from the product only those tuples that satisfy the condition C. As with the product operation, the schema for the result is the union of the schemas of 
+               R and S, with "R" or "S". prefixed to attributes if necessary to indicate from which schema the attribute came.
+
+            Note: The theta-join contrasts with natural join, since in the latter common attributes are merged into one copy. Why theta-join isn't do so? because there is no
+                  guarantee that compared attributes will agree in the result, since they may not compared with ==. E.g.
+
+            A|B|C
+            -----
+            1|2|3
+            6|7|8
+            9|7|8
+
+            a) Relation U
+
+            B|C|D
+            -----
+            2|3|4
+            2|3|5
+            7|8|10
+
+            b) Relation V
+
+            A|B|C|D
+            -------
+            1|2|3|4
+            1|2|3|5
+            6|7|8|10
+            9|7|8|10
+
+            c) Natural join of relations
+
+            A|U.B|U.C|V.B|V.C|D
+            1|2  |3  |7  |8  |10
+
+            d) theta-join(A<D AND U.B != V.B) of relations
+
+         7) Combining Operations to Form Queries
+
+              

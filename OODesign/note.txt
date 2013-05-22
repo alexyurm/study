@@ -21,7 +21,7 @@ Chpater 1 Intro to Design Patterns
    patterns and you'll see a lot more about its advantage and disadvantage throughout
    the book.
 
--  The power of shared pattern vocabulary
+-  The power of shared pattern vocabulary(??)
 
 Chapter 2 Keeping your objects in the know.
 
@@ -49,6 +49,9 @@ Chapter 2 Keeping your objects in the know.
       notifyObservers
       getState()
       setState()
+
+      Note: the arrow ------> means one-to-many relationship
+            the arrow <------ means many-to-one relationship.
 
    -  Design Principle 4: Strive for loosely coupled designs between objects that interact. The power of Loose Coupling
 
@@ -308,3 +311,27 @@ Chapter 5 One of a Kind Objects.
       Note: If you are using a JVM earlier than 1.5, the double-checked locking implementation is not thread safe.
 
 Chapter 6: Encapsulating Invocation
+
+   -  Diner or a brief introduction to the Common Pattern
+
+      Customers: createOrder()
+      Waitress: takeOrder(), orderUp()
+      Chef: makeBurger(), makeShake(), output()
+
+      All the methods are based on a single object: An Order Slip
+
+      We have a Diner with a Waitress who is decoupled from the Cook by an Order Slip, so what? 
+
+      Think of the Dinner as a model for an OO design pattern that allows us to seperate an object making a request from the objects that receive and execute those requests.
+
+   -  Common Pattern
+
+                                       createCommandObject()                       setCommand()
+      Client: create Command Object() -----------------------> Command: execute() --------------> Invoker: setCommand()
+      
+      Note:
+
+      1. The client is responsible for creating command object. The command object consists of a set of actions on a receiver.
+      2. The actions and the Receiver are bound together in the command object.
+      3. The command provides one method, execute(), that encapsulates the actions and can be called to invoke the actions on the Receiver.
+      4. The client calls setCommand() on an invoker object, where it gets stored until it is needed.
