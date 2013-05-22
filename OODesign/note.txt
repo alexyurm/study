@@ -312,7 +312,7 @@ Chapter 5 One of a Kind Objects.
 
 Chapter 6: Encapsulating Invocation
 
-   -  Diner or a brief introduction to the Common Pattern
+   -  Diner or a brief introduction to the Command Pattern
 
       Customers: createOrder()
       Waitress: takeOrder(), orderUp()
@@ -324,14 +324,36 @@ Chapter 6: Encapsulating Invocation
 
       Think of the Dinner as a model for an OO design pattern that allows us to seperate an object making a request from the objects that receive and execute those requests.
 
-   -  Common Pattern
+   -  Command Pattern
 
-                                       createCommandObject()                       setCommand()
-      Client: create Command Object() -----------------------> Command: execute() --------------> Invoker: setCommand()
+              1.createCommandObject()           2. setCommand() (called by Client again)
+      Client: -----------------------> Command: --------------> Invoker: setCommand()
+         |                                                         ^
+         |                            3.                           |
+         |----------------------------------------------------------
+
+                                          4. execute()
+      (continued)Invoker: setCommand() -----------------> Receiver: action1(), action2()...
+
+      Client:     createCommandObject()
+      Invoker:    setCommand()
+      Command:    execute()
+      Receiver:   action1(), action2()...
       
       Note:
 
-      1. The client is responsible for creating command object. The command object consists of a set of actions on a receiver.
-      2. The actions and the Receiver are bound together in the command object.
-      3. The command provides one method, execute(), that encapsulates the actions and can be called to invoke the actions on the Receiver.
-      4. The client calls setCommand() on an invoker object, where it gets stored until it is needed.
+      1. The client creates a command object.
+      2. The client does a setCommand to store the command object in the invoker.
+      3. Later...the client asks the invoker to execute the command. Note: as you'll see later in this chapter, once the command
+         is loaded into the invoker, it may be used and discarded, or it may remain and be used many times.
+      4. At some point in the future, the invoker calls the command object's execute() method.
+
+   -  The Command Pattern defined
+
+      The Command Pattern: encapsulates a request as an object, thereby letting you parameterize other objects with different
+      requests, queue or log requests, and support undoable operations.
+
+      A command object encapsulates a request by binding together a set of actions on a specific receiver. To achieve this, 
+      it packages the actions and the receiver up into an object that exposes just one method, execute(). When called, 
+      execute() causes the actions to be invoked on the receiver.
+      
