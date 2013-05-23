@@ -357,3 +357,24 @@ Chapter 6: Encapsulating Invocation
       it packages the actions and the receiver up into an object that exposes just one method, execute(). When called, 
       execute() causes the actions to be invoked on the receiver.
       
+      The diagram is shown below:
+
+      Client              Invoker:  ------>Command<<interface>>:
+       | |                setCommand()       execute()
+       | |                                   undo()
+       | |                                        |(inheritance)
+       | --------->Receiver:<-------------ConcreteCommand
+       |           action()                   execute()
+       |-------------------------------->     undo()   
+
+
+      Client:  it is reponsible for creating ConcreteCommand and setting its Receiver
+      Invoker: it holds a command and at somepoint asks the command to carry out a request by calling its execute() method.
+      Command: it declares an interface for all commands. A command is invoked through its execute() method, which asks a receiver to perform an action.
+               we will cover undo later on.
+      ConcreteCommand:  it defines a binding between an action and a receiver(!!). The invoker makes a request by calling execute() and the ConcreteCommand
+                        carries it out by calling one or more actions on the Receiver.
+      Receiver:   it knows how to perform the work needed to carry out the request. Any class can act as a Receiver(!!).
+
+      Question: How does the design of the Command Pattern support the decoupling of the invoker of a request and the receiver of the request?
+      
