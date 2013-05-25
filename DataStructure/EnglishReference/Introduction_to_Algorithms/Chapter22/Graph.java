@@ -44,24 +44,68 @@
 *     , the vertex v and the edge (u,v) are added to the tree. We say that u is the predecessor or parent of v in the breadth-first tree. Since a vertex
 *     is discovered at most once, it has at most one parent. Ancestor and descendant relatiohships in the breadth-first tree are defined relative to the root
 *     s as usual: if u is on the simple path in the tree from the root s to vertex v, then u is an ancestor of v and v is a decendant of u. 
+*
+*  -  Shortest Path
+*
+*     (!!) Understand Lemma 22,1, Lemma 22.2, Lemma 22.3, Corollary 22.4, Theorem 22.5 and Lemma 22.6
+*
+*     Theorem 22.5:
+*
+*     Let G=(V,E) be a directed or undirected graph, and suppose that BFS is run on G from a given source vertex s(s belongs to V). Then, during
+*     its execution, BFS discovers every vertex v(v belongs to V) that is reachable from the source s, and upon termination, v.d = d(s,v) for all 
+*     v(v belongs to V). Moreover, for any vertex v != s, that is reachable from s, one of the shortest paths from s to v is a shortest path from
+*     s to v.pre followed by the edge (v.pre, v)
 *     
-*  -  Shortest path
-*        
-*     Define the shortest-path distance d(s,v) from s to v as the minimum number of edges in any path from vertex s to vertex v; if there is no path from s to v
-*     then d(s,v) = inf
+*     note: d(s,v) is the shortest path from s to v
 *
-*     As previously shown the BFC builds a breadth-first tree as it searches the graph. The tree corresponds to the pi attributes. More formally, for a graph
-*     G = (V,E) with source s, we define the predecessor subgraph of G(pi) = (V(pi), E(pi)), where V(pi) = {v belongs to V: v.pi != NULL} U {s}
+*  -  Depth-first search 
 *     
-*     and 
+*     As its name implies, to search "deeper" in the graph whenever possible. Depth-first search explores edges out of the most recently discovered
+*     vertex v that still has unexplored edges leaving it. Once all of v's edges have been explored, the search "backtracks" to explore edges leaving
+*     the vertex from which v was discovered. The process continues until we have discovered all the vertices that are reachable from the original
+*     source vertex. If any undiscovered vertices remain, then depth-first search selects one of them as a new source, and it repeats the search
+*     from the source. The algorithm repeats this entire process until it has discovered every vertex.
+*     
+*     As in breadth-first search, whenever depth-first search discovers a vertex v during a scan of the adjacency list of an already discovered vertex
+*     u, it records this event by setting v's predecessor attribute v.pre to u. Unlike BFS, whose predecessor subgraph forms a tree, the predecessor
+*     subgraph produced by a depth-first search may be composed of several trees, because the search may repeat from multiple sources. Therefore, we
+*     define the predecessor subgraph of a depth-first search slightly differently from that of a breadth-first search: we let:
 *
-*     E(pi) = {v.pi, v : v belongs to V(pi)-{s}}. The predecessor subgraph G(pi) is a breadth-first tree if V(pi) consists of the vertices reachable from s and, for
-*     all v belongs to V(pi), the subgraph G(pi) contains a unique simple path from s to v that is also a shortest path from s to v in G. A breadth-first tree is in
-*     fact a tree, since it is connected and |E(pi)|=|V(pi)|-1.
+*     Gpre = (V, Epre), where
+*
+*     Epre = {(v.pre, v): v belongs to V and v.pre != NIL}
+*
+*     The predecessor subgraph of a depth-first search forms a depth-first forest comprising several depth-first trees. The edges in Epre are tree edges.
+*
+*     The coloring scheme in DFS is the same as BFS.
+*
+*     Beside creating a depth-first forest, DFS also timestamps each vertex. Each vertex v has two timestamps: first timestamp v.d records when v
+*     is first discovered (and grayed), and the second timestamp v.f records when the search finishes examining v's adjacency list (and blacken v.) These
+*     timestamps provide important information about the structure of the graph and are generally helpful in reasoning about the behavior of DFS. These
+*     timestamps are integers between 1 and 2|V|, since there is one discovery event and one finishing event for each of the |V| vertices. For every 
+*     vertex u,
+*
+*     u.d < u.f 
+*
+*     Vertex u is WHITE before time u.d, GRAY between time u.d and time u.f, and BLACK thereafter.
+*
+*     (!!) Understand Theorem 22.7, Corollary 22.8, Theorem 22.9 and Theorem 22.10.
+*
+*     We can define four edges types in terms of the depth-first forest Gpi produced by a depth-first search in G:
+*
+*     1. Tree edges are edges in the depth-first forest Gpi. Edge(u,v) is a tree edge if v was first discovered by exploring edge (u,v)
+*     2. Back edges are those edges(u,v) connecting a vertex v to an ancestor v in a depth-first tree. We consider self-loops, which may occur in directed
+*        graphs, to be back edges. (Note: Ancestors includes predecesors)
+*     3. Forward edges are those nontree edges (u,v) connecting a vertex u to a decendant v in a depth-first tree. 
+*     4. Cross edges are all other edges. They can go between vertices in the same depth-first tree, as long as one vertex is not an ancestor of the other(how??), or they
+*        can go between vertices in different depth-first trees. 
 *
 *
 *
-*/ 
+*
+*
+*
+*/   
 
 import java.util.*;
 
@@ -71,7 +115,8 @@ class Vertex{
    private Vertex pre;  //the predecessor
    private Color color; //the color of a node
    private int dist;    //the distance
-   //private Vertex[] adj;//the adjacency vertex nodes
+   private int d; //the timestamp right before u is discovered(used in DFS)
+   private int f; //the timestamp right after u is discovered(used in DFS)
    private LinkedList<Vertex> adj;
 
    Vertex() {
@@ -117,6 +162,14 @@ class Vertex{
       adj = a;
    }
 
+   public void setD(int d) {
+      this.d = d;
+   }
+
+   public void setF(int f) {
+      this.f = f;
+   }
+
    public int getKey() {
       return key;
    }
@@ -131,6 +184,14 @@ class Vertex{
 
    public int getDist() {
       return dist;
+   }
+
+   public int getD() {
+      return d;
+   }
+
+   public int getF() {
+      return f;
    }
 
    public LinkedList<Vertex> getAdj() {
@@ -151,16 +212,18 @@ class Graph {
 
    private Vertex[] vs; //the vertexes 
    private Vertex s; //the source vertex
+   private int time;
 
    Graph() {};
 
    Graph(Vertex[] vs) {
       this.vs = vs;
       s = vs[0]; //we set the first node as the source vertex by default.
+      time = 0;
    }
 
    // Breadth-First-Search
-   void BFS() {
+   public void BFS() {
       //Step 1: Initialization works
       for(Vertex u: vs) {
          if (u == s) continue;
@@ -172,8 +235,7 @@ class Graph {
       s.setColor(Color.GRAY);
       s.setDist(0);
       Queue<Vertex> Q = new LinkedList<Vertex>();
-      Iterator it = Q.iterator();
-      Q.add(s);
+      Q.add(s); //there is only one node s in the queue at the beginning.
 
       Vertex u;
       Vertex v;
@@ -182,18 +244,107 @@ class Graph {
          u = Q.poll(); //Retrieve one node from the queue.
          for (int i = 0; i < u.getAdj().size(); i++) {
             v = u.getAdj().get(i);
+            //if v was never visited before
             if (v.getColor() == Color.WHITE) {
-               v.setColor(Color.GRAY);
-               v.setDist(u.getDist()+1);
-               v.setPre(u);
-               Q.add(v);
+               v.setColor(Color.GRAY); //set the color to GRAY immediately
+               v.setDist(u.getDist()+1); //set the distance: v.dist = u.dist + 1;
+               v.setPre(u); //set the predecessor
+               Q.add(v); //enqueue v
             }
          }
-         u.setColor(Color.BLACK);
+         u.setColor(Color.BLACK); //all u's adjacent nodes have been visited. Mark u as BLACK.
          System.out.println("the key = " + u.getKey() + " the distance = " + u.getDist());
       }
    }
 
+   //print the path of each node v 
+   public void printPath(Vertex v) {
+      if (v == s) {
+         System.out.println(s.getKey());
+      } else if (v.getPre() == null) {
+         System.out.println("no path from \"s\" to \"v\" exists");
+      } else {
+         printPath(v.getPre());
+         System.out.println(v.getKey());
+      }
+   }
+
+   public void DFS() {
+      //Step 1: Initialization works
+      for(Vertex u: vs) {
+         u.setColor(Color.WHITE);
+         u.setPre(null);
+      }
+      time = 0;
+      for(Vertex u: vs) {
+         if ( u.getColor() == Color.WHITE ) {
+            dfsVisit(u);
+         }
+      }
+   }
+
+   public void dfsVisit(Vertex u) {
+      time = time + 1; //white vertex u has just been discovered
+      u.setD(time); //set the timestamp d
+      u.setColor(Color.GRAY); //set the color to GRAY immediately
+      Vertex v;
+      
+      for (int i = 0; i < u.getAdj().size(); i++) { //expolre edge (u,v)
+         v = u.getAdj().get(i);
+         if (v.getColor() == Color.WHITE) {
+            v.setPre(u);
+            dfsVisit(v);
+         }
+      }
+      u.setColor(Color.BLACK); //blacken u; it is finished.
+      time = time + 1;
+      u.setF(time); // set the timestamp f.
+   }
+
+   //print each node's timestamp
+   public void printTimestamp() {
+      for (Vertex v : vs) {
+         System.out.println( v.getD() + "/" + v.getF());
+      }
+   }
+}
+
+class testDFS {
+   public static void main(String[] args) {
+      //Create a vertex array
+      Vertex u = new Vertex();
+      Vertex v = new Vertex();
+      Vertex w = new Vertex();
+      Vertex x = new Vertex();
+      Vertex y = new Vertex();
+      Vertex z = new Vertex();
+
+      //Create the connections
+      u.addAdjNode(v);
+      u.addAdjNode(x);
+
+      v.addAdjNode(y);
+
+      w.addAdjNode(y);
+      w.addAdjNode(z);
+
+      x.addAdjNode(v);
+
+      y.addAdjNode(x);
+
+      z.addAdjNode(z);
+
+      Vertex[] vs = new Vertex[]{u, v, w, x, y, z};
+
+      //Create a graph
+      Graph gr = new Graph(vs);
+      
+      gr.DFS();
+      gr.printTimestamp();
+   }
+}
+
+class testBFS {
    public static void main(String[] args) {
 
       //Create a vertex array.
@@ -210,6 +361,7 @@ class Graph {
       v4.setKey(4);
       v5.setKey(5);
 
+      //Create the connections
       v1.addAdjNode(v2);
       v1.addAdjNode(v5);
 
@@ -235,6 +387,7 @@ class Graph {
       Graph gr = new Graph(vs);
 
       gr.BFS();
+      gr.printPath(v4);
 
       return;
    }
