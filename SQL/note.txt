@@ -14,7 +14,7 @@ Chapter2 The Ralational Model of Data
 
 -  Important Data Models
 
-   A data model is a notation for describing data or information. The description generally consists of three parts:
+   A data model is a notation for describing data or information. The description generally consists of three parts(SOC):
 
    1) Structure of the data
    2) Operations on the data
@@ -70,7 +70,7 @@ Chapter2 The Ralational Model of Data
    
    -  Key Constraints:
       
-      A set of attributes forms a key for a relationship if we do not allow two typles
+      A set of attributes forms a key for a relationship if we do not allow two tuples
       in a relationship instance to have the same values in all the attributes of the key.
 
       We indicate the attribute or attributes that form a key for a relationship by underlining the key
@@ -98,9 +98,9 @@ Chapter2 The Ralational Model of Data
 
       1) Store relationships, which are called tables.
 
-      2) Views, which are relationships defined by a computation. These relationships are not stored, but are constructed, in whole or in part, when needed.
+      2) (??)Views, which are relationships defined by a computation. These relationships are not stored, but are constructed, in whole or in part, when needed.
 
-      3) Temporary tables, which are constructed by the SQL language preprocessor when it performs its job of executing queries and data modifications. These
+      3) (??)Temporary tables, which are constructed by the SQL language preprocessor when it performs its job of executing queries and data modifications. These
          relationships are then thrown away and not stored.
 
       -  Primitive Data Type
@@ -109,7 +109,6 @@ Chapter2 The Ralational Model of Data
 
          CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters.
          VARCHAR(n) denotes a fixed-length of up to n characters. VARCHAR implies that endmarker or string-length is used(??). 
-
 
          2. Bit strings of fixed or varying length.
 
@@ -210,7 +209,7 @@ Chapter2 The Ralational Model of Data
                         name CHAR(30)
                         address VARCHAR(255),
                         gender CHAR(1),
-                        birthdate DATE
+                        birthdate DATE,
                         PRIMARY KEY (name)
                      );
                      
@@ -226,14 +225,14 @@ Chapter2 The Ralational Model of Data
                         PRIMARY KEY(title, year)
                      );
 
-                     Note: UNIQUE can replace PRIMARY KEY.
+                     Note: UNIQUE can be used to replace PRIMARY KEY.
 
       -  An Algebraic Query Language
 
          An algebra, in general, consists of operators and atomic operands. Relational algebra is another example of an algebra. Its atomic operands are:
 
          1. Variables that stand for relations;
-         2. Constants, which are finite relations.
+         2. Constants, which are finite relations(??).
 
          The operations of the tradicional relational algebra fall into 4 broad classes:
 
@@ -266,20 +265,48 @@ Chapter2 The Ralational Model of Data
             The selection operator, applied to a relation R, produces a new relation with a subset of R's tuples. The tuples in the resulting relation are those that
             satisfy some condition C that involves the attributes of R.
 
-         4) Cartesian Product
+         4) Cartesian Product(??)
 
             The Cartesian product (or cross-product, or just product) of two sets of R and S is the set of pairs that can be formed by choosing the first element of
             the pair to be any element of R and the second any element of S. This product is denoted R x S. When R and S are relations, the product is essentially
             the same. The relation schema for the resulting relation is the union of the schemas for R and S. However, if R and S should happen to have some attributes
             in common, then we need to invent new names for at least one of each pair. 
 
-         5) Natural Joins
+            
+            A|B
+            ---
+            1|2
+            3|4
+
+            a) Relation R
+
+            B|C|D
+            -----
+            2|5|6
+            4|7|8
+            9|10|11
+
+            b) Rerlation S
+
+            A|R.B|S.B|C|D
+            -------------
+            1|2  |2  |5|6 
+            1|2  |4  |7|8
+            1|2  |9  |10|11
+            3|4  |2  |5 |6
+            3|4  |4  |7 |8
+            3|4  |9  |10|11
+
+            c) Result of R X S 
+            
+
+         5) Natural Joins(??)
 
             More often than we want to take the product of two relations, we find a need to join them by pairing only those tuples that match in some way. Let A1, A2,
             ..., An be all the attributes that are in both schema of R and the schema of S. Then a tuple r from R and a tuple s from S are successfully paired if and
             only if r and s agree on each of the attribtes A1, A2, ...An.
 
-         6) Theta-Joins
+         6) Theta-Joins(??)
 
             Sometimes, it is desirable to pair tuples from two relations on some other basis. for that purposes, we have a related notation called the thetajoin. Historically,
             the "theta" refers to an arbitrary condition, which we shall represent by C rather then @. The result of this operation is constructed as follows:
@@ -289,7 +316,7 @@ Chapter2 The Ralational Model of Data
                R and S, with "R" or "S". prefixed to attributes if necessary to indicate from which schema the attribute came.
 
             Note: The theta-join contrasts with natural join, since in the latter common attributes are merged into one copy. Why theta-join isn't do so? because there is no
-                  guarantee that compared attributes will agree in the result, since they may not compared with ==. E.g.
+                  guarantee that compared attributes will agree in the result, since they may not compared with ==.
 
             A|B|C
             -----
@@ -317,10 +344,97 @@ Chapter2 The Ralational Model of Data
             c) Natural join of relations
 
             A|U.B|U.C|V.B|V.C|D
+            -------------------
+            1| 2 | 3 | 2 | 3 |4
+            1| 2 | 3 | 2 | 3 |5
+            1| 2 | 3 | 7 | 8 |10
+            6| 3 | 8 | 7 | 8 |10
+            9| 7 | 8 | 7 | 8 |10
+
+            e) Result of theta-join (A<D)
+         
+            A|U.B|U.C|V.B|V.C|D
             1|2  |3  |7  |8  |10
 
-            d) theta-join(A<D AND U.B != V.B) of relations
+            e) Result of theta-join(A<D AND U.B != V.B) of relations
 
          7) Combining Operations to Form Queries
 
-              
+            Like all algebras, relational algebra allows us to form expressions of arbitrary complexity by applying operations to the result of other operations.
+
+            E.g. "What are tht titles and years of movies made by Fox that are at least 100 minutes long?"
+
+            1) Select those movies tuples that have length >= 100.
+            2) Select those movies tuples that have studioName = 'Fox'.
+            3) Compute the interaction of 1) and 2).
+            4) Project the relation from 3) onto attribute title and year.
+
+            pi(title, year) (@length >= 100(Movies) AND @studioName = 'Fox'(Movies))
+
+         8) Naming and Renaming
+
+            In order to control the names of the attributes used for relations that are constructed by applying relational-algebra operations, it is often convinent to 
+            use an operator that explicitly renames relations.
+
+            Suppose we want to continue to use the name B for the attribute that comes from R, and we want to use X as the name of the attribute B coming from S. We can
+            rename the attributes of S so the first is called X. The result of the expression ps(X,C,D)(S) is a relation named S that looks just like the relationship S
+            from Fig.2.14, but its first column has attribute X instead of B.
+
+            A|B|X|C|D
+            ---------
+            1|2|2|5|6 
+            1|2|4|7|8
+            1|2|9|10|11
+            3|4|2|5 |6
+            3|4|4|7 |8
+            3|4|9|10|11
+
+            a) R X ps(X,C,D)(S)
+
+            As an alternative, we could take the product without renaming, and then rename the result. The expression
+
+            pRS(A, B, X, C, D)(R x S)
+
+         9) Relationships Among Operations
+
+            Please see the paper notebook.
+
+         10) A Linear Notation for Algebraic Expressions
+
+            Please see the paper notebook.
+         
+         11) Constraints on Relations
+
+            Please read the book.
+
+Chapter 3:  Design Theory for Relational Databases
+
+3.1   Functional Dependencies
+
+      -  Definition
+
+         A functional dependency(FD) on a relation R is a statement of the form "If two tuples of R agree on all of the attributes A1, A2,..., An", then they must
+         also agree on all of another list of attributes B1, B2, ..., Bm. We write this FD formally as A1A2...An -> B1B2...Bm and say that
+
+         "A1, A2,...,An functionally determine B1,B2...,Bm"
+
+Questions:
+
+1. Login MySQL with the root user
+
+   mysql -u root --password=<root user password>
+
+   if you don't want others see your password, try this:
+
+   mysql -u root -p
+   Enter password:
+
+2. Select a database:
+
+   e.g.
+
+   USE lotto;
+
+   note: lotto is the name of a database.
+
+   

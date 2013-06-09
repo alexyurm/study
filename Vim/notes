@@ -10,7 +10,7 @@ Installation
 
    Note: For windows version, try: set tags=tags;
 
--  Step 3: To generate the tag file, go to the parent folder and do:
+-  Step 3: To generate the tag file, go to the root folder and do:
 
    ctags -R
 

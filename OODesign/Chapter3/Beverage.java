@@ -1,3 +1,32 @@
+/*
+*  -  Inheritance Map: 
+*  
+*     1. Bevarage(abstract class) <----- CondimentDecorator(abstract class) <----- Mocha, SteamedMilk, Soy, Whip
+*     
+*     2. Bevarage(abstract class) <----- Espresso, HouseBlend, DarkRoast, Decaf
+*
+*     Note: A <----- B: B is inhertated from A
+*
+*  -  The keypoint is that CondimentDecorator(Mocha, SteamedMilk, Soy and Whip) and Main Beverage(Espresso, HouseBlend, DarkRoast, Decaf)
+*     are both inheritated from the same superclass, which is Beverage. 
+*
+*  -  We can use condiment types as wrappers to wrap a beverage(including condiments):
+*     
+*     In each condiment type, we have a member type :     
+*
+*     1. Beverage beverage; 
+*     
+*     and its constructor, for example:
+*
+*     2.
+*     
+*     public Mocha(Beverage beverage) {
+*        this.beverage = beverage;
+*     }
+*     
+*     With 1 and 2, we can use CondimentDecorator to wrap any beverage objects. A decorator wraps an object to add new behaviors and responsibilities.
+*/
+
 abstract class Beverage {
    String description = "Unknown Beverage";
    
@@ -119,16 +148,16 @@ class Whip extends CondimentDecorator {
 
 class StarbuzzCoffee {
    public static void main(String[] args) {
-      Beverage beverage = new Espresso();
+      Beverage beverage = new Espresso(); //Create a main beverage object.
       System.out.println(beverage.getDescription() + " $" + beverage.cost());
 
-      Beverage beverage2 = new DarkRoast();
+      Beverage beverage2 = new DarkRoast(); //Create a main beverage object
       beverage2 = new Mocha(beverage2); //Wrap it with a Moca
       beverage2 = new Mocha(beverage2); //Wrap it with a second Moca
       beverage2 = new Whip(beverage2); //Wrap it with a Whip
       System.out.println(beverage2.getDescription() + " $" + beverage2.cost());
 
-      Beverage beverage3 = new HouseBlend();
+      Beverage beverage3 = new HouseBlend(); //Create a main beverage object
       beverage3 = new Soy(beverage3); //Wrap it with a Moca
       beverage3 = new Mocha(beverage3); //Wrap it with a second Moca
       beverage3 = new Whip(beverage3); //Wrap it with a Whip

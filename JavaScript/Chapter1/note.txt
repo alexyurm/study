@@ -13,3 +13,7 @@ Chapter 2 Lexical Structure
    language currently used on the planet.
 
 -  JavaScript is case-sensitive language(HTML is not case-sensitive).
+
+Chapter 3 Types, Values and Variables
+
+-  JavaScripts treat all numbers as floating-point values(64-bit IEEE 754 standard).

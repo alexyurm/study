@@ -1,32 +1,161 @@
 Chapter 1: Protocol Layers and Their Service Models
 
--  Five-layer internet protocol stack
+   -  Five-layer internet protocol stack
 
-   1) Application
+      1) Application
 
-   It is the layer where the network applications and their application-layer protocols reside:
+      It is the layer where the network applications and their application-layer protocols reside:
 
-   HTTP (Hypertext Transfer Protocol)
-   SMTP (Symple Mail Transfer Protocol)
-   FTP (File Transfer Protocol)
-   DNS (Domain name system) -> translation of human-friendly names for Internet end systems like google.com to a 32-bit network address
+      HTTP (Hypertext Transfer Protocol)
+      SMTP (Symple Mail Transfer Protocol)
+      FTP (File Transfer Protocol)
+      DNS (Domain name system) -> translation of human-friendly names for Internet end systems like google.com to a 32-bit network address
 
-   2) Transport
+      2) Transport
 
-   The Internet's transport layer transports application-layer messages between application endpoints:
+      The Internet's transport layer transports application-layer messages between application endpoints:
+      
+      TCP
+      UDP
+
+      3) Network
+
+      The network layer provides the service of delivering the segment to the transport layer in the detination host. The Internet's network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations.
+
+      IPv4: 32-bit address
+      IPv6: 128-bit address
+
+      4) Link
+
+      5) Physical
+
+   -  Traceroute: provides delay measurement from source to route along end-end internet path towards destination.
+
+Chapter 2: 
+
+   -  To receive messages, process must have identifier. Identifier includes both IP address and port numbers associated with process on host.
+
+      HTTP: 80
+      SMTP: 25
+      Telnet:
+      FTP: 20(client), 21(server)
+      
+   -  HTTP
+      
+      1) File transmission time of HTTP per object:
+
+         total = 2RTT + transmit time
+
+      2) Two types of HTTP messages:
+
+   -  DNS (Domain Name System)
+
+      1) DNS maps IP address and name
+
+      2) distributed database. It's implemented in hierarchy of many name servers.
+
+      3) host, routers, name servers to communicate to resolve names(address/name translation)
+
+      4) 
+
+                              Root DNS Servers
+
+      com DNS servers            org DNS servers   edu DNS servers
+
+      yahoo.com amazon.com       pbs.org           mit.edu
+
+   -  Socket Programming
+
+      Socket: a door between application process and end-end-transport protocol(UDP or TCP).
+
+Chapter 3 Transport Layer
+
+   -  The Transport service provides logical communication between processes running on different hosts. Transport protocols run in end systems.
+
+      1) Send side: breaks app messages into segments, passes to network layer.
+
+      2) Recv side: reassembles segments into messages, passes to app layer.
+
+   -  TCP
    
-   TCP
-   UDP
+      1) congestion control
+      2) flow control
+      3) connection control
+      4) TCP socket identified by 4-tuple:
+            src IP address, src port number
+            dest IP address, dest port number
 
-   3) Network
+      5) recv host uses all four values to direct segment to appropriate socket
+      6) Servers host may support many simulataneous TCP sockets.
+      7) Web Servers have different sockets for each connecting client. E.g. non-persistent HTTP will
+         have different socket for each request.
 
-   The network layer provides the service of delivering the segment to the transport layer in the detination host. The Internet's network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations.
+   -  UDP (DNS, SNMP)
+   
+      1) "best effort"
 
-   IPv4: 32-bit address
-   IPv6: 128-bit address
+         -  lost
+         -  delivered out of order to app
+   
+      2) When host receives UDP segment: 
 
-   4) Link
+         -  Checks destination port number in segment.
+         -  Directs UDP segment to socket with that port number
+         -  IP datagrams with different source IP addresses and/or source numbers directed to same socket
+         -  UDP socket identified by two-tuple:
 
-   5) Physical
+            dest IP address, dest port number
 
--  Traceroute: provides delay measurement from source to route along end-end internet path towards destination.
+   -  Demultiplexing(at rcv host):
+
+      delivering received segments to correct socket
+
+   -  Multiplexing(at send host):
+
+      gathering data from multiple sockets, enveloping data with header (later used for demultiplexing)
+
+Chapter 4 Network Layer
+
+   -  Transport segment from sending to receiving host
+
+      1) On sending side, encapsulates segments into datagrams.
+      2) On receiving side, delivers segment to transport layer.
+      3) Network layer protocols in every host, router.
+      4) Router examines header fields in all IP datagrams passing through it.
+
+   -  Two Key Network-Layer Functions
+
+      1) Forwarding: move packets from router's input to appropriate router output.
+
+         Analogy:
+
+         process of planning trip from source to dest         
+
+      2) Routing: determine route taken by packets from source to dest.
+
+         Analogy:
+
+         process of getting through single interchange
+
+   -  Two key router functions
+
+      1) Run routing algorithm/protocol (RIP, OSPF, BGP)
+      2) forwarding datagrams from incoming to outgoing
+
+      Input port(s) -----> Router Processor -----> output port(s)
+
+      Delay and Packet losses can happen in input ports and output ports. Buffer is introduced!
+
+   -  Internet Protocol(IP)
+      
+      Network links have MTU (max.transfer unit) - largest possible link-level frame.
+
+   -  IP Datagram Fragmentation
+
+      Not all link-layer protocols can carry network-layer packets of the same size. Some protocols can carry big datagrams, whereas other protocols can carry only
+      little packets. E.g. Ethernet frames can carry up to 1,500 bytes of data, whereas frames for some wide-area links can carry no more than 576 bytes.
+
+      -  one datagram becomes several datagrams;
+      -  "reassembled" only at final destination.
+      -  
+

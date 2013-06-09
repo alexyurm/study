@@ -41,7 +41,6 @@ Chapter 2 Keeping your objects in the know.
       removeObserver()
       notifyObservers()
 
-      
                               subject
       ConcreteSubject      <--------------   ConcreteObserver
       registerObserver                         update()
@@ -65,7 +64,7 @@ Chapter 2 Keeping your objects in the know.
       4. We can resue subjects or observers independently of each other.
       5. Changes to either the subject or an observer will not affect the other.
 
-      Loosely coupled designs allow us to build flexible OO systems that can handle changes between they minimize
+      Loosely coupled designs allow us to build flexible OO systems that can handle changes because they minimize
       the interdependency between objects.
 
    -  Using Java's built-in Observer Pattern
@@ -92,7 +91,7 @@ Chapter 2 Keeping your objects in the know.
 
       update(Observer o, Object arg)
 
-      If you want to "push" data to the observers, you can pass the data as a data object to the notifyObserver(arg) method. If not, then the Observer ahs to "pull" the data
+      If you want to "push" data to the observers, you can pass the data as a data object to the notifyObserver(arg) method. If not, then the Observer has to "pull" the data
       it wants from the Observable object passed to it.
 
    -  The setChanged() method is used to signify that the state has changed and that notifyObservers(), when it is called, should update its observers. 
@@ -124,7 +123,7 @@ Chapter 2 Keeping your objects in the know.
 
       1. Observable is a class
 
-         You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another supclass(Java doesn't support multiple
+         You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another subclass(Java doesn't support multiple
          inheritance). That limits its resue potential. 
 
       2. Observable protects crucial methods
@@ -142,7 +141,7 @@ Chapter 3: Decorating Objects.
 
       -  You can use one or more decorators to wrap an object.
       
-      -  Given the decorator has the same supertype as the object it decorates, we can pass around a decorated object in place of the original (wrapped) object. Key Point!
+      -  Given the decorator has the same supertype as the object it decorates, we can pass around a decorated object in place of the original (wrapped) object. Key Point!!
 
       -  Objects can be decorated at anytime, so we can decorate objects dynamically at runtime with as many decorators as we like.
 
@@ -378,3 +377,216 @@ Chapter 6: Encapsulating Invocation
 
       Question: How does the design of the Command Pattern support the decoupling of the invoker of a request and the receiver of the request?
       
+Chapter 7 the Adapter and Facade Patterns  
+
+   -  Object Oriented Adapters
+   
+         
+      Your existing ------> Vendor Class (Their interface doesn't match the one you've written your code against.)
+
+      |
+      |
+      v
+      
+      Your existing ------> Adapter -----> Vendor Class (The adpter implements the interface you classes expect; and talks to the vendor interface to service your requests.)
+
+      
+   -  The Adapter Pattern explained
+
+               request()             translateRequest()
+      Client -------------> Adapter -------------------> Adaptee
+      
+      Client: The Client is implemented against the target interface
+      
+      Adapter: The Adapter implements the target interface and holds an instance of the Adaptee.
+
+      Adaptee: Turkey was the adaptee interface
+
+      This is how the Clients use the Adapter
+
+      1. The client makes a request to the adapter by calling a method on it using the target interface.
+      2. The Adapter translates that request into one or more calls on the adaptee using the adaptee interface.
+      3. The client receives the results of the call and never knows there is an adapter doing the translation.
+
+      Note that the Client and Adaptee are decoupled - neither knows about the other.
+
+   -  Adapter Pattern defined
+
+      The Adapter Pattern converts the interface of a class into another interface the clients expect. Adapter lets classes work together that couldn't otherwise because of
+      incompatible interfaces.
+
+      This acts to decouple the client from the implemented interface, and if we expect the interface to change over time, the adapter encapsulates that change so that the
+      the client doesn't have to be modified each time it needs to operate against a different interface.
+
+      Client -----> <<interface>>
+                       Target
+                      request()
+                         ^
+                         | 
+                         |
+                         |
+                       Adapter -----> Adaptee
+                      request()       specifiedRequest()
+
+      Client: The client sees only the Target interface
+      Adapter: The Adapter implements the Target interface; The Adapter is composed with the Adaptee.
+
+   -  Object and class adapters
+
+      There are actually two kinds of adapters: object adapters and class adapters. The previous example shows object adapters and the class diagram on the previous page
+      is a diagram of an object adapter.
+
+      Client -----> Target       Adaptee
+                    request()    sepcifiedRequest()
+                         ^          ^
+                         |          |
+                         |          |
+                          \        /
+                           \      /
+                           Adapter   
+                           request()
+
+      The only difference is that with class adapter we subclass the Target and the Adaptee, while with object adapter we use composition to pass requests to an Adaptee.
+
+      Note: Java doesn't support multiple inheritance.
+
+   -  Real World problem
+
+      The early collections types (Vector, HashTable and a few others) implements a method elements(), which return an Enumeration. The Enumeration interface allows you
+      to step through the elements of a collection without knowing the specifis of how they are managed in the collection.
+
+      When Sun released their more recent Collections classes they began using an Iterator interface that, like Enumeration, allows you to iterate through a set of items
+      in a collection, but also add the ability to remove items.
+
+      <<interface>>
+      Enumeration
+      hasMoreElements()
+      nextElements()
+
+      <<interface>>
+      iterator
+      hasNext()
+      next()
+      remove() ---> the new method to remove items.
+
+      And today...
+
+      We are often faced with leagcy code that exposes the Enumerator interface, yet we'd like for our new code to only use Iterators. It looks like we need to build an adapter.
+
+      -  Adapting an Enumeration to an Iterator.
+
+      
+      <<interface>>                       <<interface>>
+      Enumeration<---Adaptee interface    iterator <---The target interface
+      hasMoreElements()                   hasNext()  <---- can be easily map to hasMoreElements()
+      nextElements()                      next()   <---- can be easily map to nextElements()
+                                          remove() <---- How about this one?
+
+      How to deal with remove() method?
+
+      Since Enumeration is "read only" interface, there is no way to implement a fully functioning remove() method on the adapter. Luckily, the designers of the Iterator
+      interface foresaw this need and defined the remove() method so that it supports an UnsupportedOperationException.
+
+      This is a case where the adapter isn't perfect; clients will have to watch out for potential exceptions, but as long as the client is careful and the adapter is well
+      documented this is a perfectly reasonable solution.
+
+      public class EnumerationIterator implements Iterator { <<---Since were adapting Enumeration to Iterator, our Adapter implements the Iterator interface...It has to look like an 
+                                                                  iterator.
+         Enumeration enum;
+
+         public EnumerationIterator(Enumeration enum) {
+            this.enum = enum;
+         }
+
+         public boolean hasNext() {
+            return enum.hasMoreElements();
+         }
+
+         public boolean Next() {
+            return enum.nextElements();
+         }
+
+         public void remove() {
+            throw new UnsupportedOperationException();
+         }
+      }
+
+   -  The Facade Pattern
+
+      We are going to introduce a new pattern: Facade Pattern, which makes an interface simpler
+
+      Pattern           Intent
+      Decorator         Converts one interface to another(??). A decorator wraps an object to add new behaviors and responsibilities
+      Adapter           Doesn't alter the interface, but adds responsibility(??)
+      Facade            Makes an interface simpler. A facade "wraps" a set of objects to simplify.
+
+      -  Home Sweet Home Theater
+
+      A facade not only simplifies an interface, it decouples a client from a subsystem of components. Facades and adapters may wrap multiple classes, but a
+      facade's intent is simplify, while an adapter's is to convert the interface to something different.
+
+      -  Facade Pattern defined
+
+      It provides a unified interface to a set of interfaces in a subsystem. Facade defines a higher level interface that makes the subsystem easier to use.
+
+      -  Design Principle 7: Principle of Least Knowledge - talk only to your immediate friends.
+
+      It means when you are designing a system, for any object, be careful of the number of classes it interacts with and also how it comes to interact with those classes.
+      This principle prevents us from creating designs that have a large number of classes coupled together so that changes in one part of the system cacade to other parts.
+      When you build a lot of dependencies between many classes, you are building a fragile system that will be costly to maintain and complex for others to understand.
+
+      -  How NOT to Win Friends and Influence Objects.
+
+      How do you keep from doing this? The principle provides some guidelines: take any object; now from any method in that object, the principle tells us that we should
+      only invoke methods that belong to:
+
+      -  The object itself(??Any example).
+      -  Objects passed in as a parameter to the method.
+      -  Any object the method creates or instantiates.
+      -  Any components of the object.
+
+      Notice that these guidelines tell us not to call methods on objects that were returned from calling other methods!!
+      The last guideline: Think of a "component" as any object that is referenced by an instance variable. In other words
+      think of this as HAS-A relationship.
+
+      E.g.
+
+      Without the Principle:
+
+      public float getTemp() {
+         Thermometer thermometer = station.getThermometer();
+         return thermometer.getTemperature();
+      }
+
+      With the Principle:
+
+      public float getTemp() {
+         return station.getTemperature();//we add a method to the Station class that makes the request to the thermomoter for us. The reduces the number of classes we're dependent on.
+      }
+      
+      Another example:
+
+      public class Car {
+         Engine engine; //Here's a component of this class. We can call its methods.
+         //other instance variables;
+
+         public Car() {
+            //instialize engine, etc.
+         }
+
+         public void start(Key key) { //You can call a method on an object passed as a parameter
+            Doors doors = new Doors();//Here we are creating a new object, its methods are legal.
+
+            boolean authorized = key.turns();//You can call a method on an object passed as a parameter;
+         
+            if (authorized) {
+               engine.start();//You can call a method on a componet of the object.
+               updateDashboardDisplay();//You can call a local method within the object.
+               doors.lock();  //You can call a method on an object you create or instantiate
+            }
+         }
+
+         public void updateDashboardSiaplay() {
+            //update display
+         }
+      }

@@ -1,0 +1,355 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Beverage	Chapter3/Beverage.java	/^abstract class Beverage {$/;"	c
+BlackOlives	Chapter4/pizza.java	/^class BlackOlives extends Veggies {$/;"	c
+Cheese	Chapter4/pizza.java	/^abstract class Cheese {$/;"	c
+CheesePizza	Chapter4/pizza.java	/^   public CheesePizza(PizzaIngredientFactory ingredientFactory) {$/;"	m	class:CheesePizza
+CheesePizza	Chapter4/pizza.java	/^class CheesePizza extends Pizza {$/;"	c
+CheesePizza	Chapter4/pizza_orig.java	/^class CheesePizza extends Pizza {$/;"	c
+ChicagoPizzaIngredientFactory	Chapter4/pizza.java	/^class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {$/;"	c
+ChicagoPizzaStore	Chapter4/pizza.java	/^class ChicagoPizzaStore extends PizzaStore {$/;"	c
+ChocolateBoiler	Chapter5/ChocolateBoiler.java	/^   private ChocolateBoiler() { \/\/Only ChocolateBoiler can instantiate a ChocolateBoiler object$/;"	m	class:ChocolateBoiler	file:
+ChocolateBoiler	Chapter5/ChocolateBoiler.java	/^class ChocolateBoiler {$/;"	c
+ChocolateBoiler	Chapter5/ChocolateBoiler_orig.java	/^   public ChocolateBoiler() {$/;"	m	class:ChocolateBoiler
+ChocolateBoiler	Chapter5/ChocolateBoiler_orig.java	/^class ChocolateBoiler {$/;"	c
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver1.java	/^   private ChocolateBoiler() { \/\/Only ChocolateBoiler can instantiate a ChocolateBoiler object$/;"	m	class:ChocolateBoiler	file:
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver1.java	/^class ChocolateBoiler {$/;"	c
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver2.java	/^   private ChocolateBoiler() {}$/;"	m	class:ChocolateBoiler	file:
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver2.java	/^class ChocolateBoiler {$/;"	c
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver3.java	/^   private ChocolateBoiler() { \/\/Only ChocolateBoiler can instantiate a ChocolateBoiler object$/;"	m	class:ChocolateBoiler	file:
+ChocolateBoiler	Chapter5/ChocolateBoiler_ver3.java	/^class ChocolateBoiler {$/;"	c
+ClamPizza	Chapter4/pizza.java	/^   public ClamPizza(PizzaIngredientFactory ingredientFactory) {$/;"	m	class:ClamPizza
+ClamPizza	Chapter4/pizza.java	/^class ClamPizza extends Pizza {$/;"	c
+ClamPizza	Chapter4/pizza_orig.java	/^class ClamPizza extends Pizza {$/;"	c
+Clams	Chapter4/pizza.java	/^abstract class Clams {$/;"	c
+Command	Chapter6/CommandPattern.java	/^interface Command {$/;"	i
+CondimentDecorator	Chapter3/Beverage.java	/^abstract class CondimentDecorator extends Beverage {$/;"	c
+CurrentConditionDisplay	Chapter2/WeatherData.java	/^   public CurrentConditionDisplay(Observable observable) {$/;"	m	class:CurrentConditionDisplay
+CurrentConditionDisplay	Chapter2/WeatherData.java	/^class CurrentConditionDisplay implements Observer, DisplayElement {$/;"	c
+CurrentConditionDisplay	Chapter2/WeatherData_orig.java	/^   public CurrentConditionDisplay(Subject weatherData) {$/;"	m	class:CurrentConditionDisplay
+CurrentConditionDisplay	Chapter2/WeatherData_orig.java	/^class CurrentConditionDisplay implements Observer, DisplayElement {$/;"	c
+DarkRoast	Chapter3/Beverage.java	/^   public DarkRoast() {$/;"	m	class:DarkRoast
+DarkRoast	Chapter3/Beverage.java	/^class DarkRoast extends Beverage {$/;"	c
+Decaf	Chapter3/Beverage.java	/^   public Decaf() {$/;"	m	class:Decaf
+Decaf	Chapter3/Beverage.java	/^class Decaf extends Beverage {$/;"	c
+DecoyDuck	Chapter1/Duck.java	/^class DecoyDuck extends Duck {$/;"	c
+DisplayElement	Chapter2/WeatherData.java	/^interface DisplayElement {$/;"	i
+DisplayElement	Chapter2/WeatherData_orig.java	/^interface DisplayElement {$/;"	i
+Dough	Chapter4/pizza.java	/^abstract class Dough {$/;"	c
+Duck	Chapter1/Duck.java	/^abstract class Duck {$/;"	c
+Duck	Chapter7/Duck.java	/^interface Duck {$/;"	i
+DuckTestDrive	Chapter7/Duck.java	/^class DuckTestDrive {$/;"	c
+EggPlant	Chapter4/pizza.java	/^class EggPlant extends Veggies {$/;"	c
+Espresso	Chapter3/Beverage.java	/^   public Espresso() {$/;"	m	class:Espresso
+Espresso	Chapter3/Beverage.java	/^class Espresso extends Beverage {$/;"	c
+FlyBehavior	Chapter1/Duck.java	/^interface FlyBehavior {$/;"	i
+FlyNoWay	Chapter1/Duck.java	/^class FlyNoWay implements FlyBehavior {$/;"	c
+FlyWithWings	Chapter1/Duck.java	/^class FlyWithWings implements FlyBehavior {$/;"	c
+FreshClams	Chapter4/pizza.java	/^class FreshClams extends Clams {$/;"	c
+FrozenClams	Chapter4/pizza.java	/^class FrozenClams extends Clams {$/;"	c
+Garlic	Chapter4/pizza.java	/^class Garlic extends Veggies {$/;"	c
+HouseBlend	Chapter3/Beverage.java	/^   public HouseBlend() {$/;"	m	class:HouseBlend
+HouseBlend	Chapter3/Beverage.java	/^class HouseBlend extends Beverage {$/;"	c
+Light	Chapter6/CommandPattern.java	/^class Light {$/;"	c
+LightOffCommand	Chapter6/CommandPattern.java	/^   public LightOffCommand(Light light) {$/;"	m	class:LightOffCommand
+LightOffCommand	Chapter6/CommandPattern.java	/^class LightOffCommand implements Command {$/;"	c
+LightOnCommand	Chapter6/CommandPattern.java	/^   public LightOnCommand(Light light) {$/;"	m	class:LightOnCommand
+LightOnCommand	Chapter6/CommandPattern.java	/^class LightOnCommand implements Command {$/;"	c
+MallardDuck	Chapter1/Duck.java	/^class MallardDuck extends Duck {$/;"	c
+MallardDuck	Chapter7/Duck.java	/^class MallardDuck implements Duck {$/;"	c
+MarinaraSauce	Chapter4/pizza.java	/^class MarinaraSauce extends Sauce {$/;"	c
+Mocha	Chapter3/Beverage.java	/^   public Mocha(Beverage beverage) {$/;"	m	class:Mocha
+Mocha	Chapter3/Beverage.java	/^class Mocha extends CondimentDecorator {$/;"	c
+Mozzzrella	Chapter4/pizza.java	/^class Mozzzrella extends Cheese {$/;"	c
+Mushroom	Chapter4/pizza.java	/^class Mushroom extends Veggies {$/;"	c
+MuteQuack	Chapter1/Duck.java	/^class MuteQuack implements QuackBehavior{$/;"	c
+NYPizzaIngredientFactory	Chapter4/pizza.java	/^class NYPizzaIngredientFactory implements PizzaIngredientFactory {$/;"	c
+NYPizzaStore	Chapter4/pizza.java	/^class NYPizzaStore extends PizzaStore {$/;"	c
+NoCommand	Chapter6/CommandPattern.java	/^class NoCommand implements Command {$/;"	c
+Observer	Chapter2/WeatherData_orig.java	/^interface Observer {$/;"	i
+Onion	Chapter4/pizza.java	/^class Onion extends Veggies {$/;"	c
+Pepperoni	Chapter4/pizza.java	/^abstract class Pepperoni {$/;"	c
+PepperoniPizza	Chapter4/pizza.java	/^   public PepperoniPizza(PizzaIngredientFactory ingredientFactory) {$/;"	m	class:PepperoniPizza
+PepperoniPizza	Chapter4/pizza.java	/^class PepperoniPizza extends Pizza {$/;"	c
+PepperoniPizza	Chapter4/pizza_orig.java	/^class PepperoniPizza extends Pizza {$/;"	c
+PerformFly	Chapter1/Duck.java	/^   void PerformFly() {$/;"	m	class:Duck
+PerformQuack	Chapter1/Duck.java	/^   void PerformQuack() {$/;"	m	class:Duck
+Pizza	Chapter4/pizza.java	/^abstract class Pizza {$/;"	c
+Pizza	Chapter4/pizza_orig.java	/^abstract class Pizza {$/;"	c
+PizzaIngredientFactory	Chapter4/pizza.java	/^interface PizzaIngredientFactory {$/;"	i
+PizzaStore	Chapter4/pizza.java	/^abstract class PizzaStore {$/;"	c
+PizzaStore	Chapter4/pizza_orig.java	/^   public PizzaStore(SimplePizzaFactory factory) {$/;"	m	class:PizzaStore
+PizzaStore	Chapter4/pizza_orig.java	/^class PizzaStore {$/;"	c
+PizzaTestDrive	Chapter4/pizza.java	/^class PizzaTestDrive {$/;"	c
+PlumTomatoSauce	Chapter4/pizza.java	/^class PlumTomatoSauce extends Sauce {$/;"	c
+Quack	Chapter1/Duck.java	/^class Quack implements QuackBehavior{$/;"	c
+QuackBehavior	Chapter1/Duck.java	/^interface QuackBehavior{$/;"	i
+RedHeadDuck	Chapter1/Duck.java	/^class RedHeadDuck extends Duck {$/;"	c
+RedPepper	Chapter4/pizza.java	/^class RedPepper extends Veggies {$/;"	c
+ReggianoCheese	Chapter4/pizza.java	/^class ReggianoCheese extends Cheese {$/;"	c
+RemoteControl	Chapter6/CommandPattern.java	/^   public RemoteControl() {$/;"	m	class:RemoteControl
+RemoteControl	Chapter6/CommandPattern.java	/^class RemoteControl {$/;"	c
+RemoteControlTest	Chapter6/CommandPattern.java	/^class RemoteControlTest {$/;"	c
+RubberDuck	Chapter1/Duck.java	/^class RubberDuck extends Duck {$/;"	c
+Sauce	Chapter4/pizza.java	/^abstract class Sauce {$/;"	c
+SimplePizzaFactory	Chapter4/pizza_orig.java	/^class SimplePizzaFactory {$/;"	c
+SimpleRemoteControl	Chapter6/CommandPattern.java	/^   public SimpleRemoteControl() {}$/;"	m	class:SimpleRemoteControl
+SimpleRemoteControl	Chapter6/CommandPattern.java	/^class SimpleRemoteControl {$/;"	c
+SlicedPepperoni	Chapter4/pizza.java	/^class SlicedPepperoni extends Pepperoni {$/;"	c
+Soy	Chapter3/Beverage.java	/^   public Soy(Beverage beverage) {$/;"	m	class:Soy
+Soy	Chapter3/Beverage.java	/^class Soy extends CondimentDecorator {$/;"	c
+Spinach	Chapter4/pizza.java	/^class Spinach extends Veggies {$/;"	c
+Squeak	Chapter1/Duck.java	/^class Squeak implements QuackBehavior{$/;"	c
+StarbuzzCoffee	Chapter3/Beverage.java	/^class StarbuzzCoffee {$/;"	c
+SteamedMilk	Chapter3/Beverage.java	/^   public SteamedMilk(Beverage beverage) {$/;"	m	class:SteamedMilk
+SteamedMilk	Chapter3/Beverage.java	/^class SteamedMilk extends CondimentDecorator {$/;"	c
+Subject	Chapter2/WeatherData_orig.java	/^interface Subject {$/;"	i
+TestDrive	Chapter5/ChocolateBoiler.java	/^class TestDrive {$/;"	c
+TestDrive	Chapter5/ChocolateBoiler_ver1.java	/^class TestDrive {$/;"	c
+TestDrive	Chapter5/ChocolateBoiler_ver2.java	/^class TestDrive {$/;"	c
+TestDrive	Chapter5/ChocolateBoiler_ver3.java	/^class TestDrive {$/;"	c
+ThinCrustDough	Chapter4/pizza.java	/^class ThinCrustDough extends Dough {$/;"	c
+Turkey	Chapter7/Duck.java	/^interface Turkey {$/;"	i
+TurkeyAdapter	Chapter7/Duck.java	/^   public TurkeyAdapter(Turkey turkey) {$/;"	m	class:TurkeyAdapter
+TurkeyAdapter	Chapter7/Duck.java	/^class TurkeyAdapter implements Duck {$/;"	c
+VeggiePizza	Chapter4/pizza.java	/^   public VeggiePizza(PizzaIngredientFactory ingredientFactory) {$/;"	m	class:VeggiePizza
+VeggiePizza	Chapter4/pizza.java	/^class VeggiePizza extends Pizza {$/;"	c
+VeggiePizza	Chapter4/pizza_orig.java	/^class VeggiePizza extends Pizza {$/;"	c
+Veggies	Chapter4/pizza.java	/^abstract class Veggies {$/;"	c
+WeatherData	Chapter2/WeatherData.java	/^   public WeatherData() {} \/\/Our constructor no longer needs to create a data structure to hold Observers$/;"	m	class:WeatherData
+WeatherData	Chapter2/WeatherData.java	/^class WeatherData extends Observable {$/;"	c
+WeatherData	Chapter2/WeatherData_orig.java	/^   public WeatherData() {$/;"	m	class:WeatherData
+WeatherData	Chapter2/WeatherData_orig.java	/^class WeatherData implements Subject {$/;"	c
+WeatherStation	Chapter2/WeatherData_orig.java	/^class WeatherStation {$/;"	c
+Whip	Chapter3/Beverage.java	/^   public Whip(Beverage beverage) {$/;"	m	class:Whip
+Whip	Chapter3/Beverage.java	/^class Whip extends CondimentDecorator {$/;"	c
+WildTurkey	Chapter7/Duck.java	/^class WildTurkey implements Turkey {$/;"	c
+bake	Chapter4/pizza.java	/^   protected void bake() {$/;"	m	class:Pizza
+bake	Chapter4/pizza_orig.java	/^   public abstract void bake();$/;"	m	class:Pizza
+bake	Chapter4/pizza_orig.java	/^   public void bake() {$/;"	m	class:CheesePizza
+bake	Chapter4/pizza_orig.java	/^   public void bake() {$/;"	m	class:ClamPizza
+bake	Chapter4/pizza_orig.java	/^   public void bake() {$/;"	m	class:PepperoniPizza
+bake	Chapter4/pizza_orig.java	/^   public void bake() {$/;"	m	class:VeggiePizza
+beverage	Chapter3/Beverage.java	/^   Beverage beverage;$/;"	f	class:Mocha
+beverage	Chapter3/Beverage.java	/^   Beverage beverage;$/;"	f	class:Soy
+beverage	Chapter3/Beverage.java	/^   Beverage beverage;$/;"	f	class:SteamedMilk
+beverage	Chapter3/Beverage.java	/^   Beverage beverage;$/;"	f	class:Whip
+boil	Chapter5/ChocolateBoiler.java	/^   public void boil() {$/;"	m	class:ChocolateBoiler
+boil	Chapter5/ChocolateBoiler_orig.java	/^   public void boil() {$/;"	m	class:ChocolateBoiler
+boil	Chapter5/ChocolateBoiler_ver1.java	/^   public void boil() {$/;"	m	class:ChocolateBoiler
+boil	Chapter5/ChocolateBoiler_ver2.java	/^   public void boil() {$/;"	m	class:ChocolateBoiler
+boil	Chapter5/ChocolateBoiler_ver3.java	/^   public void boil() {$/;"	m	class:ChocolateBoiler
+boiled	Chapter5/ChocolateBoiler.java	/^   private boolean boiled;$/;"	f	class:ChocolateBoiler	file:
+boiled	Chapter5/ChocolateBoiler_orig.java	/^   private boolean boiled;$/;"	f	class:ChocolateBoiler	file:
+boiled	Chapter5/ChocolateBoiler_ver1.java	/^   private boolean boiled;$/;"	f	class:ChocolateBoiler	file:
+boiled	Chapter5/ChocolateBoiler_ver2.java	/^   private boolean boiled;$/;"	f	class:ChocolateBoiler	file:
+boiled	Chapter5/ChocolateBoiler_ver3.java	/^   private boolean boiled;$/;"	f	class:ChocolateBoiler	file:
+box	Chapter4/pizza.java	/^   protected void box() {$/;"	m	class:Pizza
+box	Chapter4/pizza_orig.java	/^   public abstract void box();$/;"	m	class:Pizza
+box	Chapter4/pizza_orig.java	/^   public void box() {$/;"	m	class:CheesePizza
+box	Chapter4/pizza_orig.java	/^   public void box() {$/;"	m	class:ClamPizza
+box	Chapter4/pizza_orig.java	/^   public void box() {$/;"	m	class:PepperoniPizza
+box	Chapter4/pizza_orig.java	/^   public void box() {$/;"	m	class:VeggiePizza
+buttonWasPressed	Chapter6/CommandPattern.java	/^   public void buttonWasPressed() {$/;"	m	class:SimpleRemoteControl
+cheese	Chapter4/pizza.java	/^   protected Cheese cheese;$/;"	f	class:Pizza
+clam	Chapter4/pizza.java	/^   protected Clams clam;$/;"	f	class:Pizza
+cost	Chapter3/Beverage.java	/^   public abstract double cost();$/;"	m	class:Beverage
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:DarkRoast
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:Decaf
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:Espresso
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:HouseBlend
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:Mocha
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:Soy
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:SteamedMilk
+cost	Chapter3/Beverage.java	/^   public double cost() {$/;"	m	class:Whip
+createCheese	Chapter4/pizza.java	/^   public Cheese createCheese() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createCheese	Chapter4/pizza.java	/^   public Cheese createCheese() {$/;"	m	class:NYPizzaIngredientFactory
+createCheese	Chapter4/pizza.java	/^   public Cheese createCheese();$/;"	m	interface:PizzaIngredientFactory
+createClam	Chapter4/pizza.java	/^   public Clams createClam() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createClam	Chapter4/pizza.java	/^   public Clams createClam() {$/;"	m	class:NYPizzaIngredientFactory
+createClam	Chapter4/pizza.java	/^   public Clams createClam();$/;"	m	interface:PizzaIngredientFactory
+createDough	Chapter4/pizza.java	/^   public Dough createDough() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createDough	Chapter4/pizza.java	/^   public Dough createDough() {$/;"	m	class:NYPizzaIngredientFactory
+createDough	Chapter4/pizza.java	/^   public Dough createDough();$/;"	m	interface:PizzaIngredientFactory
+createPepperoni	Chapter4/pizza.java	/^   public Pepperoni createPepperoni() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createPepperoni	Chapter4/pizza.java	/^   public Pepperoni createPepperoni() {$/;"	m	class:NYPizzaIngredientFactory
+createPepperoni	Chapter4/pizza.java	/^   public Pepperoni createPepperoni();$/;"	m	interface:PizzaIngredientFactory
+createPizza	Chapter4/pizza.java	/^   protected abstract Pizza createPizza(String type); \/\/Our "factory method" is now abstract in PizzaStore.$/;"	m	class:PizzaStore
+createPizza	Chapter4/pizza.java	/^   public Pizza createPizza(String type) {$/;"	m	class:ChicagoPizzaStore
+createPizza	Chapter4/pizza.java	/^   public Pizza createPizza(String type) {$/;"	m	class:NYPizzaStore
+createPizza	Chapter4/pizza_orig.java	/^   public static Pizza createPizza(String type) {$/;"	m	class:SimplePizzaFactory
+createSauce	Chapter4/pizza.java	/^   public Sauce createSauce() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createSauce	Chapter4/pizza.java	/^   public Sauce createSauce() {$/;"	m	class:NYPizzaIngredientFactory
+createSauce	Chapter4/pizza.java	/^   public Sauce createSauce();$/;"	m	interface:PizzaIngredientFactory
+createVeggies	Chapter4/pizza.java	/^   public Veggies[] createVeggies() {$/;"	m	class:ChicagoPizzaIngredientFactory
+createVeggies	Chapter4/pizza.java	/^   public Veggies[] createVeggies() {$/;"	m	class:NYPizzaIngredientFactory
+createVeggies	Chapter4/pizza.java	/^   public Veggies[] createVeggies();$/;"	m	interface:PizzaIngredientFactory
+cut	Chapter4/pizza.java	/^   protected void cut() {$/;"	m	class:Pizza
+cut	Chapter4/pizza_orig.java	/^   public abstract void cut();$/;"	m	class:Pizza
+cut	Chapter4/pizza_orig.java	/^   public void cut() {$/;"	m	class:CheesePizza
+cut	Chapter4/pizza_orig.java	/^   public void cut() {$/;"	m	class:ClamPizza
+cut	Chapter4/pizza_orig.java	/^   public void cut() {$/;"	m	class:PepperoniPizza
+cut	Chapter4/pizza_orig.java	/^   public void cut() {$/;"	m	class:VeggiePizza
+description	Chapter3/Beverage.java	/^   String description = "Unknown Beverage";$/;"	f	class:Beverage
+display	Chapter1/Duck.java	/^   public abstract void display();$/;"	m	class:Duck
+display	Chapter1/Duck.java	/^   public void display() {$/;"	m	class:DecoyDuck
+display	Chapter1/Duck.java	/^   public void display() {$/;"	m	class:MallardDuck
+display	Chapter1/Duck.java	/^   public void display() {$/;"	m	class:RedHeadDuck
+display	Chapter1/Duck.java	/^   public void display() {$/;"	m	class:RubberDuck
+display	Chapter2/WeatherData.java	/^   public void display() {$/;"	m	class:CurrentConditionDisplay
+display	Chapter2/WeatherData.java	/^   public void display();$/;"	m	interface:DisplayElement
+display	Chapter2/WeatherData_orig.java	/^   public void display() {$/;"	m	class:CurrentConditionDisplay
+display	Chapter2/WeatherData_orig.java	/^   public void display();$/;"	m	interface:DisplayElement
+dough	Chapter4/pizza.java	/^   protected Dough dough;$/;"	f	class:Pizza
+drain	Chapter5/ChocolateBoiler.java	/^   public void drain() {$/;"	m	class:ChocolateBoiler
+drain	Chapter5/ChocolateBoiler_orig.java	/^   public void drain() {$/;"	m	class:ChocolateBoiler
+drain	Chapter5/ChocolateBoiler_ver1.java	/^   public void drain() {$/;"	m	class:ChocolateBoiler
+drain	Chapter5/ChocolateBoiler_ver2.java	/^   public void drain() {$/;"	m	class:ChocolateBoiler
+drain	Chapter5/ChocolateBoiler_ver3.java	/^   public void drain() {$/;"	m	class:ChocolateBoiler
+empty	Chapter5/ChocolateBoiler.java	/^   private boolean empty;$/;"	f	class:ChocolateBoiler	file:
+empty	Chapter5/ChocolateBoiler_orig.java	/^   private boolean empty;$/;"	f	class:ChocolateBoiler	file:
+empty	Chapter5/ChocolateBoiler_ver1.java	/^   private boolean empty;$/;"	f	class:ChocolateBoiler	file:
+empty	Chapter5/ChocolateBoiler_ver2.java	/^   private boolean empty;$/;"	f	class:ChocolateBoiler	file:
+empty	Chapter5/ChocolateBoiler_ver3.java	/^   private boolean empty;$/;"	f	class:ChocolateBoiler	file:
+execute	Chapter6/CommandPattern.java	/^   public void execute() {$/;"	m	class:LightOffCommand
+execute	Chapter6/CommandPattern.java	/^   public void execute() {$/;"	m	class:LightOnCommand
+execute	Chapter6/CommandPattern.java	/^   public void execute() {} \/\/do nothing.$/;"	m	class:NoCommand
+execute	Chapter6/CommandPattern.java	/^   public void execute();$/;"	m	interface:Command
+factory	Chapter4/pizza_orig.java	/^   protected SimplePizzaFactory factory;$/;"	f	class:PizzaStore
+fill	Chapter5/ChocolateBoiler.java	/^   public void fill() {$/;"	m	class:ChocolateBoiler
+fill	Chapter5/ChocolateBoiler_orig.java	/^   public void fill() {$/;"	m	class:ChocolateBoiler
+fill	Chapter5/ChocolateBoiler_ver1.java	/^   public void fill() {$/;"	m	class:ChocolateBoiler
+fill	Chapter5/ChocolateBoiler_ver2.java	/^   public void fill() {$/;"	m	class:ChocolateBoiler
+fill	Chapter5/ChocolateBoiler_ver3.java	/^   public void fill() {$/;"	m	class:ChocolateBoiler
+fly	Chapter1/Duck.java	/^   public void fly() {$/;"	m	class:FlyNoWay
+fly	Chapter1/Duck.java	/^   public void fly() {$/;"	m	class:FlyWithWings
+fly	Chapter1/Duck.java	/^   public void fly();$/;"	m	interface:FlyBehavior
+fly	Chapter7/Duck.java	/^   public void fly() { \/\/Even though both interfaces have a fly() method, Turkey fly in short spurts.$/;"	m	class:TurkeyAdapter
+fly	Chapter7/Duck.java	/^   public void fly() {$/;"	m	class:MallardDuck
+fly	Chapter7/Duck.java	/^   public void fly() {$/;"	m	class:WildTurkey
+fly	Chapter7/Duck.java	/^   public void fly();$/;"	m	interface:Duck
+fly	Chapter7/Duck.java	/^   public void fly();$/;"	m	interface:Turkey
+flyBehavior	Chapter1/Duck.java	/^   private FlyBehavior flyBehavior;$/;"	f	class:Duck	file:
+getDescription	Chapter3/Beverage.java	/^   public String getDescription() {$/;"	m	class:Beverage
+getDescription	Chapter3/Beverage.java	/^   public String getDescription() {$/;"	m	class:Mocha
+getDescription	Chapter3/Beverage.java	/^   public String getDescription() {$/;"	m	class:Soy
+getDescription	Chapter3/Beverage.java	/^   public String getDescription() {$/;"	m	class:SteamedMilk
+getDescription	Chapter3/Beverage.java	/^   public String getDescription() {$/;"	m	class:Whip
+getDescription	Chapter3/Beverage.java	/^   public abstract String getDescription();$/;"	m	class:CondimentDecorator
+getHumidity	Chapter2/WeatherData.java	/^   public float getHumidity() {$/;"	m	class:WeatherData
+getInstance	Chapter5/ChocolateBoiler.java	/^   public static ChocolateBoiler getInstance() {$/;"	m	class:ChocolateBoiler
+getInstance	Chapter5/ChocolateBoiler_ver1.java	/^   public static synchronized ChocolateBoiler getInstance() { \/\/the keyword "synchronized" ensure thread safe but overheads may seriously damage the efficiency if too many objects are$/;"	m	class:ChocolateBoiler
+getInstance	Chapter5/ChocolateBoiler_ver2.java	/^   public static ChocolateBoiler getInstance() {$/;"	m	class:ChocolateBoiler
+getInstance	Chapter5/ChocolateBoiler_ver3.java	/^   public static ChocolateBoiler getInstance() {$/;"	m	class:ChocolateBoiler
+getName	Chapter4/pizza.java	/^   protected String getName() {$/;"	m	class:Pizza
+getPressure	Chapter2/WeatherData.java	/^   public float getPressure() {$/;"	m	class:WeatherData
+getTemperature	Chapter2/WeatherData.java	/^   public float getTemperature() {$/;"	m	class:WeatherData
+gobble	Chapter7/Duck.java	/^   public void gobble() {$/;"	m	class:WildTurkey
+gobble	Chapter7/Duck.java	/^   public void gobble();$/;"	m	interface:Turkey
+humidity	Chapter2/WeatherData.java	/^   private float humidity;$/;"	f	class:CurrentConditionDisplay	file:
+humidity	Chapter2/WeatherData.java	/^   private float humidity;$/;"	f	class:WeatherData	file:
+humidity	Chapter2/WeatherData_orig.java	/^   private float humidity;$/;"	f	class:CurrentConditionDisplay	file:
+humidity	Chapter2/WeatherData_orig.java	/^   private float humidity;$/;"	f	class:WeatherData	file:
+ingredientFactory	Chapter4/pizza.java	/^   PizzaIngredientFactory ingredientFactory;$/;"	f	class:CheesePizza
+ingredientFactory	Chapter4/pizza.java	/^   PizzaIngredientFactory ingredientFactory;$/;"	f	class:ClamPizza
+ingredientFactory	Chapter4/pizza.java	/^   PizzaIngredientFactory ingredientFactory;$/;"	f	class:PepperoniPizza
+ingredientFactory	Chapter4/pizza.java	/^   PizzaIngredientFactory ingredientFactory;$/;"	f	class:VeggiePizza
+isBoiled	Chapter5/ChocolateBoiler.java	/^   public boolean isBoiled() {$/;"	m	class:ChocolateBoiler
+isBoiled	Chapter5/ChocolateBoiler_orig.java	/^   public boolean isBoiled() {$/;"	m	class:ChocolateBoiler
+isBoiled	Chapter5/ChocolateBoiler_ver1.java	/^   public boolean isBoiled() {$/;"	m	class:ChocolateBoiler
+isBoiled	Chapter5/ChocolateBoiler_ver2.java	/^   public boolean isBoiled() {$/;"	m	class:ChocolateBoiler
+isBoiled	Chapter5/ChocolateBoiler_ver3.java	/^   public boolean isBoiled() {$/;"	m	class:ChocolateBoiler
+isEmpty	Chapter5/ChocolateBoiler.java	/^   public boolean isEmpty() {$/;"	m	class:ChocolateBoiler
+isEmpty	Chapter5/ChocolateBoiler_orig.java	/^   public boolean isEmpty() {$/;"	m	class:ChocolateBoiler
+isEmpty	Chapter5/ChocolateBoiler_ver1.java	/^   public boolean isEmpty() {$/;"	m	class:ChocolateBoiler
+isEmpty	Chapter5/ChocolateBoiler_ver2.java	/^   public boolean isEmpty() {$/;"	m	class:ChocolateBoiler
+isEmpty	Chapter5/ChocolateBoiler_ver3.java	/^   public boolean isEmpty() {$/;"	m	class:ChocolateBoiler
+light	Chapter6/CommandPattern.java	/^   Light light;$/;"	f	class:LightOffCommand
+light	Chapter6/CommandPattern.java	/^   Light light;$/;"	f	class:LightOnCommand
+main	Chapter2/WeatherData_orig.java	/^   public static void main(String[] args) {$/;"	m	class:WeatherStation
+main	Chapter3/Beverage.java	/^   public static void main(String[] args) {$/;"	m	class:StarbuzzCoffee
+main	Chapter4/pizza.java	/^   public static void main(String[] args) {$/;"	m	class:PizzaTestDrive
+main	Chapter5/ChocolateBoiler.java	/^   public static void main(String[] args) {$/;"	m	class:TestDrive
+main	Chapter5/ChocolateBoiler_ver1.java	/^   public static void main(String[] args) {$/;"	m	class:TestDrive
+main	Chapter5/ChocolateBoiler_ver2.java	/^   public static void main(String[] args) {$/;"	m	class:TestDrive
+main	Chapter5/ChocolateBoiler_ver3.java	/^   public static void main(String[] args) {$/;"	m	class:TestDrive
+main	Chapter6/CommandPattern.java	/^   public static void main(String[] args) {$/;"	m	class:RemoteControlTest
+main	Chapter7/Duck.java	/^   public static void main(String[] args) {$/;"	m	class:DuckTestDrive
+measurementsChanged	Chapter2/WeatherData.java	/^   public void measurementsChanged() {$/;"	m	class:WeatherData
+measurementsChanged	Chapter2/WeatherData_orig.java	/^   public void measurementsChanged() {$/;"	m	class:WeatherData
+name	Chapter4/pizza.java	/^   protected String name;$/;"	f	class:Pizza
+notifyObservers	Chapter2/WeatherData_orig.java	/^   public void notifyObservers() {$/;"	m	class:WeatherData
+notifyObservers	Chapter2/WeatherData_orig.java	/^   public void notifyObservers();$/;"	m	interface:Subject
+observable	Chapter2/WeatherData.java	/^   Observable observable; \/\/?? Is this observable private? public? or protected?$/;"	f	class:CurrentConditionDisplay
+observers	Chapter2/WeatherData_orig.java	/^   private ArrayList<Observer> observers;$/;"	f	class:WeatherData	file:
+off	Chapter6/CommandPattern.java	/^   public void off() {$/;"	m	class:Light
+offButtonWasPushed	Chapter6/CommandPattern.java	/^   public void offButtonWasPushed(int slot) {$/;"	m	class:RemoteControl
+offCommands	Chapter6/CommandPattern.java	/^   Command[] offCommands;$/;"	f	class:RemoteControl
+on	Chapter6/CommandPattern.java	/^   public void on() {$/;"	m	class:Light
+onButtonWasPushed	Chapter6/CommandPattern.java	/^   public void onButtonWasPushed(int slot) {$/;"	m	class:RemoteControl
+onCommands	Chapter6/CommandPattern.java	/^   Command[] onCommands;$/;"	f	class:RemoteControl
+orderPizza	Chapter4/pizza.java	/^   public final Pizza orderPizza(String type) { $/;"	m	class:PizzaStore
+orderPizza	Chapter4/pizza_orig.java	/^   public Pizza orderPizza(String type) {$/;"	m	class:PizzaStore
+pepperoni	Chapter4/pizza.java	/^   protected Pepperoni pepperoni;$/;"	f	class:Pizza
+prepare	Chapter4/pizza.java	/^   abstract protected void prepare();\/\/We've now made the prepare method abstract. This is where we are going to collect the ingredients needed for the pizza, which of course will$/;"	m	class:Pizza
+prepare	Chapter4/pizza.java	/^   public void prepare() {$/;"	m	class:CheesePizza
+prepare	Chapter4/pizza.java	/^   public void prepare() {$/;"	m	class:ClamPizza
+prepare	Chapter4/pizza.java	/^   public void prepare() {$/;"	m	class:PepperoniPizza
+prepare	Chapter4/pizza.java	/^   public void prepare() {$/;"	m	class:VeggiePizza
+prepare	Chapter4/pizza_orig.java	/^   public abstract void prepare();$/;"	m	class:Pizza
+prepare	Chapter4/pizza_orig.java	/^   public void prepare() {$/;"	m	class:CheesePizza
+prepare	Chapter4/pizza_orig.java	/^   public void prepare() {$/;"	m	class:ClamPizza
+prepare	Chapter4/pizza_orig.java	/^   public void prepare() {$/;"	m	class:PepperoniPizza
+prepare	Chapter4/pizza_orig.java	/^   public void prepare() {$/;"	m	class:VeggiePizza
+pressure	Chapter2/WeatherData.java	/^   private float pressure;$/;"	f	class:WeatherData	file:
+pressure	Chapter2/WeatherData_orig.java	/^   private float pressure;$/;"	f	class:WeatherData	file:
+quack	Chapter1/Duck.java	/^   public void quack() {$/;"	m	class:MuteQuack
+quack	Chapter1/Duck.java	/^   public void quack() {$/;"	m	class:Quack
+quack	Chapter1/Duck.java	/^   public void quack() {$/;"	m	class:Squeak
+quack	Chapter1/Duck.java	/^   public void quack();$/;"	m	interface:QuackBehavior
+quack	Chapter7/Duck.java	/^   public void quack() {$/;"	m	class:MallardDuck
+quack	Chapter7/Duck.java	/^   public void quack() {$/;"	m	class:TurkeyAdapter
+quack	Chapter7/Duck.java	/^   public void quack();$/;"	m	interface:Duck
+quackBehavior	Chapter1/Duck.java	/^   private QuackBehavior quackBehavior;$/;"	f	class:Duck	file:
+registerObserver	Chapter2/WeatherData_orig.java	/^   public void registerObserver(Observer o) {$/;"	m	class:WeatherData
+registerObserver	Chapter2/WeatherData_orig.java	/^   public void registerObserver(Observer o);$/;"	m	interface:Subject
+removeObserver	Chapter2/WeatherData_orig.java	/^   public void removeObserver(Observer o) {$/;"	m	class:WeatherData
+removeObserver	Chapter2/WeatherData_orig.java	/^   public void removeObserver(Observer o);$/;"	m	interface:Subject
+sauce	Chapter4/pizza.java	/^   protected Sauce sauce;$/;"	f	class:Pizza
+setCommand	Chapter6/CommandPattern.java	/^   public void setCommand(Command command) {$/;"	m	class:SimpleRemoteControl
+setCommand	Chapter6/CommandPattern.java	/^   public void setCommand(int slot, Command onCommand, Command offCommand) {$/;"	m	class:RemoteControl
+setFlyBehavior	Chapter1/Duck.java	/^   void setFlyBehavior(FlyBehavior fb) {$/;"	m	class:Duck
+setMeasurements	Chapter2/WeatherData.java	/^   public void setMeasurements(float temperature, float humidity, float pressure) {$/;"	m	class:WeatherData
+setMeasurements	Chapter2/WeatherData_orig.java	/^   public void setMeasurements(float temperature, float humidity, float pressure) {$/;"	m	class:WeatherData
+setName	Chapter4/pizza.java	/^   protected void setName(String name) {$/;"	m	class:Pizza
+setQuackBehavior	Chapter1/Duck.java	/^   void setQuackBehavior(QuackBehavior qb) {$/;"	m	class:Duck
+slot	Chapter6/CommandPattern.java	/^   Command slot;$/;"	f	class:SimpleRemoteControl
+swim	Chapter1/Duck.java	/^   public void swim() {$/;"	m	class:Duck
+temperature	Chapter2/WeatherData.java	/^   private float temperature;$/;"	f	class:CurrentConditionDisplay	file:
+temperature	Chapter2/WeatherData.java	/^   private float temperature;$/;"	f	class:WeatherData	file:
+temperature	Chapter2/WeatherData_orig.java	/^   private float temperature;$/;"	f	class:CurrentConditionDisplay	file:
+temperature	Chapter2/WeatherData_orig.java	/^   private float temperature;$/;"	f	class:WeatherData	file:
+testDuck	Chapter7/Duck.java	/^   static void testDuck(Duck duck) {$/;"	m	class:DuckTestDrive
+toString	Chapter4/pizza.java	/^   public String toString() {$/;"	m	class:Pizza
+toString	Chapter6/CommandPattern.java	/^   public String toString() {$/;"	m	class:RemoteControl
+turkey	Chapter7/Duck.java	/^   Turkey turkey;$/;"	f	class:TurkeyAdapter
+undo	Chapter6/CommandPattern.java	/^   public void undo() {$/;"	m	class:LightOffCommand
+undo	Chapter6/CommandPattern.java	/^   public void undo() {$/;"	m	class:LightOnCommand
+undo	Chapter6/CommandPattern.java	/^   public void undo() {} \/\/do nothing$/;"	m	class:NoCommand
+undo	Chapter6/CommandPattern.java	/^   public void undo();$/;"	m	interface:Command
+undoButtonWasPressed	Chapter6/CommandPattern.java	/^   public void undoButtonWasPressed() {$/;"	m	class:SimpleRemoteControl
+undoButtonWasPushed	Chapter6/CommandPattern.java	/^   public void undoButtonWasPushed() {$/;"	m	class:RemoteControl
+undoCommand	Chapter6/CommandPattern.java	/^   Command undoCommand;$/;"	f	class:RemoteControl
+uniqueCBInstance	Chapter5/ChocolateBoiler.java	/^   private static ChocolateBoiler uniqueCBInstance;$/;"	f	class:ChocolateBoiler	file:
+uniqueCBInstance	Chapter5/ChocolateBoiler_ver1.java	/^   private static ChocolateBoiler uniqueCBInstance;$/;"	f	class:ChocolateBoiler	file:
+uniqueCBInstance	Chapter5/ChocolateBoiler_ver2.java	/^   private static ChocolateBoiler uniqueCBInstance = new ChocolateBoiler(); \/\/Go ahead and create an instance of Singleton in a static initializer. This can guarantee thread safe$/;"	f	class:ChocolateBoiler	file:
+uniqueCBInstance	Chapter5/ChocolateBoiler_ver3.java	/^   private volatile static ChocolateBoiler uniqueCBInstance;$/;"	f	class:ChocolateBoiler	file:
+update	Chapter2/WeatherData.java	/^   public void update(Observable obs, Object arg) {$/;"	m	class:CurrentConditionDisplay
+update	Chapter2/WeatherData_orig.java	/^   public void update(float temp, float humidity, float pressure);$/;"	m	interface:Observer
+update	Chapter2/WeatherData_orig.java	/^   public void update(float temperature, float humidity, float pressure) {$/;"	m	class:CurrentConditionDisplay
+veggies	Chapter4/pizza.java	/^   protected Veggies[] veggies;$/;"	f	class:Pizza
+weatherData	Chapter2/WeatherData_orig.java	/^   private Subject weatherData;$/;"	f	class:CurrentConditionDisplay	file:

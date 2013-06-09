@@ -1,0 +1,1 @@
+Idea: ensure that height always O(logn) (best possible)
