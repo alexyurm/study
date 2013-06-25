@@ -189,7 +189,7 @@ int main()
    c_p = &cy;
    cout<<c_p->area()<<endl;
 
-   c = cy;
+   c = cy;//why this is possible to do that?
    cout<<c.area()<<endl;
 
    Shape* p_p = &cy;

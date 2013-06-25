@@ -157,5 +157,199 @@ Chapter 4 Network Layer
 
       -  one datagram becomes several datagrams;
       -  "reassembled" only at final destination.
-      -  
+      -  IP header bits used to identify, order related fragments(16-bit identifier, flags, fragment offset...)
 
+         identifier: to identify the root datagram
+         flags: more datagrams to come?
+         fragment offset: the data section offset(in 8-byte)
+
+   -  IP Addressing
+
+      -  connection between host/router and physical link
+
+      -  Subnets
+
+         subnet part(high order bits)
+         host part(low order bits)
+      
+         What is subnet?
+
+         Device interfaces with same subnet part of IP address can physically reach other without intervening router.
+
+         200.23.16.0/23
+
+         11001000 00010111 00010000 00000000
+
+         <------subnet part ------00><-host>
+                                      part->
+
+         How does a host get IP address?
+
+         way 1: hardcoded
+         way 2: DHCP: Dynamic Host Configuration Protocol
+
+         host broadcasts “DHCP discover” msg
+         DHCP server responds with “DHCP offer” msg
+         host requests IP address: “DHCP request” msg
+         DHCP server sends address: “DHCP ack” msg
+
+         The ISPs own owns the DHCP server and get blocks of addresses via ICANN: Internet Corporation for Assigned Names and Numbers, which is responsible for
+
+         -  allocate addresses
+         -  manage DNS
+         -  assigns domain names, resolves disputes.
+
+      -  NAT: Network Address Translation
+
+            rest of Internet        Local Network
+
+            138.76.29.7    router   192.168.1.2
+                                    192.168.1.3
+                                    ...
+                                    192.168.1.6
+
+            All datagrams leaving local network have same single source NAT IP address: 138.76.29.7, different source port numbers.
+
+         -  How does it get implemented?
+
+                  NAT translation table
+            WAN side addr     |  LAN side addr
+            138.76.29.7, 5001 |  192.168.1.6, 3345
+
+   -  ICMP: Internet Control Message Protocol
+
+      -  It's used by hosts & routers to communicate network-level information.
+
+         -  error reporting
+         -  echo request/reply (used by ping)
+         -  ICMP msgs carried in IP datagrams.
+         -  ICMP message: type, code plus first 8 bytes of IP datagram causing error.
+
+   -  Routing Algorithms
+
+      
+         -  Routing algorithm is used to find the shortest path.
+
+         -  Dijsktra's Algorithm(!!)
+
+         -  Distance Vector Algorithm(!!)
+
+         -  Hierarchical Routing
+
+            Scale: with 200 million destinations:
+
+            -  Can't store all dest's in routing table!
+            -  routing table exchange would swamp links!
+            -  Each network admin may want to control routing in its own network(Think about the IT staff operates the BRCM network)
+
+            To solve this problem, forwarding table configured by both intra- and inter-AS(autonomous systems)
+
+            -  "intra-AS" routing protocol.
+            -  routers in different AS can run different intra-AS routing protocol.
+
+               intra-AS sets entries for internal dests
+               inter-AS sets entries for external dests 
+
+            -  Gateway router: Direct link to router in another AS
+
+            Therefore, the forwarding table is created by Intra-AS Routing algorithm and Inter-AS Routing algorithm
+
+   -  Routing in Internet
+
+         Interior Gateway Protocols(IGP)
+
+         -  RIP:  Routing Information Protocol
+
+            -  distance vector algorithm: 
+                  1) exchanged among neighbors every 30sec via Response Message (also called advertisement)
+                  2) each advertisement: list of up to 25 destination subnets within AS
+            -  distance metric: # of hops (max = 15 hops)            
+
+         -  OSPF: Open Shortest Path First
+         -  IGRP: Interior Gateway Routing Protocol(Cisco proprietary)
+
+Chapter 5: Link Layer and LANs
+
+   -  data-link layer has responsibility on transfering datagram from one node to adjacent node over a link
+   -  encapsulate datagram into frame, adding header, trailer
+   -  "MAC" addresses used in frame headers to identify source, dest.
+         -  different from IP address!!
+   -  flow control: pacing between adjacent sending and receiving nodes
+   -  error detection: errors caused by signal attenuation, noise
+      receiver detects presence of errors:
+         - signals sender for retransmission or drops frame
+   -  error correction
+         -  receiver identifies and corrects(!!) bit error(s) without resorting to retransmission.
+   -  half-duplex and full-duplex
+         -  with half duplex, nodes at both ends of link can transmit, but not at same time.
+
+   -  Link layer implemented in network interface card(NIC)
+
+   -  Multiple Access Protocols
+
+      -  distributed algorithm that determines how nodes share channel, i.e. determine when node can transmit
+      -  communication about channel sharing must use channel itself!
+      -  FDMA and TDMA
+      -  random access MAC protocol specifies:
+         -  how to detect collisions
+         -  how to recover from collisions(e.g., via delayed retransmissions)
+         
+         CSMA/CD used in Ethernet
+         CSMA/CA used in 802.11
+
+      -  CSMA(Carrier Sense Multiple Access)
+
+         -  listen before transmit:
+            
+            1) if channel sensed idle: transmit entire frame
+            
+            2) If channel sense busy: defer transmission
+
+            It is like human don't interrupt others.
+
+      -  MAC addresses and ARP
+         
+         -  48 bit MAC address(burned in NIC ROM, also sometimes software settable)
+
+            function: get frame from one interface to another physically-connected interface (same network)
+
+         -  Broadcast address = FF-FF-FF-FF-FF-FF-FF-FF
+
+            -  Each IP node (host, router ) on LAN has ARP table
+            -  ARP table: IP/MAC address mappings for some LAN nodes:
+
+               <IP address; MAC address; TTL>
+
+            -  Process:
+
+               1) A wants to send datagram to B, and B's MAC address not in A's ARP table.
+               2) A broadcasts ARP query packet, containing B's IP address
+               3) dest MAC address == FF-FF-FF-FF-FF-FF-FF-FF, all machines on LAN receive ARP query.
+               4) B receives ARP packet, replies to A with its (B's) MAC address
+
+                  -  frame sent to A's MAC address(unicast)
+
+               5) A caches(saves) IP-to-MAC address pair in its ARP table until information becomes old(times out)
+              
+               note: ARP is "plug-and-play". Understand the ARP process!! it is very very important.
+
+         -  Link-layer switches
+
+            1) Hubs
+
+               -  bits comming in one link go out all other links at same rate.
+               -  All nodes connected to hub can collide with one another
+               -  no frame buffering
+               -  no CSMA/CD at hub: host NICs detect collisions.
+
+            2) Switch
+   
+               -  store, forward Ethernet frames.
+               -  examine incoming frame's MAC address, selectively forward frame to one-or-more outgoing links when frame is to be forwarded on
+                  segment, uses CSMA/CD to access segment.
+               -  transparent: hosts are unware CSMA/CD to access segment.
+               -  plug-and-play, self learning. switches do not need to be configured.
+
+               -  Each switch has a switch table, each entry:
+
+                  MAC address of host, interface to reach host, time stamp

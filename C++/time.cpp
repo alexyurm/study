@@ -10,9 +10,9 @@ class Time
       ~Time(); //Destructor
       void set_time();
       void show_time();
-      void display_time() const;
+      void display_time() const; //??为什么声明为 const?
       static void show_area();
-      friend void show_hour(Time &t); //友元函数 
+      friend void show_hour(Time &t); //友元函数: 外界可以任意调用
       void display_date(Date &);
       
    private:
@@ -68,7 +68,7 @@ class Date
    public:
       Date(int y = 1991, int m = 1, int d = 1); //Constructor
       ~Date();
-      friend void Time::display_date(Date &);
+      friend void Time::display_date(Date &); //声明为Time的友元函数, 只能被Time对象调用
    private:
       int year;
       int month;
@@ -131,7 +131,7 @@ class Compare
       numtype y;
 };
 
-template <class numtype> 
+template <class numtype> //<<-----Add this line before define class Compare
 numtype Compare<numtype>:: min2()
 {
    return (x<y)? x:y;
