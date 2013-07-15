@@ -95,3 +95,23 @@
    float getX() const {return x;}
 
    这个是常成员函数
+
+-  Why segmentation happen in the following function:
+   
+   #include <stdlib.h>
+   #include <stdio.h>
+
+   void func(int* A)
+   {
+      *A = 10;
+   }
+
+   int main()
+   {
+      int* a_p;
+      func(a_p); 
+
+      //int a;
+      //func(&a);
+   }
+

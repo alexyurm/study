@@ -1,0 +1,30 @@
+Chapter 2: Exploring Android App Development: The Lingo of Android and Building your first Hello World App!
+
+-  An Android application developer uses the Android SDK and its Java
+   programming language to access lower-level OS functions, as well as
+   other higher-level functions that Android provides for using various
+   new media assets, SQLite databases, and hardware features of the
+   Android devices, such as cameras, gyoscopes, GPS, and the like.
+
+-  DVM(Dalvik Virtual Machine) is the technology used to optimize the Java
+   code and other assets(XML, audio images, etc.) into a highly optimized
+   binary format, A .DEX file for your application in the root of your
+   project inside your Android APK file.
+
+-  Android uses the term Activity to describe the "front-end" screens of
+   your application that your users view.
+
+   An Activity is a collection of design elements that, working together
+   , compose each screen view of your application. Those design elements
+   include interface elements, text, background graphics, 3D, foreground
+   content, digital video, pop-up menus, animated elements and other 
+   visual design componenets.
+
+-  Activities consist of "Layout Container", which organizes and arranges
+   a series of user interface elements called "Widgets", along with your
+   application's content, into predefined screen areas. 
+
+   "Drawables" is a Android's terminology for graphic elements such as images
+   and animation.
+
+   

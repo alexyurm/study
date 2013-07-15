@@ -61,7 +61,7 @@ Chapter 2 Keeping your objects in the know.
       1. The only thing the subject knows about an observer is that it implements a certain interface.
       2. We can add new observers at any time.
       3. We never need to modify the subject to add new types of observers.
-      4. We can resue subjects or observers independently of each other.
+      4. We can reuse subjects or observers independently of each other.
       5. Changes to either the subject or an observer will not affect the other.
 
       Loosely coupled designs allow us to build flexible OO systems that can handle changes because they minimize

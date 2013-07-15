@@ -1,0 +1,10 @@
+-  Deconstructors (c++)
+
+   A destructor is called for a class object when that object passes 
+   out of scope or is explicitly deleted.
+
+-  Operator delete
+
+   1) ordinary delete
+
+   Deallocates the memory block pointer pointed by ptr(if not null)

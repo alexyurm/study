@@ -137,7 +137,7 @@ public class BinTree {
    }
    
    /** The second implementation of preorder. It is more efficient than preorder because it makes only half
-    as many as recursive calls */   
+    as many as recursive calls. Why half?? */   
    void preorder2(BinNode rt) {
    if (rt == null) return;
       visit(rt);

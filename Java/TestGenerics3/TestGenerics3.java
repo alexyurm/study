@@ -12,7 +12,7 @@ public class TestGenerics3 {
       animals.add(new Dog());
       takeAnimals2(animals);
 
-      ArrayList<Dog> dogs = new ArrayList<Dog>(); //Create an arraylist to store dog instances only.
+      ArrayList<Dog> dogs = new ArrayList<Dog>(); //Create an arraylist to store dog objects only.
       dogs.add(new Dog());
       dogs.add(new Dog());
       dogs.add(new Dog());

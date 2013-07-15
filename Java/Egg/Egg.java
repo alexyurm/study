@@ -1,5 +1,20 @@
 import java.util.ArrayList;
 
+/*
+*  This program shows how to implement ArrayList:
+*
+*  1) add(s): add an element into the list
+*
+*  2) size(): show the # of elements in the list
+*
+*  3) contains(s): find out if it contains something
+*
+*  4) isEmpty(): find out if the list is empty or not
+*
+*  5) remove(s): remove a specified element from the list
+*
+*/
+
 public class Egg
 {
    public static void main(String[] args)

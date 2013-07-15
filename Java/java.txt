@@ -147,7 +147,7 @@ Chapter 6 Using the Java Library
 
    Put an import statement at the top of your source code file:
 
-   java.util.ArrayList;
+   import java.util.ArrayList;
    public class MuClass {...}
 
    or
@@ -186,7 +186,7 @@ Chapter 7 inheritance and polymorphism
    }
 
 -  A subclass inherits members(instance variables and methods) of the superclass. A superclass can choose whether or not it wants a subclass to inherit a particular member by the
-   level of access the particular member is given.
+   level of access the particular member is given.(!!)
 
    The following table shows the access to members permitted by each modifier:
 
@@ -225,7 +225,7 @@ Chapter 7 inheritance and polymorphism
 
    With polymorphism, you can write code that doesn't have to change when you introduce new subclass types into the program. Let's say if others want to take advantage of your
    your Vet class, all they have to do is make sure their new Animal types extend class Animal. The Vet methods will still work, even though the Vet class was written without
-   any knowledge of the new Animal subtypes the Vet will be working on.
+   any knowledge of the new Animal subtypes the Vet will be working on.(!!)
 
 -  If you want to protect a specific method from being overriden, mark the method with the "final" modifier. Mark the whole class as final if you want to guarantee that none
    of the methods in that class will ever be overriden.
@@ -244,7 +244,7 @@ Chapter 7 inheritance and polymorphism
 
    Also, the access level must be the same or friendlier. That means you cannot for example override a public method and make it private.
 
--  Overloading: It means two methods with the same name but different argument lists. remember, there is no polymorphism involved with overloaded methods.
+-  Overloading: It means two methods with the same name but different argument lists. remember, there is no polymorphism involved with overloaded methods(!!).
 
    Overloading lets you make multiple versions of a method. Something to remember about overload:
 
@@ -257,7 +257,7 @@ Chapter 8 Serious Polymorphism
 -  Abstract classes
 
    Some classes just should not be instantiated. E.g. Animals. By marking the class as abstact, the compiler will stop any code, anywhere, from ever creating an instance
-   of that type. to mark a class as abstract, put the keyword "abstract" before the class declaration:
+   of that type. to mark a class as abstract, put the keyword "abstract" before the class declaration(!!):
 
    abstract class Canine extends Animal {
       public void roam {}
@@ -275,9 +275,9 @@ Chapter 8 Serious Polymorphism
          c = new Dog(); // <--- This is OK
          c = new Canine(); <---class Canine is marked abstract so the compiler will Not let you do this.
 
--  Abstract methods
+-  Abstract methods(!!)
 
-   You can mark methods abstract too. An abstract class means the class must be extended; an abstract method means the method must be overriden.
+   You can mark methods abstract too. An abstract class means the class must be extended an abstract method means the method must be overriden.
 
    An abstract method has no body:
 
@@ -298,7 +298,7 @@ Chapter 8 Serious Polymorphism
    But wait a minute, Dog already extends Canine. It is OK becasue the compiler will make Canine extend Object instead. Except Canine extends Animal. No problem, then the compiler
    will just make Animal extend Object.
 
--  So what's in this ultra-super-megaclass Object?
+-  So what's in this ultra-super-megaclass Object(!!)?
 
    1) equals(object o) ->> tells you if two objects are equal.
 
@@ -326,7 +326,7 @@ Chapter 8 Serious Polymorphism
    Dog d = (Dog) o;
    d.roam();
 
-   If you not sure it's a Dog, you can use instanceof operator to check:
+   If you not sure it's a Dog, you can use instanceof operator to check(!!):
 
    if (o instanceof Dog) {
       Dog d = (Dog) o;
@@ -359,7 +359,7 @@ Chapter 8 Serious Polymorphism
    abstract void beFriendly();
    abstract void play();
 
-   1) To DEFINE an interface:
+   1) To DEFINE an interface(why do we use "interface" here??):
 
    public interface Pet {...}
                ^
@@ -388,7 +388,7 @@ Chapter 8 Serious Polymorphism
       public void roam() {...} <-- This is just normal overriding method.
       public void eat() {...} <-- This is just normal overriding method.
 
--  In summary, how do you know whether to make a class, a subclass, an abstract class, or an inferface:
+-  In summary, how do you know whether to make a class, a subclass, an abstract class, or an inferface(!!):
 
    1) Make a class that doesn’t extend anything (other than Object) when your new class doesn’t pass the IS-A test for any other type.
 
@@ -475,11 +475,11 @@ Chapter 9 Life and Death of an Object
    always make no-arg constructor for you?
 
    If you write a constructor that takes arguments, and you still want a no-arg constructor, you'll have to build the no-arg constructor yourself! That means if you touch the
-   constructor, you need to write two versions of it. Overloaded constructors means you have more than one constructor in your class. To copmpile, each constructor must have
+   constructor, you need to write two versions of it(at least). Overloaded constructors means you have more than one constructor in your class. To copmpile, each constructor must have
    diffeent argument list!
 
 -  The big point there was that every object holds not just its own declared instance variables, but also everything from its superclasses(which, at minimum, means class Object
-   , since every class extends Object). But how does a superclass constructor gets involked?
+   , since every class extends Object). But how does a superclass constructor gets involked(!!)?
 
    call super(). E.g.
 
@@ -562,9 +562,9 @@ Chapter 9 Life and Death of an Object
          super(size); //<<- won't work! Can't have super() and this() in the same constructor, because they each must be the first statement!
       }
 
--  How long does an object live?
+-  How long does an object live(!!)?
 
-   An object's life depends entirely on the life of references referring to it. So how long does a variable live?
+   An object's life depends entirely on the life of references referring to ithow long does a variable live?
 
    That depends on whether the variable is a local variable or an instance variable. A local variable lives only within the method that declared the variable. An instance
    variable lives as long as the object does. If the object is still alive, so are its instance variables.
@@ -622,13 +622,17 @@ Chapter 10 numbers and statics
 
    Also, if you have a class with only static methods, and you do not want the class to be instanciated, you can mark the constructor private.
 
--  Static variable: value is the same for all instances of the class
+-  Static variable(!!): value is the same for all instances of the class
 
    A value shared by all instances of a class. In other words, one value per class, instead of one value per instance.
 
    public class Duck {
       private int size;
-      private static int duckCount = 0; // The static duckCount variable is initialized ONLY when the class is first loaded, Not each time a new instance is made.
+      private static int duckCount = 0; // The static duckCount variable is initialized ONLY when the class is first loaded(How does a class get loaded??), Not each time 
+                                        //a new instance is made.
+   
+   Note: how does a class get loaded? The basic principle of loading classes is that classes are only loaded when needed. Each class that gets loaded may have other classes
+   that it depends on, so the loading process is recursive.
    
    public Duck() {
       duckCount++; //Now it will keep incrementing each time the Duck constructor runs, because duckCount is static and won't be reset to 0. With this static variable, you can
@@ -645,7 +649,7 @@ Chapter 10 numbers and statics
 
    Note: A static method can access a static variable.
 
--  static final variables are constants
+-  static final variables are constants(!!)
 
    A variable marked "final" means that - once initialized - it can never change. E.g.
 
@@ -689,17 +693,17 @@ Chapter 10 numbers and statics
    improve performance of Java HashMap by reducing collision(??). Immutability also allows catching there hashcode of different keys which
    makes overall retrival process very fast.
 
--  In summary, we should follow the following order of defining a variable:
+-  In summary, we should follow the following order of defining a variable(!!):
 
    [access type][static or not][final or not]type variableName;
 
-   access type could be: private, (default), "public" and "protected".
+   access type could be: "private", (default), "public" and "protected".
 
 -  Wrapping a primitive
 
    In all version of Java prior to 5.0, you cannot put a primitive directly into a collection like AllayList and HashMap:
 
-   To treat a primitive like an object, there is a wrapper class for every primitive type(you don't need to import them as the wrapper classes are in the java.lang package).
+   To treat a primitive like an object, there is a wrapper class for every primitive type(you don't need to import them as the wrapper classes that are in the java.lang package).
    Each wrapper class is named after the primitive type it wraps, but with the first letter capitalized to follow the class naming convention:
 
    Boolean
@@ -1068,8 +1072,8 @@ Chapter 11 Risky Behavior
                                            ClassCastException NullPointerException    
 
    But why RuntimeExceptions the compiler doesn't care about those runtime exceptions? Becasue most RuntimeExceptions come from a problem in your code logic，rather than a
-   condition that fails at runtime in ways that you cannot predict or prevent. You cannot guarantee the server is up. You cannot guarantee the server is up. But you can make
-   sure you code doesn't index off the end of the array.
+   condition that fails at runtime in ways that you cannot predict or prevent. You cannot guarantee the server is up. But you can make sure you code doesn't index off the 
+   end of the array.
    
 -  Flow control in try/catch blocks
 
@@ -1157,14 +1161,14 @@ Chapter 11 Risky Behavior
       //recovery from all others
    }
 
--  When you don't want to handle an exception...Just duck it by clearing it.
+-  When you don't want to handle an exception...Just duck it by clearing it(??).
 
 -  Exception Rules
 
    1) You cannot have a catch or finally without a try.
    2) You cannot put code between the try and the catch.
    3) A try MUST be followed by either a catch or a finally.
-   4) A try with only a finally (no catch) must still declare the exception.
+   4) A try with only a finally (no catch) must still declare the exception(??).
 
 -  Making actual sound
 
@@ -1305,7 +1309,7 @@ Chapter 16 Data Structure
 
    -  Type Parameter Naming Conventions
    
-      By convention, type parameter names are single, uppdercase letters.   
+      By convention, type parameter names are single, uppercase letters.   
 
       E - Element (used extensively by the Java Collections Framework)
       K - Key
@@ -1314,7 +1318,9 @@ Chapter 16 Data Structure
       V - Value
       S,U,V etc. - 2nd, 3rd, 4th types
 
-   -  You can also substitute a type parameter (e.g. K or V) with a parameterized type (i.e., List<String>). For example, using the OrderedPari<K, V> example:
+      Note: Are E and V interchangable?
+
+   -  You can also substitute a type parameter (e.g. K or V) with a parameterized type (i.e., List<String>). For example, using the OrderedPair<K, V> example:
 
       OrderPair<String, Box<Integer>> p = new OrderedPair<>("primes", new Box<Integer>(...));
 
@@ -1330,7 +1336,7 @@ Chapter 16 Data Structure
 
       To restrict the types that can be used as type arguments in a parameterized type, use Bounded Type. E.g.
 
-      public <U extends Number> void inspect(U u){ //Only Number subclass instance can call this method. Other stuff like String cannot do that.
+      public <U extends Number> void inspect(U u){ //Only Number subclass instance can call this method. Other stuff like String cannot do that(??).
         System.out.println("T: " + t.getClass().getName());
         System.out.println("U: " + u.getClass().getName());
       }
@@ -1371,9 +1377,9 @@ Chapter 16 Data Structure
 
       Are you allowed to pass Box<Integer> or Box<Double>? No! because Box<Interger> and Box<Double> are not subtypes of Box<Number>. Given two concrete types A and B 
       (for example, Number and Integer), MyClass<A> has no relationship to MyClass<B>, regardless of whether or not A and B are related. The common parent of MyClass<A> 
-      and MyClass<B> is Object.
+      and MyClass<B> is Object(!!).
 
-      The relationship between the type parameters of one class or interface and the type parameters of another are determinted by the extends and implements clauses.
+      The relationship between the type parameters of one class or interface and the type parameters of another are determinted by the extends and implements clauses(!!).
 
       Collection<String> <----- List<String> <----- ArrayList<String>
 
@@ -1398,6 +1404,8 @@ Chapter 16 Data Structure
       Serializable s = pick("d", new ArrayList<String>());
 
       In the above example, inference determines that the second argument being passed to the pick method is of type Serializable.
+
+      Note: How about the first "d" in the second statement?
 
    -  Type Inference and Generics Methods
 
@@ -1424,12 +1432,13 @@ Chapter 16 Data Structure
       //Collection<? extends String>
       list.addAll(new ArrayList<>());
 
-      For greater clarity, it is suggested that you use the diamond primarily to initialize a variable where it is declared.
+      Note that the diamond often works in method calls; however, for greater clarity, it is suggested that you use the diamond primarily to initialize a variable where 
+      it is declared.
 
       In comparison, the following example compiles:
 
       List<? extends String> list2 = new ArrayList<>();
-      list2.addAll(new ArrayList<>());
+      list2.addAll(list2);
 
    -  Type Inference and Generic Constructors of Generics and Non-Generic Classes
 
@@ -1457,10 +1466,8 @@ Chapter 16 Data Structure
 
       Note: It is important to note that the inference algorithm uses only invocation arguments and, possibly, an obvious expected return type to infer types. The inference 
       algorithm does not use results from later in the program.
-
       
 
-      
    From the Java API docs:
 
    public static <T extends Comparable<? super T>> void sort(List<T> list)
@@ -1481,7 +1488,7 @@ Chapter 16 Data Structure
 
    ArrayList<Fish>
    
-   and come OUT as a reference of type Fish. With Generics now, you can put only Fish Objects in the ArrayList<FISH>, so the objects come out as  Fish references.
+   and come OUT as a reference of type Fish. With Generics now, you can put only Fish Objects in the ArrayList<Fish>, so the objects come out as  Fish references.
 
    Of the dozens of things you could learn about generics, there are really three things that matter to most programmers:
 
@@ -1505,11 +1512,11 @@ Chapter 16 Data Structure
    
    x.foo(songList)
 
--  Using generic CLASSES
+-  Using generic CLASSES(!!)
 
    A generic class: it means that the class declaration includes a type parameter.
 
-   A generic method: it means that the method declaration uses a type parameter in its signature.
+   A generic method: it means that the method declaration uses a type parameter in its signature(what is its signature?).
 
    You can use type parameters in a method in several different ways:
 
@@ -1552,7 +1559,9 @@ Chapter 16 Data Structure
 
    public final class String extends Object implements Serializable, Comparable<String>, CharSequence
 
-   In generics, "extends" means "extends or implements".
+   In generics, "extends" means "extends or implements"(!!).
+
+   Note: I think the usage of "Comparable<? super T>" means that the T uses its(if it exists) compareTo method or its parent class's compareTo method.
 
 -  Here is the detail of the Comparable interface
 
@@ -1596,6 +1605,12 @@ Chapter 16 Data Structure
 
    The sort() method that takes a Comparator will use the Comparator instead of the element's own compareTo()method, when it puts the elements in order. In other words, if your sort()
    method gets a Comparator, it won't even call the compareTo method of the elements in the list. The sort() method will instead invoke the compare() method on the Comparator.
+
+   So basically, there are two ways of doing comparison:
+
+   1) Using the Comparable interface. This will trigger the class's(or its super-class's) compareTo methods.
+   2) Using the Comparator interface. This requires the class implements a subclass which implements the Comparator interface. And then create an object of that subclass and pass it
+      to the sort method.
 
 -  Updating the Jukebox to use a Comparator
 
@@ -1658,7 +1673,9 @@ Chapter 16 Data Structure
 
    But there are still duplicate elements in above method using HashSet. Why??
 
--  What makes two objects equal?
+   Note: the addAll method is inherited from AbstractCollection, which extends Collection interface.
+
+-  What makes two objects equal(!!)?
 
    This brings up a key issue: reference equality vs. object equality.
 
@@ -1703,7 +1720,7 @@ Chapter 16 Data Structure
 
       Java Object Law For HashCode() and equals()
 
-      The API docs for class Object state the rules you MUST follow:
+      The API docs for class Object state the rules you MUST follow(!!):
 
       1) If two objects are equal, they MUST have matching hashcodes.
 
@@ -1726,6 +1743,8 @@ Chapter 16 Data Structure
 -  And if we want the set to stay sorted, we've got TreeSet.
 
    TreeSet is similar to Hashset but it also keeps the list sorted.
+
+   Note: TreeSet uses RED-BLACK tree if I remember.
 
    public void go() {
       getSong();
@@ -1758,18 +1777,18 @@ Chapter 16 Data Structure
       }
    }
 
-   class Book implements Comparable<Book>{
+   class Book {
       String title;
       public Book(String t) {
          title = t;
       }
-
-      public int compareTo(Book b) {
-         return title.compareTo(b.title);
-      }
    }
 
-   The above program won't compile! It is simply becasue the elements in the list must be of a type that implements Comparable. 
+   This doesn't fail at compile-time, because the TreeSet add() method doesn't take a Comparable type. But it fails at runtime
+   when you add the second element in the set. That's the first time the set tries to call one of the object's compareTo() methods
+   and...can't.
+
+   You have to make sure that the elements in the list must be a type that implements Comparable.
 
    class Book implements Comparable {
       String title;
@@ -1783,7 +1802,7 @@ Chapter 16 Data Structure
       }
    }
    
-   Or you use the TreeSet's overloaded constructor that takes a Comparator:
+   Or you use the TreeSet's overloaded constructor that takes a Comparator. To use a custom Comparator, you call the TreeSet constructor that takes a Comparator.
 
    public class BookCompare implements Comparetor<Book> {
       public int compare(Book one, Book two) {
@@ -1797,7 +1816,7 @@ Chapter 16 Data Structure
          Book b2 = new Book("Remix your Body");
          Book b3 = new Book("Finding Emo");
          BookCompare bCompare = new BookCompare();//Create a new BookCompare instance
-         TreeSet<Book> tree = new TreeSet<Book>(bCompare);
+         TreeSet<Book> tree = new TreeSet<Book>(bCompare); // !!<- You call the TreeSet constructor that takes a Comparator.
          tree.add(new Book("How Cats Work"));
          tree.add(new Book("Remix your Body"));
          tree.add(new Book("Finding Emo"));
@@ -1815,15 +1834,15 @@ Chapter 16 Data Structure
 
    But why that doesn't happen in Array?
 
-   Because Array types are checked again at runtime, but collection type checks happen only wheny when you compile. You will get store exception when you add a new dog object 
-   into a Animal array.
+   Because Array types are checked again at runtime, but collection type checks happen only when you compile. You will get store exception when you add a new dog object 
+   into a Animal array(!!) as an example.
 
 -  Widecards to the rescue
 
    It looks unusual, but there is a way to create a method argument that can accept an ArrayList of any Animal subtype. The simplest way is to use a widecard - The
    simplest way is to use a widecard. 
 
-   public void takeAnimals(ArrayList<? extends Animal> animals) { //<---the keyword "extends" here means either extends OR implements depending on the type. So if you want to tak
+   public void takeAnimals(ArrayList<? extends Animal> animals) { //<---the keyword "extends" here means either extends OR implements depending on the type. So if you want to take
       for (Animal a : animals) {                                  //an ArrayList of types that implement the Pet interface, you'd declare it as ArrayList<? extends Pet>
          a.eat();
       }
@@ -1832,17 +1851,22 @@ Chapter 16 Data Structure
    When you use a widecard in your method argument, the compiler will STOP you from doing anything that could hurt the list referenced by the method parameter.
 
    You still can invoke methods on the elements in the list, but you cannot add elements to the list. In other words, you can do things with the list elements, but you can't 
-   put new things in the list. So you're safe at runtime, because the compiler won't let you do anything that might be horrible at runtime.
+   put new things in the list. So you're safe at runtime, because the compiler won't let you do anything that might be horrible at runtime. Remember again, When you use the widecard
+   <?> in your declaration, the compiler won't let you do anything that adds to the list.
 
    So this is OK inside takeAnimals();
 
-   for (Animal a: animals) {
-      a.eat();
+   public void takeAnimals(ArrayList<? extends Animal> animals) {
+      for (Animal a: animals) {
+         a.eat();
+      }
    }
 
-   But This would not compile:
+   But This would not compile
 
-   animals.add(new Cat());
+   public void takeAnimals(ArrayList<? extends Animal> animals) {
+      animals.add(new Cat());
+   }
 
 -  Alternative syntax for doing the same thing:
 
@@ -1855,6 +1879,8 @@ Chapter 16 Data Structure
    Does the same thing as this:
 
    public void takeThing(ArrayList<? extends Animal> list)
+
+   Note: Really?? I think The foremer is to restrict the types that can be used as type arguments in a parameterized type. 
 
    If they both do the same thing, why would you use one over the other?
 
@@ -1899,6 +1925,17 @@ Chapter 19 Concurrency
    -  To directly control thread creation and management, simply instantiate Thread each time the application needs to initiate an asynchronous task.
    -  To abstract thread management from the rest of your application, pass the application's tasks to an executor.
 
+-  A thread can be in one of the following states:
+
+   NEW               A thread that has not yet started is in this sate.
+   RUNNABLE          A thread executing in the Java virtual machine is in this state.
+   BLOCKED           A thread that is blocked waiting for a monitor lock is in this state(what is monitor lock?).
+   WAITING           A thread that is waiting indefinitely for another thread to perform a particular action is in this state.
+   TIMED_WAITING     A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state.
+   TERMINATED        A thread that has exited is in this state.
+
+   The state is sotred in Enum Thread.State.
+
 -  An application that creates an instance of Thread must provide the code that will run in that thread. Two ways to do this:
 
    1) Provide a Runnable object. The Runnable interface defines a single method, run, meant to contain the code executed in the thread. The Runnable object is passed to
@@ -1915,7 +1952,6 @@ Chapter 19 Concurrency
             (new Thread(new HelloRunnable())).start();//start a new thread using a Runnable Object by calling start();
          }
       }
-
 
    2) The subclass thread itself implements Runnable, though its run method does nothing. An application can subclass Thread, providing its own implementation of run, as in
       the HelloThread example: (easier to use but your class is limited by the fact that your task must be a descendant of Thread).
@@ -1969,6 +2005,8 @@ Chapter 19 Concurrency
    1) Thread Interference: It happens when two operations, running in different threads, but acting on the same data, interleave. This means that two operations consist of multiple
                            steps, and the sequences of steps overlap. E.g.
 
+   c == 0.
+
    Thread A: Retrieve c.
    Thread B: Retrieve c.
    Thread A: Increment retrieved value; result is 1.
@@ -1991,11 +2029,11 @@ Chapter 19 Concurrency
 
    To make a method synchronized, simply add the synchronized keyword to its declaration:
 
-   -  First, it is not possible for two invocations of synchronized methods on the same object to interleave. When one thread is executing a synchronized method 
+   -  First, it is not possible for two invocations of synchronized methods on the same object to interleave(交錯). When one thread is executing a synchronized method 
    for an object, all other threads that invoke synchronized methods for the same object block (suspend execution) until the first thread is done with the object. 
 
    -  Second, when a synchronized method exits, it automatically establishes a happen-before relationship with any subsequent invocation of a synchronized method
-      exits, it automatically establishes a happen-before relationship with any subsequent invocation of a synchronized method for the same object. This guarantees
+      , it automatically establishes a happen-before relationship with any subsequent invocation of a synchronized method for the same object. This guarantees
       that changes to the state of the object are visialbe to all threads.
 
       instance.add(this);
@@ -2110,8 +2148,8 @@ Chapter 19 Concurrency
 
    Note: Don't assume that the interrupt was for the particular care about the value of joy.
 
-   How that works? When wait is invoked, the thread releases the lock and suspends execution. At some future time, another thread will acquire the same lock and invoke
-   Object.notifyAll(??), informing all threads waiting on that lock that something important has happened.
+   How that works? When wait is invoked, the thread releases the lock(where is the lock?) and suspends execution. At some future time, another thread will acquire the 
+   same lock and invoke Object.notifyAll(??), informing all threads waiting on that lock that something important has happened.
 
    public synchronized notifyJoy() {
       joy = true;
@@ -2758,3 +2796,37 @@ int i = indexFor(hash, table.length);//the index calculation function uses the s
 Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() };
 
 43) what is a classloader?
+
+44) Static Initialization Blocks
+   
+   A static initialization block is a normal block of code enclosed in braces, {}, and preceded by the static keyword. E.g.
+
+   static {
+      //Whatever code is needed for initialization goes here.
+   }
+
+   A class can have any number of static initialization blocks, and they can appear anywhere in the class body. The runtime system(??) guarantees that static initialization
+   blocks are called in the order they appear in the sorce code. There is an alternative to static blocks, you can write a private static method:
+
+   class Whatever {
+      public static varType myVar = initializeClassVariable();
+
+      private static varType initializeClassVariable() {
+         //initialization code goes here.
+      }
+   }
+
+   The advantage of private static method is that they can be reused later if you need to reinitialize the class variable.
+
+45) Initializing Instance Members
+
+   Normally, you would put code to initialize an instance variable in a constructor. There are two alternatives to using a constructor to initialize instance variable; initializer
+   blocks and final methods.
+
+   Initializer blocks for instance variables look just like static initializer, but without the static keyword:
+
+   {
+      // whatever code is needed for initialization goes here.
+   }
+
+   The Java compiler copies initializer blocks into every constructor. Therefore, this approach 

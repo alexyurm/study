@@ -1,6 +1,16 @@
 import java.util.*;
 import java.lang.*;
 
+/*
+*
+*  This program shows how to use the sleep method in the class Thread:
+*
+*  1) Thread.sleep(xxx) //xxx is the sleep period in milliseconds.
+*
+*  2) Before the thread kicks off, we should throw an InterruptedException to make sure the current thread's interrupted status is cleared.
+*
+*/
+
 public class SleepMessages {
    public static void main(String[] args)
       //Notice that main declares that it throws InterruptedException. 
