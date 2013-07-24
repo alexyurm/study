@@ -17,3 +17,182 @@ Chapter 2 Lexical Structure
 Chapter 3 Types, Values and Variables
 
 -  JavaScripts treat all numbers as floating-point values(64-bit IEEE 754 standard).
+
+-  Floating-Point Literals
+
+   [digits][.digits][(E|e)[(+|-)]digits]
+
+   3.14
+   .333
+   1.42E-32
+
+-  Arithmetic in JavaScript
+
+   Math.row(2, 53)   //2 to power 53
+   Math.round(.6)    //1.0: round to the nearest integer
+   ...
+
+   Division by zero is not an error in JavaScript: it simply returns infinity or negative infinity. There is one
+   exception: zero divided by zero does not have a well defined value, and the result of this operation is the
+   special not-a-number value, printed as NaN. NaN also arises if you attempt to divide infinity by infinity or
+   take the square root of a negative number or use arithmetic operators with non-numeric operands that cannot
+   be converted to numbers.
+
+-  Text
+
+   A string is an immutable ordered sequence of 16-bit values, each of which typically represents a Unicode character.
+   
+   e.g.
+
+   var p = "π" //π is 1 character with 16-bit codepoint 0x03c0
+   var p = 'e' // e is 1 character with 17 bit codepoint 0x1d452
+   p.length // -> 1: p consists of 1 16-bit element.
+   e.length // -> 2: UTF-16 encoding of e is 2 16-bit values: "\ud835\udc52"
+
+   Note: What is UTF-16?
+
+   UTF-16 is a character encoding for Unicode capable of encoding 1,112,064 numbers (called code points) in the Unicode space from 0
+   to 0x10FFFF. The encoding is a variable-length encoding as code points are encoded with one or two 16-bit code units. The Unicode
+   code space is divided into seventeen planes of 2^16 (65,536) code points each, through some code points have yet been assigned
+   character values, some are reserved for private use, and some are permanently reserved as non-characters. The code points in each
+   plane value have the hexadecimal values xx0000 to xxFFFF, where xx is a hex value from 00 to 10, signifying which plane the value
+   belong to.
+
+   The first plane (code points U0000 - U+FFFF) contains the most frequently used characters and is called Basic Multilingual Plane(BMP).
+
+   Code points from the other planes (called Supplementary Planes) are encoded in UTF-16 by pairs of 16-bit code units called a surrogate.
+
+   For more info, please check the official document or wikipedia.
+
+-  String
+
+   In client-side JavaScript programming. JavaScript code may contain string of HTML code, and HTML code may contain strings of JavaScript code.
+   Thus combining JavaScript and HTML, it is a good idea to use one style of quotes for JavaScripts and the other style for HTML. In the following
+   example, the string "Thank You" is single quoted within a JavaScript expression, which is then double-quoted within an HTML event-handeler attribute.
+
+   <button onclick = "alert('Thank you')">Click Me</button>
+
+-  Escape characters
+
+   -  \0    The NUL character(\u0000)
+   -  \n    Backspace(\u0008)
+   -  \t    Horizontal tab(\u0009)
+   -  \n    Newline(\u000A)
+   -  \v    Vertical tab(\u0008)
+   -  \f    Form feed(\u000C)
+   -  \r    Carriage return(\u000D)
+
+-  Pattern Matching(!!)
+
+   JavaScript defines RegExp() constructor for creating objects that represent textual patterns. Text between a pair of slashes constitutes a regular
+   expression literal. The second second slash in the pair can also be followed by one or more letters, which modify the meaning of the pattern. For example,
+   
+   /^HTML/              //Match the letter H T M L at the start of a string
+   /[1-9][0-9]*/        //Match a non-zero digit, followed by any # of digits.
+   /\bjavascript\b/i    //Match "javascript" as a word, case-insensitive
+
+   RegExp objects define a number of useful methods, and strings also have methods that accept RegExp arguments. E.g.
+
+   var text = "testing: 1, 2, 3"; //Sample text
+   var pattern = /\d+/g    //Match all instances of one or more digits
+   pattern.text(text)      //-> true: a match exists
+   text.search(pattern)    //-> 9: position of first match
+   text.match(pattern)     //->["1", "2", "3"]: array of all matches
+   text.replace(pattern, "#"); //-> "testing: #, #, #"
+   text.split(/\D+/);      //-> ["", "1", "2", "3"]: split on non-digits
+
+-  The Global Object
+
+   The global object is a regular JavaScript object that serves a very important purpose: the properties of the object are the globally defined symbols that are available
+   to a JavaScript program. E.g.
+
+   Global properties like: underfined, Infinity, and NaN
+   Glogal functions like: isNaN(), parseInt() and eval(
+   constructors functions like Date(), RegExp(), String(), Object(), and Array()
+   global objects like Math and JSON.
+
+-  Wrapper Objects
+
+   var s = "test", n = 1, b = true;
+   var S = new String(s);
+   var N = new Number(n);
+   var B = new Boolean(b);
+
+-  Immutable Primitive Values and Mutable Object References
+
+   1) Primitive values are immutable. Such as:
+
+      undefined, null, booleans, numbers and strings 
+
+   2) Objects are different than primitives. First, they are mutable:
+
+   var o = {x:1}; //Start with an object ??what does {x:1} mean here -> It means o.x = 1, x is the variable o's property.
+   o.x = 2;
+   o.y = 3;
+
+   Also, unlike primitives, objects are not compared by value, they are compared by reference.
+
+   var a = [];
+   var b = a;
+   b[0] = 1;
+   a[0]     // 1: the change is also visible through variable a.
+   a === b  // true
+
+-  Type conversions
+
+   10 + " objects"   //-> "10 objects". Number 10 converts to a string.
+   "7" * "4"         //-> 28: both strings convert to numbers
+
+   var n = 1- "x";   //-> NaN; string "x" cannot convert to a number. 
+   n + " objects"    //-> "NaN objects": NaN converts to string "NaN"
+
+   Note: If JavaScript converts the value to NaN if it cannot perform a meaningful conversion.
+
+   Because JavaScript can convert values flexibility, its == equality operator is also flexible with its notion of equality. All of the following
+   comparisions are true, for example, 
+
+   null == underfined //These two values are treated as equal.
+   "0" == 0
+   0 == false
+   "0" == false
+
+   Note: == flexible equality; === strict equality, does not perform conversions when testing for equality.
+
+-  Explicit Conversions
+
+   Although JavaScript performs many type conversions automatically, you may sometimes need to perform an explicit conversion to keep your code clearer.
+   
+   Number("3")       //->3
+   String(false)     //->"false" Or use false.toString()
+   Boolean([])       //->true ?? Why
+   Object(3)         //-> new Number(3)
+
+   Note: Any value other than null or underfined has a toString() method and the result of this method is usually the same as that returned by the String() function.
+   Also, a TypeError is shown if you attempt to convert null or undefined to an object. The object() function does not throw an exception in this case: instead it 
+   simply returns a newly created empty object.
+
+   Certain JavaScript operators perform implicit type conversions, and are sometimes used for the purpose of type conversion. E.g. If one operand of the + operator
+   is a string, it converts the other one to a string. The unary + operator converts its operand to a number. And the unary ! operator converts its operand to a boolean
+   and negates it.
+
+   x + ""   //Same as String()
+   +x       //Same as Number(x)
+   !!x      //Same as Boolean(x). Note double !
+
+   The toString() method defined by the Number class accepts an optional argument that specifies a radix, or base for the conversion. If you do not specify the argument, 
+   the conversion is done in base 10. You can convert numbers in other bases(between 2 and 36). For example,
+
+   var n = 17; //Evaluates to "10001"
+   binary_string n.toString(2);  //Evaluates to "021"
+   octal_string = "0" + n.toString(8); //Evaluates to "0x11"
+
+-  Object to Primitive Conversions
+
+
+Chapter 13 JavaScript in Web Browsers
+
+-  The Window object is the main entry point to all client-side JavaScript features and APIs. It represents a web browser window or frame, and you can refer to it with
+   the identifier window. 
+   
+
+   

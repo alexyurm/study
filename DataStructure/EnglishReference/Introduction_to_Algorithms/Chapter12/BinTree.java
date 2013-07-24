@@ -129,6 +129,8 @@ public class BinTree {
       return count;
    }
    
+   /** preorder tree walk */
+   //A preorder tree walk prints the root before the values in either subtree, 
    void preorder(BinNode rt) {
       if (rt == null) return;
       visit(rt);
@@ -145,6 +147,8 @@ public class BinTree {
       if (rt.right()!= null) preorder2(rt.right());
    }
 
+   /** A postorder tree walk */
+   //A postorder tree walk prints the root after the values in its subtrees.
    void postorder(BinNode rt) {
       if (rt == null) return;
       postorder(rt.left());
@@ -211,21 +215,22 @@ public class BinTree {
 
    /** Return the largest key smaller than x */
    // We break the code into two cases:
-   // 1) If the left subtree of node x is nonempty, then the predecessor of x is just the rightmost node of x's right subtree by calling maximum(x.left());
-   // 2) If the left subtree of node x empty and x has a predecessor y, then y is the lowest ancestor of x whose right child is also an ancestor of x(remember
-   //    that x is also the ancestor if itself). To find y, we simply go up the tree from x until we encounter a node that is the right child of its parent.
+   // 1) If the left subtree of node x is nonempty, then the predecessor of x is just the rightmost node of x's left subtree by calling maximum(x.left());
+   // 2) If the left subtree of node x empty and x has a predecessor y, then y is the lowest ancestor of x whose left child is also an ancestor of x(remember
+   //    that x is also the ancestor of itself). To find y, we simply go up the tree from x until we encounter a node that is the left child of its parent.
 
    BinNode predecessor(BinNode rt) {
       if (rt.left() != null) {
+         //if the left subtree of x is nonempty, then the predecessor of x is just the rightmost node in x's left subtree by calling maximum(x.left());
          return maximum(rt.left());   
       } else {
          BinNode x = rt;
-         BinNode y = rt.parent();   
+         BinNode y = rt.parent(); //y is x's parent
 
          while (y != null) {
             if (y.left() != null) {
-               //!!We simply go up the tree x until encounter a node that is the right child of its parent.
-               //Remember the binary search tree's property: a given node's right subtrees >= that node.
+               //!!We simply go up the tree x until encounter a node that is the left child of its parent.
+               //Remember the binary search tree's property: a given node's left subtrees < that node.
                if (x.key() != y.left().key()) { 
                   break;
                }
@@ -240,7 +245,7 @@ public class BinTree {
       }
    }
 
-   /** Return the smallest key greater than x */
+   /** Return the smallest key larger than x */
    // We break the code into two cases: 
    // 1) If the right subtree of node x is nonempty, then the sucessor of x is just the leftmost node in x's right subtree by calling minimum(x.right());
    // 2) If the right subtree of node x is empty and x has a sucessor y, then y is the lowest ancestor of x whose left child is also an ancestor of x(remember
@@ -264,7 +269,7 @@ public class BinTree {
                //My thoughts: 
                //1) In this case, x must be in y's left subtree => y is x's ancestor => y's left child is also an ancestor of x.
                //2) Since y is x's sucessor(y.key is the smallest key >= x.key). It is impossible that there is another node z of y's ancestors can be the sucessor of x because:
-               // 2-1) If y is in z's left subtree, then y.key <= z.key. Therefore z cannot be the sucessor of x;
+               // 2-1) If y is in z's left subtree, then y.key < z.key. Therefore z cannot be the sucessor of x;
                // 2-2) If y is in z's right subtree, then x is also in z' right subtree so that x.key >= z.key. That is also impossible.
                // Therefore, we know that y is the lowest ancestor of x.
                if (x.key() != y.right().key()) {
@@ -396,6 +401,9 @@ public class BinTree {
       bTree.insert(node_9);
       bTree.insert(node_10);
 
+      bTree.preorder(bTree.root());
+
+      /*
       BinNode<Integer> n1 = bTree.search(bTree.root(), 8);
       if ( n1 != null) {
          bTree.delete(n1);
@@ -407,6 +415,7 @@ public class BinTree {
             System.out.println(node_9.right().key());
          }
       }
+      */
 
       return;
    }

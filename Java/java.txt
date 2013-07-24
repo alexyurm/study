@@ -310,7 +310,7 @@ Chapter 8 Serious Polymorphism
 
    4) toString --> Prints out a String message with the name of the class and some other number we rarely care about.
 
--  The compiler decides whether you can call a method based on the reference type, not the actual object type. E.g.
+-  The compiler decides whether you can call a method based on the reference type, not the actual object type(!!). E.g.
 
    Object o = al.get(index);
    int i = o.hashCode(); <-- this is fine as every object in Java can call hashCode().
@@ -318,7 +318,7 @@ Chapter 8 Serious Polymorphism
 
    The compiler checks the class of the reference type, not the object type - to see if you can call a method using that reference.
 
--  Casting an object reference back to its real type
+-  Casting an object reference back to its real type(!!)
 
    You must ensure that the object is really dog, e.g.,    
 
