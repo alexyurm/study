@@ -409,14 +409,37 @@ Chapter2 The Ralational Model of Data
 
 Chapter 3:  Design Theory for Relational Databases
 
-3.1   Functional Dependencies
+3.1      -  Functional Dependencies
 
-      -  Definition
+            -  Definition
 
-         A functional dependency(FD) on a relation R is a statement of the form "If two tuples of R agree on all of the attributes A1, A2,..., An", then they must
-         also agree on all of another list of attributes B1, B2, ..., Bm. We write this FD formally as A1A2...An -> B1B2...Bm and say that
+               A functional dependency(FD) on a relation R is a statement of the form "If two tuples of R agree on all of the attributes A1, A2,..., An", then they must
+               also agree on all of another list of attributes B1, B2, ..., Bm. We write this FD formally as A1A2...An -> B1B2...Bm and say that
 
-         "A1, A2,...,An functionally determine B1,B2...,Bm"
+               "A1, A2,...,An functionally determine B1,B2...,Bm"
+
+            -  It is important what when we say that R satisfies an FD f, we are asserting a constraint on R, not just saying something about one particular instance of R.
+               It means that the FD says something about all possible instances of the relation, not about one of its instances. 
+
+         -  Keys of Relationships.
+
+            We say that a set of one or more attributes {A1, A2,..., An} is a key for a relation R if (why one or more?? Resolved.because sometimes a relation has more than one key):
+
+            1. Those attributes functionally determine all other attributes of the relation. That is, it is impossible for two distinct tuples of R to agree on all of A1, A2, ...
+               An.
+
+            2. No proper subset of {A1, A2, ...An} functionally determines all other attributes of R; i.e., a key must be minimal.
+
+            Sometimes a relation has more than one key and we choose one of the keys as the primary key(!!).
+
+         -  Superkeys
+
+            A set of attributes that contains a key is called a superkey.
+
+3.2   Rules about Functional Dependencies
+
+      -  Two sets of FD's S and T are equilvalent if the set of relation instances satisfying S is exactly the same as the set of relation instances satisfying T.
+      
 
 Questions:
 

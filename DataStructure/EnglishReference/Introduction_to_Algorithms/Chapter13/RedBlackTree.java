@@ -57,7 +57,7 @@
 *     -  x may be any node in the tree whose right child is not T.nil.
 *
 *     The left rotation "pivots" around the link from x to y. It makes y the new root of the subtree, with x as y's left child and y's left child as
-*     x's right child. (I still don't understand the concept of "pivots" around the link from x to y)
+*     x's right child. (I still don't understand the concept of "pivots" around the link from x to y ?? Are the Colors changed for those two nodes??)
 *
 *
 *
@@ -194,23 +194,35 @@ public class RedBlackTree<E> {
    /** Constructors */
    public RedBlackTree() {
       root = new BinNode<E>();
+      nil = new BinNode<E>();
+
       root.setParent(nil);
+      root.setLeft(nil);
+      root.setRight(nil);
+      
+      root.setColor(Color.BLACK);
       nil.setColor(Color.BLACK);
    }
 
    public RedBlackTree(BinNode<E> node) {
       root = node;
+      nil = new BinNode<E>();
+
       root.setParent(nil);
+      root.setLeft(nil);
+      root.setRight(nil);
+
+      root.setColor(Color.BLACK);
       nil.setColor(Color.BLACK);
    }
 
    /** Return the root */
-   BinNode root() {
+   BinNode<E> root() {
       return root;
    }
 
    /** Set the root */
-   BinNode setRoot(BinNode<E> rt) {
+   BinNode<E> setRoot(BinNode<E> rt) {
       root = rt;
       root.setParent(nil);
       return root;
@@ -222,7 +234,7 @@ public class RedBlackTree<E> {
    }
 
    void preorder(BinNode rt) {
-      if (rt == null) return;
+      if (rt == nil) return; //We use the "nil" pointer to replace "null" in a normal BST
       visit(rt);
       preorder(rt.left());
       preorder(rt.right());
@@ -231,14 +243,14 @@ public class RedBlackTree<E> {
    /** The second implementation of preorder. It is more efficient than preorder because it makes only half
     as many as recursive calls */   
    void preorder2(BinNode rt) {
-   if (rt == null) return;
+   if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
       visit(rt);
       if (rt.left()!= null) preorder2(rt.left());
       if (rt.right()!= null) preorder2(rt.right());
    }
 
    void postorder(BinNode rt) {
-      if (rt == null) return;
+      if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
       postorder(rt.left());
       postorder(rt.right());
       visit(rt);
@@ -251,7 +263,7 @@ public class RedBlackTree<E> {
 
    static void visit(BinNode rt) {
       if (rt != null) {
-         System.out.println(rt.key());
+         System.out.println(rt.key() + "(" + rt.color() + ")");
       } else {
          System.out.println("The node is null");
       }
@@ -275,9 +287,9 @@ public class RedBlackTree<E> {
 
    /** Return the maximum element of the tree rooted at rt */
    // It is also the the rightmost element of the tree rooted at rt
-   BinNode maximum(BinNode rt) {
+   BinNode<E> maximum(BinNode<E> rt) {
       if (rt != null) {
-         BinNode x = rt;
+         BinNode<E> x = rt;
          while (x.right() != null) {
             x = x.right();
          }
@@ -289,9 +301,9 @@ public class RedBlackTree<E> {
 
    /** Return the Minimum element of the tree rooted at rt*/
    // It is also the leftmost element of the tree rooted by rt
-   BinNode minimum(BinNode rt) {
+   BinNode<E> minimum(BinNode<E> rt) {
       if (rt != null) {
-         BinNode x = rt;
+         BinNode<E> x = rt;
          while( x.left() != null) {
             x = x.left();   
          }
@@ -306,12 +318,12 @@ public class RedBlackTree<E> {
    // 1) If the left subtree of node x is nonempty, then the predecessor of x is just the rightmost node of x's right subtree by calling maximum(x.left());
    // 2) If the left subtree of node x empty and x has a predecessor y, then y is the lowest ancestor of x whose right child is also an ancestor of x(remember
    //    that x is also the ancestor if itself). To find y, we simply go up the tree from x until we encounter a node that is the right child of its parent.
-   BinNode predecessor(BinNode rt) {
+   BinNode<E> predecessor(BinNode<E> rt) {
       if (rt.left() != null) {
          return maximum(rt.left());   
       } else {
-         BinNode x = rt;
-         BinNode y = rt.parent();   
+         BinNode<E> x = rt;
+         BinNode<E> y = rt.parent();   
 
          while (y != null) {
             if (y.left() != null) {
@@ -336,13 +348,13 @@ public class RedBlackTree<E> {
    // 1) If the right subtree of node x is nonempty, then the sucessor of x is just the leftmost node in x's right subtree by calling minimum(x.right());
    // 2) If the right subtree of node x is empty and x has a sucessor y, then y is the lowest ancestor of x whose left child is also an ancestor of x(remember
    //    that x is also the ancestor of itself). To find y, we simply go up the tree from x until we encounter a node that is the left child of its parent.
-   BinNode successor(BinNode rt) {
+   BinNode<E> successor(BinNode<E> rt) {
       if (rt.right() != null) {
          //If the right subtree of x is nonempty, then the successor of x is just the leftmost node in x's right subtree.
          return minimum(rt.right());
       } else {
-         BinNode x = rt;
-         BinNode y = rt.parent(); //y is x's parent.
+         BinNode<E> x = rt;
+         BinNode<E> y = rt.parent(); //y is x's parent.
 
          while (y != null) {
             if (y.right() != null) {
@@ -372,6 +384,8 @@ public class RedBlackTree<E> {
       }
    }
 
+   /** The operation LEFT-ROTATE(T,x) transforms the configuration of the two ndoes on the right into the configuration on the left
+   by changing a constant number of pointers */
    public void leftRotate(BinNode<E> x) {
       BinNode<E> y = x.right();  //set y
 
@@ -424,8 +438,10 @@ public class RedBlackTree<E> {
       BinNode<E> y = nil;
       BinNode<E> x = root;
 
+      //The same as BST Insert
       while (x != nil) {
          y = x;//save x to y
+
          if (z.key() < x.key()) {
             x = x.left();
          } else {
@@ -434,6 +450,7 @@ public class RedBlackTree<E> {
       }
       z.setParent(y);
       
+      //The same as BST Insert
       if (y == nil) {
          setRoot(z);
       } else if (z.key() < y.key()) {
@@ -442,6 +459,7 @@ public class RedBlackTree<E> {
          y.setRight(z);
       }
 
+      //The Extra steps for RedBlack tree
       z.setLeft(nil);   //the extra steps to BST insert
       z.setRight(nil);  //the extra steps to BST insert
       z.setColor(Color.RED); //the extra steps to BST insert
@@ -461,40 +479,84 @@ public class RedBlackTree<E> {
    *  
    */
    public void insertFixUpRB(BinNode<E> z) {
-      while(z.parent().color() == RED ) { //z and its parent are both RED. This violates the property 4!!
+      BinNode<E> y = null;
+      while(z.parent().color() == Color.RED ) { //z and its parent are both RED. This violates the property 4!!
          if (z.parent() == z.parent().parent().left()) {  //How can I make sure z.p.p exists??
             y = z.parent().parent().right(); //y is z's uncle 
             if (y.color() == Color.RED) {    //y's uncle(z) is RED. Case 1 applies.
-               z.parent().setColor(BLACK);            //case 1. Set z's parent to BLACK.
-               y.setColor(BLACK);                     //case 1. Set y to BLACK
-               z.parent().parent().setColor(RED);     //case 1. Set z' grandparent to RED.
+               z.parent().setColor(Color.BLACK);            //case 1. Set z's parent to BLACK.
+               y.setColor(Color.BLACK);                     //case 1. Set y to BLACK
+               z.parent().parent().setColor(Color.RED);     //case 1. Set z' grandparent to RED.
                z = z.parent().parent();               //case 1. z becomes the grandparent.
             } else if (z == z.parent().right()) { //y's uncle(z) is BLACK and z is the right child. Case 2 applies.
                   z = z.parent();   //case 2. Remember to set z as z's parent before the left rotation!!.
                   leftRotate(z);    //case 2. LEFT-ROTATE "pivots" around z.
-            } 
+
+                  z.parent().setColor(Color.BLACK);         //case 3. Set z's parent to BLACK.
+                  z.parent().parent().setColor(Color.RED);  //case 3. Set z's grandparent to RED.
+                  rightRotate(z.parent().parent());   //case 3. RIGHT-ROTATE "pivots" around z's grandparent.
+            } else {
                //!!The rotation in case 2 transfers to case 3 immediately as z becomes the left child.
-               z.parent().setColor(BLACK);         //case 3. Set z's parent to BLACK.
-               z.parent().parent().setColor(RED);  //case 3. Set z's grandparent to RED.
+               z.parent().setColor(Color.BLACK);         //case 3. Set z's parent to BLACK.
+               z.parent().parent().setColor(Color.RED);  //case 3. Set z's grandparent to RED.
                rightRotate(z.parent().parent());   //case 3. RIGHT-ROTATE "pivots" around z's grandparent.
+            }
          } else if (z.parent() == z.parent().parent().right()) {  //How can I make sure z.p.p exists??
             y = z.parent().parent().left(); //y is z's uncle 
             if (y.color() == Color.RED) {    //y's uncle(z) is RED. Case 1 applies.
-               z.parent().setColor(BLACK);            //case 1. Set z's parent to BLACK.
-               y.setColor(BLACK);                     //case 1. Set y to BLACK
-               z.parent().parent().setColor(RED);     //case 1. Set z' grandparent to RED.
+               z.parent().setColor(Color.BLACK);            //case 1. Set z's parent to BLACK.
+               y.setColor(Color.BLACK);                     //case 1. Set y to BLACK
+               z.parent().parent().setColor(Color.RED);     //case 1. Set z' grandparent to RED.
                z = z.parent().parent();               //case 1. z becomes the grandparent.
             } else if (z == z.parent().left()) { //y's uncle(z) is BLACK and z is the left child. Case 2 applies.
                   z = z.parent();    //case 2. Remember to set z as z's parent before the right rotation!!.
                   rightRotate(z);    //case 2. RIGHT-ROTATE "pivots" around z.
-            } 
+
+                  z.parent().setColor(Color.BLACK);         //case 3. Set z's parent to BLACK.
+                  z.parent().parent().setColor(Color.RED);  //case 3. Set z's grandparent to RED.
+                  leftRotate(z.parent().parent());    //case 3. LEFT-ROTATE "pivots" around z's grandparent.
+            } else {
                //!!The rotation in case 2 transfers to case 3 immediately as z becomes the right child.
-               z.parent().setColor(BLACK);         //case 3. Set z's parent to BLACK.
-               z.parent().parent().setColor(RED);  //case 3. Set z's grandparent to RED.
+               z.parent().setColor(Color.BLACK);         //case 3. Set z's parent to BLACK.
+               z.parent().parent().setColor(Color.RED);  //case 3. Set z's grandparent to RED.
                leftRotate(z.parent().parent());    //case 3. LEFT-ROTATE "pivots" around z's grandparent.
+            }
          }
       }
       
       root.setColor(Color.BLACK);
+   }
+
+   public static void main(String[] args) {
+      //Create a bunch of nodes
+      BinNode<Integer> node15 = new BinNode<Integer>(15, 0);
+      BinNode<Integer> node14 = new BinNode<Integer>(14, 0);
+      BinNode<Integer> node13 = new BinNode<Integer>(13, 0);
+      BinNode<Integer> node12 = new BinNode<Integer>(12, 0);
+      BinNode<Integer> node11 = new BinNode<Integer>(11, 0);
+      BinNode<Integer> node10 = new BinNode<Integer>(10, 0);
+      BinNode<Integer> node9 = new BinNode<Integer>(9, 0);
+      BinNode<Integer> node8 = new BinNode<Integer>(8, 0);
+      BinNode<Integer> node7 = new BinNode<Integer>(7, 0);
+      BinNode<Integer> node6 = new BinNode<Integer>(6, 0);
+      BinNode<Integer> node5 = new BinNode<Integer>(5, 0);
+      BinNode<Integer> node4 = new BinNode<Integer>(4, 0);
+      BinNode<Integer> node3 = new BinNode<Integer>(3, 0);
+      BinNode<Integer> node2 = new BinNode<Integer>(2, 0);
+      BinNode<Integer> node1 = new BinNode<Integer>(1, 0);
+
+      /* Create a new RedBlack Tree */
+      RedBlackTree<Integer> rbt = new RedBlackTree<Integer>(node11);
+      
+      /* Test the insertRB method */
+      rbt.insertRB(node2);
+      rbt.insertRB(node14);
+      rbt.insertRB(node1);
+      rbt.insertRB(node7);
+      rbt.insertRB(node15);
+      rbt.insertRB(node5);
+      rbt.insertRB(node8);
+      rbt.insertRB(node4);
+      rbt.preorder(rbt.root());
    }
 }
