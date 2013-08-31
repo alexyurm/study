@@ -1,0 +1,11 @@
+Date	Slides	Topic	Reading
+1/3	PDF	Introduction.	1-1.2.3, 1.3-1.3.1
+1/5	PDF	Architectures and Models	2-2.2.3
+1/10	PDF (Updated 1/18)	Computer Networks	4-4.1.1
+1/12	PDF (Updated 1/18)	Distributed Objects & Remote Invocation	4.1.2-4.3.2, 10-10.1.1, 10.3.3-10.3.4
+1/19	PDF	Distributed Naming	5-5.2.3, 5.3-5.3.4, 5.4
+1/24	PDF	Distributed Filesystems	11-11.1.1, 11.2-11.4.1, 11.5-11.5.2, 11.6-11.6.2
+1/31	PDF (Updated 3/1)	Synchronization	6.1, 6.1.3 (omit subsection on wireless networks), 6.2-6.2.2, 6.3 (omit 6.3.3), 6.5-6.5.1
+PDF (Updated 3/6/2012)	Replication	7-7.2, 7.2.2 (omit subsections on causal consistency, grouping operations, and consistency versus coherence), 7.3-7.4.3, 7.5.2-7.5.3, 7.5.5.
+PDF (Updated 3/22 4PM)	Fault Tolerance	8-8.2.4, 8.3-8.3.2 (this was actually covered in the Distributed Objects & Remote Invocation section), 8.5-8.5.2
+PDF (Updated 3/29)	Security	9-9.1.1 (omit Globus example), 9.1.2-9.2.2 (skim over the details of DES, RSA, and MD5), 9.3-9.3.2, 9.3.4, 9.4-9.4.1

@@ -1,0 +1,46 @@
+Chapter 1 Introduction
+
+-  Definition of a Distributed System
+
+   A distributed system is a collection of independent computers that
+   appears to its users as a single coherent system.
+
+-  Goals
+
+   -  Making Resources Accessible
+
+      Resources include printers, computers, storage facilities, data,
+      files, Web pages, and networks...
+
+   -  Distribution Transparency
+
+      Access
+      Location
+      Migration
+      Relocation
+      Replication
+      Concurrency - Different uses may access the resource at the same time
+      Failure
+
+   -  Openness
+
+      An open distributed system is a system that offers services according
+      to standard rules that describe the syntax and semantics of those se-
+      rvices. In distributed systems, services are generally specified
+      through interfaces, which are often described in an Interface Definition
+      Language(IDL). An interface definition allows an arbitrary process
+      that needs a certain interface to talk to another process that provides
+      that interface. Another goal for open distributed system is that it
+      should be easy to configure the system out of different components.
+      Also, it should be easy to add new components or replace existing
+      ones without affecting those components that stay in place.
+
+-  Types of Distributed Systems
+
+   -  Distributed Computing Systems
+
+      Cluster Computing: the underlying hardware consists of a collection of similar workstations or PCs, closely connected by means of a high
+      speed local-area network. In addition, each node runs the same OS.
+
+      Grid Computing: this type is often constructed as a federation of computer systems, where each system may fail under a different administrative
+      domain, and may be very different when it comes to hardware, software, and deployed network technology.
