@@ -21,7 +21,7 @@ Chpater 1 Intro to Design Patterns
    patterns and you'll see a lot more about its advantage and disadvantage throughout
    the book.
 
--  The power of shared pattern vocabulary(??)
+-  The power of shared pattern vocabulary
 
 Chapter 2 Keeping your objects in the know.
 
@@ -115,7 +115,7 @@ Chapter 2 Keeping your objects in the know.
 
       Why is the necessary? The setChanged() method is meant to give you more flexibility in how you update observers by allowing you to optimize the notifications. E.g.
 
-      If the temperature readings were constantly fluctuating, we might want to send out notifications only if the temperature changes more than half of a degree and we cann
+      If the temperature readings were constantly fluctuating, we might want to send out notifications only if the temperature changes more than half of a degree and we
       could call setChanged() only after that. If the functionality is useful to you, you may also want to use the clearChanged() method, which sets the changed state back
       to false, and the hasChanged() method, which tells you the current state of the changed flag.
 
@@ -124,7 +124,9 @@ Chapter 2 Keeping your objects in the know.
       1. Observable is a class
 
          You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another subclass(Java doesn't support multiple
-         inheritance). That limits its resue potential. 
+         inheritance). That limits its reuse potential. This violates Principle 2: program an interface, not in implementation.
+
+         Note: Observer is an interface therefore it doesn't have the same problem.
 
       2. Observable protects crucial methods
 

@@ -1,4 +1,7 @@
 /*
+*  This example shows Decorating Objects and Design Principle: Classes should be open for extension, but closed for modification.
+*
+*
 *  -  Inheritance Map: 
 *  
 *     1. Bevarage(abstract class) <----- CondimentDecorator(abstract class) <----- Mocha, SteamedMilk, Soy, Whip

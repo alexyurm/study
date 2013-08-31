@@ -84,7 +84,7 @@ class Graduate : public Teacher, public Student //Teacher和Student是直接基�
          cout<<"name: "<<name<<endl;
          cout<<"age: "<<age<<endl;
          cout<<"sex: "<<sex<<endl;
-         cout<<"name: "<<name<<endl;
+         cout<<"score: "<<score<<endl;
          cout<<"title: "<<title<<endl;
          cout<<"wages: "<<wage<<endl;
       }

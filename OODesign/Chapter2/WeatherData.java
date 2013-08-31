@@ -1,3 +1,15 @@
+/*
+*  This example shows how to use Java's built-in Observer Pattern
+*
+*
+*
+*
+*
+*
+*
+*/
+
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +24,39 @@ class WeatherData extends Observable {
 
    public WeatherData() {} //Our constructor no longer needs to create a data structure to hold Observers
    
+   /*
+   *  -  For the Observable to send notifications, 
+   *
+   *     You first must call the setChanged() method to signify that the state has changed in your object.
+   *
+   *     Then call either notifyObserbers() or notifyObservers(Object arg)
+   *
+   *  -  Why do we use setChanged() method?
+   *
+   *     Because:
+   *
+   *     setChanged() {
+   *         changed = true;
+   *     }
+   *
+   *  -  notifyObservers(Object arg) {
+   *        if (changed) {
+   *           for every observer on the list {
+   *              call update(this, arg)
+   *           }
+   *           changed = false;
+   *        }
+   *     }
+   *
+   *  Why is the necessary? The setChanged() method is meant to give you more flexibility in how you update observers by allowing you to optimize 
+   *  the notifications. E.g.
+   *  If the temperature readings were constantly fluctuating, we might want to send out notifications only if the temperature changes more than 
+   *  half of a degree and we could call setChanged() only after that. If the functionality is useful to you, you may also want to use 
+   *  the clearChanged() method, which sets the changed state back to false, and the hasChanged() method, which tells you the current state of 
+   *  the changed flag.
+   *
+   *
+   */
    public void measurementsChanged() {
       setChanged(); //the method in the Observable Class
       notifyObservers();   

@@ -1,3 +1,24 @@
+/*
+*  Principle 1: Identify the aspect of your application that vary and seperate them from what stays the same.
+*  Principle 2: Program to an interface, not an implementation.
+*
+*  This program illustrates Principles 1 and 2:
+*
+*  The different parts which should be seperated are:
+*
+*  1) FlyBehavior; and 2) QuackBehavior
+*
+*  Also, we program these two parts as interfaces instead of concrete classes.
+*
+*  
+*
+*
+*
+*
+*
+*
+*/
+
 interface FlyBehavior {
    public void fly();
 }

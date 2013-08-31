@@ -438,8 +438,79 @@ Chapter 3:  Design Theory for Relational Databases
 
 3.2   Rules about Functional Dependencies
 
-      -  Two sets of FD's S and T are equilvalent if the set of relation instances satisfying S is exactly the same as the set of relation instances satisfying T.
+         -  Two sets of FD's S and T are equilvalent if the set of relation instances satisfying S is exactly the same as the set of relation instances satisfying T(??).
+
+         -  More generally, a set of FD's S follows from a set of FD's T if every relation instance that satisfies all the FD's in T also satifies all the FD's in S(??).
       
+      The Spliting/Combining Rule
+
+         -  We can replace an FD A1A2...An -> B1B2...Bm by a set of FD's A1A2...An -> Bi for i=1, 2, ...m. This transformation we call the splitting rule.
+         
+         -  We can replace a set of FD's A1A2...Am -> Bi for i = 1, 2, ...m by the single FD A1A2...An -> B1B2...Bm. We call this transformation the combining rule.
+
+         Note: there is no splitting rule for left side.
+
+      Trivial Functional Dependencies
+
+         A constraint of any kind on a relation is said to be trivial if it holds for every instance of the relation, regardless of what other constraints are assumed(??).
+         When the constraints are FD's, it is easy to tell whether an FD is trivial. They are the FD's A1A2...An -> B1B2...Bm such that 
+
+         {B1, B2, ..., Bm} belongs to {A1, A2, ..., An}
+
+         That is a trivial FD has a right side that is a subset of its left side. For example
+         
+         title year -> title
+
+         is a trivial FD, as is 
+
+         title -> title.
+
+      Computing the Closure of Attributes
+
+         -  Suppose {A1, A2,..., An} is a set of attributes and S is a set of FD's. The closure of {A1, A2, ..., An} under the FD's in S is the set of attribute B such that
+            every relation that satisfies all the FD's in set S also satifies A1A2...An -> B. That is, A1A2...An -> B follows from the FD's of S. 
+
+            We denote the closure of a set of attributes A1A2...An by {A1, A2, ..., An}+. 
+
+            Algorithm 3.7: Closure of a Set of Attributes.
+
+            Input: A set of attributes {A1, A2, ..., An} and a set of FD's S.
+            Output: The closure {A1, A2, ..., An} +.
+
+            1. If necessary, split the FD's of S, so each FD in S has a single attribute on the right.
+
+            2. Let X be a set of attributes that eventually will become the closure. Initialize X to be {A1, A2, ..., An}.
+
+            3. Repeatedly search for some FD
+
+               B1B2...Bm -> C
+
+               such that all of B1, B2, ..., Bm are in the set of attributes X, but C is not. Add C to the set X and repeat the search. Since X can only glow, and the number of
+               attributes of any relation schema must be finite, eventually nothing more can be added to X, and this step ends.
+
+            4. The set X, after no more attributes can be added to it, is the correct value of {A1, A2, ..., An}+
+
+            E.g. A relation with attributes A, B, C, D, E, and F. Suppose that this relation has the FD's AB->C, BC->AD, D->E, and CF->B. What is the closure of {A,B}, that is {A,B}+
+
+            Step1: We split BC->AD into BC->A and BC->D.
+
+            Step2: Start with X ={A,B}. 
+
+            Step3: Since we have: AB->C, We add C to X, now X={A, B, C}
+                  
+                   BC-> and BC->D, then we have X={A, B, C, D}
+
+                   D->E, we have X={A, B, C, D, E}
+               
+                   CF->B cannot be used, because its left side never becomes contained in X. Thus, {A, B}+ = {A, B, C, D, E}
+
+      Why the Closure Algorithm works? ----> Skip
+
+      The Transtitive Rule
+
+      -  The transtitive rule lets us cascade two FD's, and generalizes the observation of Example 3.4.
+
+         If A1A2...An -> B1B2...Bm and B1B2...Bm -> C1C2...Ck hold in relation R, then A1A2...An -> C1C2...Ck also holds in R.
 
 Questions:
 

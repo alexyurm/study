@@ -27,7 +27,7 @@
 *     3. Every leaf(NIL) is black.
 *     4. If a node is red, then both its children are black.
 *     5. For each node, all simple paths from the node to descendant leaves contain the same number of black
-*        nodes(!!).
+*        nodes.
 *
 *  -  We use the sentinel so that we can treat a NIL child of a node x as an ordinary node whose parent is x. We only use
 *     one sentinel T.nil to represent all the NILs - all leaves and the root's parent. By doing so, space can be saved. The 
@@ -59,9 +59,54 @@
 *     The left rotation "pivots" around the link from x to y. It makes y the new root of the subtree, with x as y's left child and y's left child as
 *     x's right child. (I still don't understand the concept of "pivots" around the link from x to y ?? Are the Colors changed for those two nodes??)
 *
+*  -  RB-INSERT(T, Z)
 *
+*     1  y = T.nil
+*     2  x = T.root
+*     3  while x != T.nil
+*     4     y = x
+*     5     if (z.key < x.key)
+*     6        x = x.left
+*     7     else x = x.right
+*     8  z.p = y
+*     9  if y == T.nil
+*     10    T.root = z
+*     11 elseif z.key < y.key
+*     12    y.left = z
+*     13 else y.right = z   
+*     14 z.left = T.nil
+*     15 z.right = T.nil
+*     16 z.color = RED
+*     17 RB-INSERT-FIXUP(T,z)
 *
+*     The insert process is pretty much the same as the normal BST insert except for the addition of RB-INSERT-FIXUP(T,z)
 *
+*  -  RB-INSERT-FIXUP(T,z)
+*
+*     The fact that z and z's parent are both RED violates property 4
+*
+*     1  while z.p.color == RED
+*     2     if z.p == z.p.p.left
+*     3        y = z.p.p.right
+*     4        if y.color == RED
+*     5           z.p.color == BLACK   //case 1
+*     6           y.color = BLACK      //case 1
+*     7           z.p.p.color = RED    //case 1
+*     8           z = z.p.p            //case 1
+*     9        else if z == z.p.right
+*     10                z = z.p              //case 2
+*     11                LEFT-ROTATE(T,z)     //case 2
+*     12            z.p.color = BLACK        //case 3
+*     13            z.p.p.color = RED        //case 3
+*     14            RIGHT-ROTATE(T, z.p.p)//case3
+*     15    else(same as then clause with "right" and "left" exchanged)
+*     16    T.root.color = BLACK
+*
+*     case 1: z's uncle y is red
+*     case 2: z's uncle y is BLACK and z is a right child of its parent 
+*     case 3: z's uncle y is BLACK and z is a left child of its parent
+*
+*     note: In case 2, we do a left rotate in order to make z as a left child of its parent. That means it transfers to case 3 immediately.
 *
 */       
 import java.util.*;
@@ -233,6 +278,7 @@ public class RedBlackTree<E> {
       return count;
    }
 
+   /** preorder tree walk: root, left, right */
    void preorder(BinNode rt) {
       if (rt == nil) return; //We use the "nil" pointer to replace "null" in a normal BST
       visit(rt);
@@ -249,11 +295,38 @@ public class RedBlackTree<E> {
       if (rt.right()!= null) preorder2(rt.right());
    }
 
+   /** postorder tree walk: left, right, root */
    void postorder(BinNode rt) {
       if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
       postorder(rt.left());
       postorder(rt.right());
       visit(rt);
+   }
+
+   /** The second implementation of postorder. It is more efficient than postorder because it makes only half
+    as many as recursive calls */   
+   void postorder2(BinNode rt) {
+      if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
+      if (rt.left() != null) postorder(rt.left());
+      if (rt.right() != null) postorder(rt.right());
+      visit(rt);
+   }
+
+   /** inorder tree walk: left, root, right */
+   void inorder(BinNode rt) {
+      if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
+      postorder(rt.left());
+      visit(rt);
+      postorder(rt.right());
+   }
+
+   /** The second implementation of inorder. It is more efficient than inorder because it makes only half
+    as many as recursive calls */   
+   void inorder2(BinNode rt) {
+      if (rt == nil) return;//We use the "nil" pointer to replace "null" in a normal BST
+      postorder(rt.left());
+      visit(rt);
+      postorder(rt.right());
    }
 
    int count(BinNode rt) {
@@ -527,6 +600,101 @@ public class RedBlackTree<E> {
       root.setColor(Color.BLACK);
    }
 
+   public void transplantRB(BinNode<E> u, BinNode<E> v) {
+      if (u.parent() == nil) {
+         root = v;
+      } else if (u == u.parent().left()) {
+         u.parent().setLeft(v);
+      } else {
+         u.parent().setRight(v);
+      }
+
+      /* the assignment to v.p occurs unconditionally. This is different from the counterpart in a normal BST */
+      v.setParent(u.parent());
+   }
+
+   /** The RedBlack Tree Delete method, which contains almost twice as many lines as TREE. */
+   /*
+   *
+   *  RB-DELETE(T, z)
+   *  
+   *  1  y = z
+   *  2  y-original-color = y.color
+   *  3  if z.left == T.nil
+   *  4     x = z.right
+   *  5     RB-TRANPLANT(T, z, z.right)
+   *  6  elseif z.right == T.nil
+   *  7     x = z.left
+   *  8     RB-TRANSPLANT(T, z, z.left)
+   *  9  else y = TREE-MINIMUM(z.right)
+   *  10    y-original-color = y.color
+   *  11    x = y.right
+   *  12    if y.p == z
+   *  13       x.p = y
+   *  14    else RB-TRANSPLANT(T, y, y.right)
+   *  15       y.right = z.right
+   *  16       y.right.p = y
+   *  17    RB-TRANSPLANT(T, z, y)
+   *  18    y.left = z.left
+   *  19    y.left.p = y
+   *  20    y.color = z.color
+   *  21 if y-original-color == BLACK
+   *  22    RB-DELETE-FIXUP(T, x)
+   *
+   *
+   *
+   *  Here are the other two differences between two procedures:     
+   *
+   *  We maintain node y as the node either removed from the tree or moved within 
+   *  the tree. Line 1 sets y to point to node z when z has fewer than two children
+   *  and is therefore removed. When z has two children, line 9 sets y to point to z's
+   *  successor, just as in TREE-DELETE, and y will move into z's position in the tree. 
+   *
+   *  
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   *
+   */
+   public void deleteRB(BinNode<E> z) {
+      BinNode<E> y = z;
+      Color y_original_color = y.color();
+      if (z.left() == nil) {
+         x = z.right();
+         transplantRB(z, z.right());
+      } else if (z.right() == nil) {
+         x = z.left();
+         transplantRB(z, z.left());
+      } else {
+         y = minimum(z.right());
+         y_original_color = y.color();
+         x = y.right();
+         if (y.parent() == z) {
+            if x.setParent(y);
+         } else {
+            transplantRB(y, y.right());
+            y.setRight();
+            y.right.setParent(y);
+            
+            if (y.parent() == z) {
+               x.setParent(y);
+            }
+         }
+      }
+      
+      
+   }
+
    public static void main(String[] args) {
       //Create a bunch of nodes
       BinNode<Integer> node15 = new BinNode<Integer>(15, 0);
@@ -558,5 +726,15 @@ public class RedBlackTree<E> {
       rbt.insertRB(node8);
       rbt.insertRB(node4);
       rbt.preorder(rbt.root());
+
+      //13.3-2 Show the red-black trees that result after successfully inserting the keys 41, 38, 31, 12, 19, 8 into an initially rempty red-black tree.
+      BinNode<Integer> node_1 = new BinNode<Integer>(41, 0);
+      BinNode<Integer> node_2 = new BinNode<Integer>();
+      BinNode<Integer> node_3 = new BinNode<Integer>();
+      BinNode<Integer> node_4 = new BinNode<Integer>();
+      BinNode<Integer> node_5;
+      BinNode<Integer> node_6;
+
+      RedBlackTree<Integer> rbt2 = new RedBlackTree<Integer>(node_1);
    }
 }
