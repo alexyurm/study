@@ -1,0 +1,211 @@
+-  Nokia standards:
+
+   -  A Scrum team must have a Product Owner and know who that person is.
+   -  The Product Owner must have a Product Backlog with estimates created
+      by the team.
+   -  The team must have a Burndown Chart and know their velocity.
+   -  There must be no one outside a team interfering with the team during
+      Sprint.
+
+Chapter 1 Intro
+
+   -  In Ken Schwaber's words, Scrum is not a methodology, it is a framework.
+      It means that Scrum is not really going to tell you exactly what to do.
+
+   -  The strength and pain of Scrum is that you are forced to adapt it to
+      your specific situation.
+
+Chapter 2 How we do product backlogs
+
+   -  The product backlog is the heart of Scrum. This is where it all starts. The
+      Product backlog is basically a prioritized list of requirements, or stores,
+      or features, or whatevers. One example:
+
+      -  ID: a unique identification
+      -  Name: a short descriptive name of the story.
+      -  Importance: the product owner's importance rating for this story. For example 10, or 150. High=Important.
+      -  Initial estimate: the team's initial assessment of how much work is needed to implement this story compared
+                           to other stories. Example: "If 3 guys locked into a room(with foods ofcourse) it will take
+                           approximately 4 days" then the initial estimate is 12 story points. The important point is
+                           this is only estimate, please don't get the absolute estimates correct.
+      -  How to demo:   a high-level description of how this story will be demonstrated at the sprint demo. This is essentially
+                        a simple test spec. If you practice TDD(test-driven development), this description can be used as pseudo-
+                        code for your acceptance test code.
+      Notes: any other info, clarifications, references to other sources of info, etc. Normally vary brief.
+
+      Additional fields in the product backlog, mostly as a convinence for the product owner to help him sold out this priorities.
+
+      -  Track: a rough categorization of this story. 
+      -  Components: Usually realized as "checkboxes" in the Excel document, for example, "database, server".
+      -  Requestor: the product owner may want to keep track of which customer or stockholder originally requested the item, in order to
+                     give him feedback on the progress.
+      -  Bug tracking ID: if you have a seperate bug tracking system, like we do with Jira, it is useful to keep track of any direct correspondence
+                           between a story and one or more reported bugs.
+
+Chapter 3 How we prepare for sprint planning
+
+      -  Lesson: Make sure the product backlog is in shipshape before the sprint planning meeting. All it means is:
+
+         -  The product backlog should exist!
+         -  There should be one product backlog and one product owner (per product that is)
+         -  All important items should have ratings assigned to them, different importance ratings.
+
+            -  Actually,it is OK if lower-importance items all have the same value, since they probably won't be brought up during the sprint planning meeting anyway.
+            -  any story that product owner believes has a remote possibility of being included in the next sprint should have a unique importance level(??).
+            -  The importance rating is only used to sort the items by importance. So if item A has importance 20 and item B has importance 100, that simply means B
+               is more important than A. It does not mean that B is five times more important than A. If B had importance rating 21 it will still mean the exact
+               same thing!
+            -  It is useful to leave gaps in the number sequence in case an item C comes up that is more important than A but less important than B. 
+
+         -  The product owner should understand each story (normally he is the author, but in some cases other people add requests, which the product owner can prioritize)
+            He does not need to know exactly what needs to be implemented, but he should understand why the story is there.
+
+         Note: Other people than the product owner may add stories to the product backlog. But they may not assign importance level, that is product owner's sole right. 
+               They may not add time estimates either, that is the team's sole right.
+
+         Some agile process support tools: VersionOne, ScrumWorks, XPlanner. We haven't tried that.
+
+Chapter 4 How we do sprint planning
+
+      Sprint meeting is critical and a badly executed sprint planning meeting can mess up a whole sprint. The purpose of the sprint planning meetings is to give the team
+      enough information to be able to work in undisturbed peace for a few weeks, and to give the product owner enough confidence to let them do so.
+
+      The concrete output of the sprint planning meeting is:
+
+      -  A sprint goal
+      -  A list of team members (and their commitment level, if not 100%)
+      -  A sprint backlog (= a list of stories included in the sprint)
+      -  A defined sprint demo date.
+      -  A defined time and place for the daily scrum.
+
+   -  Why the product owner has to attend
+
+      Because each story contains three variables that are highly dependant on each other.
+
+                  Scope
+
+      Estimate             Importance
+
+      -  Scope and Importance are set by the product owner. Estimate is set by the team. Those three variables are fineturned continously through face-to-face dialog between the
+         team and the product owner.
+
+         -  First, the product owner starts the meeting by summarizing his goal for the sprint and the most important stories.
+         -  Next, the team goes through and time-estimates each story, starting with the most important one. In some cases the time estimate for a story won't be what the product
+            owner expected. This may prompt him to change the importance of the story. Or change the scope of the story, which in turn will cause the team to re-estimate, etc, etc.
+
+      -  What if the product owner still cannot join the planning meeting. Try the following strategies in the given order:
+
+         -  Persuade the owner to join and explain why the meeting is important;
+         -  Try to get someone in the team to volunteer as product owner proxy during the meeting. Suggest the real owner synchronize with the proxy as much as possible. Suggest someone
+            else if another volunteer is better fit.
+         -  Try to convince the management team to assign a new product owner.
+         -  Postpone the sprint launch until the product owner finds time to join. In the meantime, refuse to commit to any deliveries. Let the team spend each day doing whatever they
+            feel is most important that day.
+
+Chapter 5 Why quality is not negotiable
+
+      -  The difference between internal quality and external quality
+
+         External quality: it is what perceived by the users of the system. A slow and non-intuitive user interface is an example of poor external quality.
+         Internal quality: it refers to issues that usually aren't visible to the user, but which have a profound effect on the maintainability of the system. Things like
+                           system design consistency, test coverage, code readability. refactoring.
+
+         A system with high internal quality can still have a low external quality. But a system with low internal quality will rarely have a high external quality.
+
+         So, in some cases, it might make perfect bussiness sense to release a version of the system that has a clumsy and slow user interface, and then release a cleanup
+         version later. Internal quality, however, it is not up for discussion(!!).
+
+         Example: A product owner says "OK, guys, I respect your time estimate of 6 story points, but I am sure you can do some kind of quick-fix for this in half the time if you
+                  just put your mind to it."
+
+                  Aha! he is trying to use internal quality as a variable. How do I know? Because he wants us to reduce the estimate of the story without "paying the price" of reducing
+                  the scope. The word "quick-fix" should trigger an alarm in your head...
+   
+         My experience is that sacrificing internal quality is almost always a terrible, terrible idea. The time saved is far outweighed by the cost in both short and long
+         term. Once a code basis is permitted to start deteriorating it is very hard to put the quality back in later.
+
+      -  Sprint planning meetings that drag on and on...
+
+         The most difficult thing about sprint planning meetings is that:
+
+         1) People don't think they will take so long time.
+         2) ...but they do!
+
+         What do we do? I brutally cut the meeting short. End it. Let the sprint suffer. The upside, however is that the team has learned a vary valuable lesson, and the next sprint
+         planning meeting will be much more efficient. In addition, people will be less resistant when you propose a meeting length that they previously would have thought was too long.
+
+      -  Sprint planning meeting agenda
+
+         Sprint planning meeting 13:00-17:00
+
+         -  13:00 - 13:30. Product owner goes through sprint goal and summarizes product backlog. Demo place, date and time is set.
+         -  13:30 - 15:00. Team time-estimates, and breaks down item as necessary. Items are clarified. "How to demo" is filled in for all high-importance items.
+         -  15:00 - 16:00. Team selects stories to be included in sprint. Do velocity calculations as a reality check.
+         -  16:00 - 17:00. Select time and place for daily scrum(if different from last sprint). Further breakdown of stories into tasks.
+
+         The schedule is not strictly enforced. The Scrum master may lengthen or shorten the sub-time-boxes as necessary as the meeting progresses.
+
+      -  Defining the sprint length.
+
+         One thing we have concluded is: do experiment with sprint lengths initially. Don't waste too much time analyzing, just select a decent length and give it a shot 
+         for a sprint or two, then change the length. However, once you have decided what length you like best, stick to it for an extended period of time. For example, 3 weeks.
+
+      -  Defining the sprint goal.
+
+         The sprint goal should answer the fundamental question: "Why are we doing this sprint?" "Why don't we all just go on vacation instead?" In fact, one way
+         to wheedle goal out of the product owner is to literally ask that question. Also, the goal should be something that has not already been achieved.
+
+      -  Deciding with stories to include in the sprint
+
+         More specifically, which stores from the product backlog to copy to the sprint backlog.
+
+         Product Backlog              Sprint 1 backlog
+
+         |-------------|              |-------------|              
+         |             |              |             |
+         |     A       |              |      A      |
+         |             |              |             |
+         |-------------|              |-------------|
+         |     B       |              |      B      |
+         |-------------|   ------>    |-------------|
+         |     C       |              |      C      |
+         |-------------|              |-------------|
+         |     D       |            
+         |             |         
+         |-------------|          
+         |     ...     |   
+         |-------------|
+         
+         rectangle: each represents a story, sorted by importance. The importanct story is at the top of the list. The size of each rectangle represents the size of that story.
+         The total size of the backlog represents the team's estimated velocity. i.e. how many story points the team believes they can complete during next sprint.
+
+         The team decides how many stories to include in the sprint. Not the product owner or anybody else. This raises two questions:
+
+         1. How can the product owner affect their decision?
+
+            Let's answer the second question first
+
+            The product owner is disappointed that story D won't be included in the sprint. What are his options during that sprint planning meeting?
+
+            Option 1: reprioritize. Give story D the highest importance.
+            Option 2: change the scope of story A.
+            Option 3: split a story. If there are some aspects of story A that really aren't that important, so he splits A into two stories A1 and A2 with different importance levels.
+
+         2. How does the team decide which stories to include in the sprint?
+
+            We use two techniques for this:
+
+            1. Gut feel
+
+            Keep asking the team members how about to include A, B, C...? what is the confident to finshi A, B, C...?
+            
+            2. Velocity calculations
+
+            This technique involves two steps:
+
+            1. Decide estimated velocity
+            2. Calculate how many stores you can add without exceeding estimated velocity
+
+            This sprint's estimated velocity:
+
+            (Available Man-Days) x (Focus Factor) = Estimated Velocity

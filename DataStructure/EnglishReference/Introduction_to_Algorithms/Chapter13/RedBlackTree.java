@@ -15,7 +15,7 @@
 *  -  Each node now contains the attributes color, key, left, right, and p(parent). 
 *
 *  -  If a child or the parent of a node does not exist, the corresponding pointer attribute of the node
-*     contains the value NIL(??). We shall regard these NILs as being pointers to leaves (external nodes) of
+*     contains the value NIL. We shall regard these NILs as being pointers to leaves (external nodes) of
 *     the binary search tree and the normal, key-bearing nodes as being internal nodes of the tree.
 *
 *     Note: Is the root an internal node? Yes, the root is considered an internal node.
@@ -107,6 +107,146 @@
 *     case 3: z's uncle y is BLACK and z is a left child of its parent
 *
 *     note: In case 2, we do a left rotate in order to make z as a left child of its parent. That means it transfers to case 3 immediately.
+*     
+*     -  RB-DELETE
+*
+*     RB-TRANSPLANT(T,u,v)
+*
+*     1  if u.p == T.nil
+*     2     T.root = v
+*     3  elseif u == u.p.left
+*     4     u.p.left = v
+*     5  else u.p.right = v
+*     6  v.p = u.p
+*
+*     RB-DELETE(T, z)
+*
+*     1  y = z
+*     2  y-original-color = y.color
+*     3  if z.left == T.nil
+*     4     x = z.right
+*     5     RB-TRANSPLANT(T, z, z.right)
+*     6  elseif z.right == T.nil
+*     7     x = z.left
+*     8     RB-TRANSPLANT(T, z, z.left)
+*     9  else y = TREE-MINIMUM(z.right)
+*     10    y-original-color = y.color
+*     11    x = y.right
+*     12    if y.p == z
+*     13       x.p = y // This step is correct and necessary because simply calling RB-TRANSPLANT(T, y, y.right) will direct x.p to z, which is going to be removed. That is not good.
+*     14    else RB-TRANSPLANT(T, y, y.right)
+*     15       y.right = z.right
+*     16       y.right.p = y
+*     17    RB-TRANSPLANT(T,z,y)
+*     18    y.left = z.left
+*     19    y.left.p = y
+*     20    y.color = z.color
+*     21 if y-original-color == BLACK   
+*     22    RB-DELETE-FIXUP(T,x)
+*
+*     RB-DELETE contains almost twice as many lines of pseudocode as TREE-DELETE, the procedures have the same basic structure. Here are the differences between the two 
+*     procedures.
+*
+*     z: the node to be removed
+*     y: the node pointing to z if z has only one child, or the successor of z if z has two children. Therefore, y will be either removed(same fate as z) or moved.
+*     x: the node which is moving to y's original position.
+*
+*     1) Line 1 sets y to point node z when z has fewer than two children and is therefore removed. When z has two children, line 9 sets y to 
+*        point to z's successor, just as in TREE-DELETE, and y will move into z's position in the tree.
+*
+*        In summary: y can be either 1) z if z has only one child; 2) z's successor if z has two children. Therefore, the fate of node y is either removed or moved to z's original
+*        position.
+*
+*     2) Because node y's color might change, the variable y-original-color stores y's color before any changes occur. Line 2 and 10 set this variable
+*        immediately after assignments to y. When z has two children, then y != z and node y moves into node z's original position in the red-black tree. 
+*        Line 20 gives y the same color as z. We need to save y's original color in order to test it at the end of RB-DELETE. if it was black, then removing 
+*        or moving y could cause violations of the red-black properties.
+*
+*        In summary: the variable "y-original-color" is used to store the color of the node z which is going to be removed or the color of z's successor y when z has two children. 
+*        This variable is used to restore the red-black properties which are probablly destroyed. But what happen if z has two children and z's color is BLACK and y(z's successor)'s 
+*        color is RED? Should we still call RB-DELETE-FIXUP? No. Because in line 20, y's color is replaced by z's color therefore no property violations occur.
+*
+*     3) We keep track of the node x that moves into node y's original position. The assignments in line 4, 7, and 11 set x to point to either y's only
+*        child or if y has no children, the sentinel T.nil. Since node x moves into node y's original position, the attribute x.p is always set to point to the original
+*        position in the tree of y's parent, evenif x is, in fact, the sentinel T.nil. Unless z is y's original parent(which occurs only when z has two children and its successor y 
+*        is z's right child) the assignment to x.p takes place in line 6 of RB-TRANSPLANT (Observe that when RB-TRANSPLANT is called in lines 5, 8 and 14, the second 
+*        parameter passed is the same as x.)
+*
+*        When y's original parent is z, however, we do not want x.p to point to y's original parent, since we are removing that node from the tree. Because
+*        node y will move up to take z's position in the tree. setting x.p to y in line 13 causes x.p to point to the original position of y's parent, even 
+*        if x = T.nil.
+*
+*        In summary: x is pointing to y's one child because x is moving to that position. If z has two children and y (z's successor) is its right child, x.p is set to y
+*
+*     4) Finally, if node y was black, we might have introduced one or more violations of the red-black properties, and so we call RB-DELETE-FIXUP in line 22 to restore the red-black
+*        properties. If y is red, the red-black properties still hold when y is removed or moved, for the following reasons:
+*
+*        1. No black-heights in the tree have changed.
+*
+*        Why? what if z's color is BLACK? No worries, since line 20 shows that y's color is replaced by z's color.
+*        
+*        2. No red nodes have been made adjacent. Because y takes z's place in the tree, along with z's color, we cannot have two adjacent red nodes at y's new position in the tree(??).
+*           In addition, if y was not z's right child, then y's original right child x replaces y in the tree. If y is red, then x must be black, and so replacing y by x cannot
+*           cause two red nodes to become adjacent.
+*
+*           Questions: 1) if z has two children l and y(z's successor), which are z's left and right child respectively, what happen if z is BLACK, l is RED and y is RED.
+*        
+*           Still no ways! line 20 shows that y's color is replaced by z's color.   
+*
+*        3. Since y could not have been the root if it was red, the root remains black. 
+*
+*     5) If node y was black, three problems may arise, which the call of RB-DELETE-FIXUP will remedy.
+*
+*        1. First, if y had been the root and a red child of y becomes the new root, we have violated property 2.
+*
+*           Comment: How can a red child of y become the new root? When z has only one left child.
+*
+*        2. Second, if both x and x.p are red, then we have violated property 4. 
+*
+*        3. Third, moving y within the tree causes any simple path that previously contained by y to have one fewer black node. Thus property 5 is violated y any ancestor of
+*           y in the tree. We can correct the violation of property 5 by saying that node x, now occupying y's original position, has an "extra" black. That is, if we add 1
+*           to the count of black nodes on any simple path that contains x, them under this interpretation, property 5 holds. When we remove or move the black node y, we "push"
+*           its blackness onto node x. The problem is that now x is neither red nor black, thereby violating property 1. Instead, node x is either "doubly black" or "red-and-black"
+*           , and it contributes either 2 or 1, 
+*
+*        RB-DELETE-FIXUP(T,x)
+*        1  while x != T.root and x.color = BLACK
+*        2     if x == x.p.left
+*        3        w = x.p.right
+*        4        if w.color == RED
+*        5           w.color = BLACK      // case 1
+*        6           x.p.color = RED      // case 1
+*        7           LEFT-ROTATE(T, x.p)  // case 1
+*        8           w = x.p.right        // case 1
+*        9        if w.left.color == BLACK and w.right.color == BLACK 
+*        10          w.color = RED        // case 2
+*        11          x = x.p              // case 2
+*        12       else if w.right.color == BLACK
+*        13          w.left.color = BLACK    // case 3
+*        14          w.color = RED           // case 3
+*        15          RIGHT-ROTATE(T,w)       // case 3
+*        16          w = x.p.right           // case 3
+*        17       w.color = x.p.color        // case 4
+*        18       x.p.color = BLACK          // case 4
+*        19       w.right.color = BLACK      // case 4
+*        20       LEFT-ROTATE(T,x.p)         // case 4
+*        21       x = T.root                 // case 4
+*        22    else (same as then clause with "right" and "left" exchanged)
+*        23 x.color = BLACK
+*
+*        The procedure RB-DELETE-FIXUP restores properties 1, 2, and 4(why 1??). The goal of the while loop in lines 1-22 is to move the extra black up the tree until
+*
+*        1. x points to a red-black node, in which case we color x (singly) black in line 23.
+*        2. x points to the root, in which case we simply "remove" the extra black; or
+*        3. having performed suitable rotations and recolorings, we exit the loop.
+*
+*        Within the while loop, x always points to a nonroot doubly black node. 
+*
+*
+*
+*
+*
+*
 *
 */       
 import java.util.*;
@@ -613,43 +753,7 @@ public class RedBlackTree<E> {
       v.setParent(u.parent());
    }
 
-   /** The RedBlack Tree Delete method, which contains almost twice as many lines as TREE. */
-   /*
-   *
-   *  RB-DELETE(T, z)
-   *  
-   *  1  y = z
-   *  2  y-original-color = y.color
-   *  3  if z.left == T.nil
-   *  4     x = z.right
-   *  5     RB-TRANPLANT(T, z, z.right)
-   *  6  elseif z.right == T.nil
-   *  7     x = z.left
-   *  8     RB-TRANSPLANT(T, z, z.left)
-   *  9  else y = TREE-MINIMUM(z.right)
-   *  10    y-original-color = y.color
-   *  11    x = y.right
-   *  12    if y.p == z
-   *  13       x.p = y
-   *  14    else RB-TRANSPLANT(T, y, y.right)
-   *  15       y.right = z.right
-   *  16       y.right.p = y
-   *  17    RB-TRANSPLANT(T, z, y)
-   *  18    y.left = z.left
-   *  19    y.left.p = y
-   *  20    y.color = z.color
-   *  21 if y-original-color == BLACK
-   *  22    RB-DELETE-FIXUP(T, x)
-   *
-   *
-   *
-   *  Here are the other two differences between two procedures:     
-   *
-   *  We maintain node y as the node either removed from the tree or moved within 
-   *  the tree. Line 1 sets y to point to node z when z has fewer than two children
-   *  and is therefore removed. When z has two children, line 9 sets y to point to z's
-   *  successor, just as in TREE-DELETE, and y will move into z's position in the tree. 
-   *
+   /* 
    *  
    *
    *
