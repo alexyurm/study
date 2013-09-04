@@ -1,7 +1,7 @@
-Java Programming
-Introduction to Algorithm(Data Structure in Java)
-Discrete Math
-Design Pattern
+Java Programming (!!)
+Introduction to Algorithm(Data Structure in Java) (!!)
+Discrete Math (!!)
+Design Pattern and Agile
 MySql 
 
 -  SQL language 
