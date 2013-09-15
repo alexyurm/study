@@ -1,0 +1,15 @@
+Amazon:
+
+Algorithms and Data Structure
+
+1. Find the Lowest Common Ancestor(LCA) in a binary tree.
+
+2. Given a sorted linkedlist, create a binary tree with the array with minimum height. Noted that the question specified only binary tree and not binary search tree.
+
+3. Given a set of number ranges, i.e. [1,5], [3,6], [7,9], write a program to merge overlapping number ranges. In above example, the result should be [1,6], [7,9].
+
+4. Explain how hashmaps work in java
+
+5. desing and code - find characters that intersect in two string arrays - think memory and speed.
+
+6. Write a function that divides one number by another, without using the division operator, and make it better than O(n).

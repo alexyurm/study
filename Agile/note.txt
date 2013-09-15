@@ -31,6 +31,7 @@ Chapter 2 How we do product backlogs
       -  How to demo:   a high-level description of how this story will be demonstrated at the sprint demo. This is essentially
                         a simple test spec. If you practice TDD(test-driven development), this description can be used as pseudo-
                         code for your acceptance test code.
+
       Notes: any other info, clarifications, references to other sources of info, etc. Normally vary brief.
 
       Additional fields in the product backlog, mostly as a convinence for the product owner to help him sold out this priorities.
@@ -197,7 +198,7 @@ Chapter 5 Why quality is not negotiable
 
             1. Gut feel
 
-            Keep asking the team members how about to include A, B, C...? what is the confident to finshi A, B, C...?
+            Keep asking the team members how about to include A, B, C...? what is the confident to finish A, B, C...?
             
             2. Velocity calculations
 
@@ -206,6 +207,254 @@ Chapter 5 Why quality is not negotiable
             1. Decide estimated velocity
             2. Calculate how many stores you can add without exceeding estimated velocity
 
-            This sprint's estimated velocity:
+            THIS SPRINT'S ESTIMATED VELOCITY:
 
-            (Available Man-Days) x (Focus Factor) = Estimated Velocity
+            (AVAILABLE MAN-DAYS) x (FOCUS FACTOR) = (ESTIMATED VELOCITY)
+
+            Focus factor is an estimate of how focused the team is. A low focus factor may mean that the team expects to have many disturbances or expects
+            their own time estimates to be optimistic. The best way to determine a reasonable focus factor is to look at the last sprint(or even better, average the last 
+            few sprints).
+
+            LAST SPRINT'S FOCUS FACTOR:
+
+            (FOCUS FACTOR)  =  (ACTUAL VELOCITY) / (AVAILABLE MAN-DAYS)
+
+            Actual velocity is the sum of the initial estimates of all stories that were completed last sprint. For example, last sprint completed 18 story points using a
+            3-person team consisting of Tom, Lisa and Sam working 3 weeks for a total of 45 man-days. To complicate things, a new guy Dave is joining the team for that
+            sprint. Taking vacations and stuff into account we have 50 man-days next sprint.
+
+            LAST SPRINT'S FOCUS FACTOR:               THIS SPRINT'S ESTIMATED VELOCITY:
+
+            40%  = 18 STORY POINTS / 45 MAN-DAYS      50 MAN-DAYS x 40% = 20 STORY POINTS
+
+            So, we have:
+
+            Beginning of this sprint
+
+            |-------------|     
+            |             |   19 (8+5+3+3) story points included in sprint. The others couldn't fit into the sprint.
+            |     8       |   
+            |             |      
+            |-------------|
+            |     5       |
+            |             |
+            |-------------|
+            |     3       |
+            |-------------|
+            |     3       |            
+            |-------------|          
+            |     4       |   
+            |-------------|
+            |     ...     |   
+            |-------------|
+
+            The history is useful but we still need to take into account for the following scenarios:
+
+            -  If last sprint was an unusually bad sprint because most of the team was sick for a week, then it may be safe to assume that you won't be that unlucky again
+               and you could estimate a higher focus factor next sprint.
+            -  If the team has recently installed a new lighting-fast continuous build system you could probably increase focus factor due to that as well.
+            -  If a new person is joining this sprint you need to decrease focus factor to take his training into account. What if the team is completely new so you don't have
+               any statistics? Look at the focus factor of other teams under similar circumstances.
+            -  The "default" focus factor I use for new teams is usually 70%, since that is where most of our other teams have ended up over time(WTF??).
+            -  Etc.
+
+            Which estimating technique do we use? Well we can use the velocity calculations first and Gut feel second by asking team member's opinions.
+
+      -  Why we use index cards
+
+         Most of the sprint meeting is spent dealing with stories in the product backlog. Estimating them, reprioritizing them, clarifying them, breaking them down, etc.
+
+         How should we do this?
+
+         the teams fire up the projector, show the Excel based backlog, and one guy (typically the product owner or Scrum master) would take the keyboard, mumble through each
+         story and invite discussion. But this method sucks!
+
+         A solution that works much better is to create index cards and put them up on the wall(or large table)
+
+         <------ MORE IMPORTANT        LESS IMPORTANT ------>
+
+         DEPOSIT MIGRATION_TOOL BACKOFFICE_LOGIN BACKOFFICE_USER_ADMIN WITHDRAW PERF_TEST ENCRYPTED PASSWD
+
+         Why this is superior user interface compared to computer&projector. because:
+
+         -  People stand up and walk around -> they stay awake and alert longer.
+         -  Everybody feels more personally involved (rather than just the guy with the keyboard)
+         -  Multiple stories can be edited simultaneously.
+         -  Reprioritizing is trivial - just move the index cards around.
+         -  After the meeting, the index cards can be carried right off to the team room and be used as a wall-based taskboard.
+
+         You can either write them down by hand or (like we usually do) use a simple script to generate printable index cards directly from the product backlog.
+
+         The Index card should look something like:
+         
+         Backlog item #55 
+
+         Name: Deposit
+         Notes: Need a UML sequence diagram. No need to worry about encryption for now.
+         How to Demo: Log in, open deposit page, deposit $10, go to my balance page and check that it has increased by $10.
+         Importance: 30
+         Estimate
+
+         Important: After the sprint planning meetings, the Scrum master manually updates the Excel-based product backlog with respect to any changes that were made
+         to the physical story index cards. 
+
+         Note that the "Importance" field. This is the importance as specified in the Excel-based product backlog at the time of printing. Having it on the card makes
+         it easy to sort the cards physically by importance. Once the cards are up on the wall, you can ignore the importance rating and instead use the physical
+         ordering on the wall to indicate relative importance ratings.
+
+         Phisically, we do this by adding little post-it notes under each story, each post-it reflecting one task within that story.
+
+         <------ MORE IMPORTANT        LESS IMPORTANT ------>
+
+         9d       14d            5d                12d                  15d         12d      ...      ...
+         DEPOSIT MIGRATION_TOOL BACKOFFICE_LOGIN BACKOFFICE_USER_ADMIN WITHDRAW PERF_TEST ENCRYPTED PASSWD
+
+          |
+          |
+          |
+          v
+         Writing failing test 2d
+         DAO   3d
+         DB design   1d
+         Integr test 2d
+         Code cleanup 1d
+         
+         We don't update the Excel-based product backlog with respect to our task breakdowns for two reasons:
+
+         -  The task breakdown is usually quite volatile, i.e. they are frequently changed and refined during the sprint. it is too much of a hassle to keep the product
+            backlog Excel synchronized.
+
+         -  The product owner doesn't need to be involved at this level of detail anyway.
+
+      -  Definition of "done"
+
+         We've come to realize that all stories cannot be treated the same. A story named "Query users form" will be treated very differently from a story named "Operations manual"
+         If you run into confusion about the definition of done(which we did in the beginning) you should probably have a "definition of done" field on each individual story.
+
+      -  Time estimating using planning poker
+
+         Estimating is a team activity - every team member is usually involved in estimating every story. Why?
+
+         -  At the time of planning, we normally don't know exactly who will be implementing which parts of which stories.
+         -  Stories normally involve several people and different types of expertise(user interface design, coding, testing, etc.)
+         -  In order to provide an estimate, a team member needs some kind of understanding of what the story is about. By asking everybody to estimate each item, we make sure
+            that each team member understands what each item is about. This increases the likelihood that important questions about the story come up early.
+         -  When asking everybody to estimate a story we often discover discrepancies where two different team members have wildly different estimates for the same story. That kind
+            of stuff is better to discover and discuss earlier than later.
+
+         If you ask the team to provide an estimate normally the person who understands the story best will be the first one to blurt one out. Unfortunately, this will strongly
+         affect everybody else's estimates.
+
+         There is an excellent technique to avoid this - it is called planning poker:
+
+         0 1/2 1 2 3 5 8 13 20 40 100 ? Coffee cup
+
+         -  Each team member gets a deck of 13 cards as shown above. Whenever a story is to be estimated, each team member selects a card that represents his time estimate (in story 
+            points) and place it face-down on the table. When all team members are done the cards on the table are revealed simultanenously.
+
+            If there is a large discrepancy between two estimates, the team discusses the differences and tries to build a common picture of what work is involved in the story. They
+            might do some kind of of task breakdown. Afterwards, the team estimates again. The loop is repeated until the time estimates converge. 
+
+            Remember that team members are to estimate the total amount of work involved in the story. Not just "their" part of the work. The tester should not just estimate the amount
+            of testing work. 
+
+            Why that the number sequence is non-linear. For example, there is nothing between 40 and 100. Why?
+
+            This is to avoid false sense of accuracy for large time estimates. If a story is estimated at approximately 20 story points, it is not relevant to discuss whether it should
+            be 20 or 18 or 21. All we know is that a large story and that it is hard to estimate. So 20 is our ballpark guess.
+
+            Some special cards to note:
+
+            -  0 = "this story is already done" or "this story is pretty much nothing, just a few minutes of work".
+            -  ? = "I have absolutely no idea at all. None."
+            -  Coffee Cup = "I am too tired to think. Let's take a short break."
+
+      -  Clarifying stories
+
+         How do you ensure that the product owner's understanding of a story matches the team's understanding? Or that each team members has the same understanding of each story? No
+         you can't but there still some simple techniques for identifying the most blatant misunderstandings. The simplest technique is simply to make sure that all the fields are
+         filled in for each story (or more specifically, for each story that has high enough importance to be considered for this sprint)
+
+         I usually found that this simple description often uncovers important misunderstandings about the scope of a story. Good to discover them early, right?
+
+      -  Breaking down stories into smaller stories
+
+         Stories shouldn't be too big or too small (in terms of estimates). It is always possible to break a large story into smaller stories. Just make sure that the smaller stories
+         still represent deliverables with bussiness value.
+
+         We normally strive for stories weighted 2-8 man-days. Our velocity is usually around 40-60 for a typical team, so that gives us somewhere around 10 stories per sprint. 
+         Sometimes (??is it true that each sprint consists of 3 weeks?) as few as 5 and sometimes as many as 15. That's a manageable number of index cards to deal with.
+
+      -  Breaking down stories into tasks
+
+         What is the difference between "tasks" and "stories"? A very valid question. The distinction is quite simple:
+
+         Stories: things are deliverable stuff that the product owner cares about.
+         Tasks:   things are non-deliverable stuff, or stuff that the product owner doesn't care about.
+
+         Some interesting observations:
+
+         -  New Scrum teams are reluntant to spending time breaking down a bunch of stories into tasks up-front like this.
+         -  for clearly understood stories, it is just as easy to do this breakdown up-front as it is to do later.
+         -  This type of breakdown often reveals additional work that causes the time estimate to go up, and thereby gives a more realistic sprint plan.
+         -  This type of breakdown up-front makes daily scrum meetings noticeably more efficient.
+         -  Even if the breakdown is inaccurate and will change once work starts, the above advantages sill apply.
+
+      -  Defining time and place for the daily scrum.
+
+         I Prefer morning meetings.
+
+         Disadvantage of afternoon scrums: when you come to work in the morning, you have to try to remember what you told people yesterday about what you will be doing today.
+         Disadvantage of morning scrumts: when you come to work in the morning, you have to try to remember what you did yesterday so that you can report this.
+
+      -  Where to draw the line:
+
+         I use the following priority list:
+
+         Priority 1: A sprint goal and demo date.
+         Priority 2: List of which stories and the team has accepted for this sprint.
+         Priority 3: Estimate filled in for each story in sprint.
+         Priority 4: "How to demo" filled in for each story in sprint.
+         Priority 5: Velocity & resource calculations, as a reality check for your sprint team plan. Includes list of team members and their commitments(otherwise you can't calculate
+                     velocity)
+         Priority 6: Specified time and place for daily scrum. It only takes a moment to decide, but if you run out of time the Scrum master can simply decide this after the meeting
+                     and email everyone.
+         Priority 7: Stories broken down into tasks. This breakdown can instead be done on a daily basis in conjunction with daily scrums, but will slightly discupt the flow of the
+                     sprint.
+
+      -  Non-functional items
+
+         Example: Upgrade the build script, Upgrade Jira...
+
+         How to handle those stories? 
+         
+         1) Try to avoid tech stories. Look hard for a way to transform a tech story into a normal story with measurable bussiness value. That way the product owner has a better chance
+            to make correct tradeoffs.
+
+         2) If we can't transform a tech story into a normal story, see if the work could be done as a task within another story. For example, "refactor the DAO layer" could be a task
+            within the story "edit user", since that involves the DAO layer.
+
+         3) If both of the above fail, define it as a tech story, and keep a seperate list of such stories. Let the product owner see it but not edit it. Use the "focus facotr" and "es-
+            timated velocity" parameters to negotiate with the product owner and bent out some time in the sprint to implement tech stories.
+
+         If the product owner is a competent and reasonable fellow I suggest keeping him as informed as possible and letting him make the overall priorities. Transparency is one of the
+         core values of Scrum.
+
+      -  Bug tracking system vs. product backlog
+
+         We use Jira to do bug tracking system. So how do we bring Jira issues into the sprint planning meeting? We've tried several strategies:
+
+         1) Product owner prints out the most high priority Jira items, brings them to the sprint planning meeting, and puts them up on the wall together with the other stories
+            (thereby implicitly specifying the priority of these items compared to the other stories)
+
+         2) Product owner creates stories that refer to Jira items. For example "Fix the most critical back office reporting bugs, Jira-124, Jira-126 and Jira-180".
+      
+         3) Bug-fixing is considered to be outside of the sprint, i.e. the team keeps a low enough focus factor(for example 50%) to ensure that they have time to fix bugs. It is then
+            simply assumed that the team will spend a certain amount of time each sprint fixing Jira-reported bugs.
+
+         4) Put the product backlog in Jira (i.e. ditch Excel). Treat bugs just like any other story.
+
+         ?? How about the new feature implementations? Should we treat them the same as we do to bugs?
+         
+
+         

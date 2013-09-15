@@ -1,5 +1,5 @@
 /*
-*  -  A Balanced Search Tree can guarantee that the basic operations(search, insert, delete...) have log2(n) in the worst case(really??), 
+*  -  A Balanced Search Tree can guarantee that the basic operations(search, insert, delete...) have log2(n) in the worst case, 
 *     whereas a binary search tree can only do log2(n) in average and n in the worst case(called chaining). Red Black tree is one of the
 *     Balanced Search Tree.
 *
@@ -57,7 +57,12 @@
 *     -  x may be any node in the tree whose right child is not T.nil.
 *
 *     The left rotation "pivots" around the link from x to y. It makes y the new root of the subtree, with x as y's left child and y's left child as
-*     x's right child. (I still don't understand the concept of "pivots" around the link from x to y ?? Are the Colors changed for those two nodes??)
+*     x's right child.
+*
+*     Why we use left/right rotations in Red Black Tree?
+*
+*     The left/right rotations can only maintain the BST properties but not the Red Black properties. After a RB-Tree inserts/deletes a node, the RB properties may not hold,
+*     we can use left/right rotations to main the RB properties(fight poison with poison).
 *
 *  -  RB-INSERT(T, Z)
 *
@@ -133,7 +138,7 @@
 *     10    y-original-color = y.color
 *     11    x = y.right
 *     12    if y.p == z
-*     13       x.p = y // This step is correct and necessary because simply calling RB-TRANSPLANT(T, y, y.right) will direct x.p to z, which is going to be removed. That is not good.
+*     13       x.p = y // This step is correct and necessary because simply calling RB-TRANSPLANT(T, y, y.right) will direct x.p to z, which is going to be removed.
 *     14    else RB-TRANSPLANT(T, y, y.right)
 *     15       y.right = z.right
 *     16       y.right.p = y
@@ -185,7 +190,7 @@
 *
 *        Why? what if z's color is BLACK? No worries, since line 20 shows that y's color is replaced by z's color.
 *        
-*        2. No red nodes have been made adjacent. Because y takes z's place in the tree, along with z's color, we cannot have two adjacent red nodes at y's new position in the tree(??).
+*        2. No red nodes have been made adjacent. Because y takes z's place in the tree, along with z's color, we cannot have two adjacent red nodes at y's new position in the tree.
 *           In addition, if y was not z's right child, then y's original right child x replaces y in the tree. If y is red, then x must be black, and so replacing y by x cannot
 *           cause two red nodes to become adjacent.
 *
@@ -199,15 +204,19 @@
 *
 *        1. First, if y had been the root and a red child of y becomes the new root, we have violated property 2.
 *
-*           Comment: How can a red child of y become the new root? When z has only one left child.
+*           Comment: How can a red child of y become the new root? When z(y==z) has only one left child.
 *
 *        2. Second, if both x and x.p are red, then we have violated property 4. 
 *
 *        3. Third, moving y within the tree causes any simple path that previously contained by y to have one fewer black node. Thus property 5 is violated y any ancestor of
 *           y in the tree. We can correct the violation of property 5 by saying that node x, now occupying y's original position, has an "extra" black. That is, if we add 1
-*           to the count of black nodes on any simple path that contains x, them under this interpretation, property 5 holds. When we remove or move the black node y, we "push"
+*           to the count of black nodes on any simple path that contains x, then under this interpretation, property 5 holds. When we remove or move the black node y, we "push"
 *           its blackness onto node x. The problem is that now x is neither red nor black, thereby violating property 1. Instead, node x is either "doubly black" or "red-and-black"
 *           , and it contributes either 2 or 1, 
+*
+*           comment: the variable "y-original-color" with value BLACK triggers the RB-DELETE-FIXUP function. In this case, moving y within the tree definitely violates property 5.
+*           no matter whether z is BLACK or RED because line 20 sets y's color the same as z: 1) z is RED, y is BLACK then one BLACK node is missing; 2) z is BLACK, y is BLACK then
+*           still one BLACK node is missing)
 *
 *        RB-DELETE-FIXUP(T,x)
 *        1  while x != T.root and x.color = BLACK
@@ -234,20 +243,57 @@
 *        22    else (same as then clause with "right" and "left" exchanged)
 *        23 x.color = BLACK
 *
-*        The procedure RB-DELETE-FIXUP restores properties 1, 2, and 4(why 1??). The goal of the while loop in lines 1-22 is to move the extra black up the tree until
+*        The procedure RB-DELETE-FIXUP restores properties 1, 2, and 4. The goal of the while loop in lines 1-22 is to move the extra black up the tree until
 *
-*        1. x points to a red-black node, in which case we color x (singly) black in line 23.
-*        2. x points to the root, in which case we simply "remove" the extra black; or
-*        3. having performed suitable rotations and recolorings, we exit the loop.
+*        1. x points to a red-black node(that means the original color of x is RED), in which case we color x (singly) black in line 23.
+*        2. x points to the root, in which case we simply "remove" the extra black(still line 23); or
 *
-*        Within the while loop, x always points to a nonroot doubly black node. 
+*        comment: In this case, y is BLACK(y = z) and it has a left or right child x. if x is RED, line 23 sets it to BLACK so that property 2 is not violated; if x is BLACK, 
+         line 23 doesn't take any effect therefore property 2 still holds.
+*        
+*        3. having performed suitable rotations and recolorings, we exit the loop(line 1 to line 22).
 *
+*        Within the while loop, x always points to a nonroot doubly black node. We determine in line 2 whether x is a left child or a right child of its parent x.p(the situation
+*        in which x is a right child - line 22 is symmetric). We maintain a pointer w to the sibling of x. Since node x is doubly black, node w cannot be T.nil, because otherwise
+*        , the number of blacks on the simple path from x.p to the (singly black) leaf w would be smaller than the simple path from x.p to x(!! it means before we "push" an 
+*        extra BLACK to x, the # of BLACK from x.p to x is 1+count(x.p) and the # of BLACK from x.p to w is also 1+count(x.p). they are balanced). The four cases 
+*        in the code appear in figure 13.7. Before examining each case in detail, let's look more generally at how we can verify that the transformation in 
+*        each of the cases perserves property 5. The key idea is that in each case, the transformation applied perserves the number of black nodes (including x's extra black) 
+*        from (and including) the root of the subtree shown to each of the subtrees a, b...c. Thus, if property 5 holds prior to the transformation, it continues to hold afterward.
 *
+*        case 1: x's sibling w is RED:
+*     
+*            Case 1 occurs when node w, the sibling of node x, is red. Since w must have black children, we can switch the colors of w and x.p and then perform left-rotation on x.p     
+*            without violating any of the red-black properties. The new sibling of x, which is one of w's children prior to the rotation, is now BLACK, and thus we have converted  
+*            case 1 into case 2, 3, or 4
+*     
+*        ( Case 2, 3 and 4 occur when node w is BLACK; they are distinguished by the color of w's children )
+*     
+*        case 2: x's sibling w is BLACK and both of w's children are BLACK:
+*     
+*           In case 2, both of w's children are BLACK. Since w is also BLACK we take one black off both x and w, leaving x with only BLACK and leaving w RED. To compensate for removing
+*           one BLACK from x and w, we would like to add an extra BLACK to x.p, which was originally either RED or BLACK. We do so by repeating the while loop with x.p as the new node x
+*           . Observe that if we enter case 2 through case 1, the new node x is RED-AND-BLACK, since the original x.p was red. Hence, the value c of the color attribute of the new 
+*           node x is RED, and the loop terminates when it tests the loop condition. We then color the new node x (singly) BLACK in line 23.
+*        
+*        case 3: x's sibling w is BLACK, w's left child is RED, and w's right child is BLACK
+*        
+*           Case 3 occurs when w is BLACK, its left child is RED, and its right child is BLACK. We can switch the colors of w and its left child w.left and then perform a right 
+*           rotation on w without violating any of the red-black properties. The new sibling w of x is now a BLACK node with a RED right child, and thus we have transformed case 3 to 
+*           case 4. 
 *
-*
-*
-*
-*
+*        case 4: x's sibling w is BLACK, and w's right child is RED
+*           
+*           Case 4 occurs when node x's sibling w is BLACK and w's right child is RED. By making some color changes and performing a left rotation on x.p, we can remove the extra BLACK
+*           on x, making it singly BLACK, without violating any of the red-black properties. Setting x to be the root causes the while loop to terminate when it tests the loop condition.
+*      
+*  Remaining works to do:   
+*     
+*  1) See the proof on page 309;
+*  2) Understand left/right rotations and how they are used during RB-INSERT AND RB-DELETE;
+*  3) Make sure I understand the RB-INSERT and RB-DELETE and their computation complexities.
+*     
+*     
 */       
 import java.util.*;
 import java.lang.Integer;
@@ -600,49 +646,53 @@ public class RedBlackTree<E> {
    /** The operation LEFT-ROTATE(T,x) transforms the configuration of the two ndoes on the right into the configuration on the left
    by changing a constant number of pointers */
    public void leftRotate(BinNode<E> x) {
-      BinNode<E> y = x.right();  //set y
+      BinNode<E> y = x.right();  //set y to x's right child. We assume it is not empty. If it is, no point to do a left rotate
 
-      /* step 1 */
+      //!!We have to check if y is nil
+
+      /* step 1: take care y's current left child as this child will become x's right child */
       x.setRight(y.left());   //turn y's left subtree into x's right subtree
       if (y.left() != nil) {
          y.left().setParent(x); //Set y's left node's parent as X
       }
 
-      /* step 2 */
+      /* step 2: take care y's new parent as x's parent will become y's new parent */
       y.setParent(x.parent()); //set Y's parent as X's parent
       if (x.parent() == nil) {
-         setRoot(y); //if X is the root, set Y as the new root.
+         setRoot(y); //if x is the root, set y as the new root.
       } else if (x == x.parent().left()) {
          x.parent().setLeft(y);
       } else {
          x.parent().setRight(y);
       }
 
-      /* step 3 */
+      /* step 3: take care y's new left child which points to x */
       y.setLeft(x);
       x.setParent(y);
    }
 
    public void rightRotate(BinNode<E> y) {
-      BinNode<E> x = y.left(); //set x
+      BinNode<E> x = y.left(); //set x to y's left child. We assume it is not empty. If it is, no point to do a right rotate
 
-      /* step 1 */
+      //!!We have to check if x is nil
+
+      /* step 1: take care x's current right child as this child will become y's left child */
       y.setLeft(x.right()); //turn x's right subtree into y's left subtree.
       if(x.right() != nil) {
          x.right().setParent(y);
       }
 
-      /* step 2 */
+      /* step 2: take care x's new parent as y's parent will become x's new parent */
       x.setParent(y.parent());
       if (y.parent() == nil) {
-         setRoot(x);
+         setRoot(x); //if y is the root, set x as the new root.
       } else if (y.parent().left() == y) {
          y.parent().setLeft(x);
       } else {
          y.parent().setRight(x);
       }
 
-      /* step 3 */
+      /* step 3: take care x's new right child which points to y */
       x.setRight(y);
       y.setParent(x);
    }
@@ -754,49 +804,136 @@ public class RedBlackTree<E> {
    }
 
    /* 
-   *  
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
+   *     1  y = z
+   *     2  y-original-color = y.color
+   *     3  if z.left == T.nil
+   *     4     x = z.right
+   *     5     RB-TRANSPLANT(T, z, z.right)
+   *     6  elseif z.right == T.nil
+   *     7     x = z.left
+   *     8     RB-TRANSPLANT(T, z, z.left)
+   *     9  else y = TREE-MINIMUM(z.right)
+   *     10    y-original-color = y.color
+   *     11    x = y.right
+   *     12    if y.p == z
+   *     13       x.p = y // This step is correct and necessary because simply calling RB-TRANSPLANT(T, y, y.right) will direct x.p to z, which is going to be removed.
+   *     14    else RB-TRANSPLANT(T, y, y.right)
+   *     15       y.right = z.right
+   *     16       y.right.p = y
+   *     17    RB-TRANSPLANT(T,z,y)
+   *     18    y.left = z.left
+   *     19    y.left.p = y
+   *     20    y.color = z.color
+   *     21 if y-original-color == BLACK   
+   *     22    RB-DELETE-FIXUP(T,x)
    *
    */
    public void deleteRB(BinNode<E> z) {
       BinNode<E> y = z;
       Color y_original_color = y.color();
-      if (z.left() == nil) {
+      BinNode<E> x = null;
+
+      if (z.left() == nil) { //z has only right child
          x = z.right();
          transplantRB(z, z.right());
-      } else if (z.right() == nil) {
+      } else if (z.right() == nil) { //z has only left child
          x = z.left();
          transplantRB(z, z.left());
-      } else {
-         y = minimum(z.right());
+      } else { //z has two children
+         y = minimum(z.right()); //y is the successor of z 
          y_original_color = y.color();
          x = y.right();
-         if (y.parent() == z) {
-            if x.setParent(y);
+         if (y.parent() == z) { //if z is y's direct parent
+            x.setParent(y); //x.p points to y
          } else {
             transplantRB(y, y.right());
-            y.setRight();
-            y.right.setParent(y);
+            y.setRight(z.right());
+            y.right().setParent(y);
+            y.setColor(z.color());  //y.color = z.color
+         }
+      }
+
+      if (y_original_color == Color.BLACK) {
+         deleteFixUpRB(x);
+      }
+   }
+
+   /*
+   *     1  while x != T.root and x.color = BLACK
+   *     2     if x == x.p.left
+   *     3        w = x.p.right
+   *     4        if w.color == RED
+   *     5           w.color = BLACK      // case 1
+   *     6           x.p.color = RED      // case 1
+   *     7           LEFT-ROTATE(T, x.p)  // case 1
+   *     8           w = x.p.right        // case 1
+   *     9        if w.left.color == BLACK and w.right.color == BLACK 
+   *     10          w.color = RED        // case 2
+   *     11          x = x.p              // case 2
+   *     12       else if w.right.color == BLACK
+   *     13          w.left.color = BLACK    // case 3
+   *     14          w.color = RED           // case 3
+   *     15          RIGHT-ROTATE(T,w)       // case 3
+   *     16          w = x.p.right           // case 3
+   *     17       w.color = x.p.color        // case 4
+   *     18       x.p.color = BLACK          // case 4
+   *     19       w.right.color = BLACK      // case 4
+   *     20       LEFT-ROTATE(T,x.p)         // case 4
+   *     21       x = T.root                 // case 4
+   *     22    else (same as then clause with "right" and "left" exchanged)
+   *     23 x.color = BLACK
+   */
+   public void deleteFixUpRB(BinNode<E> x) {
+      BinNode<E> w = null;
+      while (x != root && x.color() == Color.BLACK) {
+         if (x == x.parent().left()) {
+            w = x.parent().right();
+            if (w.color() == Color.RED) {
+               w.setColor(Color.BLACK);
+               x.parent().setColor(Color.RED);
+               leftRotate(x.parent());
+            } 
             
-            if (y.parent() == z) {
-               x.setParent(y);
+            if (w.left().color() == Color.BLACK && w.right().color() == Color.BLACK) {
+               w.setColor(Color.RED);
+               x = x.parent();
+            } else if (w.right().color() == Color.BLACK) {
+               w.left().setColor(Color.BLACK);
+               w.setColor(Color.RED);
+               rightRotate(w);
+               w = w.parent().right();
+            } else {
+               w.setColor(x.parent().color());
+               x.parent().setColor(Color.BLACK);
+               w.right().setColor(Color.BLACK);
+               leftRotate(x.parent());
+               x = root;
+            }
+         } else {
+            w = x.parent().left();
+            if (w.color() == Color.RED) {
+               w.setColor(Color.BLACK);
+               x.parent().setColor(Color.RED);
+               rightRotate(x.parent());
+            } 
+            
+            if (w.right().color() == Color.BLACK && w.left().color() == Color.BLACK) {
+               w.setColor(Color.RED);
+               x = x.parent();
+            } else if (w.left().color() == Color.BLACK) {
+               w.right().setColor(Color.BLACK);
+               w.setColor(Color.RED);
+               leftRotate(w);
+               w = w.parent().left();
+            } else {
+               w.setColor(x.parent().color());
+               x.parent().setColor(Color.BLACK);
+               w.left().setColor(Color.BLACK);
+               rightRotate(x.parent());
+               x = root;
             }
          }
       }
-      
-      
    }
 
    public static void main(String[] args) {

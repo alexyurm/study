@@ -19,7 +19,7 @@
 //    RIGHT(i):   return 2i+1
 //    
 //    Note: the above folumars are with index i starts from 1. For index starting from 0. We have:
-//    PARENT(i):  return (i-1)/2;
+//    PARENT(i):  return (i-1)/2; (i > 0)
 //    LEFT(i):    return (i*2+1);
 //    RIGHT(i):   return (i*2+2);
 //
