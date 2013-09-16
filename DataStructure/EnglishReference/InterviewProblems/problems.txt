@@ -8,8 +8,23 @@ Algorithms and Data Structure
 
 3. Given a set of number ranges, i.e. [1,5], [3,6], [7,9], write a program to merge overlapping number ranges. In above example, the result should be [1,6], [7,9].
 
+-  Heap: priority heap
+-  Sort: Heapify
+
 4. Explain how hashmaps work in java
 
 5. desing and code - find characters that intersect in two string arrays - think memory and speed.
 
 6. Write a function that divides one number by another, without using the division operator, and make it better than O(n).
+
+7. Print Sprial matrix. For example:
+
+   1 2 3
+   4 5 6
+   7 8 9
+
+   print out: 1 4 7 8 9 6 3 2 5
+
+Note:
+
+1. If you cannot think of an optimized solution, think of a "slow" solution first and think about how to optimize that solution.
