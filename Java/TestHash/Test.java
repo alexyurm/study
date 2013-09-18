@@ -36,7 +36,7 @@ class CustomerID {
       Map m = new HashMap();
 
       m.put(new CustomerID(1L, 0), "Jeff Smith");
-      System.out.println(m.get(new CustomerID(2L, 0)));
+      System.out.println(m.get(new CustomerID(1L, 0)));
    }
       
 }

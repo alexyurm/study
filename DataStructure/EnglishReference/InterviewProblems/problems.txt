@@ -13,7 +13,7 @@ Algorithms and Data Structure
 
 4. Explain how hashmaps work in java
 
-5. desing and code - find characters that intersect in two string arrays - think memory and speed.
+5. designing and code - find characters that intersect in two string arrays - think memory and speed.
 
 6. Write a function that divides one number by another, without using the division operator, and make it better than O(n).
 

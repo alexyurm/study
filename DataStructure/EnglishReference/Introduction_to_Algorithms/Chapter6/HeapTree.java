@@ -49,14 +49,16 @@ class HeapTree {
    private int n;          //the size of the array.
    private int heapSize;   //the heap size. Noted that 0<=heapSize<=size.
 
+   /* The constructor */
    public HeapTree() {
       n = heapSize = 0;
    }
    
+   /* The second constructor */
    public HeapTree(int[] array) {
       //
       A = new int[array.length];
-      System.arraycopy(array, 0, A, 0, array.length); 
+      System.arraycopy(array, 0, A, 0, array.length); //!! Using the System.arraycopy method.
       n = heapSize = A.length;
    }
 

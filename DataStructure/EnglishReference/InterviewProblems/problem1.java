@@ -22,7 +22,21 @@ import java.util.*;
 *  
 *  The complexity of this algorithm is O(n x n), which is not good...(!!)
 *  
-*  It is bettern to find a more efficient algorithm.  
+*  It is better to find a more efficient algorithm.  
+*  
+*  Solution2:  
+*  
+*  Step1: Get all x's ancestors and hash their key values into a hash table. (O(log(n)))
+*  
+*  Step2: go through y's all ancestors one by one and see if any appears in the hash table(O(log(n))).
+*  
+*  The total complexity is 2(O(log(n))) in this case.
+*  
+*  
+*  
+*  
+*  
+*  
 *  
 *  
 */
@@ -128,6 +142,35 @@ class BT<E> {
 
       return null;
    }
+
+   public Node<E> LCA2(Node<E> x, Node<E> y) {
+      //Deal with some special cases
+      if ( x == null || y == null) {
+         return null;
+      } else if (x == y) {
+         return x;
+      }
+
+      //Create a hash map
+      Map m = new HashMap<Integer, Node<E>>();
+      
+      //Go through all the ancestors of x(include x itself) and hash them into the hash map
+      while(x != null) {
+         m.put(x.key, x);
+         x = x.parent;
+      }
+
+      //go through y's all ancestors(include y itself) one by one and see if any appears in the hash table(O(log(n))).
+      while(y != null) {
+         if (m.containsValue(y) == true) {
+            return y;
+         }
+         y = y.parent;
+      }
+
+      return null;
+      
+   }
 }
 
 class problem1 {
@@ -180,7 +223,7 @@ class problem1 {
       node1.parent = node5;
 
       //Call the LCA(x,y)
-      Node<Integer> result = bt.LCA(node10, node1);
+      Node<Integer> result = bt.LCA2(node25, node35);
 
       if (result != null) {
         System.out.println(result.key);
