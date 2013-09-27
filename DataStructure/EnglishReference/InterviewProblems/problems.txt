@@ -11,7 +11,7 @@ Algorithms and Data Structure
 -  Heap: priority heap
 -  Sort: Heapify
 
-4. Explain how hashmaps work in java
+4. Explain how hashmap works in java
 
 5. designing and code - find characters that intersect in two string arrays - think memory and speed.
 
@@ -19,11 +19,13 @@ Algorithms and Data Structure
 
 7. Print Sprial matrix. For example:
 
-   1 2 3
-   4 5 6
-   7 8 9
+   (0,0)    (0,1)    (0,2)
+   (0,-1)   (1,-1)   (2,-1)
+   (0,-2)   (1,-2)   (2,-2)
 
-   print out: 1 4 7 8 9 6 3 2 5
+   print out: (0,0) (0,-1) (0,-2) (1,-2) (2,-2) (2,-1) (0,2) (0,1) (1,-1)
+
+8. Given am InOrder traversal and PreOrder traversal of a binary tree, rebuild the tree.
 
 Note:
 

@@ -2830,3 +2830,36 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
    }
 
    The Java compiler copies initializer blocks into every constructor. Therefore, this approach 
+
+46) Difference between equals() and == ?
+
+   equals() method is present in the java.lang.Object class and it is expected to check for equilvalence of the state of object! That means, the content of the object. Whereas "=="
+   operator is expected to check the actual object instance are same or not.
+
+   Let's say if you have two different reference variable: s1 and s2.
+
+   s1 = new String("abc");
+   s2 = new String("abc");
+
+   if(s1.equals(s2))
+     System.out.println("s1.equals(s2) is TRUE");
+	else
+     System.out.println("s1.equals(s2) is FALSE");
+
+   You will get the output TRUE as the 'equals()' method check for the content equality.
+
+   But:
+
+   if(s1==s2)
+     System.out.printlln("s1==s2 is TRUE");
+   else
+     System.out.println("s1==s2 is FALSE");
+
+   Now you will get FALSE as output because both s1 and s2 are pointing two different objects even though both of them share the same string content.
+
+   So now you can think about why the HashMap use the following statement to check whether a pair<K,V> is already in the hashtable.
+
+   if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
+
+   ?? I guess the code "((k = e.key) == key" checks only if k points to the same heap memory of key, if yes then the reason we need to check their hash codes again is becasue
+   k(key) may have been changed after it was put in the hashmap table.
