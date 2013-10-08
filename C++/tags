@@ -1,0 +1,134 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Circle	polymorphism.cpp	/^Circle::Circle(float a, float b, float r):Point(a, b), radius(r){}$/;"	f	class:Circle
+Circle	polymorphism.cpp	/^class Circle : public Point$/;"	c	file:
+Compare	time.cpp	/^      Compare(numtype a = 10, numtype b = 10)$/;"	f	class:Compare
+Compare	time.cpp	/^class Compare$/;"	c	file:
+Complex	complex.cpp	/^   Complex() {real = 0; imag = 0;}$/;"	f	class:Complex
+Complex	complex.cpp	/^   Complex(double r, double i) {real = r; imag = i;}$/;"	f	class:Complex
+Complex	complex.cpp	/^class Complex$/;"	c	file:
+Cylinder	polymorphism.cpp	/^Cylinder::Cylinder(float x, float y, float r, float h ):Circle(x, y, r), height(h){}$/;"	f	class:Cylinder
+Cylinder	polymorphism.cpp	/^class Cylinder:public Circle$/;"	c	file:
+Date	time.cpp	/^Date::Date(int y, int m, int d){$/;"	f	class:Date
+Date	time.cpp	/^class Date$/;"	c	file:
+Graduate	teacher.cpp	/^   Graduate(string nam, int a, char s, string t, float sco, float w) :$/;"	f	class:Graduate
+Graduate	teacher.cpp	/^class Graduate : public Teacher, public Student$/;"	c	file:
+Graduate	virtualbase.cpp	/^      Graduate(string nam, char s, int a, string t, float sco, float w)$/;"	f	class:Graduate
+Graduate	virtualbase.cpp	/^class Graduate : public Teacher, public Student \/\/Teacher和Student是直接基类$/;"	c	file:
+Person	virtualbase.cpp	/^      Person(string nam, char s, int a)$/;"	f	class:Person
+Person	virtualbase.cpp	/^class Person$/;"	c	file:
+Point	polymorphism.cpp	/^Point::Point(float a, float b)$/;"	f	class:Point
+Point	polymorphism.cpp	/^class Point : public Shape$/;"	c	file:
+PrintSomething	smart_pointer/simple.cpp	/^      void PrintSomething()$/;"	f	class:Simple
+Shape	polymorphism.cpp	/^class Shape$/;"	c	file:
+Simple	smart_pointer/simple.cpp	/^      Simple(int param = 0)$/;"	f	class:Simple
+Simple	smart_pointer/simple.cpp	/^class Simple $/;"	c	file:
+Student	student.cpp	/^   Student() $/;"	f	class:Student
+Student	student.cpp	/^   Student(int num, string name, char sex) $/;"	f	class:Student
+Student	student.cpp	/^class Student$/;"	c	file:
+Student	teacher.cpp	/^   Student(string nam, char s, float sco )$/;"	f	class:Student
+Student	teacher.cpp	/^class Student$/;"	c	file:
+Student	virtualbase.cpp	/^   Student(string nam, char s, int a, float sco) : Person(nam, s, a), score(sco) {}\/\/构造函数$/;"	f	class:Student
+Student	virtualbase.cpp	/^class Student:virtual public Person$/;"	c	file:
+Student1	student.cpp	/^   Student1() : Student()$/;"	f	class:Student1
+Student1	student.cpp	/^   Student1(int n, string nam, char s, int n1, string nam1, char s1, int a, string ad) : Student(n, nam, s), monitor(n1, nam1, s1)$/;"	f	class:Student1
+Student1	student.cpp	/^   Student1(int num, string name, char sex, int age, string addr) : Student(num, name, sex)$/;"	f	class:Student1
+Student1	student.cpp	/^class Student1 : public Student$/;"	c	file:
+Teacher	teacher.cpp	/^   Teacher(string nam, int a, string t)$/;"	f	class:Teacher
+Teacher	teacher.cpp	/^class Teacher$/;"	c	file:
+Teacher	virtualbase.cpp	/^   Teacher(string nam, char s, int a, string t) : Person(nam, s, a) \/\/构造函数$/;"	f	class:Teacher
+Teacher	virtualbase.cpp	/^class Teacher:virtual public Person$/;"	c	file:
+TestAutoPtr	smart_pointer/simple.cpp	/^void TestAutoPtr()$/;"	f
+TestAutoPtr2	smart_pointer/simple.cpp	/^void TestAutoPtr2()$/;"	f
+TestAutoPtr3	smart_pointer/simple.cpp	/^void TestAutoPtr3()$/;"	f
+TestAutoPtr4	smart_pointer/simple.cpp	/^void TestAutoPtr4()$/;"	f
+Time	time.cpp	/^Time::Time(int h, int m, int s)$/;"	f	class:Time
+Time	time.cpp	/^class Time$/;"	c	file:
+addr	student.cpp	/^   string addr;$/;"	m	class:Student1	file:
+age	student.cpp	/^   int age;$/;"	m	class:Student1	file:
+age	teacher.cpp	/^   int age;$/;"	m	class:Teacher	file:
+age	virtualbase.cpp	/^      int age;$/;"	m	class:Person	file:
+area	polymorphism.cpp	/^   virtual float area() const{ return 0.0; }$/;"	f	class:Shape
+area	polymorphism.cpp	/^float Circle::area() const$/;"	f	class:Circle
+area	polymorphism.cpp	/^float Cylinder::area() const$/;"	f	class:Cylinder
+area	time.cpp	/^      static int area;$/;"	m	class:Time	file:
+area	time.cpp	/^int Time::area = 11;$/;"	m	class:Time	file:
+complex_add	complex.cpp	/^Complex Complex::complex_add(Complex &c2)$/;"	f	class:Complex
+day	time.cpp	/^      int day;$/;"	m	class:Date	file:
+display	complex.cpp	/^void Complex::display()$/;"	f	class:Complex
+display	student.cpp	/^   void display()$/;"	f	class:Student
+display	student.cpp	/^   void display()$/;"	f	class:Student1
+display	teacher.cpp	/^   void display()$/;"	f	class:Teacher
+display1	teacher.cpp	/^   void display1()$/;"	f	class:Student
+display_1	student.cpp	/^   void display_1()$/;"	f	class:Student1
+display_date	time.cpp	/^void Time::display_date(Date &d)$/;"	f	class:Time
+display_time	time.cpp	/^void Time::display_time() const$/;"	f	class:Time
+getHeight	polymorphism.cpp	/^float Cylinder::getHeight() const$/;"	f	class:Cylinder
+getRadius	polymorphism.cpp	/^float Circle::getRadius() const$/;"	f	class:Circle
+getX	polymorphism.cpp	/^   float getX() const {return x;} \/\/常成员函数, 只允许函数引用类中的数据而不允许修改它$/;"	f	class:Point
+getY	polymorphism.cpp	/^   float getY() const {return y;} \/\/常成员函数, 只允许函数引用类中的数据而不允许修改它$/;"	f	class:Point
+height	polymorphism.cpp	/^   float height;$/;"	m	class:Cylinder	file:
+hour	time.cpp	/^      int hour;$/;"	m	class:Time	file:
+imag	complex.cpp	/^   double imag;$/;"	m	class:Complex	file:
+info_extend	smart_pointer/simple.cpp	/^      std::string info_extend;$/;"	m	class:Simple	file:
+main	complex.cpp	/^int main()$/;"	f
+main	polymorphism.cpp	/^int main()$/;"	f
+main	smart_pointer/simple.cpp	/^int main()$/;"	f
+main	student.cpp	/^int main()$/;"	f
+main	teacher.cpp	/^int main()$/;"	f
+main	time.cpp	/^int main()$/;"	f
+main	virtualbase.cpp	/^int main()$/;"	f
+max	time.cpp	/^      numtype max()$/;"	f	class:Compare
+min	time.cpp	/^      numtype min()$/;"	f	class:Compare
+min2	time.cpp	/^numtype Compare<numtype>:: min2()$/;"	f	class:Compare
+minute	time.cpp	/^      int minute;$/;"	m	class:Time	file:
+monitor	student.cpp	/^   Student monitor; \/\/子对象$/;"	m	class:Student1	file:
+month	time.cpp	/^      int month;$/;"	m	class:Date	file:
+name	student.cpp	/^   string name;$/;"	m	class:Student	file:
+name	teacher.cpp	/^   string name;$/;"	m	class:Teacher	file:
+name	virtualbase.cpp	/^      string name;$/;"	m	class:Person	file:
+name1	teacher.cpp	/^   string name1;$/;"	m	class:Student	file:
+num	student.cpp	/^   int num;$/;"	m	class:Student	file:
+number	smart_pointer/simple.cpp	/^      int number;$/;"	m	class:Simple	file:
+operator +	complex.cpp	/^Complex operator + (Complex &c1, Complex &c2)$/;"	f
+operator <<	polymorphism.cpp	/^ostream & operator <<(ostream &output, const Circle &c)$/;"	f
+operator <<	polymorphism.cpp	/^ostream & operator <<(ostream &output, const Point &p)$/;"	f
+operator <<	polymorphism.cpp	/^ostream &operator <<(ostream &output, const Cylinder &cy)$/;"	f
+radius	polymorphism.cpp	/^      float radius;$/;"	m	class:Circle	file:
+real	complex.cpp	/^   double real;$/;"	m	class:Complex	file:
+score	teacher.cpp	/^   float score;$/;"	m	class:Student	file:
+score	virtualbase.cpp	/^      float score;$/;"	m	class:Student	file:
+second	time.cpp	/^      int second;$/;"	m	class:Time	file:
+setHeight	polymorphism.cpp	/^void Cylinder::setHeight(float h)$/;"	f	class:Cylinder
+setPoint	polymorphism.cpp	/^void Point::setPoint(float a, float b)$/;"	f	class:Point
+setRadius	polymorphism.cpp	/^void Circle::setRadius(float r)$/;"	f	class:Circle
+set_time	time.cpp	/^void Time::set_time()$/;"	f	class:Time
+sex	student.cpp	/^   char sex;$/;"	m	class:Student	file:
+sex	teacher.cpp	/^   char sex;$/;"	m	class:Student	file:
+sex	virtualbase.cpp	/^      char sex;$/;"	m	class:Person	file:
+shapeName	polymorphism.cpp	/^void Circle::shapeName() const$/;"	f	class:Circle
+shapeName	polymorphism.cpp	/^void Cylinder::shapeName() const$/;"	f	class:Cylinder
+shapeName	polymorphism.cpp	/^void Point::shapeName() const$/;"	f	class:Point
+show	teacher.cpp	/^   void show() {$/;"	f	class:Graduate
+show	virtualbase.cpp	/^      void show()$/;"	f	class:Graduate
+show_area	time.cpp	/^void Time::show_area()$/;"	f	class:Time
+show_hour	time.cpp	/^void show_hour(Time &t)$/;"	f
+show_time	time.cpp	/^void Time::show_time()$/;"	f	class:Time
+title	teacher.cpp	/^   string title;$/;"	m	class:Teacher	file:
+title	virtualbase.cpp	/^      string title;$/;"	m	class:Teacher	file:
+volumn	polymorphism.cpp	/^   virtual float volumn() const{ return 0.0; } $/;"	f	class:Shape
+volumn	polymorphism.cpp	/^float Cylinder::volumn() const$/;"	f	class:Cylinder
+wage	teacher.cpp	/^   float wage;$/;"	m	class:Graduate	file:
+wage	virtualbase.cpp	/^   float wage;$/;"	m	class:Graduate	file:
+x	polymorphism.cpp	/^   float x, y;$/;"	m	class:Point	file:
+x	time.cpp	/^      numtype x;$/;"	m	class:Compare	file:
+y	polymorphism.cpp	/^   float x, y;$/;"	m	class:Point	file:
+y	time.cpp	/^      numtype y;$/;"	m	class:Compare	file:
+year	time.cpp	/^      int year;$/;"	m	class:Date	file:
+~Date	time.cpp	/^Date::~Date()$/;"	f	class:Date
+~Simple	smart_pointer/simple.cpp	/^      ~Simple()$/;"	f	class:Simple
+~Time	time.cpp	/^Time::~Time()$/;"	f	class:Time

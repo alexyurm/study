@@ -95,3 +95,9 @@
       The relevant PAE kernel packages are:
 
       linux-image-generic-pae  linux-image-<version number>-generic-pae linux-headers-generic-pae linux-headers-<version number>-generic-pae
+
+14.   to get the package installation info, you can use the aptitude tool:
+
+      for example:
+
+      aptitude search dejagnu

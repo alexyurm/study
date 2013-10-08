@@ -27,7 +27,7 @@
    struct Foo { ... };
    Foo x;
 
-   Foo is only defined in the tag namespace therefore you have to define:
+   Foo is only defined in the struct tag namespace therefore you have to define:
 
    struct Foo x;
 
@@ -49,7 +49,7 @@
 
    declares an anonymous structure and creates a typedef for it. Thus with this construct, it doesn't have a name in the tag namespace, only a name in the typedef namespaces.
 
-   This means it also can't be forward-declared. 
+   This means it also can't be forward-declared??
 
    Note: What is forward declaration?
 
