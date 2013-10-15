@@ -44,6 +44,9 @@ Usage
    set expandtab
    set nu
    set ignorecase
-   set tags=tags;
+   set tags=./tags;
    color torte
    set guifont=monospace\ 12
+
+-   ??How can I tag for a project where its source codes are located in 
+    different directories.

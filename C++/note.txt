@@ -8,3 +8,7 @@
    1) ordinary delete
 
    Deallocates the memory block pointer pointed by ptr(if not null)
+
+-  How to use Class template scoped_lock??
+
+-  How to use std::map??

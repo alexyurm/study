@@ -21,4 +21,56 @@ This shows the typical development cycle for small one- or two-line shell script
 When the first two characters of a file are #!, the kernel scans the rest of the file of the line for the full pathname of an intepreter to use to run the program. 
 (Any intervening whitespace is skipped). The kernel also scans for a single option to be passed to that intepreter. 
 
+The kernel also scans for a single option to be passed to that interpreter. E.g.
 
+#!/bin/csh -f
+
+2.5 Basic Shell Constructs
+
+The shell recognizes three fundamental kinds of commands: 1) Built-in commands; 2) Shell functions; 3) External commands:
+
+1) Built-in commands:
+
+commands that the shell itself executes. Such as, cd, test(The test command is heavily used in shell scripting)...
+
+2) Shell functions
+
+Self-contained chunks of code.
+
+3) External commands:
+
+parent shell                                                parent shell
+|                                                               ^
+|                                                               |
+|                                                               |
+-------------> child shell ---------------------> new program----
+
+2.5 Variables
+
+double quotes aren't necessary around the value of one variable being used as the new value of a second variable. Using them though, doesn't hurt either and is necessary when
+concatenating variables:
+
+fullname="$first $second $last"   #Double quotes required here
+
+2.5.5 Basic I/O Redirection
+
+Many if not most, Unix programs follow this design. By default, they read standard input, write standard output, and send error messages to standard error. Such programs are
+called filters, for reasons that will become clear shortly. The default for standard input, standard output, and standard error is the terminal.
+
+The shell provides several syntactic notations for specifying how to change the default I/O sources and destinations.
+
+1) Change the standard input with <
+
+Use program < file to make program's standard input be file:
+
+tr -d '\r' < dos-file.txt
+
+2) Change standard output with >
+
+Use program > file to make program's standard output to be file:
+
+tr -d '\r' < does-file > unix-file.txt
+
+Note: tr - translate or delete characters. It is used to translate, squeeze and/or delete characters from standard input, writing to standard output.
+
+3) Append a file with >>
