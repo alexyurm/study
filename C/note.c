@@ -115,3 +115,12 @@
       //func(&a);
    }
 
+-  Very interesting declaration:
+
+    ssize_t putValue(int fd, T& buf, long timeout = MP_DEFAULT_TIMEOUT) {
+        return writen(fd, &buf, sizeof (T), timeout);
+    }
+
+    when passing the value to putValue, we can do this:
+
+    putValue<int> (fd, freq)

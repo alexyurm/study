@@ -1,0 +1,28 @@
+CMakeLists key words:
+
+cmake_minimum_required()
+project()
+configure_file()
+
+install (TARGETS ... DESTINATION ...)
+install (FILES ... DESTINATION ...)
+
+add_library()
+
+include_directories()
+add_subdirectory()
+
+option
+
+set
+
+add_executable
+target_link_libraries
+
+add_test
+
+CMAKE_INSTALL_PREFIX: it is used to determine the root of where files will
+be installed
+
+set_tests_properties
+PROPERTIES PASS_REGULAR_EXPRESSION

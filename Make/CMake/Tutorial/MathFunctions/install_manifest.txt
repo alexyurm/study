@@ -1,0 +1,2 @@
+/home/ayu/Desktop/study/Make/CMake/Tutorial/bin/libMathFunctions.a
+/home/ayu/Desktop/study/Make/CMake/Tutorial/include/MathFunctions.h

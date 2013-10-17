@@ -1,0 +1,2 @@
+/home/ayu/Desktop/study/Make/CMake/Tutorial/MathFunctions/CMakeFiles/MathFunctions.dir
+/home/ayu/Desktop/study/Make/CMake/Tutorial/CMakeFiles/Tutorial.dir

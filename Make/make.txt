@@ -95,3 +95,22 @@ Note:
    2) These rules say to update each '.o' file by compiling its source file. The recompilation must be done if the source
    file, or any of the header files named as preauisites, is more recent than the object file, or if the object file does
    not exist.
+
+-   Difference between .a and .so files
+
+    .a: Archive library
+
+    Archive libraries (.a) are statically linked i.e when you compile your program with -c option in gcc. So, if there's 
+    any change in library, you need to compile and build your code again.
+
+    .so: Shared Object
+
+    The advantage of .so (shared object) over .a library is that they are linked during the runtime i.e. after creation of your .o file -o option in gcc. 
+    So, if there's any change in .so file, you don't need to recompile your main program. But make sure that your main program is linked to the new .so 
+    file with ln command.
+
+    Static libraries (.a): Library of object code which is linked with, and becomes part of the application. Dynamically linked shared 
+    object libraries (.so): There is only one form of this library but it can be used in two ways. Dynamically linked at run time but 
+    statically aware. The libraries must be available during compile/link phase. The shared objects are not included into the executable 
+    component but are tied to the execution. Dynamically loaded/unloaded and linked during execution (i.e. browser plug-in) using the 
+    dynamic linking loader system functions.
