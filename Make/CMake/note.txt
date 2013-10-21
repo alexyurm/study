@@ -7,10 +7,69 @@ configure_file()
 install (TARGETS ... DESTINATION ...)
 install (FILES ... DESTINATION ...)
 
-add_library()
 
 include_directories()
-add_subdirectory()
+
+-   add_library: Add a library to the project using the specified source files.
+
+    Adds a library target called <name> to be built from the source files listed in the command invocation
+
+-   add_subdirectory(source_dir [binary_dir] 
+                   [EXCLUDE_FROM_ALL])
+
+    Add a subdirectory to the build. The source_dir specifies the directory in which the source CmakeList.txt and code files are located.
+
+-   include_directories([AFTER|BEFORE] [SYSTEM] dir1 dir2 ...)
+
+    Add the given directories to those searched by the compiler for include files
+
+-   link_directories(directory1 directory2 ...)
+
+    Specify the paths in which the linker should search for libraries.
+
+-   include(<file|module> [OPTIONAL] [RESULT_VARIABLE <VAR>]
+                        [NO_POLICY_SCOPE])
+
+    Reads CMake listfile code from the given file. Commands in the file are processed immediately as if they were written in place of the include
+    command.
+
+-   find_package(<package> [version] [EXACT] [QUIET]
+               [[REQUIRED|COMPONENTS] [components...]]
+               [NO_POLICY_SCOPE])
+
+    Finds and loads settings from an external project
+
+    -   every module (it is predefined in Find<name>.cmake) has the following variables:
+        
+        1.  <name>_FOUND
+        2.  <name>_INCLUDE_DIR or <name>_INCLUDES
+        3.  <name>_LIBRARY or <name>_LIBRARIES
+
+        if <name>_FOUND is true, <name>_INCLUDE_DIR is added into INCLUDE_DIRECTORIES, and <name>_LIBRARY is added into TARGET_LINK_LIBRARIES.
+
+    -   The system by default is looking for the file Find<name>.cmake. if the that is not found, the system will search for other files:1) <name>Config.cmake
+        or 2) <name>-config.cmake. E.g.
+
+        Adjust CMAKE_MODULE_PATH to find Finddnab.cmake or set dnab_DIR to the directory containing a CMake configuration file for dnab.  The file will
+        have one of the following names:
+
+        dnabConfig.cmake
+        dnab-config.cmake
+
+-   target_link_libraries: link a target to given libraries.
+
+    Specify a list of libraries to be linked into the specified target. If any library name matches that of a target in the current project a 
+    dependency will automatically be added in the build system to make sure the library being linked is up-to-date before the target links.
+
+-   find_path: Find the directory containing a file
+
+    find_path(<VAR> name1 [path1 path2 ...])
+
+-   set_target_properties: set_target_properties: Targets can have properties that affect how they are built.
+
+    set_target_properties(target1 target2 ...
+                        PROPERTIES prop1 value1
+                        prop2 value2 ...)
 
 option
 
