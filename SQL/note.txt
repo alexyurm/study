@@ -107,7 +107,7 @@ Chapter2 The Ralational Model of Data
 
          1. Character strings of fixed or varying length.
 
-         CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters.
+         CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters(what are short strings??).
          VARCHAR(n) denotes a fixed-length of up to n characters. VARCHAR implies that endmarker or string-length is used(??). 
 
          2. Bit strings of fixed or varying length.
@@ -523,12 +523,10 @@ Questions:
    mysql -u root -p
    Enter password:
 
-2. Select a database:
+2. Simple mysql commands:
 
-   e.g.
-
-   USE lotto;
-
-   note: lotto is the name of a database.
-
-   
+   USE name_of_database;            //Choose the database "name_of_database"
+   SELECT DATABASE();               //Check which database you have been using
+   SHOW TABLES;                     //Explore what tables make up the database
+   SHOW COLUMNS FROM name_of_table  //To explore the table "name_of_table"
+   DESC name_of_table               //the same as the above command
