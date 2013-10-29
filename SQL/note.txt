@@ -530,3 +530,8 @@ Questions:
    SHOW TABLES;                     //Explore what tables make up the database
    SHOW COLUMNS FROM name_of_table  //To explore the table "name_of_table"
    DESC name_of_table               //the same as the above command
+   
+   Built-in functions;
+   
+   MAX();
+   
