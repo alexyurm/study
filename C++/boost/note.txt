@@ -1,0 +1,2 @@
+- How can I create a multimap in boost to map function(function pointer) 
+  to its name(string)

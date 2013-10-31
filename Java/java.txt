@@ -640,7 +640,7 @@ Chapter 10 numbers and statics
    }
 
    All static variables in a class are initialized before any object of that class can be created. Default values for declared but uninitialized static and instance variables
-   are the same:
+   are the same(!!):
 
    primitive integers (long, short, etc...): 0
    primitive floating points (float, double): 0.0
@@ -683,11 +683,11 @@ Chapter 10 numbers and statics
    
    You can use "final" to modify non-static variables too, including instance variables, local variables and even method parameter.
 
-   A final variable means you can't change its value.
+   A final variable means you can't change its value(!!).
 
-   A final method means you can't override the method.
+   A final method means you can't override the method(!!).
 
-   A final class means you can't extend the class (i.e. you can't make a subclass).
+   A final class means you can't extend the class(!!) (i.e. you can't make a subclass).
 
 -  Using "final" immutable, final object with proper equals() and hashcode() implementation would act as perfect Java HashMap keys and
    improve performance of Java HashMap by reducing collision(??). Immutability also allows catching there hashcode of different keys which
@@ -1086,7 +1086,7 @@ Chapter 11 Risky Behavior
    }
    System.out.println("We made it!");
 
--  Finally: for the things you want to do no matter what.
+-  Finally: for the things you want to do no matter what(!!).
 
    A finally block is where you put code that must run regardless of an exception.
 

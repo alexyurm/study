@@ -1,9 +1,9 @@
--  Deconstructors (c++)
+-  Deconstructors (c++) (resolved)
 
    A destructor is called for a class object when that object passes 
    out of scope or is explicitly deleted.
 
--  Operator delete
+-  Operator delete (resolved)
 
    1) ordinary delete
 
@@ -12,3 +12,17 @@
 -  How to use Class template scoped_lock??
 
 -  How to use std::map??
+
+-  How the "const" is used for here??
+
+   T value() const { return iValue; }
+
+-  How does the c++ namespace work??
+
+-  How can I create a hash map with boost library?? probably using multimap??
+
+   <string, <&void>, bool>
+
+   string:  the name of the function
+   &void:   the function pointer
+   bool:    the running result

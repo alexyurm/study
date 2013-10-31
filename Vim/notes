@@ -48,5 +48,7 @@ Usage
    color torte
    set guifont=monospace\ 12
 
--   ??How can I tag for a project where its source codes are located in 
-    different directories.
+-   How can I tag for a project where its source codes are located in 
+    different directories??
+
+-   How many copy-and-paste buffers in Vim??
