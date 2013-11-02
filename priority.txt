@@ -6,6 +6,3 @@ MySql
 
 -  SQL language 
 -  Joining table
-
-
-
