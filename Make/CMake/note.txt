@@ -71,17 +71,26 @@ include_directories()
                         PROPERTIES prop1 value1
                         prop2 value2 ...)
 
-option
+    option
 
-set
+    set
 
-add_executable
-target_link_libraries
+    add_executable
+    target_link_libraries
 
-add_test
+    add_test
 
-CMAKE_INSTALL_PREFIX: it is used to determine the root of where files will
-be installed
+    CMAKE_INSTALL_PREFIX: it is used to determine the root of where files will
+    be installed
 
-set_tests_properties
-PROPERTIES PASS_REGULAR_EXPRESSION
+    set_tests_properties
+    PROPERTIES PASS_REGULAR_EXPRESSION
+
+-   How does find_package work?
+
+    The find_package command will look in the module path for Find<name>.cmake, which is the typical way for finding libraries. First CMake checks all directories 
+    in ${CMAKE_MODULE_PATH}, then it looks in its own module directory <CMAKE_ROOT>/share/cmake-x.y/Modules/. (!!??)
+
+    I think this is the path that the find_package will go find it: CMAKE_FIND_ROOT_PATH
+
+    

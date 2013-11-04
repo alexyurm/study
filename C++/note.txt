@@ -26,3 +26,58 @@
    string:  the name of the function
    &void:   the function pointer
    bool:    the running result
+
+-   Local Classes
+
+    A local class is declared within a function. Declarations in a local class can only use type names, enumerations, static variables from the enclosing scope.
+    as well as external variables and functions.
+
+    int x;                         // global variable
+    void f()                       // function definition
+    {
+        static int y;            // static variable y can be used by
+                                   // local class
+        int x;                   // auto variable x cannot be used by
+                                   // local class
+        extern int g();          // extern function g can be used by
+                                   // local class
+
+        class local              // local class
+        {
+                int g() { return x; }      // error, local variable x
+                                           // cannot be used by g
+                int h() { return y; }      // valid,static variable y
+                int k() { return ::x; }    // valid, global x
+                int l() { return g(); }    // valid, extern function g
+        };
+    }
+
+    int main()
+    {
+          local* z;                // error: the class local is not visible
+          // ...}
+    
+    Member functions of a local class have to be defined within their class definition, if they are defined at all. As a result, member functions of a local class 
+    are inline functions. Like all member functions, those defined within the scope of a local class do not need the keyword inline.
+
+    A local class cannot have static data members. In the following example, an attempt to define a static member of a local class causes an error:
+
+    void f()
+    {
+        class local
+        {
+           int f();              // error, local class has noninline
+                                 // member function
+           int g() {return 0;}   // valid, inline member function
+           static int a;         // error, static is not allowed for
+                                 // local class
+           int b;                // valid, nonstatic variable
+        };
+    }
+    //      . . .
+
+-   What is internal namespace??
+
+-   Is it true that a new class's static variables are not accessible by override functions in the same new class??
+
+-   The usage of static members, static functions, static member functions, static variables.
