@@ -55,11 +55,18 @@ class Student
       this->sex = 0;
    }
 
+   protected:
+   //When you decalre static data within a class, you are not defining it. 
+   //That is you are not allocating storage for it. 
+   static int mystatic;
+
    private:
    int num;
    string name;
    char sex;
 };
+
+int Student::mystatic = 1;
 
 class Student1 : public Student
 {
@@ -95,6 +102,11 @@ class Student1 : public Student
       this->addr = ad;
    }
 
+   void showMyStatic()
+   {
+      cout<<"mystatic = "<<mystatic<<endl;
+   }
+
    private:
    int age;
    string addr;
@@ -105,5 +117,6 @@ int main()
 {
    Student1 st1(7, "Alex", 'f', 30, "3048 59th E Avenue");
    st1.display();
+   st1.showMyStatic();
    return 0;
 }
