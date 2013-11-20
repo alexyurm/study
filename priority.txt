@@ -1,12 +1,8 @@
 Java Programming (!!)
 Introduction to Algorithm(Data Structure in Java) (!!)
-Discrete Math (!!)
-Design Pattern and Agile
+Design Pattern (!!)
+Big Data Processing(!!)
 MySql 
-
--  SQL language 
--  Joining table
-
-adfasdf
-
+Discrete Math
+Agile
 

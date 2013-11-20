@@ -140,6 +140,23 @@ Chapter 2: Getting started
 
 Chapter 3: Growth of functions
 
+   -  Asymptotic efficiency of an algorithm:
+
+      That is how the running time of an algorithm increases with the size of the input n in the limit, as the size of the input increases without bound. 
+
+   -  Θ(Theta)-notation
+
+      Θ(g(n)) = {f(n): there exist positive constants c1, c2, and n0 such that 0<=c1g(n)<=f(n)<=c2g(n) for all n >= n0}.
+
+   -  Big O-notation     
+
+      O(g(n)) = {f(n): there exist positive constant c and n0 such that 0<=f(n)<=cg(n) for all n >= n0}
+
+   -  Ω(Omega)-notation
+
+      O(g(n)) = {f(n): there exist positive constant c and n0 such that 0<=cg(n)<=f(n) for all n >= n0}
+      
+
 Chapter 4: Divide-and-Conquer
 
    This chapter fouses on three methods for solving recurrences - that is, for obtaining asymptotic "O" bounds on the solution.
@@ -203,7 +220,14 @@ Chapter 4: Divide-and-Conquer
 
    note: remember: mid = floor((low + high)/2)
 
-   -  Analysis of the divid-and-conquer algorithm.
+   -  Analysis of the divide-and-conquer algorithm:
+
+   For the above algorithm, we have the following analysis:
+
+   line 1 - 3: O(1)
+   line 4: T(n/2)
+   line 5: T(n/2)
+   line 6: T()
 
 Chapter 6 Heap Sort
 
@@ -232,6 +256,53 @@ Chapter 6 Heap Sort
    -  The HEAPSORT procedure, which runs in O(n*(lg(n))) time, sorts an array in place.
    -  The MAX-HEAP-INSERT , HEAP-EXTRACT-MAX, HEAP-INCREASE-KEY, and HEAP-MAXIMUM procedures, which run in O(lg(n))time, allow the heap
       data structure to implement a priority queue. 
+
+-  In order to maintain the max-heap property, we call the procedure MAX-HEAPIFY. 
+
+   MAX-HEAPIFY(A,i)
+   1  l = LEFT(i)
+   2  r = RIGHT(i)
+   3  if l <= A.heap-size and A[l] > A[i]
+   4     largest = l
+   5  else largest = i
+   6  if r<= A.heap-size and A[r] > A[largest]
+   7     largest = r
+   8  if largest != i
+   9     exchange A[i] with A[largest]
+   10 MAX-HEAPIFY(A, largest)
+
+   The running time of MAX-HEAPIFY on a subtree of size n rooted at a given node i is the O(1) time to fix up the relationships among the elements A[i],
+   A[LEFT(i)], and A[RIGHT(i)], plus the time to run MAX-HEAPIFY on a subtree rooted at one of the children of node i (assuming that the recursive call
+   occurs). The children's subtrees each have size at most 2n/3 - the worst cases occurs when the bottom level of the tree is exactly half full - and therefore
+   we can describe the running time of MAX-HEAPIFY by the recurrence
+
+   T(n) <= T(2n/3) + O(1) (??)
+
+   The solution to this recurrence, by case 2 of the master theorem (Theorem 4.1), is T(n) = O(lgn). Alternatively, we can characterize the running time of
+   MAX-HEAPIFY on a node of height h as O(h).
+
+-  Heapsort is an excellent algorithm, but a good implementation of quicksort, presented in Chapter 7, usually beats it in practice. Nevertheless, the heap
+   data strucutre itself has many uses: priority queue
+
+   -  A priority queue is a data structure for maintaining a set S of elements, each with an associated value called a key, A max-priority queue supports the
+      following operations:
+
+      INSERT(S, x): inserts the element x into the set S, which is equivalent to the operation S = S U {x}.
+      MAXIMUM(s): returns the element of S with the largest key.
+      EXTRACT-MAX(S): removes and returns the element of S with the largest key.
+      INCREASE-KEY(S, x, k): increases the value of element x' key to the new value k, which is assumed to be at least as x's current key value.
+      
+      
+
+
+
+Chapter 7 QuickSort
+
+-  Like MergeSort, applies the divide-and-conquer paradigm. Here is the three-step divide-and-conquer process for sorting a typical subarray A[p..r]:
+
+   Divide: Partition (rearrange the array) A[p..r] into two (possibly empty) subarrays A[p..r-1] and A[q+1..r]. 
+
+   
 
 -  Maintaining the heap property
 

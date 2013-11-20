@@ -27,7 +27,7 @@
 //    1) max-heap: A[PARENT(i)] >= A[i] -> The largest element at the root. We use max-heap as the heap sort algorithm.
 //    2) min-heap: A[PARENT(i)] <= A[i] -> The smallest element at the root. min-heap is usually implemented in priority queue.
 //    
-// -  The MAX-HEAPIFY procedure, which runs in O(lgn) time. The remainder of this chapter present some basic procedures and slows how they are 
+// -  The MAX-HEAPIFY procedure, which runs in O(lgn) time. The remainder of this chapter present some basic procedures and shows how they are 
 //    used in sorting algorithm and a priority-queue data structure.
 //    
 //    -  The MAX-HEAPIFY procedure, which runs in O(lgn) time, is the key to maintaining the max-heap property.
@@ -35,6 +35,8 @@
 //    -  The HEAPSORT procedure, which runs in O(nlgn) time, sorts an array in place.
 //    -  The MAX-HEAP-INSERT, HEAP-EXTRACT-MAX, HEAP-INCREASE-KEY, and HEAP-MAXIMUM procedures, which run in O(lgn) time, allow the heap data structure
 //       to implement a priority queue.
+
+package alex.ds.heaptree;
 
 import java.util.*;
 import java.lang.Integer;
@@ -95,12 +97,13 @@ class HeapTree {
    //  orrurs). The children's subtree each have size at most 2n/3(??) - the worst case occurs when the bottom level of the tree is exactly half full(??). And therefore
    //  we can describe the running time of MAX-HEAPIFY by the recurrence: T(n)<=T(2n/3)+ O(1)
    //  The solution to this recurrence, by case 2 of the master theorem is T(n) = O(lg(n)). Alternatively, we can characterize the running time of MAX-HEAPIFY on a node
-   //  of height as O(h)(??).
+   //  of height as O(h)(??). This takes O(lg(n)).
    void maxheapify(int i) {
       int l = left(i);
       int r = right(i);
       int largest = i;
    
+      //Find the largest elements among: me, left and right.
       if ( l != -1) {
          if(l <= heapSize && A[l] > A[i]) {
             largest = l;
@@ -119,7 +122,7 @@ class HeapTree {
          int temp = A[largest];
          A[largest] = A[i];
          A[i] = temp;
-         maxheapify(largest); //Recurssion occurs here
+         maxheapify(largest); //Recurssion occurs here. Remember "largest" is the index.
       }
    }
 
@@ -188,6 +191,7 @@ class HeapTree {
    void buildmaxheap() {
       heapSize = n;
 
+      //Note: n/2-1 is the index of the last non-leaf element.
       for (int i = n/2-1; i >=0; i--) {
          maxheapify(i);
       }
@@ -198,16 +202,16 @@ class HeapTree {
    //  property. The way to resolve this issue is following:
    //  Step1: exchange A[0] with A[i] (i = n-1 before the interations begin)
    //  Step2: heapsize = heapsize - 1; (the heapsize=n before the iterations begin)
-   //  Step3: max-heapify(1) (remember that the calculation of max-heapify is based on heapsize not n)
+   //  Step3: max-heapify(0) (remember that the calculation of max-heapify is based on heapsize not n)
    //  Step4: decrement i
-   //  Repeat Step 1~3 until i < 1
+   //  Repeat Step 1~3 until i < 0
 
    void heapsort() {
-      buildmaxheap();
-      for (int i = n-1; i > 0; i--) {
+      buildmaxheap();//this takes O(lg(n)*n).
+      for (int i = n-1; i > 0; i--) { //this also takes O(lg(n)*n)
 
          int temp = A[0];
-         A[0] = A[i];
+         A[0] = A[i]; //The biggest element(root) goes to the last of the heap
          A[i] = temp;
 
          heapSize--;
@@ -225,6 +229,8 @@ class HeapTree {
       }
    }
 
+ 
+  
    public static void main(String[] args) {
       /* Test the heapsort algorithm */
 
@@ -237,3 +243,37 @@ class HeapTree {
       return;
    }
 }
+
+
+//The max-priority queue keeps track of the jobs to be performed and their relative priorities. 
+//When a job is finished or interrupted, the scheduler selects the highest-priority job from
+//among those pending by calling EXTRACT-MAX. The scheduler can add a new job to the queue at
+//any time by calling INSERT.
+
+/*
+class max_p_queue {//max-priority queue
+
+   public int heapMax(int[] A) {
+      return A[i];
+   }
+   
+   public int heapExtractMax(int[] A)
+   {
+      if (A.heapSize < 1) {
+         System.out.println("heap underflow");
+      }
+
+      int max = A[0];
+      A[0] = A[A.heapSize];
+      A.heapSize = A.heapSize - 1;
+
+      return A[]
+   }
+
+private:
+      
+   int heapSize; //the size of the heap: heapSize <= n
+   int A[]; //the array
+   int n; //the array size: heapSize <= n
+}
+*/

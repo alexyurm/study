@@ -26,6 +26,18 @@ Chapter 2 Objects and Classes
 
 -  A class can inherit instance variables and methods from a more abstract superclass.
 
+-  Nested Classes
+
+   A class written inside another class is called a nested class. The nested class is considered a member of the enclosing class, just like a variable or method.
+
+   1) A nested class produces a seperate bytecode file. The name of the bytecode(??) file is the name of the enclosing class followed by the $ character followed by the name of the
+      nested class.
+
+   2) A nested class has access to the enclosing class's instance variables and methods, even if they are declared with private visibility.
+   
+   3) The enclosing class can directly access data in the nested class only if the data is declared public. In general, we've always said that public class is a bad idea
+      because it violates encapsulation. However, nested classes provide an exception to that rule. A 
+
 Chapter 3  Primitives and References.
 
 -  A primitive variable (int, float...) is full of bits representing the actual value of the variable, an object reference variable is full of bits representing a way to get to 
@@ -143,6 +155,31 @@ Chapter 6 Using the Java Library
 
    "java.util" is the package name and "ArrayList" is the class name.
 
+-  A package is a collection of related Java entities (such as classes, interfaces, exceptions, errors and enums). Packages are used for:
+
+   1. Resolving naming conflict of classes.
+
+   2. Access Control
+
+   3. For distributing a collection of reusable classes, usually in a format known as Java Archive(JAR) file.
+
+-  Package Naming Convention:
+
+   A package name is made up of the reverse of the Internet Domain Name plus your own organzation's internet project name, seperated by dots '.'.
+   Package names are lowercase. For example, suppose that your internet Domain Name is "zzz.com", you can name your package as "com.zzz.project1.subproject2".
+
+   The prefix "java" and "javax" are reserved for core Java packages and Java extensions, respectively.
+
+-  Package Name & the Directory Structure (!!)
+
+   The package name is closely associated with directory structure used to store the classes. The classes (and other entities) belonging to a specific package
+   are stored together in the same directory. Furthermore, they are stored in a sub-directory structure specified by its package name. For example, the class
+   Circle of package from com.zzz.project1.subproject2 is stored as "$BASE_DIR/com/zzz/project1/subproject2/Circle.class", where $BASE_DIR denotes the base
+   directory of the package. Clearly, the "dot" in the package name corresponds to a sub-directory of the file system.
+
+   
+   
+
 -  You have to tell Java which ArrayList you want to use. You have two options:
 
    Put an import statement at the top of your source code file:
@@ -169,6 +206,24 @@ Chapter 6 Using the Java Library
 -  "import" is different from "include" in C. An import is simply the way you give Java the full name of a class.
 
 -  Remember, you have to tell Java the full name of every class you use, unless the class is in the java.lang.
+
+-  An import declaration specifies an Identifider(the name of a class) that will be referenced in a program, and the Name of the package in which
+   it is defined. The * wildcard indicates that any class from a particular package may be referenced. 
+
+   ------->import------>Name------->.------->identifider--------->;------->
+                                       \                    |
+                                        \-------->*----------
+
+   examples:
+
+   import java.util.*;
+   import csl.Keyboard;
+
+   The classes of the java.lang package are qutomatically imported because they are fundamental and can be thought of a basic extendsions to the language.
+   Therefore, any class in the java.lang.package, such as String, can be used without an explicit import statement. It is as if all programs automatically contain
+   the following statement:
+
+   import java.lang.*;
    
 Chapter 7 inheritance and polymorphism
 
