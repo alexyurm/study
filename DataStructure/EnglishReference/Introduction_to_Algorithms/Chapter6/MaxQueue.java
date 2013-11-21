@@ -5,10 +5,12 @@ import alex.ds.heaptree.*;
 //among those pending by calling EXTRACT-MAX. The scheduler can add a new job to the queue at
 //any time by calling INSERT.
 
+
+
 class max_p_queue {//max-priority queue
 
    public int heapMax(int[] A) {
-      return A[i];
+      return A[0];
    }
    
    public int heapExtractMax(int[] A)
