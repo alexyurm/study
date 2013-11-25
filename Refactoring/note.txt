@@ -1,0 +1,16 @@
+Design patterns provide targets for refactorings. However, identifying the 
+target is only one part of the problem; transforming your code so that you
+get there is another challenge.
+
+Preface:
+
+-  What is Refactoring?
+
+Refactoring is the process of changing a software system in such a way
+that it does not alter the external behavior of the code yet improves its
+internal structure. It is a disciplined way to clean up improving the
+design of the code after it has been written.
+
+Chapter1. Refactoring, a First Example
+
+
