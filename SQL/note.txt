@@ -531,6 +531,65 @@ Questions:
    SHOW COLUMNS FROM name_of_table  //To explore the table "name_of_table"
    DESC name_of_table               //the same as the above command
    
+-  The SELECT Statement and Basic Querying Techniques:
+
+   Single Table SELECTs
+
+   SELECT * FROM artist;
+
+   A simple SELECT statement has four components:
+
+   1. The keyword SELECT.
+   2. The columns to be displayed. In our first example, we asked for all columns by using the asterisk(*) symbol as a wildcard character.
+   3. The keyword FROM.
+   4. The table name; in this example, the table name is artist.
+
+   -  Choose columns
+
+   SELECT artist_name FROM artist;
+   
+   SELECT artist_name and, artist_id FROM artist;
+   
+   You can even list columns more than once:
+
+   SELECT artist_id, artist_id FROM artist;
+
+   You can specify databases, tables, and column names in a SELECT statement. This allows you to avoid the USE command and work with any database and table
+   with SELECT. Consider an example: you want to retrieve the album_name column from the album table in the music database. You can do this with the following
+   command:
+
+   mysql> SELECT album_name FROM music.album;
+
+-  Choosing Rows with the WHERE Clause.
+
+   Consider an example where we want to find out the details of the artist with the name "New Order." Here's what you type:
+
+   mysql > SELECT * FROM artist WHERE artist_name = "New Order"
+
+   Another example:
+
+   SELECT artist_name FROM artist WHERE artist_id=4;
+
+   This example chooses one column and one row.
+
+   If a match matches more than one row, the results will contain all matches.
+
+   In a range:
+      
+   SELECT artist_name FROM artist WHERE artist_id < 5
+
+   Consider that if you want to find all albums that don't have an album_id of 2, you'd type:
+
+   SELECT album_name FROM album WHERE album_id <> 2;
+
+   You can also list all artists whose name appears earlier alphabetically than (is less than) 'M', use:
+
+   mysql > SELECT artist_name FROM artist WHERE artist_name < 'M';
+
+   (by default, MySQL doesn't care about case)
+
+
+
    Built-in functions;
    
    MAX();
