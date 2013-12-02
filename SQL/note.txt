@@ -530,6 +530,44 @@ Questions:
    SHOW TABLES;                     //Explore what tables make up the database
    SHOW COLUMNS FROM name_of_table  //To explore the table "name_of_table"
    DESC name_of_table               //the same as the above command
+
+-  Modeling and Designing Databases
+
+   There are three major stages in database design, each producing a progressively lower-level description:
+
+   1. Requirement analysis
+
+   We need to determine and write down what exactly the database is needed for. Some questions you need to ask for yourself?
+
+   What data will be stored?
+   How the data items relate to each other
+   
+   2. Conceptual design
+
+   3. Logical design
+
+   Finally, we map the database design onto an actual database management system and database tables;
+
+-  The Entity Relationship Model
+
+   At a basic level, databases store information about distinct object, or entities, and the associations, or relationships, between these entities. 
+
+   Entity set - it is represented by a rectangle containing the entity name. 
+   Attributes - the certain characteristics or the entities. An attribute may be formed from smaller parts; for example, a postal address is composed of a street
+                number, city, ZIP code, and country. We classify attributes as composite if they're composed of smaller parts in this way.
+                Clearly, there may be several possible keys that could be used to identify an entity; we choose one of the alternative, or candidate, keys to be
+                our main, or primary key. You usually make this choice based on how confident you are that the attribute will be non-empty and unique for each
+                individual entity.  In the ER diagram, attributes are represented as labeled ovals and are connected to their owning entity. For some applications,
+                no combination of attributes can uniquely identify an entity(or it would be too unwieldy to use a large composite key), so we create an artificial
+                attribute that's defined to be unique and can therefore be used as a keyl student number, Social Security numbers, driver's license number...
+  Relstionships - We represent a relationship set with a named diamond. 
+
+-  Representing Relationships
+
+   many-to-many relationship (M:N)
+   one-to-many relationship (1:N)
+   many-to-one relationship (N:1)
+   one-to-one relationship (1:1)
    
 -  The SELECT Statement and Basic Querying Techniques:
 
@@ -546,13 +584,13 @@ Questions:
 
    -  Choose columns
 
-   SELECT artist_name FROM artist;
+   mysql> SELECT artist_name FROM artist;
    
-   SELECT artist_name and, artist_id FROM artist;
+   mysql> SELECT artist_name and, artist_id FROM artist;
    
    You can even list columns more than once:
 
-   SELECT artist_id, artist_id FROM artist;
+   mysql> SELECT artist_id, artist_id FROM artist;
 
    You can specify databases, tables, and column names in a SELECT statement. This allows you to avoid the USE command and work with any database and table
    with SELECT. Consider an example: you want to retrieve the album_name column from the album table in the music database. You can do this with the following
@@ -568,7 +606,7 @@ Questions:
 
    Another example:
 
-   SELECT artist_name FROM artist WHERE artist_id=4;
+   mysql > SELECT artist_name FROM artist WHERE artist_id=4;
 
    This example chooses one column and one row.
 
@@ -576,17 +614,162 @@ Questions:
 
    In a range:
       
-   SELECT artist_name FROM artist WHERE artist_id < 5
+   mysql> SELECT artist_name FROM artist WHERE artist_id < 5
 
    Consider that if you want to find all albums that don't have an album_id of 2, you'd type:
 
-   SELECT album_name FROM album WHERE album_id <> 2;
+   mysql> SELECT album_name FROM album WHERE album_id <> 2;
 
    You can also list all artists whose name appears earlier alphabetically than (is less than) 'M', use:
 
-   mysql > SELECT artist_name FROM artist WHERE artist_name < 'M';
+   mysql> SELECT artist_name FROM artist WHERE artist_name < 'M';
 
    (by default, MySQL doesn't care about case)
+
+   Another very common task you'll want to perform with strings is to find matches that begin with prefix, contain a string, or end in a suffix. For example, 
+   you might want to find all album names beginning with the word "Retro". Do this with the LIKE operator in a WHERE clause:
+
+   mysql> SELECT album_name FROM album WHERE album_name LIKE "Retro%"
+
+   The above example shows that the wildcard character "%" matches all possible strings. You can also do:
+
+   "%ing" - a string that ends in a suffix.
+   "%ing%" - matches all strings that have "ing" in them.
+
+   If you want to match exactly one wildcard character in a LIKE clause, you use the underscore character (_). For example, if you want all tracks that begin
+   with a three letter word that starts with 'R', you use:
+   
+   mysql> SELECT * FROM track WHERE track_name LIKE "R__%"
+
+-  Combining conditions with AND, OR, NOT, and XOR
+
+   Use two or more conditions using the Boolean operators AND, OR, NOT, and XOR.
+
+   mysql> SELECT album_name FROM album WHERE
+       -> album_name > "C" AND album_name < "M";
+
+   mysql> SELECT album_name FROM album WHERE
+      -> album_name LIKE "L%" OR
+      -> (album_name LIKE "S%" AND album_name LIKE "%g")
+
+   It is recommended that you use parentheses whenever there is a chance the intention could be misinterrupted.
+
+   The unary NOT operator negates a Boolean statement. Suppose that you want a list of all albums except the ones having an album_id of 1 or 3. You'd write the query:
+
+   mysql> SELECT * FROM album WHERE NOT(album_id = 1 OR album_id = 3);
+
+   You can combine the NOT operation with LIKE. Suppose you want all albums that don't begin with an L; To do this, type:
+
+   mysql> SELECT album_name FROM album WHERE album_name NOT LIKE "L%"
+
+-  ORDER by Clauses
+
+   There is no intrinsic order between the rows, and so we have to ask MySQL to sort the result if we want them in a particular order. Suppose you want to return a list
+   of the artists in the music database, sorted in alphabetical order by the artist_name. Here's what you'd type.
+
+   mysql> SELECT * FROM artist ORDER BY artist_name;
+
+   The default sort is case-insensitive and in ascending order. The way strings are sorted is determined by the character set and collation order that are being used(discussed
+   later).
+
+   In the following example, when the track times are the same, we'll sort the answers alphabetically by track_name. 
+
+   mysql> SELECT time, track_name FROM track ORDER BY time, track_name;
+
+   | 2.90 | I Just Want To See His Face
+   | 2.97 | Sweet Black Angel
+   ...
+   | 3.40 | Under The Influence Of Love
+   | 3.40 | Ventilator Blues
+   ...
+
+   Notice that there's a collision of track times where the length is 3.40. In this case, the second sort key, track_name is used to resolve the collisons so that "Under The 
+   Influence Of Love" appears before "Ventilator Blues".
+
+   Also, you can sort in descending order:
+
+   mysql> SELECT artist_name FROM artist ORDER by artist_name DESC;
+
+   You can also use a mixture of ascending and descending orders when multiple sort keys are used. E.g.
+
+   mysql> SELECT time, track_name FROM track
+         -> WHERE time < 3.6
+         -> ORDER BY time DESC, track_name ASC;
+
+   If a collision of values occur, and you don't specify another sort key, the sort order is underfined. A common source of collision is string sorting, where MySQL ignores
+   the case of characters. If you do want sorting like ASCII does(WHERE uppercase comes before lowercase), then you can add BINARY keyword to your sort as follows:
+
+   mysql> SELECT * FROM artist ORDER by BINARY artist_name;
+
+   or
+
+   mysql> SELECT track_name FROM track WHERE track_name < BINARY 'b';
+
+   Sorting is performed as appropriate to the column type. For example if you're sorting dates, it organizes the rows in ascending data order. You can force the sort to behave
+   differently, using CAST() function and the AS keyword. E.g. if you want to sort the track table by ascending time, but you want the times to be treated as strings. Here's how
+   you do it:
+
+   mysql> SELECT time, tracktime FROM track ORDER by CAST(time AS CHAR); The CAST() function forces a column to be treated as a different type. You can specify:
+
+   AS BINARY, to sort as binary, which has the same effect as ORDER BY BINARY
+   AS SIGNED, to sort as a signed integer
+   AS UNSIGNED, to sort as an unsigned integer
+   AS CHAR, to sort as a character string
+   AS DATE, to sort as a date
+   AS DATETIME, to sort as a date and time
+   AS TIME, to sort as a time
+
+-  The LIMIT Clause
+
+   The LIMIT clause is a useful, nonstandard SQL tool that allows you to control which rows are output. E.g. in a web database application, where you want to find the rows
+   that match a condition but only want to show the user the first 10 rows in a web page.
+
+   mysql> SELECT track_name FROM track LIMIT 10;
+
+   The above example restricts the output to the first 10 rows. The LIMIT clause can be used to return a fixed number of rows beginning anywhere in the result set. E.g.
+
+   mysql> SELECT track_name FROM track LIMIT 5,5;
+
+   The above example shows that you want 5 rows but you want the first one displayed to be the sixth row of the answer. The output is rows 6 to 10 from the SELECT query.
+
+   You can also write LIMIT 10 OFFSET 5.
+
+-  Joining Two tables;
+
+   mysql> SELECT artist_name, album_name FROM artist INNER JOIN album
+         -> USING (artist_id)
+
+   How INNER JOIN works?
+
+   The statement has two parts: first, two table names seperated by the INNER JOIN keywords; second, the USING keyword that indicates which column (or columns) holds
+   the relationship between the two tables. Also, the USING clause in the example is USING (artist_id), which tells MySQL that the column that holds the relationship
+   between the tables is artist_id; 
+
+   There are a few important issues you need to know about when using the basic INNER JOIN syntax.
+
+   -  It works only when two tables share a column with the same name that you can use as the join condition;
+   -  The result rows shown are those where the join column (or columns) match between the tables; rows from one table that don't have a match in the other table are
+      ignored. In the previous example, any artist who had no albums would be ignored.
+   -  With the exception of the join column or columns after the USING keyword, any columns you specify must be unambiguous. For example, if you want to SELECT the artist_name
+      , you must use just artist_name because it exists only in the artist table. However, if you want artist_id, then you need to specify it explicitly as artist.artist_id or
+      album.artist_id because both tables have a column of the same name.
+   -  don't forget the USING clause. MySQL won't complain if you omit it, but the results won't make sense because you'll get a Cartesian product.
+   -  The columns or columns following the USING clause must be surrounded by parentheses. If you want to join on more than one column, seperate the column names with a comma.
+
+      +-----------+-------------+----------+------------------------------------------+
+      | artist_id | artist_name | album_id | album_name                               |
+      +-----------+-------------+----------+------------------------------------------+
+      | 1         | New Order   | 1        | Retro - John McCready FAN                |
+      | 1         | New Order   | 2        | Substance (Disc 2)                       |
+      | 1         | New Order   | 3        | Retro - Miranda Sawyer POP               |
+      | 1         | New Order   | 4        | Retro - New Order / Bobby Gillespie LIVE |
+      | 1         | New Order   | 5        | Power, Corruption & Lies                 |
+      | 1         | New Order   | 6        | Substance 1987 (Disc 1)                  |
+      | 1         | New Order   | 7        | Brotherhood                              |
+      +-----------+-------------+----------+------------------------------------------+
+
+   mysql> SELECT album_name, track_name FROM album INNER JOIN track
+         -> USING (artist_id, album_id) LIMIT 15;
 
 
 
