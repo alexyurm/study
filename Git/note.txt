@@ -216,7 +216,13 @@ Chapter 7 Branches
    Current Branch:   it is often an implicit operand in Git commands, such as the target of the merge operation. By default, master is the active branch, 
                      but you can make any branch the current branch.
 
-   Each branch in a specific repository must have a unique name, and the names always refer to the most recent revision committed on that branch.
+   Each branch in a specific repository must have a unique name, and the names always refer to the most recent revision committed on that branch. The most recent
+   commit on a branch is called the tip, or head, of the branch.
+
+   Branch names move incrementally forward as new commits are made on the branch. Older commits must be therefore be named by their hash or via a relative name such
+   as dev~5(??). If you want to keep track of a particular commit - because it represents a stable point in the project, say, or is a version you want to test - you
+   can explicitly assign it in a light weight tag name.
+
    
 
       
