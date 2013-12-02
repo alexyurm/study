@@ -183,3 +183,41 @@ Chapter 4 basic Git Concepts
    -  each tag is represented by a parallelogram. It can only points to at most one commit.
    -  branch is not a Git object but still plays a crucial role in naming commits.
 
+Chapter 7 Branches
+
+-  Branch Names
+
+   The default branch in a repository is named master, and most developers keep the repository's most robust
+   and dependable line of development on that branch(You can rename or even delete the master branch).
+
+   To support scalability and categorical organization, you can create a hierarchical branch name that resembles
+   a Unix pathname.  One reason to use hierarchical branch names is that Git, just like the Unix shell, supports 
+   wildcards. For instance, given the naming scheme bug/pr-1023 and bug/pr-17, you can select all bug branches at 
+   once with a clever and familiar shorthand.
+
+   git show-branch 'bug/*' 
+
+   Dos and Don'ts in Branch Names. Branch names must conform to a few simple rules:
+
+   -  Use the forward slash(/) to create a hierarchical name scheme. However, the name cannot end with a slash.
+   -  No slash-seperated component can begin with a dot(.). A branch name such as feature/.new is invalid.
+   -  Cannot contain (..) anywhere.
+   -  Further, the name cannot contain:
+
+      -  Any space or other whitespace character.
+      -  A character that has special meaning to Git, including the tilde(~), caret(^), colon(:), question-mark(?), asterisk(*), and open bracket([)
+      -  An ASCII control character, which is any byte with a value lower than \040 octal, or the DEL character(\177 octal)
+
+-  Using Branches
+
+   There may be many different branches within a repository at any given time, but there is at most one "active" or "current" branch.
+
+   Active Branch:    it determines what files are checked-out in the working directory.
+   Current Branch:   it is often an implicit operand in Git commands, such as the target of the merge operation. By default, master is the active branch, 
+                     but you can make any branch the current branch.
+
+   Each branch in a specific repository must have a unique name, and the names always refer to the most recent revision committed on that branch.
+   
+
+      
+   
