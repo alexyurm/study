@@ -222,8 +222,33 @@ Chapter 7 Branches
    Branch names move incrementally forward as new commits are made on the branch. Older commits must be therefore be named by their hash or via a relative name such
    as dev~5(??). If you want to keep track of a particular commit - because it represents a stable point in the project, say, or is a version you want to test - you
    can explicitly assign it in a light weight tag name.
+   
+   Becasue the original commit from which a branch was started is not explicitly identified, that commit (or its equivalent) can be found algorithmatically using
+   the name of the original branch from which the new branch forked:
+
+   $ git merge-base original-branch new-branch
+
+   A merge is complement of a branch. When you merge, the content of one or more branches is joined with an implicit target branch. However, a merge does not eliminate
+   any of the source branches or those branches' names. 
+
+-  Creating Branches
+
+   A new branch is based upon an existing commit within the repository. Once you have identified the commit from which a branch should start, simply use the "git branch"
+   command. Thus, to create a new branch off the HEAD of your current branch for the purpose of fixing Problem Report #1138, you might use:
+
+   $ git branch prs/pr-1138
+
+   The basic form of the command is:
+
+   git branch branch [starting-commit]
+
+   When no starting-commit is specified, the default is the revision commited most recently on the current branch. In other words, the default is to start a new branch at 
+   the point where you are working right now. Note that the git branch command merely introduces the name of a branch into the repository. It does not change your working 
+   directory to use the new branch. No working directory files change; no implicit branch context changes; no new commits are made. The command simply creates a named
+   branch at the given commit. You can't actually start work on the branch until you switch to it, as shown later in "Checking Out Branches" on page 94.
+
+   
 
    
 
       
-   
