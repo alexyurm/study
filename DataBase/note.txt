@@ -771,6 +771,17 @@ Questions:
    mysql> SELECT album_name, track_name FROM album INNER JOIN track
          -> USING (artist_id, album_id) LIMIT 15;
 
+-  the INSERT Statement
+
+   The Insert statement is used to add new data to tables. There are 2 situations:
+
+   1) bulk-load in a large batch
+   2) add data on ad hoc basis
+
+   mysql> INSERT INTO artist VALUES (7, "Barry Adamson")
+   
+   
+
 -  CREATE clause:
 
    Creating a database:
@@ -787,9 +798,37 @@ Questions:
       -> PRIMARY KEY (artist_id)
       -> );
 
+   Column specifications: name type [NOT NULL | NULL] [DEFAULT value].
 
+   NOT NULL: a row isn't valid without a value for the column.
+   NULL or omit the clause: a row can exist without a value for the column.
+   DEFAULT: it will be used to populate the column when you don't otherwise provide a data. The value must
+            be a constant except if the column is of the type TIMESTAMP.
 
+   -  IF NOT EXISTS keyword phrase when creating a table, and it works much as it does for databases. Here is 
+      an example that won't report an error even when the artist table exists.
 
+   
+      mysql>
+      ->CREATE TABLE IF NOT EXISTS artist (
+      ->artist_id SMALLINT(5) NOT NULL DEFAULT 0,
+      ->artist_name CHAR(128) DEFAULT NULL,
+      ->PRIMARY KEY (artist_id)
+      );
+
+      Query OK, o rows affected (0.00sec)
+
+   -  AUTO_INCREMENT feature for numeric columns.
+
+      This feature allows you to automatically create unique identifier for a table.
+
+   -  Column comments;
+
+   -  Foreign key constraints
+
+   -  Creating temporary tables
+
+   You can use SHOW CREATE TABLE statement introduced 
 
    Built-in functions;
    
