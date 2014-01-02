@@ -828,7 +828,37 @@ Questions:
 
    -  Creating temporary tables
 
-   You can use SHOW CREATE TABLE statement introduced 
+   -  SHOW CREATE TABLE
+
+   You can use SHOW CREATE TABLE statement for a table using the SHOW CREATE TABLE statement introduced in Chapter 5. This often shows you output that include some of the
+   advanced features we just discussed.
+
+-  Column Types
+
+   -  INT(width) [UNSIGNED] [ZEROFILL]
+   -  DECIMAL[width[,decimals])]  [UNSIGNED] [ZEROFILL]
+
+      A commonly used numeric type. Stores a fixed-point number such as a salary or distance. with a total of width of which some smaller number are decimals that follow a decimal
+      point. For example, a column declared as price DECIMAL(4,2) should be used to store values in the range -99.99 to 99.99. if you try to store a value that is outside this range,
+      it will be stored as the closet value in the allowed range. For example, 100 should be stored as 99.99, -100 would be stored as -99.99.
+
+   -  DATE
+
+      Stores and displays a date in the format YYYY-MM-DD for the range 1000-01-01 to 9999-12-31
+
+   -  TIME
+
+      Stores a time in the format HHH:MM:SS for the range -838:59:59 to 838:59:59
+
+   -  TIMESTAMP
+
+      Stores and display a date and a time pair in the format: YYYY-MM-DD HH:MM for the range 1970-01-01 00:00:00 to sometime in 2037. The key features of TIMESTAMP column are twofold:
+
+      1) Assign NULL to set to the current date and time.
+      2) A developer-selected TIMESTAMP column in a table can be automatically updated to the current date and time when a row is inserted or updated.
+      
+      If you specify DEFAULT NULL for a TIMESTAMP column, it will be interpreted differently depending on whether there are any other TIMESTAMP before it in the table. DEFAULT NULL
+      is handled 
 
    Built-in functions;
    

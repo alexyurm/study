@@ -1,0 +1,9 @@
+-  Introduction
+
+The API's job is to make the developers as successful as possible. The 
+orientation for APIs is to think about design choices from the application
+developer's point of view. The primary design principle when crafting
+API should be to maximize developer productivity and success. This is
+what we call pragmatic REST.
+
+
