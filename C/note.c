@@ -124,3 +124,15 @@
     when passing the value to putValue, we can do this:
 
     putValue<int> (fd, freq)
+
+
+
+-   Interesting...(??):
+
+    XMLPUBFUN xmlChar * XMLCALL	
+		xmlNodeListGetString	(xmlDocPtr doc,
+					 xmlNodePtr list,
+					 int inLine);
+
+    Note: #define XMLPUBFUN
+          #define XMLCALL

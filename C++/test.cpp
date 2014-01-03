@@ -44,8 +44,7 @@ class testMyClass
    public:
       MyClass getMyClassObj()
       {
-         cout<<"ALEX HACKS"<<endl;
-         //return myObj;
+         return myObj;
       }
    private:
       MyClass myObj;
@@ -53,11 +52,16 @@ class testMyClass
 
 int main()
 {
+   /*
    testMyClass tmc;
    cout<<"--------------getting into getMyClassObj----------------"<<endl;
    tmc.getMyClassObj();
    cout<<"--------------getting out of getMyClassObj--------------"<<endl;
+   */
    
+   MyClass *myclass_p = new MyClass;
+   cout<<"myclass_p = "<<myclass_p<<endl;
+   //MyClass myclass;
    
    return 1;
 }

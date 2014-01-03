@@ -6,4 +6,102 @@ developer's point of view. The primary design principle when crafting
 API should be to maximize developer productivity and success. This is
 what we call pragmatic REST.
 
+-   Nones are good; verbs are bad
 
+Principle 1: Keep simple things simple
+
+A key litmus test we use for Web api design is that there should be only
+2 base URLs per resource.
+
+the first element is a collection; the second is for specific element in
+the collection.
+
+/dogs                    /dogs/1234
+
+
+-   Keep verbs out 
+
+-   Use HTTP verbs to operate on the collections and elements
+
+We can operate on those two base URLs with HTTP verbs: POST, GET, PUT, and
+DELETE. We think of them as mapping to the acronym: CRUD(CREATE-READ-UPDATE-DELETE)
+
+
+Resource    POST                GET         PUT                 DELETE
+            (create)            (read)      (update)            delete
+/dogs       create a new dog    List dogs   Bulk update dogs    Delete all dogs
+/dogs/1234  Error               Show Bo     if exists update Bo Delete Bo
+                                            if not error
+
+In summary:
+
+Use two base URLs per resource.
+Keep verbs out of your base URLs.
+Use HTTP verbs to operate on the collections and elements.
+
+-   Plural nones and concrete names
+
+Concrete names are better than abstract
+
+E.g. an API that accesses content in various forms - blgos, videos, news articles,
+and so on. An api that models everything at the highest level of abstraction - 
+as /items or /assets loses the opportunity to paint a tangible picture for developers
+to know what they can do with this API.
+
+In summary, an intuitive API uses plural rather than singular nouns, and concrete
+rather than abstract names.
+
+-   Simplify associations - sweep complexity under '?'
+
+GET /owners/5678/dogs
+
+POST /owners/5678/dogs
+
+You shouldn't need too many cases where a URL is deeper than what we have above
+/resource/identifier/resource
+
+Sweep complexity behind the '?'
+
+Make it simple for developers to use the base URL by putting optional states
+and attributes behind the HTTP question mark. To get all red dogs running in the park:
+
+GET /dogs?color=red&state=running&location=park
+
+In summary, keep your API intuitive by simplifying the associations between rewources,
+and sweeping parameters and other complexities under the rug of the HTTP question mark.
+
+-   Handling errors
+
+Errors become a key tool providing contect and visiblity into how to use an API.
+
+There are over 70 HTTP status codes. Most API providers use a small subset. Here 
+is the question: How many status codes should you use for API?
+
+When you boil it down, there are really only 3 outcomes in the interaction between
+an app and an API:
+
+1) Everything worked - success
+2) The application did something wrong - client error
+3) The API did something wrong - server error
+
+Start by using the following 3 codes.
+
+-   200 OK
+-   400 Bad Request
+-   500 Internal Server Error
+
+If you're not comfortable reducing all your error conditions to these 3, try
+picking among these additional 5:
+
+-   201 Created
+-   304 Not Modified
+-   404 Not Found
+-   404 Unauthorized
+-   403 Forbidden
+
+Make messages returned in the payload as verbose as possible.
+
+Code for code
+
+200 - OK
+401 - Unauthorized

@@ -81,3 +81,7 @@
 -   Is it true that a new class's static variables are not accessible by override functions in the same new class??
 
 -   The usage of static members, static functions, static member functions, static variables.
+
+-   Shared_Pointer
+
+    
