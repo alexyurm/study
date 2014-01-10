@@ -50,7 +50,7 @@ Chapter 2 Keeping your objects in the know.
       setState()
 
       Note: the arrow ------> means one-to-many relationship
-            the arrow <------ means many-to-one relationship.
+            the arrow <------ means many-to-one relationship
 
    -  Design Principle 4: Strive for loosely coupled designs between objects that interact. The power of Loose Coupling
 
@@ -123,7 +123,7 @@ Chapter 2 Keeping your objects in the know.
 
       1. Observable is a class
 
-         You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another subclass(Java doesn't support multiple
+         You have to subclass it. That means you can't add on the Observable behavior to an existing class that already extends another class(Java doesn't support multiple
          inheritance). That limits its reuse potential. This violates Principle 2: program an interface, not in implementation.
 
          Note: Observer is an interface therefore it doesn't have the same problem.
