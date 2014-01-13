@@ -15,7 +15,7 @@
 *
 *  -  We can use condiment types as wrappers to wrap a beverage(including condiments):
 *     
-*     In each condiment type, we have a member type :     
+*     In each condiment type, we have a member type :
 *
 *     1. Beverage beverage; 
 *     
@@ -28,6 +28,9 @@
 *     }
 *     
 *     With 1 and 2, we can use CondimentDecorator to wrap any beverage objects. A decorator wraps an object to add new behaviors and responsibilities.
+*
+*    Question: It looks CondimentDecorator overrides the getDescription() method by adding "abstract". Is this legal in Java?
+*
 */
 
 abstract class Beverage {
@@ -85,7 +88,7 @@ class Decaf extends Beverage {
 }
 
 class Mocha extends CondimentDecorator {
-   Beverage beverage;
+   Beverage beverage; //the Beverage object being wrapped(decorated)
 
    public Mocha(Beverage beverage) {
       this.beverage = beverage;
@@ -101,7 +104,7 @@ class Mocha extends CondimentDecorator {
 }
 
 class SteamedMilk extends CondimentDecorator {
-   Beverage beverage;
+   Beverage beverage; //the Beverage object being wrapped(decorated)
 
    public SteamedMilk(Beverage beverage) {
       this.beverage = beverage;
@@ -117,7 +120,7 @@ class SteamedMilk extends CondimentDecorator {
 }
 
 class Soy extends CondimentDecorator {
-   Beverage beverage;
+   Beverage beverage; //the Beverage object being wrapped(decorated)
 
    public Soy(Beverage beverage) {
       this.beverage = beverage;
@@ -134,7 +137,7 @@ class Soy extends CondimentDecorator {
 
 
 class Whip extends CondimentDecorator {
-   Beverage beverage;
+   Beverage beverage; //the Beverage object being wrapped(decorated)
 
    public Whip(Beverage beverage) {
       this.beverage = beverage;

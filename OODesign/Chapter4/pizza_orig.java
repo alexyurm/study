@@ -1,4 +1,24 @@
-
+/*
+*   There are three classes in this example to demonstrate the usage of Facory method.
+*
+*   1.  Pizza(abstract) <--- CheesePizza(concrete), PepperoniPizza(concrete), ClamPizza(concrete) and VeggiePizza(concrete)
+*
+*   2.  SimplePizzaFactory includes: an createPizza(int type) method which returns an concrete Pizza object. This is the key in Factory method.
+*       It decouples the client code in the super class Pizza from the object creation code in the subclass(e.g. CheesePizza). It handles
+*       object creation and encapsulates it in a subclass.
+*
+*   3.  PizzaStore has an SimplePizzaFactory object(called factory) and an orderPizza(int type). In orderPizza(type), based on the actual type, 
+*       it calls factory.createPizza(type) to create the concrete pizza then call:
+*
+*       pizza.prepare()
+*       pizza.bake()
+*       pizza.cut()
+*       pizza.box()
+*       ...
+*
+*
+*
+*/
 
 abstract class Pizza {
    public abstract void prepare();

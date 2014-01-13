@@ -160,6 +160,8 @@ Chapter 4: Baking with OO Goodness
 
       A factory method handles object creation and encapsulates it in a subclass. This decouples the client code in the 
       superclass from the object creation code in the subclass.
+
+      Questions: What is client code??
       
       A factory method isolates the clients (the code in the superclass, like orderPizza()) from knowing what kind of
       concrete Product is actually created:
@@ -199,7 +201,7 @@ Chapter 4: Baking with OO Goodness
       ^
       |
       |
-      ConcreteCreator ------> ConcreteProduct --------->(abstract)Product //All the products must implement the same interfac
+      ConcreteCreator ------> ConcreteProduct --------->(abstract)Product //All the products must implement the same interface
          factoryMethod           //The ConcreteProduct is responsible for creating one or more concrete products. It is the only class that has the knowledge of how to create
                                  //these products
 
@@ -237,6 +239,8 @@ Chapter 4: Baking with OO Goodness
       Abstract Factory: Provide an interface for creating families of related or depedent on objects without specifying their concrete classes.
 
       Factory Method: Define an interface for creating an object, but let subclasses decide which class to instantiate. 
+
+      In summary, create "family" of objects are the main purpose using Abstract Factory.
 
 Chapter 5 One of a Kind Objects.
 

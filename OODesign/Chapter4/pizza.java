@@ -1,3 +1,63 @@
+/*
+*   1.  The incredients inheritance map:
+*
+*   Dough   <--- ThinCrustdough
+*   Sauce   <--- MarinaraSauce, PlumTomatoSauce
+*   Cheese  <--- ReggianoCheese, Mozzzrella
+*   Veggies <--- Garlic, Onion, Mushroom, RedPepper, Spinach, EggPlant, BlackOlives
+*   Pepperoni <--- SlicedPepperoni
+*   Clams <---  FrozenClams, FreshClams
+*
+*   2.  Ingredient Factory inheritance map:
+*
+*   PizzaIngredientFactory(interface) <--- NYPizzaIngredientFactory, ChicagoPizzaIngredientFactory
+*
+*   The PizzaIngredientFactory class has a whole bunch abstract methods to create incredients objects. E.g. createDough, createVeggies.
+*   its subclass(e.g. PizzaIngredientFactory) overrides those methods to create different types of actual incredients.
+*
+*   The PizzaIngredientFactory interface is the so called Abstract Factory pattern so that it can create families of related dependent 
+*   objects without specifying their concrete classes.
+*
+*   3.  Pizza inheritance map:
+*
+*   Pizza <--- CheesePizza, ClamPizza, PepperoniPizza, VeggiePizza
+*
+*   1) The Pizza class has the following members:
+*
+*   Doug
+*   Sauce
+*   Cheese
+*   Veggies[]
+*   Pepperoni
+*   Clams
+*
+*   2) The Pizza class has the following methods:
+*
+*   parepare(), bake(), cut() and box()...
+*
+*   3) Each of its subclass includes:
+*
+*   -   a PizzaIngredientFactory object.
+*
+*   -   with that PizzaIngredientFactory object, overrides the prepare() method to create different combinations of ingredients. E.g.
+*
+*       CheesePizza: Dough + Source + Cheese
+*       ClamPizza: Dough + Source + Cheese + Clam
+*
+*   4.  The PizzaStore inheritance map:     
+*
+*   PizzaStore <--- NYPizzaStore, ChicagoPizzaStore
+*
+*   1) The PizzaStore has two methods: 
+*
+*   createPizza(type) and orderPizza(type)
+*
+*   2) Their subtypes overrides the createPizza(type) methods.
+*
+*
+*/
+
+
 import java.util.*;
 import java.lang.*;
 
