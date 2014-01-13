@@ -30,27 +30,6 @@ Chapter 2: Installing Git
 
 Chapter 3: Getting started
 
-0. Git places only four types of objects in the object store: blobs, trees, commits, and tags.
-
--   Blobs
-
-    Each version of a file is represented as a blob(Binary Large Object). A Blob is treated as opaque. A blob holds a file's data but does not contain any meta data or even it's
-    name.
-
--   Trees
-
-    A tree is represented as one level of directory information. It records blob identifiers, pathnames, and a bit of metadata for all files in one directory. It can also
-    recursively reference other (sub)tree objects and thus build a complete hierachy of files and subdirectories.
-
--   Commits
-
-    A commit objects holds metadata for each change introduced into the repository, including the author, committer, commit date, and log message. Each commit points to a tree
-    object that captures, in one complete snapshot, the state of the repository at the time the commit was performed.
-
--   Tags
-
-    A tag object assigns an arbitrary yet presumably human-readable name to a specific object, usually an commit.
-
 1. For a complete (and somewhat daunting) list of git subcommands, type git help --all.
 
    -  For convinence, documentation for each git subcommand is available using either git help subcommand or git subcommand --help.
