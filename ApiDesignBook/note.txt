@@ -67,7 +67,9 @@ and attributes behind the HTTP question mark. To get all red dogs running in the
 
 GET /dogs?color=red&state=running&location=park
 
-In summary, keep your API intuitive by simplifying the associations between rewources,
+
+
+In summary, keep your API intuitive by simplifying the associations between resources,
 and sweeping parameters and other complexities under the rug of the HTTP question mark.
 
 -   Handling errors
@@ -99,9 +101,20 @@ picking among these additional 5:
 -   404 Unauthorized
 -   403 Forbidden
 
-Make messages returned in the payload as verbose as possible.
+-  Make messages returned in the payload as verbose as possible. This is very useful to provide as many hints
+   as possible for API developers to fix the problem. We recommend you add a link in your description, like Twilio.
 
 Code for code
 
 200 - OK
 401 - Unauthorized
+
+Message for people:
+
+{"developerMessage" : "Verbose, plain language description of
+the problem for the app developer with hints about how to fix
+it.", "userMessage":"Pass this message on to the app user if
+needed.", "errorCode" : 12345, "more info":
+"http://dev.teachdogrest.com/errors/12345"}
+
+-  Tips for versioning
