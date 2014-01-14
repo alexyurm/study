@@ -139,11 +139,11 @@ Chapter 4 basic Git Concepts
 
    -  Tags: a tag object assigns an arbitrary yet presumably human-readable name to a specific object, usually a commit. Although 9da581d910c9c4ac93557ca4859e767f5caf5169 refers to an exact and well-defined commit, a more familiar tag name like Ver-1.0-Alpha might make more sense!
 
-   To save more space, Git compresses and stores the objects in pact files, which are also placed in the object store. 
+   To save more space, Git compresses and stores the objects in pact files, which are also placed in the object store.
 
  3.Index
 
-   The index is a temporary and dynamic binary file that describes the directory structure of the entire repository. More specifically, the index captures a version of the project's overall structure at some moments in time. The project's state could be represented by a commit and a tree from any point in the project's history, or it could be a future state toward which you are actively developing.  
+   The index is a temporary and dynamic binary file that describes the directory structure of the entire repository. More specifically, the index captures a version of the project's overall structure at some moments in time. The project's state could be represented by a commit and a tree from any point in the project's history, or it could be a future state toward which you are actively developing.
 
 4. Content-Addressable names
 
@@ -246,6 +246,8 @@ Chapter 7 Branches
    the point where you are working right now. Note that the git branch command merely introduces the name of a branch into the repository. It does not change your working 
    directory to use the new branch. No working directory files change; no implicit branch context changes; no new commits are made. The command simply creates a named
    branch at the given commit. You can't actually start work on the branch until you switch to it, as shown later in "Checking Out Branches" on page 94.
+
+
 
    
 
