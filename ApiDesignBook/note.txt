@@ -118,3 +118,22 @@ needed.", "errorCode" : 12345, "more info":
 "http://dev.teachdogrest.com/errors/12345"}
 
 -  Tips for versioning
+
+Versioning is one of the most important considerations when designing your Web API.
+
+-   Never release an API withput a version and make the version mandatory.
+
+    1) Specify the version with a 'v' prefix. Move it all the way to the left in the URL so that is has the highest scope.
+
+    e.g. /v1/dogs
+
+    2) Use a simple ordinal number. Don't use the dot notation like v1.2 because it implies a granularily of versioning that doesn't work well with APIs--
+    it's an interface not an implementation. Stick with v1, v2 and so on.
+
+    3) Should version and format be in URLs or headers?
+
+-   How many versions should you maintain?
+
+    At least one version back.
+
+-   For how long should you maintain a version?
