@@ -247,10 +247,83 @@ Chapter 7 Branches
    directory to use the new branch. No working directory files change; no implicit branch context changes; no new commits are made. The command simply creates a named
    branch at the given commit. You can't actually start work on the branch until you switch to it, as shown later in "Checking Out Branches" on page 94.
 
+-  git show-branch provide more detailed output than git branch:
 
+   $ git show-branch
+   ! [bug/pr-1] Fix Problem Report 1
+   * [dev] Improve the new development
+   ! [master] Added Bob's fixes.
+   ---
+   * [dev] Improve the new development
+   * [dev^] Start some new development.
+   +
+   [bug/pr-1] Fix Problem Report 1
+   +*+ [master] Added Bob's fixes.
+   
+   Two sections are seperated by a line of dahses. 
+
+   1) Section above: the names of branches enclosed in square brackets. Each branch name is associated with a single column of ourput, identified by either
+      an exclamation mark or - if it is also the current branch - an asterisk.
+
+   2) The lower section: it is a matrix starting which commits are present in each branch. A commit is present in a branch if there a plus sign(+), an asterisk(*), or a minus
+      sign(-) in that branch's column.
+
+      +: the commit is in a branch
+      *: just highlights the commit as being present on the active branch.
+      -: denotes a merge commit.
+
+   You can only run to see just some branches: git show-branch your_branch_list
+
+-  Checking out Branches
+
+   To start working on a different branch, issue the git checkout command, which makes the branch the new, current working branch. In addition, git checkout
+   gives you access to all states of the repository going back from the tip of the branch to the beginning of the project.
+
+
+Note: 
+
+1. Add a new branch
+
+git checkout -b your_new_branch (-b: means create a new branch)
+git push origin your_new_branch
 
    
+2. Delete a branch
 
+-  Delete a remote branch:
+
+git push remote :you_branch_to_delete
+
+-  Delete a local branch
    
+git branch -d you_branch_to_delete
 
-      
+3. Set upstream for the new branch that you just checked out
+
+After you create a branch e.g. called dropwizard and have checkouted that branch. You need to tell git when you do pull, which remote branch you want to merge with. To do this, 
+just setup the upstream for the local branch:
+
+~/twitter-project $ git branch --set-upstream dropwizard origin/dropwizard
+Branch dropwizard set up to track remote branch dropwizard from origin.
+
+or:
+
+git push -u origin dropwizard
+
+It actually creates a new section for dropwizard in .get/config. Please see below:
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = ubuntu@54.225.80.114:/opt/twitter-project
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "dropwizard"]
+	remote = origin
+	merge = refs/heads/dropwizard
+

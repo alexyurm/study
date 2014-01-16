@@ -2246,10 +2246,173 @@ Chapter 19 Concurrency
    4. Only one field refers to an object, and that object is itself immutable. Therefore, no safeguards against changing the state of "contained" mutable objects
       are necessary.
          
+-  Annotations
 
+   -  Overview
    
+   Annotations, a form of metadata, provide data about a program that is not part of the program itself. Annotations have no effect on the operation of the code they annotate.
+   Annotations have a number of uses, among them:
 
+   1)  Information for the compiler: used by compiler to detect errors and suppress warnings.
+   2)  Compile-time and deployment-time processing: Software tools can process annotation information to generate code, XML files and so forth.
+   3)  Runtime processing: Some annotations are available to be examined at runtime.
+
+   -  The format for an annotation
+
+   1) In its simplest form, an annotation looks like the following:
+
+   @Entity
+   class MyClass {...}
+
+   @ sign tells the compiler that what follows is an annotation.
+
+   2) The annotation can include elements, which can be named or unnamed, and there are values for those elements:
+
+   @Author(
+      name = "Benjamin Franklin"
+      data = "3/27/2003"
+   )
+   class MyClass {...}
+
+   3) It is possible to use multiple annotations on the same declaration:
+
+   @Author(name = "Jane Doe")
+   @Author(name = "John Smith")
+   class MyClass {...}
    
+   -  Where annotations can be used
+
+   Annotations can be applied to declarations: declarations of classes, fields, methods, and other program elements. When used on a declaration, each annotation
+   often appears, by convention, on its own line.
+
+   -  Many annotations replace comments in code.
+
+   public class Generation3List extends Generation2List {
+
+   //Author:   John doe
+   //Date:     3/17/2012
+   //Current revision: 6
+   //Last modified: 4/12/2004
+   //By: Jane Doe
+   //Reviewers: Alice, Bill, Cindy
+
+   //class code goes here
+
+   To add this same metadata with an annotation, you must first define the annotation type. The syntax for doing this is:
+
+   @interface ClassPreamble {
+   String author();
+   String date();
+   int currentRevision() default 1;
+   String lastModified() default "N/A";
+   String lastModifiedBy() default "N/A";
+   // Note use of array
+   String[] reviewers();
+   }
+
+   After annotation type is defined, you can use annotations of that type, with the values filled in, like this:
+
+   @ClassPreamble (
+      author = "John Doe",
+      date = "3/17/2002",
+      currentRevision = 6,
+      lastModified = "4/12/2004",
+      lastModifiedBy = "Jane Doe",
+      // Note array notation
+      reviewers = {"Alice", "Bob", "Cindy"}
+   )
+   public class Generation3List extends Generation2List {
+
+   // class code goes here
+
+   }
+
+   Note: To make the information in @ClassPreamble appear in Javadoc-generated documentation, you must annotate the @ClassPreamble definition with the @Documented annotation:
+
+   // import this to use @Documented
+   import java.lang.annotation.*;
+
+   @Documented
+   @interface ClassPreamble {
+
+      // Annotation element definitions
+      
+   }
+
+   -  Predefined Annotation Types
+
+   A set of annotation types are predefined in the Java SE API. Some annotation types are used by the Java compiler, and some apply to other annotations
+
+   1) Annotations type used by Java Language
+
+   The predefined types are in java.lang are @Deprecated, @Override, and @SuppressWarnings
+
+   1.1) @Deprecated
+
+   @Deprecated annotation indicates that the marked element is deprecated and should no longer be used. The compiler generates a warning whenever a program uses a method
+   , class or field with @Deprecated annotation. When an element is deprecated, it should also be documented using the Javadoc @deprecated tag(see the following example).
+   The use of the sign(@) in both Javadoc comments and in annotations is not coincidental: they are related conceptually. Also, note that the Javadoc tag starts with 
+   a lowercase d and the annotation starts with an uppercase D.
+
+   // Javadoc comment follows
+       /**
+        * @deprecated
+        * explanation of why it was deprecated
+        */
+       @Deprecated
+       static void deprecatedMethod() { }
+   }
+   
+   1.2) @Override
+
+   @Override @Override annotation informs the compiler that the element is meant to override an element declared in a superclass. Overriding methods will be discussed 
+   in Interfaces and Inheritance.
+
+   // mark method as a superclass method
+   // that has been overridden
+   @Override 
+   int overriddenMethod() { }
+
+   While it is not required to use this annotation when overriding a method, it helps to prevent errors. If a method marked with @Override fails to correctly override a 
+   method in one of its superclasses, the compiler generates an error.
+
+   1.3) @SuppressWarnings @SuppressWarnings annotation tells the compiler to suppress specific warnings that it would otherwise generate. In the following example, 
+   a deprecated method is used, and the compiler usually generates a warning. In this case, however, the annotation causes the warning to be suppressed.
+
+   // use a deprecated method and tell 
+   // compiler not to generate a warning
+   @SuppressWarnings("deprecation")
+    void useDeprecatedMethod() {
+        // deprecation warning
+        // - suppressed
+        objectOne.deprecatedMethod();
+    }
+
+   Java Language has two categories: 1) deprecation; 2) unchecked
+
+   unchecked warnings can occur when interfacing with legacy code written before the advent of generics(??). To suppress multiple categories of warnings, use the 
+   following syntax:
+
+   @SuppressWarnings({"unchecked", "deprecation"})
+
+   1.4) @SafeVerargs
+
+   when applied to a method or constructor, asserts that the code does not perform potentially unsafe operations on its varargs parameter. When this annotation type 
+   is used, unchecked warnings relating to varargs usage are suppressed.
+
+   2. Annotations That apply to other annotations
+
+   Those types of annotations are also called meta-annotations. They are defined in java.lang.annotation.
+
+   2.1) 
+   
+   @Rentation
+
+   It specifies how the marked annotation is stored:
+
+   RetentionPolicy.SOURCE – The marked annotation is retained only in the source level and is ignored by the compiler.
+   RetentionPolicy.CLASS – The marked annotation is retained by the compiler at compile time, but is ignored by the Java Virtual Machine (JVM).
+   RetentionPolicy.RUNTIME – The marked annotation is retained by the JVM so it can be used by the runtime environment.
 
 
 Questions
