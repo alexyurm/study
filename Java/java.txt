@@ -177,9 +177,6 @@ Chapter 6 Using the Java Library
    Circle of package from com.zzz.project1.subproject2 is stored as "$BASE_DIR/com/zzz/project1/subproject2/Circle.class", where $BASE_DIR denotes the base
    directory of the package. Clearly, the "dot" in the package name corresponds to a sub-directory of the file system.
 
-   
-   
-
 -  You have to tell Java which ArrayList you want to use. You have two options:
 
    Put an import statement at the top of your source code file:
@@ -2159,7 +2156,7 @@ Chapter 19 Concurrency
    because memory consistency errors are still possible. Using volatile variables reduces the risk of memory consistency errors, because any write to a volatile variable 
    establishes a happens-before relationship with subsequent reads of that same variable. This means that changes to a volatile variable are always visible to other threads. 
    What's more, it also means that when a thread reads a volatile variable, it sees not just the latest change to the volatile, but also the side effects of the code that 
-   led up the change.
+   led up the change(??).
 
    Using simple atomic variable access is more efficient than accessing these variables through synchronized code, but requires more care by the programmer to avoid memory 
    consistency errors. Whether the extra effort is worthwhile depends on the size and complexity of the application.
@@ -3104,3 +3101,23 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
    ?? I guess the code "((k = e.key) == key" checks only if k points to the same heap memory of key, if yes then the reason we need to check their hash codes again is becasue
    k(key) may have been changed after it was put in the hashmap table.
+
+47) Class AtomicLong
+
+   A long value that may be updated atomically. An AtomicLong is used in applications such as atomically incremented sequence numbers, and cannot be used as a replacement for a Long.
+   However, this class does extend the Number to allow uniform access by tools and utilities that deal with numerically-based classes.
+
+   See the package: Package java.util.concurrent.atomic
+
+48) There are two ways to handle Exception.
+
+   1) use try/catch. That means to handle the exception in the current method.
+   2) Use throws Exception. E.g.
+
+   method A() throws Exception {
+      B()
+   }
+
+   In the above example, if B throws an Exception, What A does is just to throw the exception to the upper level(the caller of A)
+
+   You cannot do both 1) and 2) at the same time but only either of them.
