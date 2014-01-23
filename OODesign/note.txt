@@ -596,3 +596,48 @@ Chapter 7 the Adapter and Facade Patterns
             //update display
          }
       }
+
+Chapter 8 The Template Method Pattern
+
+-  StarBuzz Coffee Recipe
+
+   1) Boil some water
+   2) Brew coffee in boiling water
+   3) Pour coffee in cup
+   4) Add sugar and milk
+
+-  Starbuzz Tea Recipe
+
+   1) Boil some water
+   2) Steep tea in boiling water
+   3) Pour tea in cup
+   4) Add lemon
+
+-  Template Method
+
+   The Template Method defines the steps of an algorithm and allows subclasses to provide the implementation for one or more steps. In the above example, 
+
+   1) and 3) can be extraced as generalizations. 3) and 4) are for subclasses to provide the implementations.
+
+   The Template Method Pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. Template Method lets subclasses 
+   redefine certain steps of an algorithm without changing the algorithm's structure.
+
+   abstract class AbstractClass {
+      final void templateMethod() {
+         primitiveOperation1();
+         primitiveOperation2();
+         concreteOperation();
+         hook();
+      }
+
+      abstract void primitiveOperation1(); //must be implemented by concrete subclasses.
+      abstract void primitiveOperation2(); //must be implemented by concrete subclasses.
+
+      final void concreteOperation() {
+         //Implementation here
+         //A concrete operation is defined in the abstract class. This one is declared final so that subclasses can't override it. It may be used in the template method
+         //directly, or used by subclasses.
+      }
+
+      void hook() {} A concrete method but it does nothing. Please see the following for the reason why we need an hook() method.
+   }
