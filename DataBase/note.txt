@@ -512,7 +512,7 @@ Chapter 3:  Design Theory for Relational Databases
 
          If A1A2...An -> B1B2...Bm and B1B2...Bm -> C1C2...Ck hold in relation R, then A1A2...An -> C1C2...Ck also holds in R.
 
-Questions:
+Notes from Learning MySQL:
 
 1. Login MySQL with the root user
 
@@ -560,7 +560,7 @@ Questions:
                 individual entity.  In the ER diagram, attributes are represented as labeled ovals and are connected to their owning entity. For some applications,
                 no combination of attributes can uniquely identify an entity(or it would be too unwieldy to use a large composite key), so we create an artificial
                 attribute that's defined to be unique and can therefore be used as a keyl student number, Social Security numbers, driver's license number...
-  Relstionships - We represent a relationship set with a named diamond. 
+  Relationships - We represent a relationship set with a named diamond. 
 
 -  Representing Relationships
 
@@ -773,13 +773,70 @@ Questions:
 
 -  the INSERT Statement
 
-   The Insert statement is used to add new data to tables. There are 2 situations:
+    -   Basics:
 
-   1) bulk-load in a large batch
-   2) add data on ad hoc basis
+    The Insert statement is used to add new data to tables. There are 2 situations:
 
-   mysql> INSERT INTO artist VALUES (7, "Barry Adamson")
-   
+    1) bulk-load in a large batch
+
+    Example:
+
+    mysql> INSERT INTO artist VALUES (7, "Barry Adamson")
+    
+    2) add data on ad hoc basis
+
+    mysql> INSERT INTO track VALUES (1, "Diamonds", 7, 1, 4.10),
+    -> (2, "Boppin Out / Eternal Morning", 7, 1, 3.22),
+    -> (3, "Splat Goes the Cat", 7, 1, 1.39),
+    -> (4, "From Rusholme With Love", 7, 1, 3.59);
+    Query OK, 4 rows affected (0.00 sec)
+    Records: 4 Duplicates: 0 Warnings: 0
+
+    -   Alternative Syntaxes:
+
+    1. Three disadvantages of the VALUES syntax we've shown you.
+
+    -   First, you need to remember the order of the columns;
+    -   Second, you need to provide a value for each colummn;
+    -   Last, it’s closely tied to the underlying table structure: if you change the table’s
+        structure, you need to change the INSERT statements, and the function of the INSERT
+        statement isn’t obvious unless you have the table structure at hand.
+
+    Suppose you know that the album table has three columns and you recall their names, but you forget their order, you can use the following approach:
+
+    mysql> INSERT INTO album (artist_id, album_id, album_name)
+    -> VALUES (7, 2, "Oedipus Schmoedipus");
+    Query OK, 1 row affected (0.00 sec)
+
+    The disadvantage of this approach are that you can accidentally omit values for columns, and you need to remember and type column names. The omitted columns will
+    be set to the default values.
+
+    2.  The () syntax is used to represent that all columns and values are to be set to their defaults. E.g.
+
+    mysql> INSERT INTO played () VALUES ();
+    Query OK, 1 row affected (0.00 sec)
+
+    3.  
+
+    mysql> INSERT INTO played VALUES (7, 1, 2, DEFAULT);
+    Query OK, 1 row affected (0.00 sec)
+
+    The advantage of this approach is that you can use the bulk-insert feature with default values, and you can never accidentlly omit a column.
+
+    4.  
+
+    mysql> INSERT INTO played
+    -> SET artist_id = 7, album_id = 1, track_id = 1;
+    Query OK, 1 row affected (0.00 sec)
+
+    In this approach, you list the column name and value together, giving the advantage that you don’t have to mentally map the list
+    of values to the earlier list of columns. A significant additional disadvantage is that you can’t use this method for bulk insertion.
+
+-   The DELETE Statement
+
+    -   Basics
+
+    
    
 
 -  CREATE clause:
@@ -857,8 +914,281 @@ Questions:
       1) Assign NULL to set to the current date and time.
       2) A developer-selected TIMESTAMP column in a table can be automatically updated to the current date and time when a row is inserted or updated.
       
-      If you specify DEFAULT NULL for a TIMESTAMP column, it will be interpreted differently depending on whether there are any other TIMESTAMP before it in the table. DEFAULT NULL
-      is handled 
+      If you specify DEFAULT NULL for a TIMESTAMP column, it will be interpreted differently depending on whether there are any other TIMESTAMP before it in the table. 
+      DEFAULT NULL is handled.
+
+      - The automatic-update feature in detail:
+
+        0) Only one TIMESTAMP column per table can be automatically set to the current date and time on insert or update. You can contrl this by following following steps:
+
+        1) Choose the column you want to automatically update
+
+        2) If you have other TIMESTAMP columns in the table, set the ones that precede the selected column in the CREATE TABLE statement to have a constant default (such
+            as DEFAULT 0).
+
+        3) For the automatically updating column, decide which behavior you want:
+
+        a.  If you want the timestamp to be set only when a new row is inserted into the table, add DEFAULT CURRENT_TIMESTAMP to the end of the column dec-laration.
+        b.  If you don’t want a default timestamp but want the current time to be used whenever the data in a row is updated, add ON UPDATE CURRENT_TIMESTAMP to the 
+            end of the column declaration.
+        c.  If you want both of the above—that is, you want the timestamp to be set to the current time in each new row or whenever an existing row is modi-fied— add 
+            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP to the end of the column declaration.
+
+        E.g.
+
+        mysql> CREATE TABLE mytime(id INT NOT NULL,
+                            -> changetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                            -> );
+
+    -   CHAR[(width)]
+
+        1) If the width is not provided, CHAR(1) is assumed;
+        2) Define a special CHAR(0) NULL column that takes up only one bit of storage. Two handy features with these approaches:
+
+            -   It allows you to include a dummy column in a table that doesn't do anything.
+            -   It allows you to store one of two values: NULL or the empty string '', giving you very compact storage of binary (Boolean) values(??).
+
+            E.g.
+
+            
+            mysql> CREATE TABLE bool(id INT, bit CHAR(0) NULL);
+            Query OK, 0 rows affected (0.02 sec)
+
+        3)  In all other cases, the CHAR type takes exactly the number of bytes in storage space as the width of the column. Values that are less than width characters
+            in length are stored left-aligned in the allocated space, with space character padding on the right side. All trailing spaces are ignored when receiving and
+            displaying values, as in this example:
+
+    -   Other integer types
+
+        -   BOOLEAN
+
+        The BOOLEAN type has the synonyms BOOL and BIT. It's equivalent to TINYINT(1), and so requires one byte of storage space; you can achieve more compact, one-bit
+        Boolean values by using CHAR(0), as described previously.
+
+        -   TINYINT[width][UNSIGNED][ZEROFILL]
+
+            one byte
+
+            Stores integer (whole number) values in the range -128, 127. When UNSIGNED is used, the range is changed to 0-255
+        
+        -   SMALLINT[width][UNSIGNED][ZEROFILL]
+
+            two bytes
+
+            Stores integer (whole number) values in the range -32768, 32767. When UNSIGNED is used, the range is changed to 0-65535
+
+        -   MEDIUMINT[width][UNSIGNED][ZEROFILL]
+
+            3 bytes
+
+            Stores integer (whole number) values in the range -8388608, 8388607. When UNSIGNED is used, the range is changed to 0-16777215
+
+        -   BIGINT[width][UNSIGNED][ZEROFILL]
+
+            8 bytes
+
+            Stores integer (whole number) values in the range -9223372036854775808, 89223372036854775807. When UNSIGNED is used, the range is changed to 0-
+            18,446,744,073,709,551,615.
+
+    -   Other rational number types
+
+        DOUBLE(also known as REAL)
+        FLOAT
+
+        FLOAT[(width, decimals)] [UNSIGNED] [ZEROFILL] or FLOAT[(precision)] [UNSIGNED]
+        [ZEROFILL]
+
+        
+        DOUBLE[(width, decimals)] [UNSIGNED] [ZEROFILL]
+
+    -   Other date and time types
+
+        YEAR[(digits)]
+
+        DATETIME
+
+    -   Other String types
+
+        VARCHAR(width)
+
+        It stores variable-length strings. The max(width) is 65535
+
+        A VARCHAR type incurs one or two extra bytes of overhead to store the length of the
+        string, depending on whether the string is shorter than or longer than 255 characters.
+        Trailing spaces are removed when a value is stored; you can use TEXT or BLOB types
+        to avoid this behavior(!!).
+
+    -   BINARY(width) and VARBINARY(width)
+
+    -   BLOB
+
+    -   TEXT
+        
+    -   TINYBLOB and TINYTEXT
+
+    -   MEDIUMBLOB and MEDIUMTEXT
+
+    -   LONGBLOB and LONGTEXT
+
+    -   ENUM('value1'[,'value2'[, ...]]
+
+    -   SET('value1'[,'value2'[, ...]])
+
+-   Keys and Indexes(!!)
+
+    A primary key uniquely identifies each row in a table. When you declare one to MySQL, it increases a new file on disk that stores information, about where
+    the data from each row in the table is stored. This information is called index. and its purpose is to speed up searches that use the primary key.
+
+    mysql> show index from artist;
+    +--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+    | Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
+    +--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+    | artist |          0 | PRIMARY  |            1 | artist_id   | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+    +--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+    1 row in set (0.00 sec)
+
+    -   Cardinality: the number of unique values in the index.
+
+    -   Note that all columns that are part of a primary key must be declared as NOT NULL.
+
+    -   You can create other indexes on the data in a table. You can drop the table and modifiy the CREATE TABLE definition to add an extra index. E.g.
+
+        mysql> DROP TABLE artist;
+        Query OK, 0 rows affected (0.01 sec)
+
+        
+        mysql> CREATE TABLE artist (
+        -> artist_id SMALLINT(5) NOT NULL DEFAULT 0,
+        -> artist_name CHAR(128) DEFAULT NULL,
+        -> PRIMARY KEY (artist_id),
+        -> KEY artist_name (artist_name)
+        -> );
+        Query OK, 0 rows affected (0.06 sec)
+
+        We have used the keyword KEY to tell MySQL that we want an extra index. Following this, we've named the index, in this example, we've named it after the column
+        name - and then we've included the column to index in parntheses.You can also add indexes after tables are created - in fact, you can pretty much change anything
+        about a table after its creation. 
+
+        You can build an index on more than one column. For example, consider the following customer table:
+
+        mysql> CREATE TABLE customer (
+        -> cust_id INT(4) NOT NULL DEFAULT 0,
+        -> firstname CHAR(50),
+        -> secondname CHAR(50),
+        -> surname CHAR(50),
+        -> PRIMARY KEY (cust_id),
+        -> KEY names (firstname, secondname, surname));
+        Query OK, 0 rows affected (0.01 sec)
+
+        Note: we've also added another index - called names that includes firstname, secondname, surname columns in this order.
+
+        So now you can use the names index for fast searching:
+
+        
+        mysql> SELECT * FROM customer WHERE
+        -> firstname = "Rose" AND
+        -> secondname = "Elizabeth" AND
+        -> surname = "Williams";
+
+        You can use the "EXPLAIN" statement to check whether what you think should happen is in fact happening:
+
+        mysql> EXPLAIN SELECT * FROM customer WHERE
+        -> firstname = "Rose" AND
+        -> secondname = "Elizabeth" AND
+        -> surname = "Williams";
+
+        ---------------------------------------------------------------------------------------------------------
+        Other examples: 
+
+        mysql> desc artist;
+        +-------------+-------------+------+-----+---------+-------+
+        | Field       | Type        | Null | Key | Default | Extra |
+        +-------------+-------------+------+-----+---------+-------+
+        | artist_id   | smallint(5) | NO   | PRI | 0       |       |
+        | artist_name | char(128)   | YES  |     | NULL    |       |
+        +-------------+-------------+------+-----+---------+-------+
+        2 rows in set (0.01 sec)
+        
+        mysql> explain select * from artist where artist_id < 3;
+        +----+-------------+--------+-------+---------------+---------+---------+------+------+-------------+
+        | id | select_type | table  | type  | possible_keys | key     | key_len | ref  | rows | Extra       |
+        +----+-------------+--------+-------+---------------+---------+---------+------+------+-------------+
+        |  1 | SIMPLE      | artist | range | PRIMARY       | PRIMARY | 2       | NULL |    2 | Using where |
+        +----+-------------+--------+-------+---------------+---------+---------+------+------+-------------+
+        1 row in set (0.02 sec)
+
+        mysql> explain select * from artist where artist_name="Alex Yu";
+        +----+-------------+--------+------+---------------+------+---------+------+------+-------------+
+        | id | select_type | table  | type | possible_keys | key  | key_len | ref  | rows | Extra       |
+        +----+-------------+--------+------+---------------+------+---------+------+------+-------------+
+        |  1 | SIMPLE      | artist | ALL  | NULL          | NULL | NULL    | NULL |    3 | Using where |
+        +----+-------------+--------+------+---------------+------+---------+------+------+-------------+
+        1 row in set (0.00 sec)
+
+        Note: if not index is used in the query, the key shows "NULL".
+        ---------------------------------------------------------------------------------------------------------
+
+        But(!!):
+
+        if we do:
+
+        mysql> SELECT * FROM customer WHERE
+        -> surname = "Williams" AND
+        -> secondname = "Elizabeth";
+
+        The query cannot be indexed for this query because the leftmost column in the index, firstname, does not appear in the query:
+
+        For MySQL to be able to use an index, the query needs to meet both the following
+        conditions:
+
+        1.  The leftmost column listed in the KEY (or PRIMARY KEY) clause must be in the query.
+        2.  The query must contain no OR clauses for columns that aren’t indexed.
+
+        Here are a few ideas on how to choose and design indexes:
+        
+        1)  Indexes cost space on disk, and they need to be updated whenever data changes.If your data changes frequently, or lots of data changes 
+            when you do make a change, however, SELECT commands are more common than other queries.
+
+        2)  Only add an index that’ll be used frequently. indexes will slow the process down.
+
+        3)  If all columns in an index are used in all queries, list the column with the highest number of duplicates at the left of the KEY clause. This
+            minimizes index size.
+
+        4)  The smaller the index, the faster it'll be. If you index large columns, you'll get a larger index. This is a good reason to ensure your columns
+            are as small as possible when you design your tables.
+
+        5)  For long columns, you can use only a prefix of the values from a column to create the index. You can do this by adding a value in parentheses after
+            the column definition, such as KEY names (firstname(3). secondname(2), surname(10)). This means that only the first three characters of firstname are
+            indexed, then the first 2 of secondname, then the first 10 from surname.
+
+-   The AUTO_INCREMENT Feature
+
+    The AUTO_INCREMENT
+
+    keyword tells MySQL that when a value isn’t provided for this column, the value allo-
+    cated should be one more than the maximum currently stored in the table. The
+    AUTO_INCREMENT sequence begins at 1 for an empty table.
+    
+    mysql> DROP TABLE artist;
+    Query OK, 0 rows affected (0.01 sec)
+    mysql>CREATE TABLE artist (
+    -> artist_id SMALLINT(5) NOT NULL AUTO_INCREMENT,
+    -> artist_name CHAR(128) DEFAULT NULL,
+    -> PRIMARY KEY (artist_id)
+    -> );
+
+    The AUTO_INCREMENT feature has the following requirements:
+
+    -   The column it is used on must be indexed;
+    -   The column that is used on cannot have DEFAULT value;
+    -   There can be only one AUTO_INCREMENT column per table.
+
+    While the AUTO_INCREMENT feature is useful, it isn't portable to other database environments, and it hides the logical steps to creating new identifiers,
+    It can also lead to ambiguity; for example, dropping or truncating a table will reset the counter, but de-leting selected rows (with a WHERE clause) 
+    doesn’t reset the counter.
+
+
+
 
    Built-in functions;
    
