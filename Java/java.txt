@@ -3121,3 +3121,30 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
    In the above example, if B throws an Exception, What A does is just to throw the exception to the upper level(the caller of A)
 
    You cannot do both 1) and 2) at the same time but only either of them.
+
+48) What is static initializer(vs instance initializer)
+
+    E.g. 
+
+    public class Test {
+        private static final int a;    
+        static {
+            a = 5;
+            doSomething(a);
+        }
+        private static int doSomething(int x) {
+            return (x+5);
+        }
+    }
+
+    The above block with the static modifier signifies a class initializer; without the static modifier, the code block is an instance initializer.
+    
+    Static initializers are executed in the order they are defined (top down, just like simple variable initializers) when the class is loaded (actually, 
+    when it's resolved, but that's a technicality).
+
+    Instance initializers are executed in the order defined when the class is instantiated, immediately before the constructor code is executed, immediately 
+    after the invocation of the super constructor.
+
+    If you remove static from int a, it becomes an instance variable which is not initialized at construction. If you also remove static from the initializer 
+    block, it then becomes an instance initializer and so int a is initialized at construction.
+

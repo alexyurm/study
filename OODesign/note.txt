@@ -277,7 +277,7 @@ Chapter 5 One of a Kind Objects.
          If your application always creates and uses an instance of the Singleton or the overhead of creation and runtime aspects of the Singleton are not onerous(??).
 
          public class Singleton {
-            private static singleton uniqueInstance = new Singleton(); //Go ahead and create an instance of Singleton in a static initializer. This code is guaranteed to be thread safe!
+            private static singleton uniqueInstance = new Singleton(); //Go ahead and create an instance of Singleton in a static initializer. This code is guaranteed to be thread safe!(??)
 
             private Singleton() {}
 
@@ -288,6 +288,32 @@ Chapter 5 One of a Kind Objects.
 
          Using this method, we relay on the JVM to create the unique instance of the Singleton when the class is loaded. The JVM guarantees that the instance will be created before
          any thread accesses the static uniqueInstance variable.
+
+        Note: What is static initializer?
+
+        E.g. 
+            public class Test {
+                private static final int a;    
+                static {
+                    a = 5;
+                    doSomething(a);
+                }
+                private static int doSomething(int x) {
+                    return (x+5);
+                }
+            }
+
+            The above block with the static modifier signifies a class initializer; without the static modifier, the code block is an instance initializer.
+            
+            Static initializers are executed in the order they are defined (top down, just like simple variable initializers) when the class is loaded (actually, 
+            when it's resolved, but that's a technicality).
+
+            Instance initializers are executed in the order defined when the class is instantiated, immediately before the constructor code is executed, immediately 
+            after the invocation of the super constructor.
+
+            If you remove static from int a, it becomes an instance variable which is not initialized at construction. If you also remove static from the initializer 
+            block, it then becomes an instance initializer and so int a is initialized at construction.
+            
 
       3. Use "double-checked locking" to reduce the use of synchronization in getInstance()
 
