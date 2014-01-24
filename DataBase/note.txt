@@ -107,7 +107,7 @@ Chapter2 The Ralational Model of Data
 
          1. Character strings of fixed or varying length.
 
-         CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters(what are short strings??).
+         CHAR(n) denotes a fixed-length string of up to n characters. CHAR implies that short strings are padded to make n characters.
          VARCHAR(n) denotes a fixed-length of up to n characters. VARCHAR implies that endmarker or string-length is used(??). 
 
          2. Bit strings of fixed or varying length.
@@ -835,6 +835,56 @@ Notes from Learning MySQL:
 -   The DELETE Statement
 
     -   Basics
+
+    The Delete statement s used to remove one or more rows from a database. Remember that DELETE doesn't remove the table itself. To reset or modify
+    a vale in a row, you can use the UPDATE statement.
+
+    1) Remove all rows in a table:
+
+    mysql> DELETE FROM played;
+
+    2) To remove one or more rows but not all rows, use the WHERE clause:
+
+    mysql> DELETE FROM played WHERE played < "2006-08-15"
+
+    another example:
+
+    mysql> SELECT artist_id FROM artist WHERE artist_name = "Miles Davis";
+
+    +-----------+
+    | artist_id |
+    +-----------+
+    |         3 |
+    +-----------+
+    1 row in set (0.00 sec)
+    
+    mysql> DELETE FROM artist WHERE artist_id=3;
+
+    3) You can use ORDER BY and LIMIT clauses with DELETE. You usually want to do this when you want to limit the number of rows deleted.
+
+    Suppose you played table contains 10,528 rows, but you want to have at most 10,000 rows. In this situation, it may make sense to remove the 528 oldest rows, 
+    and you can do this with the following statement:
+
+    mysql> DELETE FROM played ORDER BY played LIMIT 528;
+    Query OK, 528 rows affected (0.23 sec)
+
+    The query sorts the rows by ascending play date and then deletes at most 528 rows, starting with the oldest.
+
+    Typically, when you’re deleting, you use LIMIT and ORDER BY together; it usually doesn’t make sense to use them separately.
+
+-   TRUNCATE Statement:
+
+    By using the TRUNCATE TABLE statement, MySQL takes the shortcut of dropping the table—that is, removing the table structures and then re-creating them.
+    When there are many rows in a table, this is much faster.
+
+    1) Remove all rows in a table:
+
+    mysql> TRUNCATE TABLE played;
+    Query OK, 0 rows affected (0.00 sec)
+
+    The TRUNCATE TABLE statement has two other limitations:
+    • It’s actually identical to DELETE if you use InnoDB tables.
+    • It does not work with locking or transactions(??).
 
     
    
