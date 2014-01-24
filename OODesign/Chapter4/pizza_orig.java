@@ -1,4 +1,9 @@
 /*
+*   This example shows a factory method that handles object creation and encapsulates it in a subclass.
+*
+*   Ths definition of Factory method: The Factory Method Pattern defines an interface for creating an object, but lets subclass
+*   decide which class to instantiate. Factory method lets a class defer instantiation to subclass.
+*
 *   There are three classes in this example to demonstrate the usage of Facory method.
 *
 *   1.  Pizza(abstract) <--- CheesePizza(concrete), PepperoniPizza(concrete), ClamPizza(concrete) and VeggiePizza(concrete)
@@ -15,9 +20,9 @@
 *       pizza.cut()
 *       pizza.box()
 *       ...
-*
-*
-*
+*       
+*   4.  PizzaStore calls ----> 1) SimplePizzaFactory.createPizza(type) to create the concrete pizza object based on the value of type; then
+*                        -----> 2) the returned pizza object: pizza.prepare(), pizza.bake(), pizza.cut() and pizza.box()
 */
 
 abstract class Pizza {

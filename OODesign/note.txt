@@ -215,7 +215,7 @@ Chapter 4: Baking with OO Goodness
 
       Why is called Dependency Inversion? Because now the low-level components depend on a higher level abstraction.
 
-   -  A few guidelines to help you follow the principle:
+   -  A few guidelines to help you follow the principle(!!):
 
       The following guidelines can help you avoid OO designs that violate the Dependency Inversion Principle:
 

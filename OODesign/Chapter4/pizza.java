@@ -1,4 +1,24 @@
 /*
+*   This example shows an advanced Facotry method called "Abstract Factory Method": 
+*
+*   The Abstract Factory Pattern: it provides an interface for creating families of related dependent objects without specifying their concrete
+*   classes. We've certainly seen that Abstract Factory allows a client to use an abstract interface to create a set of related products without
+*   knowing (or caring) about the concrete products that are actually produced.
+*
+*   Difference between Factory Method vs Abstract Factory Method:
+*
+*   1)  The Factory Method is a concrete class and it can only create an object;  
+*       The Abstract Method is an abstract interface which can generate a couple objects by using its concrete factory subclasses.
+*   2)  The Abstract Factory Method: the Actual Pizza concrete class composites the concrete factory class.
+*       The Factory Method: its Pizza concrete class doesn't composites the concrete factory class.
+*   3)  The Factory Method: There is only one PizzaStore.
+*       The Abstract Factory Method: There are a couple different Stores and each store corresponds to a corresponding factory. E.g.
+*
+*       NYPizzaStore <------------> NYPizzaIngredientFactory
+*
+*       This is why in 2), the actual pizza concrete class composites the concrete factory class, because: it can generate that local style
+*       pizza 
+*
 *   1.  The incredients inheritance map:
 *
 *   Dough   <--- ThinCrustdough
@@ -10,7 +30,7 @@
 *
 *   2.  Ingredient Factory inheritance map:
 *
-*   PizzaIngredientFactory(interface) <--- NYPizzaIngredientFactory, ChicagoPizzaIngredientFactory
+*   PizzaIngredientFactory(interface) <--- NYPizzaIngredientFactory(concrete class), ChicagoPizzaIngredientFactory(concrete class)
 *
 *   The PizzaIngredientFactory class has a whole bunch abstract methods to create incredients objects. E.g. createDough, createVeggies.
 *   its subclass(e.g. PizzaIngredientFactory) overrides those methods to create different types of actual incredients.
@@ -53,7 +73,6 @@
 *   createPizza(type) and orderPizza(type)
 *
 *   2) Their subtypes overrides the createPizza(type) methods.
-*
 *
 */
 

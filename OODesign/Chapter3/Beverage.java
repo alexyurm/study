@@ -44,7 +44,7 @@ abstract class Beverage {
 }
 
 abstract class CondimentDecorator extends Beverage {
-   public abstract String getDescription();
+   public abstract String getDescription(); //!!the getDescription is changed back to "abstract". That means its subclasses must implement this method.
 }
 
 class Espresso extends Beverage {
