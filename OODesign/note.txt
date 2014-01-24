@@ -264,8 +264,24 @@ Chapter 5 One of a Kind Objects.
       static getInstance()
       //Other useful Singleton methods
 
-   -  For most Java applications, we obviously need to ensure that the Singleton work in the presence of multiple threads. But it looks fairly expensive to synchronize getInstance()
-      method, so what do we do? We have a few options:
+   -  For most Java applications, we obviously need to ensure that the Singleton work in the presence of multiple threads. But it looks fairly expensive to synchronize 
+      getInstance() method, E.g.
+
+        public class Singleton {
+            private static singleton uniqueInstance;
+
+            private Singleton(){}
+
+            public static synchronized Singleton getInstance() {   //<-------It fixes the problem it is very Synchronization is very expensive.
+                if (instance == null) {
+                    instance = new Singleton();
+                }
+                
+                return instance;
+            }
+        }
+
+        so what do we do? We have a few options:
 
       1. Do nothing if the performance of getInstance() isn't critical to your application. 
    
@@ -334,12 +350,20 @@ Chapter 5 One of a Kind Objects.
                      }
                   }
                }
+               return uniqueInstance;
             }
          }
 
          This method of implementing the Singleton can drastically reduce the overhead.
 
       Note: If you are using a JVM earlier than 1.5, the double-checked locking implementation is not thread safe.
+
+            Why "volatile" keyword can ensures that multiple threads handle the uniqueInstance variable correctly when it is being initialized to the Singleton instance.
+
+            -   (In all versions of Java) There is a global ordering on the reads and writes to a volatile variable. This implies that every thread accessing a 
+                volatile field will read its current value before continuing, instead of (potentially) using a cached value. (However, there is no guarantee 
+                about the relative ordering of volatile reads and writes with regular reads and writes, meaning that it's generally not a useful threading construct.)
+            -   (In Java 5 or later) Volatile reads and writes establish a happens-before relationship, much like acquiring and releasing a mutex.
 
 Chapter 6: Encapsulating Invocation
 
