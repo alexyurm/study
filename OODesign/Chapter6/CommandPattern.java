@@ -1,3 +1,18 @@
+/*
+*   This example demonstrates the usage of Command Pattern
+*
+*   Inheritance map:
+*
+*   -   A single object: Light
+*
+*   -   Command(interface) <-------------LightOnCommand(concrete class), LightOffCommand(concrete class), NoCommand(concrete class)
+*
+*   -   
+*
+*/
+
+
+
 interface Command {
    public void execute();
    public void undo();
