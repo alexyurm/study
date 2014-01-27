@@ -1,0 +1,15 @@
+-  The dropwizard-core module provides you with everything you'll need for most of your services;
+
+   Jetty, a high-performance HTTP server.
+   Jersey, a full-featured RESTful web framework.
+   Jackson, the best JSON library for the JVM.
+   Metrics, Yammer’s own library for application metrics.
+   Guava, Google’s excellent utility library.
+   Logback, the successor to Log4j, Java’s most widely-used logging framework.
+   Hibernate Validator, the reference implementation of the Java Bean Validation standard.
+
+Questions:
+
+   1. In dropwizard core tutorial: http://dropwizard.codahale.com/manual/core/
+
+   Where is the definition of the class "NotificationStore" ??

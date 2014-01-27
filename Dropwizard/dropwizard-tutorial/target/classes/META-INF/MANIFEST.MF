@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Built-By: alexyu
+Build-Jdk: 1.6.0_27
+Implementation-Title: dropwizard-tutorial
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: org.dropwizard.tutorials
+Created-By: Maven Integration for Eclipse
+
