@@ -2920,7 +2920,7 @@ Since inner class(or interface) is static by default, you can't refer T from sta
 
 Because T is actually associated with instance of class, if it were associated with static field or method which is associated with class then it wouldn't make any sense.
 
-39)What is the benefit of using internal class/interface?
+39)What is the benefit of using internal class/interface(!!)?
 
 Static Inner classes are mostly similar to top-level classes, except the inner class has access to all the static variables and methods of the enclosing class. The enclosing
 class name is effectively appended to the package namespace of the inner class. By declaring a class as a static inner class, you are comunicating that the class is somehow
@@ -3148,3 +3148,19 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
     If you remove static from int a, it becomes an instance variable which is not initialized at construction. If you also remove static from the initializer 
     block, it then becomes an instance initializer and so int a is initialized at construction.
 
+49) Java can not extend multiple classes but it can implement multiple interfaces.
+
+50) Keyword "native"
+
+    The native keyword is applied to a method to indicate that the method is implemented in native code using JNI
+
+60) An interesting definition:
+
+    public native boolean execute(int aServiceId, String aCmd, NativeParam ... aParam);
+
+    What does "..." mean here??
+
+61) JNI usage:
+
+    
+    
