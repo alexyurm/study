@@ -14,7 +14,7 @@ Chapter 2 Detecting HTML5 Features
 
    Modernizr: An HTML5 Detection Library: An open source, MIT-licensed JavaScript library that detects support for many HTML5 and CSS3 features.
 
-   Using Javascripts is another option tio test those HTML5 DOMs.
+   Using Javascripts is another option to test those HTML5 DOMs.
 
 Chapter 3 What Does It All Mean?
 
