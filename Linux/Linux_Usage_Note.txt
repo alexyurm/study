@@ -101,3 +101,7 @@
       for example:
 
       aptitude search dejagnu
+
+15.   Release Cache memory:
+
+        sudo free && sync && echo 3 > /proc/sys/vm/drop_caches && free
