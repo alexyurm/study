@@ -39,6 +39,7 @@
 
 -   Built-in global functions
 
-    
+      empty()
+          
     
 
