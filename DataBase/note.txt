@@ -886,8 +886,44 @@ Notes from Learning MySQL:
     • It’s actually identical to DELETE if you use InnoDB tables.
     • It does not work with locking or transactions(??).
 
+-   UPDATE Statement
+
+    The UPDATE statement is used to change data.
+
+    -   Change all rows in a table:
+
+    example 1: change the artist names to uppercase.
+
+    mysql> UPDATE artist SET artist_name=UPPER(artist_name);
+
+    Note: the UPPER function returns the uppercase version of the text passed as the parameter; the function LOWER performs the reverse.
+
+    example 2: set columns a single value. 
+
+    mysql> UPDATE played SET played = NULL;
     
-   
+    Note: since the default value of the played column is CURRENT_TIMESTAMP, passing a NULL value causes the current date and time to be stored instead.
+
+    example 3: use SELECT clause:
+    
+    mysql> SELECT * FROM album WHERE album_name LIKE ->
+    "Substance%";
+
+    example 4: use the ORDER and LIMIT clauses:
+
+    mysql> UPDATE played SET played = NULL ORDER BY played DESC LIMIT 10;
+
+    -   More description of the UPDATE statement:
+
+    There are two phases: 1) a matching phase; 2) modification phase
+
+    1) matching phase:
+
+    where rows are found that match with the "WHERE" clause or "ORDER BY" clauses;
+
+    2) modification phase:
+
+    where the rows that need changing are updated.
 
 -  CREATE clause:
 
@@ -940,10 +976,201 @@ Notes from Learning MySQL:
    You can use SHOW CREATE TABLE statement for a table using the SHOW CREATE TABLE statement introduced in Chapter 5. This often shows you output that include some of the
    advanced features we just discussed.
 
--  Column Types
+-   ALTER statement
 
-   -  INT(width) [UNSIGNED] [ZEROFILL]
-   -  DECIMAL[width[,decimals])]  [UNSIGNED] [ZEROFILL]
+    -   You can use the ALTER TABLE statement to add new columns to a table, removing existing columns, and change column names, types, and lengths.
+
+        example1: Change the column named "played" to "last_played"
+
+        mysql> ALTER TABLE played CHANGE played last_played TIMESTAMP;
+
+        Note: you have to provide 4 parameters:
+
+        table name
+        old column name
+        new column name
+        type of the new column
+
+        example 2: rename the artist_name column to artist-name:
+
+        mysql> ALTER TABLE artist CHANGE artist_name artist-name CHAR(128) DEFAULT NULL;
+
+        example 3: if you want to modify the type and clauses(??) of a column, use MODIFY statement.
+
+        mysql> ALTER TABLE artist MODIFY artist_name CHAR(64) DEFAULT "Unknown";
+
+        or can use the CHANGE keyword but add twice of the column name:
+
+        ALTER TABLE artist CHANGE artist_name artist_name CHAR(64) DEFAULT "Unknown";
+
+    -   Warning!!
+
+        1) Don’t use incompatible types, since you’re relying on MySQL to successfully con-
+        vert data from one format to another (for example, converting an INT column to a
+        DATETIME column isn’t likely to do what you hoped).
+
+        2) Don’t truncate the data unless that’s what you want. If you reduce the size of a
+        type, the values will be edited to match the new width, and you can lose data.
+
+    -   Continue examples...
+
+        example 4: Add an extra column into an existing table:
+
+        mysql> ALTER TABLE artist ADD formed YEAR;
+
+        Note, by default, the new column is added at the end of the table, if you want to insert it to the top, use the FIRST keyword:
+
+        mysql> ALTER TABLE artist ADD formed YEAR FIRST;
+
+        or if you want to add to a specified position, use the AFTER keyword:
+
+        mysql> ALTER TABLE artist ADD formed YEAR AFTER artist_id;
+
+        example 5: to remove a column, use the DROP keyword:
+
+        mysql> ALTER TABLE artist DROP formed;
+
+        Note: can't do this if the column you trying to delete is the only column in the table.
+
+        example 6: specify multiple alterations in a single ALTER clause:
+
+        mysql> ALTER TABLE artist ADD formed YEAR, MODIFY artist_name char(256);
+
+    -   Adding, Removing and Changing indexes.
+
+        example 7: add a new index:
+
+        mysql> ALTER TABLE artist ADD INDEX by_name (artist_name);
+
+        Note: 
+
+        1) "by_name" is the name of the index you're trying to add:
+        2) You can use the terms "KEY" and "INDEX" interchangeably. Remember to check the results with the SHOW CREATE TABLE.
+
+        example 8: Specify a primary key for a table after it's create.
+
+        mysql> ALTER TABLE artist ADD PRIMARY KEY(artist_id);
+
+        example 8: remove a non-primary-key(??why it must be a non-primary key) index:
+
+        mysql> ALTER TABLE artist DROP INDEX by_name;
+
+        example 9: drop a primary-key index:
+
+        mysql> ALTER TABLE artist DROP PRIMARY KEY;
+
+        Note: MySQL won’t allow you to have multiple primary keys in a table. If you want to change
+        the primary key, you’ll have to remove the existing index before adding the new one.
+
+        example 10: You cannot modify index once it's been created. But if you want to for example to
+        reduce the number of characters indexed from a column:
+
+        For example, suppose you decide that you want the by_name index to include only the first 10 characters of the
+        artist_name. Simply do the following: or add another column to the index. The best method to do this is to drop the index
+        and then create it again with the new specification. 
+
+        mysql> ALTER TABLE artist DROP INDEX by_name;
+        mysql> ALTER TABLE artist ADD INDEX by_name (artist_name(10));
+
+    -   Renaming Tables and Altering Other Structures
+
+        mysql> ALTER TABLE played RENAME TO playlist;
+
+        The To keyword is optional
+
+        You can do lot more shits with ALTER statement:
+
+        1) Change the default character set and collation order for a database, a table, or a
+        column.
+
+        2) Change the order of the rows in a table. This is useful only if you know you want
+           to access the rows in a particular order and you want to help get the data into or
+           near that order.
+
+        3) Manage and change constraints. For example, you can add and remove foreign keys.
+    
+-   DROP statement
+
+    -   The following shows you how to remove databases and tables. Previously, we have shown the how to remove columns
+
+        Example1: drop the whole database:
+
+        mysql> DROP DATABASE music;
+
+        Example2: To avoid database non-existing error.
+
+        mysql> DROP DATABASE IF EXISTS music;
+
+        Example 3: Remove tables:
+
+        mysql> DROP TABLE temp;
+
+        or 
+
+        mysql> DROP TABLE IF EXISTS temp;
+
+-   Aliases
+
+    -   Column Aliases
+        
+    Column aliases are useful for improving the expression of your queries, reducing the
+    number of characters you need to type, and making it easier to work with languages
+    such as PHP.
+
+    example 1:
+
+    mysql> SELECT CONCAT(artist_name, " recorded ", album_name) AS recording
+    -> FROM artist INNER JOIN album USING (artist_id)
+    -> ORDER BY recording;
+
+    +-------------------------------------------------------------+
+    | recording
+    |
+    +-------------------------------------------------------------+
+    | Kylie Minogue recorded Light Years
+    |
+    | Miles Davis recorded In A Silent Way
+    |
+    | Miles Davis recorded Live Around The World
+    |
+    | New Order recorded Brotherhood
+    |
+    | New Order recorded Power, Corruption & Lies
+    |
+    | New Order recorded Retro - John McCready FAN
+    |
+    | New Order recorded Retro - Miranda Sawyer POP
+    |
+    | New Order recorded Retro - New Order / Bobby Gillespie LIVE |
+    | New Order recorded Substance (Disc 2)
+    |
+    | New Order recorded Substance 1987 (Disc 1)
+    |
+    | Nick Cave & The Bad Seeds recorded Let Love In
+    |
+    | The Rolling Stones recorded Exile On Main Street
+    |
+    | The Stone Roses recorded Second Coming
+    |
+    +-------------------------------------------------------------+
+
+    Note: The MySQL function CONCAT() concatenates together the strings that are parameters 
+    —in this case, the artist_name, a constant string recorded, and the album_name to give
+    output such as New Order recorded Brotherhood. We’ve added an alias to the function,
+    AS recording, so that we can refer to it easily as recording throughout the query. You
+    can see that we do this in the ORDER BY clause, where we ask MySQL to sort the output
+    by ascending recording value. This is much better than the unaliased alternative, which
+    requires you to write out the CONCAT( ) function again:
+
+    
+    
+            
+        
+
+    -  Column Types
+
+       -  INT(width) [UNSIGNED] [ZEROFILL]
+       -  DECIMAL[width[,decimals])]  [UNSIGNED] [ZEROFILL]
 
       A commonly used numeric type. Stores a fixed-point number such as a salary or distance. with a total of width of which some smaller number are decimals that follow a decimal
       point. For example, a column declared as price DECIMAL(4,2) should be used to store values in the range -99.99 to 99.99. if you try to store a value that is outside this range,
