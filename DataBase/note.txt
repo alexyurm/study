@@ -1160,8 +1160,220 @@ Notes from Learning MySQL:
     AS recording, so that we can refer to it easily as recording throughout the query. You
     can see that we do this in the ORDER BY clause, where we ask MySQL to sort the output
     by ascending recording value. This is much better than the unaliased alternative, which
-    requires you to write out the CONCAT( ) function again:
+    requires you to write out the CONCAT( ) function again(??):
 
+    mysql> SELECT CONCAT(artist_name, "recorded ", album_name)
+    -> FROM artist INNER JOIN album USING (artist_id)
+    -> ORDER BY CONCAT(artist_name, " recorded ", album_name)
+
+    -   Restrictions
+
+    You can't use them in a WHERE clause, or in the USING and ON clauses that we discuss later in this chapter. This means that
+    you can't write a query such as:
+
+    mysql> SELECT artist_name AS a FROM artist WHERE a = "New Order";
+    ERROR 1054 (42S22): Unknown column 'a' in 'where clause'
+
+    You can't do this because MySQL doesn't always know the column values before it executes the WHERE clause. However, you can use
+    column alias in the ORDER BY clause, and in the GROUP BY and HAVING clauses discussed later in this chapter.
+
+    -   Table Aliases
+
+    Example: 
+
+    mysql> SELECT ar.artist_id, al.album_name, ar.artist_name FROM
+    -> album AS al INNER JOIN artist AS ar
+    -> USING (artist_id) WHERE al.album_name = "Brotherhood";
+
+    al: album's alias
+    ar: artist's alias
+
+    Notice that you can use table alias in the WHERE clause, unlike column aliases, there are no restrictions on where table aliases 
+    can be used in queries.
+
+    Example: How to use one single query to know if two albums have the same name. 
+
+    mysql> SELECT * FROM WHERE album_name = album_name; (wrong!!)
+
+    This doesn't make sense since an album has the same name as itself. so it just produces all albums as output:
+
+    The key is to give the table two different aliases:
+    
+    mysql> SELECT a1.artist_id, a2.album_id
+    -> FROM album AS a1, album AS a2 WHERE
+    -> a1.album_name = a2.album_name; (wrong!!)
+
+    Why it still doesn't work? The reason is that an album still matches itself because it occurs in both aliased tables.
+
+    mysql> SELECT a1.artist_id, a2.album_id
+    -> FROM album AS a1, album AS a2 WHERE
+    -> a1.album_name = a2.album_name
+    -> AND a1.album_id != a2.album_id;
+
+-   Aggregating Data
+
+    Aggregate functions allow you to discover the properties of a group of rows. For what purposes such as?
+
+    1) Discovering how many rows there are in a table?
+    2) Discovering how many rows in a table share a property (such as having the same name or date of birth)
+    3) Finding averages (such as average temperature in November)
+    4) Finding the max/min value of rows that meet some conditions (such as finding the coldest day in August)
+
+    -   The DISTINCT Clause
+
+    This isn't really an aggregate function, but more of a post-processing filter that allows you to remove duplicates. We've added
+    it into this section because, like aggregate functions, it's concerned with picking examples from the output of a query, rather
+    than processing individual rows.
+
+    mysql> SELECT DISTINCT artist_name FROM
+    -> artist INNER JOIN album USING (artist_id);
+
+    
+    +---------------------------+
+    | artist_name               |
+    |                           |
+    +---------------------------+
+    | New Order                 |
+    |                           |
+    | Nick Cave & The Bad Seeds |
+    | Miles Davis               |
+    |                           |
+    | The Rolling Stones        |
+    |                           |
+    | The Stone Roses           |
+    |                           |
+    | Kylie Minogue             |
+    |                           |
+    +---------------------------+
+
+    If you remove "DISTINCT", you get:
+
+    
+    +---------------------------+
+    | artist_name               |
+    |                           |
+    +---------------------------+
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | Nick Cave & The Bad Seeds |
+    | Miles Davis               |
+    |                           |
+    | Miles Davis               |
+    |                           |
+    | The Rolling Stones        |
+    |                           |
+    | The Stone Roses           |   
+    |                           |
+    | Kylie Minogue             |
+    |                           |
+    +---------------------------+
+
+    So, the DISTINCT clause helps get a summary.
+
+    The DISTINCT clause applies to the query output and removes rows that have identical values in the columns selected for output in the query.
+
+    -   GROUP BY clause
+    
+    The GROUP BY clause sorts data into groups for the purpose of aggregation
+
+    It’s similar to ORDER BY, but it occurs much earlier in the query process: GROUP BY is used to organize
+    the data before other clauses—such as WHERE, ORDER BY, and functions—are applied. In contrast, ORDER BY 
+    is applied last—after the query has been resolved—to reorganize the query output for display.
+
+    Example: Suppose you want to know how many albums we own by each artist. 
+
+    mysql> SELECT artist_name FROM
+    -> artist INNER JOIN album USING (artist_id)
+    -> ORDER BY artist_name;
+
+    +---------------------------+
+    | artist_name               |
+    |                           |
+    +---------------------------+
+    | Kylie Minogue             |
+    |                           |
+    | Miles Davis               |
+    |                           |
+    | Miles Davis               |
+    |                           |
+    | New Order                 |   
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | New Order                 |
+    |                           |
+    | Nick Cave & The Bad Seeds |
+    | The Rolling Stones        |
+    |                           |
+    | The Stone Roses           |
+    |                           |
+    +---------------------------+
+    13 rows in set (0.00 sec)
+
+    It is easy to count how many albums we've got by each artist: one by Kylie, two by Miles and 7 by New Order and so on.
+
+    The GROUP BY clause can help automate this process by grouping the albums by artist; We can use the COUNT() function to count 
+    off the number of albums in each group. Here is the query:
+
+    mysql> SELECT artist_name, COUNT(artist_name) FROM
+    -> artist INNER JOIN album USING (artist_id)
+    -> GROUP BY artist_name;
+    
+
+    +---------------------------+--------------------+
+    | artist_name               |                    |   
+    | COUNT(artist_name)        |                    |   
+    +---------------------------+--------------------+
+    | Kylie Minogue             |                    |
+    |                           |                    |
+    1                           |                    |
+    | Miles Davis               |                    |
+    |                           |                    |
+    2                           |                    |
+    | New Order                 |                    |
+    |                           |                    |
+    7                           |                    |
+    | Nick Cave & The Bad Seeds |                    |
+    1                           |                    |
+    | The Rolling Stones        |                    |
+    |                           |                    |
+    1                           |                    |
+    | The Stone Roses           |                    |
+    |                           |                    |
+    1                           |                    |
+    +---------------------------+--------------------+
+    6 rows in set (0.01 sec)
+
+    We are telling MySQL that the ways to group rows is by artist_name. The result is that rows for artists with the same name from a cluster - that is, each distinct
+    name becomes one group. Once the rows are grouped, they're treated in the rest of the query as if they're one row.
+
+    
+            
+        
+
+        
+
+    
     
     
             
