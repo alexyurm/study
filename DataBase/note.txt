@@ -1368,6 +1368,8 @@ Notes from Learning MySQL:
     name becomes one group. Once the rows are grouped, they're treated in the rest of the query as if they're one row.
 
     
+
+    
             
         
 
