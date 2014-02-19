@@ -969,6 +969,14 @@ Notes from Learning MySQL:
 
    -  Foreign key constraints
 
+        With foreign key support, you can tell MySQL that a row in a table shouldn’t exist without another matching row in another table.
+        
+        For example, you could use it to stop you from adding a new album for an artist who doesn't exist.
+
+        You can tell MySQL to check whether data in one or more columns matches data in another table. For example, you might want to prevent an album
+        from being added to the music database unless there's matching artist in the artist table. It is not recommanded using foreigh key constraints
+        for most applications. This feature is currently supported for only the InnoDBtable type.
+
    -  Creating temporary tables
 
    -  SHOW CREATE TABLE

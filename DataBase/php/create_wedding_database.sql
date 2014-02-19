@@ -1,0 +1,26 @@
+DROP DATABASE if EXISTS wedding;
+DROP DATABASE if EXISTS Wedding;
+CREATE DATABASE wedding;
+USE wedding;
+
+
+CREATE TABLE `gifts` (
+`gift_id` SMALLINT NOT NULL AUTO_INCREMENT,
+`description` VARCHAR(255) NOT NULL,
+`shop` VARCHAR(100) NOT NULL,
+`quantity` SMALLINT NOT NULL,
+`color` VARCHAR(30) DEFAULT NULL,
+`price` VARCHAR(30) DEFAULT NULL,
+`username` VARCHAR(30) DEFAULT NULL,
+PRIMARY KEY (`gift_id`)
+);
+
+
+CREATE TABLE `users` (
+`username` VARCHAR(30) NOT NULL,
+`password` VARCHAR(30) NOT NULL,
+`user_id` INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY (`user_id`)
+);
+
+
