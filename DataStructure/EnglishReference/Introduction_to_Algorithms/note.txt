@@ -498,3 +498,44 @@ Chapter 11 Hash Tables
    h(k,i) = (h1(k) + ih2(k)) mod m , 
    
 
+Chapter 15: Dynamic Programming
+
+-  Unlike Divide-and-Conquer, Dynamic programming applies when subproblems overlap - that is, when subproblems share subsubproblems. A dynamic-programming algorithm
+   solves each subsubproblem just once and then saves its answer in a table, thereby avoiding the work of recomputing the answer every time it solves each subsubproblem.
+
+-  Developing a dynamic-programming algorithm follows a sequence of 4 steps:
+
+   1. Characterize the structure of an optimal solution;
+   2. Recursively define the value of an optimal solution;
+   3. Compute the value of an optimal solution, typically in a bottom-up fashion;
+   4. Construct an optimal solution from computed information.
+
+   if we need only the value of an optimal solution, and not the solution itself, then we can omit step 4.
+
+-  Rod-cutting problem:
+
+   If an optimal solution cuts the rod into k pieces, for some 1<=k<=n, then a optimal decomposition 
+
+   n = i1 + i2 + ... + ik of the rod into pieces length i1, i2, ..., ik provides maximum corresponding revenue
+
+   rn = pi1 + pi2 + ... + pik.
+
+   More generally, we can frame the values rn for n>= 1 in terms of optimal revenues from shorter rods:
+
+   rn = max(pn, r1 + rn-1, r2 + rn-2..., rn-1 + r1).
+
+   pn: corresponds to making no cuts at all and selling the rod of length as is.
+   The other n-1 arguments to max correspond to the maximum revenue obtained    
+
+
+   CUT-ROD(p,n)
+   1  if n == 0
+   2     return 0
+   3  q = -inf
+   4  for i = 1 to n
+   5     q = max(q,p[i] + CUT-ROD(p,n-1))
+   6  return q
+  
+
+Chapter 16: Greddy Algorithm
+
