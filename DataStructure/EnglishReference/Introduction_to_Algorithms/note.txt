@@ -238,11 +238,17 @@ Chapter 6 Heap Sort
 
    1) A.length, which (as usual) gives the number of elements in the array, and 2) A.heap-size, which represents how many elements in the heap are stored within array A.
 
-   Assuming the root of the tree is A[1], and given the index i of a node, we can easily computer the indices of its parents, left child and right child.
+   Assuming the root of the tree is A[1], and given the index i of a node, we can easily compute the indices of its parents, left child and right child.
 
    PARENT(i)   -> return floor(i/2)
    LEFT(i)     -> return i*2
    RIGHT(2)    -> return i*2+1
+
+   Note: if the root of the tree is A[0], we can easily compute the indices of its parents.
+
+   PARENT(i)   -> return floor((i-1)/2)
+   LEFT(i)     -> return i*2+1
+   RIGHT(2)    -> return i*2+2
 
    There are two types of heaps:
 
