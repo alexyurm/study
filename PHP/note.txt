@@ -36,10 +36,16 @@
 
     _SERVER[]
     _POST[]
+    _SESSION[]
 
 -   Built-in global functions
 
       empty()
           
     
-
+-   Errors Handling in PHP
+    
+    HP is configured through a php.ini configuration file that includes two important
+    directives that affect error reporting: error_reporting and display_errors. The former
+    controls what types of errors are trapped, and the latter controls whether error messages
+    are reported.

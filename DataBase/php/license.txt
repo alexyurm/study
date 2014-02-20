@@ -1,0 +1,13 @@
+Source code example for Learning MySQL
+
+Unless otherwise stated, the source code distributed with this book can be
+redistributed in source or binary form so long as an acknowledgment appears
+in derived source files.
+The citation should list that the code comes from
+S.M.M. (Saied) Tahaghoghi and Hugh E. Williams,
+"Learning MySQL" published by O'Reilly Media.
+This code is under copyright and cannot be included in any other book,
+publication, or educational product without permission from O'Reilly &
+Associates.
+No warranty is attached; we cannot take responsibility for errors or fitness
+for use.
