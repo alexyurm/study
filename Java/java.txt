@@ -3162,5 +3162,128 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
 61) JNI usage:
 
-    
+62) GsON usage:
+
+    -   Basic:
+
+        Gson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON string to an equivalent Java 
+        object. Gson can work with arbitrary Java objects including pre-existing objects that you do not have source-code of.
+
+        The Gson instance does not maintain any state while invoking Json operations. So, you are free to reuse the same object for multiple Json serialization and 
+        deserialization operations.
+
+    -   Primitives Examples:
+
+        (Serialization)
+        Gson gson = new Gson();
+        gson.toJson(1);            ==> prints 1
+        gson.toJson("abcd");       ==> prints "abcd"
+        gson.toJson(new Long(10)); ==> prints 10
+        int[] values = { 1 };
+        gson.toJson(values);       ==> prints [1]
+
+        (Deserialization)
+        int one = gson.fromJson("1", int.class);
+        Integer one = gson.fromJson("1", Integer.class);
+        Long one = gson.fromJson("1", Long.class);
+        Boolean false = gson.fromJson("false", Boolean.class);
+        String str = gson.fromJson("\"abc\"", String.class);
+        String anotherStr = gson.fromJson("[\"abc\"]", String.class);
+
+    -   Finer Points with Objects
+
+        -   It is perfectly fine (and recommended) to use private fields 
+        -   There is no need to use any annotations to indicate a field is to be included for serialization and deserialization. All fields in the current class (and from 
+            all super classes) are included by default. 
+        -   If a field is marked transient, (by default) it is ignored and not included in the JSON serialization or deserialization.
+        -   This implementation handles nulls correctly
+            * While serialization, a null field is skipped from the output
+        -   * While deserialization, a missing entry in JSON results in setting the corresponding field in the object to null
+        -   If a field is synthetic(??), it is ignored and not included in JSON serialization or deserialization
+        -   Fields corresponding to the outer classes in inner classes, anonymous classes, and local classes are ignored and not included in serialization or deserialization
+
+    -   Nested Classes (including Inner Classes)
+
+        Gson can serialize static nested classes quite easily. However, Gson can not automatically deserialize the pure inner classes since their no-args constructor also needs
+        a reference to the containing Object which is not available at the time of deserialization. You can address this problem by either making the inner class static or 
+        by providing a custom InstanceCreator for it. Here is an example: 
+
+        public class A { 
+          public String a; 
+
+          class B { 
+
+            public String b; 
+
+            public B() {
+              // No args constructor for B
+            }
+          } 
+        }
+
+        NOTE: The above class B can not (by default) be serialized with Gson.
+
+        Gson can not deserialize {"b":"abc"} into an instance of B since the class B is an inner class. if it was defined as static class B then Gson would have been 
+        able to deserialize the string. 
+
+    -   Array Example
+
+        Gson gson = new Gson();
+        int[] ints = {1, 2, 3, 4, 5};
+        String[] strings = {"abc", "def", "ghi"};
+
+        (Serialization)
+        gson.toJson(ints);     ==> prints [1,2,3,4,5]
+        gson.toJson(strings);  ==> prints ["abc", "def", "ghi"]
+
+        (Deserialization)
+        int[] ints2 = gson.fromJson("[1,2,3,4,5]", int[].class); 
+        ==> ints2 will be same as ints
+
+        We also support multi-dimensional arrays, with arbitrarily complex element types
+
+    -   Collections Examples
+
+        Gson gson = new Gson();
+        Collection<Integer> ints = Lists.immutableList(1,2,3,4,5);
+
+        (Serialization)
+        String json = gson.toJson(ints); ==> json is [1,2,3,4,5]
+
+        (Deserialization)
+        Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
+        Collection<Integer> ints2 = gson.fromJson(json, collectionType);
+        ints2 is same as ints
+
+        Fairly hideous: note how we define the type of collection
+        Unfortunately, no way to get around this in Java
+
+        Collections Limitations
+
+        -   Can serialize collection of arbitrary objects but can not deserialize from it 
+                * Because there is no way for the user to indicate the type of the resulting object
+        -   While deserializing, Collection must be of a specific generic type
+
+        All of this makes sense, and is rarely a problem when following good Java coding practices
+
+    -   Serializing and Deserializing Generic Types
+
+        When you call toJson(obj), Gson calls obj.getClass() to get information on the fields to serialize. Similarly, you can typically pass MyClass.class object in 
+        the fromJson(json, MyClass.class) method. This works fine if the object is a non-generic type. However, if the object is of a generic type, then the Generic 
+        type information is lost because of Java Type Erasure. Here is an example illustrating the point: 
+
+        
+
+
+
+        
+
+63) "transient" keyword
+
+    The transient keyword in Java is used to indicate that a field should not be serialized.
+
+64) Synthetic Class, Method, Field
+
+    Class, method, field and any other similar constructs introduced by java compiler are called synthetic. It may not be directly visible in the java source code.
+    Java synthetic classes, methods and fields are for java runtime’s internal purposes. We may not need to have knowledge about them to write the code.
     
