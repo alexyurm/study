@@ -3162,7 +3162,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
 61) JNI usage:
 
-62) GsON usage:
+62) Gson usage:
 
     -   Basic:
 
@@ -3198,7 +3198,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         -   If a field is marked transient, (by default) it is ignored and not included in the JSON serialization or deserialization.
         -   This implementation handles nulls correctly
             * While serialization, a null field is skipped from the output
-        -   * While deserialization, a missing entry in JSON results in setting the corresponding field in the object to null
+            * While deserialization, a missing entry in JSON results in setting the corresponding field in the object to null
         -   If a field is synthetic(??), it is ignored and not included in JSON serialization or deserialization
         -   Fields corresponding to the outer classes in inner classes, anonymous classes, and local classes are ignored and not included in serialization or deserialization
 
@@ -3209,7 +3209,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         by providing a custom InstanceCreator for it. Here is an example: 
 
         public class A { 
-          public String a; 
+          public String a;
 
           class B { 
 
@@ -3223,7 +3223,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
         NOTE: The above class B can not (by default) be serialized with Gson.
 
-        Gson can not deserialize {"b":"abc"} into an instance of B since the class B is an inner class. if it was defined as static class B then Gson would have been 
+        Gson can not deserialize {"b":"abc"} into an instance of B since the class B is an inner class. If it was defined as static class B then Gson would have been 
         able to deserialize the string. 
 
     -   Array Example
@@ -3246,6 +3246,8 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
         Gson gson = new Gson();
         Collection<Integer> ints = Lists.immutableList(1,2,3,4,5);
+
+        (Note: what is immutableList??)
 
         (Serialization)
         String json = gson.toJson(ints); ==> json is [1,2,3,4,5]
@@ -3272,11 +3274,41 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         the fromJson(json, MyClass.class) method. This works fine if the object is a non-generic type. However, if the object is of a generic type, then the Generic 
         type information is lost because of Java Type Erasure. Here is an example illustrating the point: 
 
-        
+        class Foo<T> {
+            T value;
+        }
 
+        Gson gson = new Gson();
+        Foo<Bar> foo = new Foo<Bar>();
+        gson.toJson(foo); // May not serialize foo.value correctly
+        gson.fromJson(json, foo.getClass()); // Fails to deserialize foo.value as Bar
 
+        The above code fails to interpret value as type Bar because Gson invokes list.getClass() to get its class information, but this method returns a raw class, 
+        Foo.class. This means Gson has no way of knowing that this is an object of type Foo<Bar>, and not just plain Foo.
 
-        
+        How can we solve this problem? We can use "TypeToken" by specifying the correct parameterized type for your generic type.
+
+        Type fooType = new TypeToken<Foo<Bar>>() {}.getType();
+        gson.toJson(foo, fooType);
+        gson.fromJson(json, foo.getClass());
+
+        The idiom used to get fooType actually defines an anonymous local inner class containing a method getType() that returns the fully parameterized type. 
+
+    -   Serializing and Deserializing Collection with Objects of Arbitrary Types
+
+        Sometimes you are dealing with JSON array that contains mixed types. For example:
+
+        ['hello',5,{name:'GREETINGS',source:'guest'}]
+
+        The equivalent Collection containing this is:
+
+        Collection collection = new ArrayList();
+        collection.add("hello");
+        collection.add(5);
+        collection.add(new Event("GREETINGS", "guest"));
+
+        Serilizeing this collection is OK but deserilizaing does not work because Gson has no way of knowing how to map the input to the type.
+
 
 63) "transient" keyword
 
@@ -3287,3 +3319,237 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
     Class, method, field and any other similar constructs introduced by java compiler are called synthetic. It may not be directly visible in the java source code.
     Java synthetic classes, methods and fields are for java runtime’s internal purposes. We may not need to have knowledge about them to write the code.
     
+65) ImmutableList(??)
+
+66) Effective Java
+
+    Item 1: Consider static factory methods instead of constructors
+
+    Note: the static factory methods are not the ones in Design Pattern!
+
+    4 advantages(!!):
+
+    1) One advantage of static factory methods is that, unlike constructors, they
+    have names.
+
+    Unlike multiple constructors, replacing the constructors with static factory methods and carefully chosen names to highlight their differences.
+
+    2) A second advantage of static factory methods is that, unlike constructors,
+    they are not required to create a new object each time they’re invoked.
+
+    This allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled.
+
+    3) A third advantage of static factory methods is that, unlike constructors,
+    they can return an object of any subtype of their return type.
+
+    E.g. java.util.EnumSet has no public constructors only static factories.
+
+    A service provider framework contains 3 componenets:
+    
+    -   A service interface
+    -   A provide registration API, which the system uses to register implementations, giving clients access to them
+    -   A service access API, which clients use to obtain an instance of the service. The service access API is the “flexible static
+        factory” that forms the basis of the service provider framework.
+    -   An optional fourth component of a service provider framework is a service provider interface, which providers implement to create instances of their service
+        implementation. 
+
+    
+    // Service provider framework sketch
+
+    // Service interface
+    public interface Service {
+    ... // Service-specific methods go here
+    }
+
+    // Service provider interface
+    public interface Provider {
+        Service newService();
+    }
+
+    // Noninstantiable class for service registration and access
+    public class Services {
+        private Services() { } // Prevents instantiation (Item 4)
+
+        // Maps service names to services
+        private static final Map<String, Provider> providers =
+        new ConcurrentHashMap<String, Provider>();
+        public static final String DEFAULT_PROVIDER_NAME = "<def>";
+
+        
+        // Provider registration API
+        public static void registerDefaultProvider(Provider p) {
+            registerProvider(DEFAULT_PROVIDER_NAME, p);
+        }
+
+        public static void registerProvider(String name, Provider p){
+            providers.put(name, p);
+        }
+
+        // Service access API
+        public static Service newInstance() {
+            return newInstance(DEFAULT_PROVIDER_NAME);
+        }
+
+        public static Service newInstance(String name) {
+            Provider p = providers.get(name);
+            if (p == null)
+                throw new IllegalArgumentException(
+                "No provider registered with name: " + name);
+                return p.newService();
+            }
+        }
+    }        
+
+    4) A fourth advantage of static factory methods is that they reduce the verbosity of creating parameterized type instances.
+
+    Think about the following example:
+
+    Map<String, List<String>> m = new HashMap<String, List<String>>();
+
+    The pain increases as the complexity and length increase. With static factories, however, the compiler
+    can figure out the type parameters for you. This is known as type inference. For example, suppose that 
+    HashMap provided this static factory:
+
+    public static <K, V> HashMap<K, V> newInstance() {
+        return new HashMap<K, V>();
+    }
+
+    Then you could replace the wordy declaration above with this succinct alternative:
+
+    Map<String, List<String>> m = HashMap.newInstance();
+
+    Disadvantages:
+
+    1) The main disadvantage of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. 
+
+    2) A second disadvantage of static factory methods is that they are not readily distinguishable from other static methods.
+
+    some common names for static factory methods:
+
+    valueOf
+    of
+    newInstance
+    getType
+    newType
+
+    Item 2: Consider a builder when faced with many constructor parameters
+
+    Static factories and constructors share a limitation: they do not scale well to large
+    numbers of optional parameters.
+
+    Option 1:
+
+    Telescoping constructors:
+
+    Pizza(int size) { ... }        
+    Pizza(int size, boolean cheese) { ... }    
+    Pizza(int size, boolean cheese, boolean pepperoni) { ... }    
+    Pizza(int size, boolean cheese, boolean pepperoni, boolean bacon) { ... }
+
+    In short, the telescoping constructor pattern works, but it is hard to write
+    client code when there are many parameters, and harder still to read it. 
+    
+    Option 2:
+
+    JavaBean 
+
+    you call a parameterless constructor to create the object and then call setter methods to set each required parameter and each
+    optional parameter of interest:
+
+    // JavaBeans Pattern - allows inconsistency, mandates mutability
+    public class NutritionFacts {
+        // Parameters initialized to default values (if any)
+        private int servingSize = -1; // Required; no default value
+        private int servings = -1; //"     "        "         "
+        private int calories = 0;
+        private int fat = 0;
+        private int sodium = 0;
+        private int carbohydrate = 0;
+        public NutritionFacts() { }
+
+        // Setters
+        public void setServingSize(int val) { servingSize = val; }
+        public void setServings(int val) { servings = val; }
+        public void setCalories(int val) { calories = val; }
+        public void setFat(int val) { fat = val; }
+        public void setSodium(int val) { sodium = val; }
+        public void setCarbohydrate(int val) { carbohydrate = val; }
+    }
+
+    It is easy to read the resulting code.    
+
+    NutritionFacts cocaCola = new NutritionFacts();
+    cocaCola.setServingSize(240);
+    cocaCola.setServings(8);
+    cocaCola.setCalories(100);
+    cocaCola.setSodium(35);
+    cocaCola.setCarbohydrate(27);
+
+    Two disadvantages:
+
+    1) a JavaBean may be in an inconsistent state partway through its construction.
+    2) the JavaBeans pattern precludes the possibility of making a class immutable.
+
+    Builder pattern comes up to solve all the disadvantages
+
+    
+    // Builder Pattern
+    public class NutritionFacts {
+        private final int servingSize;
+        private final int servings;
+        private final int calories;
+        private final int fat;
+        private final int sodium;
+        private final int carbohydrate;
+
+        public static class Builder {
+
+            // Required parameters
+            private final int servingSize;
+            private final int servings;
+
+            // Optional parameters - initialized to default values
+            private int calories = 0;
+            private int fat = 0;
+            private int carbohydrate = 0;
+            private int sodium = 0;
+
+            public Builder(int servingSize, int servings) {
+                this.servingSize = servingSize;
+                this.servings = servings;
+            }
+
+            public Builder calories(int val)
+                { calories = val; return this; }
+            public Builder fat(int val)
+                { fat = val; return this; }
+            public Builder carbohydrate(int val)
+                { carbohydrate = val; return this; }
+            public Builder sodium(int val)
+                { sodium = val; return this; }
+
+            public NutritionFacts build() {
+                return new NutritionFacts(this);
+            }
+        }
+
+        private NutritionFacts(Builder builder) {
+            servingSize = builder.servingSize;
+            servings = builder.servings;
+            calories = builder.calories;
+            fat = builder.fat;
+            sodium = builder.sodium;
+            carbohydrate = builder.carbohydrate;
+        }
+    }
+
+    Note that NutritionFacts is immutable, and that all parameter default values are in a single location. The builder’s setter methods return the builder itself so
+    that invocations can be chained. Here’s how the client code looks: 
+
+    NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8). calories(100).sodium(35).carbohydrate(27).build();
+
+    Note: What is immutable object? 
+
+    It is an object whose state cannot be modified after it is created.
+
+        

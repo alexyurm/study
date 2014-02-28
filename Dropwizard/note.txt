@@ -13,3 +13,147 @@ Questions:
    1. In dropwizard core tutorial: http://dropwizard.codahale.com/manual/core/
 
    Where is the definition of the class "NotificationStore" ??
+
+   2. JSON(Java Script Object Notification)
+
+   JSON is a text format that is completely language independant. 
+
+   - JSON is built on two structures:
+
+   1) A collection of name/value pairs. In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array.
+   2) An ordered list of values. In most languages, this is realized as an array, vector, list, or sequence.
+
+   - object
+
+   Format:
+
+   {}
+   { members }
+
+   Description:
+
+   An object is an unordered set of name/value pairs. An object begins with { (left brace) and ends with } (right brace). Each name is followed by : (colon) and the 
+   name/value pairs are separated by , (comma).
+
+   - array
+
+   Format: 
+
+   []
+   [ elements ]
+      
+   Description:
+
+   An array is an ordered collection of values. An array begins with [ (left bracket) and ends with ] (right bracket). Values are separated by , (comma).
+
+   - value
+
+   Format:
+
+   value
+   string
+   number
+   object
+   array
+   true
+   false
+   null
+
+   Description:
+
+   A value can be a string in double quotes, or a number, or true or false or null, or an object or an array. These structures can be nested(??). 
+
+    string
+        ""
+        " chars "
+
+    chars
+        char
+        char chars
+
+    char
+        any-Unicode-character-
+            except-"-or-\-or-
+            control-character
+        \"
+        \\
+        \/
+        \b
+        \f
+        \n
+        \r
+        \t
+        \u four-hex-digits
+
+        Note: 
+
+        \"  :   quotation mark
+        \\  :   reverse solidus
+        \/  :   solidus
+        \b  :   backspace
+        \f  :   formfeed
+        \n  :   newline
+        \r  :   carriage return
+        \t  :   horizontal tab
+        \u four-hex-digits  :  4 hexadecimal digits
+
+    number
+        int
+        int frac
+        int exp
+        int frac exp
+
+    int
+        digit
+        digit1-9 digits 
+        - digit
+        - digit1-9 digits
+
+    frac
+        . digits
+
+    exp
+        e digits
+
+    digits
+        digit
+        digit digits
+
+    e
+        e
+        e+
+        e-
+        E
+        E+
+        E-
+   
+   -   Examples:
+
+   
+    curl -i http://172.22.0.76/service/network_manager/status
+    HTTP/1.1 200 OK
+    Cache-Control: private, max-age=0
+    Content-Type: application/json; charset=UTF-8
+    Content-Length: 204
+    Date: Thu, 27 Feb 2014 19:02:25 GMT
+    Server: lighttpd/1.4.32
+
+    {
+        "data":
+        [
+            {
+                "interface": "eth0",
+                "type": "Ethernet",
+                "ip": "172.22.0.76",
+                "sub_net": "255.255.252.0",
+                "gateway": "172.22.0.1",
+                "domain": "",
+                "mac": "00:10:18:ac:23:38"
+            }
+        ]
+    }
+
+    - There is one object in the JSON and it's named "data".
+    - The object "data" is an array
+    - The array "data" has only one object and that object has 7 pairs of name/values: "interface": "eth0", "type": "Ethernet"...
+    - 
