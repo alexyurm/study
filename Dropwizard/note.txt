@@ -156,4 +156,3 @@ Questions:
     - There is one object in the JSON and it's named "data".
     - The object "data" is an array
     - The array "data" has only one object and that object has 7 pairs of name/values: "interface": "eth0", "type": "Ethernet"...
-    - 

@@ -263,6 +263,38 @@ Chapter 6 Heap Sort
    -  The MAX-HEAP-INSERT , HEAP-EXTRACT-MAX, HEAP-INCREASE-KEY, and HEAP-MAXIMUM procedures, which run in O(lg(n))time, allow the heap
       data structure to implement a priority queue. 
 
+-   Leaf nodes for a given binary tree with n nodes
+
+    all the leaf nodes: floor(n/2)+1, floor(n/2)+2, ..., n.
+
+    Note: if the root of the tree is A[0], we can easily compute the indices of all the leaf nodes
+
+    all the leaf nodes: floor((n-1)/2)+1, floor((n-1)/2)+2, ..., n.
+
+-   BUILD-MAX-HEAP(A):
+
+    1. heap-size = A.length;
+    2. for i = 1 to floor(n/2) downto 1
+    3.    HEAPIFY(A, i)
+
+    Note: This takes O(n).
+
+-   HEAPSORT(A)
+
+    1   BUILD-MAX-HEAP(A)
+    2   for i = A.length downto 2
+    3       exchange A[1] with A[i]
+    4       A.heapsize = A.heapsize - 1
+    5       MAX-HEAPIFY(A,1)
+
+    Note: 
+
+    line 5: MAX-HEAPIFY(A,1) takes O(logn)
+    line 1: takes O(n).
+    line 2 to 4 takes O(n-1)
+
+    So HEAPSORT takes O(n*logn) + O(n) = O(n*logn)
+
 -  In order to maintain the max-heap property, we call the procedure MAX-HEAPIFY. 
 
    MAX-HEAPIFY(A,i)
@@ -275,7 +307,9 @@ Chapter 6 Heap Sort
    7     largest = r
    8  if largest != i
    9     exchange A[i] with A[largest]
-   10 MAX-HEAPIFY(A, largest)
+   10    MAX-HEAPIFY(A, largest)
+
+   Note: MAX-HEAPIFY(A,0) takes O(logn).
 
    The running time of MAX-HEAPIFY on a subtree of size n rooted at a given node i is the O(1) time to fix up the relationships among the elements A[i],
    A[LEFT(i)], and A[RIGHT(i)], plus the time to run MAX-HEAPIFY on a subtree rooted at one of the children of node i (assuming that the recursive call
@@ -545,3 +579,43 @@ Chapter 15: Dynamic Programming
 
 Chapter 16: Greddy Algorithm
 
+Chapter 21: Bloom Filter
+
+-   What is it?
+
+    Bloom filters are compact data structures for probabilistic representation of a set in order to support membership queries (i.e. queries that ask: 
+    “Is element X in set Y?”).  This compact representation is the payoff for allowing a small rate of false positives in membership queries; that is, 
+    queries might incorrectly recognize an element as member of the set.
+
+-   Constructing Bloom Filters
+
+    Consider a set of  n elements.  Bloom filters describe membership information of A using a bit vector V of length m. For this, k hash 
+    functions, h1, h2,...,hk with hi = {X -> [1,m]}, are used as described below:
+
+    The following procedure builds an m bits Bloom filter, corresponding to a set A and using  hash functions:
+
+    Procedure BloomFilter(set A, hash_functions, integer m)
+        filter = allocate m bits initialized to 0
+        foreach ai in A:
+            foreach hash function hj:
+                filter[hj(ai)] = 1
+            end foreach
+        end foreach
+        return filter
+
+    Therefore, if ai is member of a set A, in the resulting Bloom filter V all bits obtained corresponding to the hashed values of ai are set to 1.  
+    Testing for membership of an element elm is equivalent to testing that all corresponding bits of V are set:  
+
+    Procedure MembershipTest (elm, filter, hash_functions) 
+         foreach hash function hj:
+            if filter[hj(elm)] != 1 return No
+         end foreach
+         return Yes
+
+    Nice features:  filters can be built incrementally: as new elements are added to a set the corresponding positions are computed through the hash functions 
+    and bits are set in the filter.  Moreover, the filter expressing the reunion of two sets is simply computed as the bit-wise OR applied over the two 
+    corresponding Bloom filters.
+
+-   Math
+
+    One prominent feature of Bloom filters is that there is a clear tradeoff between the size of the filter and the rate of false positives.

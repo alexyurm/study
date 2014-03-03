@@ -105,3 +105,11 @@
 15.   Release Cache memory:
 
         sudo free && sync && echo 3 > /proc/sys/vm/drop_caches && free
+
+16.   Using curl command to send HTTP requests
+
+      For example:
+
+      curl -i http://172.22.0.76/service/network_manager/status
+
+      The above command sets HTTP GET to the specified URL

@@ -36,8 +36,6 @@
 //    -  The MAX-HEAP-INSERT, HEAP-EXTRACT-MAX, HEAP-INCREASE-KEY, and HEAP-MAXIMUM procedures, which run in O(lgn) time, allow the heap data structure
 //       to implement a priority queue.
 
-package alex.ds.heaptree;
-
 import java.util.*;
 import java.lang.Integer;
 
