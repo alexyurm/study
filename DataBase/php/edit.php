@@ -135,7 +135,15 @@
     //(1) An open $connection to the DBMS
     function showgiftsforedit($connection)
     {
+       //Create an HTML form pointing to the script
+       echo "\n<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
        
+       //Create an HTML table to neatly arrange the form inputs
+       echo "\n<table border='1'>";
+
+       //Create the table headings
+       echo "\n<tr>" .
+            "\n\t"
     }
     
 
