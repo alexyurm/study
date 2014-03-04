@@ -78,7 +78,7 @@
             //the browser to the index page to display the message
             $message = "Please choose a username and password that are ".
             "at least four characters long";
-            header("Location: index.php?message=" . urlencode$message));
+            header("Location: index.php?message=" . urlencode($message));
         }
 
         //Create a query to find any rows that match provided username
@@ -125,7 +125,7 @@
             {
                 //No, so redirect the browser to the login page with a
                 //message
-                $message = "This user exits, but the password is in correct. ".
+                $message = "This user exits, but the password is incorrect. ".
                 "Choose another username, or fix the password.";
                 header("Location: index.php?message=" . urlencode($message));
                 exit;
@@ -141,3 +141,4 @@
         header("Location: list.php?message=" . urlencode($message));
         exit;
     }
+?>

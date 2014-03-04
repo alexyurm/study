@@ -40,12 +40,46 @@
 
 -   Built-in global functions
 
-      empty()
-          
+    empty()
+    die()
+    mysqli_errno() -> Returns the error code for the most recent function call. It returns an int.
+    mysqli_error() -> Returns a string description of the last error. It returns a string.
+    mysqli_fetch_array -> Fetch a result row as an associative, a numeric array, or both
+    crypt — One-way string hashing. The whole format of this function is: string crypt ( string $str [, string $salt ] ).
+            crypt() will return a hashed string using the standard Unix DES-based algorithm or alternative algorithms 
+            that may be available on the system. The salt parameter is optional. However, crypt() creates weak password 
+            without salt. PHP 5.6 or later raise E_NOTICE error without it. Make sure specify strong enough salt for better security.
+    get_magic_quotes_gpc()
+    stripslashes() -> Un-quotes quoted string. The function stripslashes is used to remove backslashes from data. One use for this 
+                      function, is to display data to which addslashes has been applied. What this means is that stripslashes would change I\'m hungry into I'm hungry.
+    mysqli_real_escape_string() ->  Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection. The
+                                    Procedural style of this function is: string mysqli_real_escape_string ( mysqli $link , string $escapestr )
+
+                                    Parameters: 1) link: Procedural style only: A link identifier returned by mysqli_connect() or mysqli_init()
+                                                2) escapestr: The string to be escaped. Characters encoded are NUL (ASCII 0), \n, \r, \, ', ", and Control-Z.
+    urldecode -> 
+      
     
 -   Errors Handling in PHP
     
-    HP is configured through a php.ini configuration file that includes two important
+    PHP is configured through a php.ini configuration file that includes two important
     directives that affect error reporting: error_reporting and display_errors. The former
     controls what types of errors are trapped, and the latter controls whether error messages
     are reported.
+
+-   Handling errors using the MySQLi library
+
+    PHP provides error-reporting functions that provide the text error message and the
+    numeric error code for a MySQL error that has occurred. Error numbers make it easier
+    to look up information in the MySQL manual list of error codes and messages at http:
+    //dev.mysql.com/doc/mysql/en/Error-handling.html
+
+Questions
+
+1)  A very strange statement:
+
+    echo " | <a href='edit.php'>Edit gifts</a>";
+
+    What is that '|' mean here?
+
+    

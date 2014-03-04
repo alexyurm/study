@@ -28,11 +28,11 @@
     }
 
     //See if we've arrived here after clicking the delete link
-    if(count($_GET) && (clean($_GET['action'], 10)=='delete')
+    if(count($_GET) && (clean($_GET['action'], 10)=='delete'))
     {
         //Yes; compose a query to delete the specified gift from the
         //gifts table
-        $query = "DELETE FROM gifts WHERE gift_id=".clean($_GET['gift_id'])
+        $query = "DELETE FROM gifts WHERE gift_id=".clean($_GET['gift_id']);
         // Run the query through the connection
         if (($result = @ mysqli_query($connection, $query))==FALSE)
         {
@@ -59,11 +59,12 @@
         //Update an existing gift if there is corresponding data
         //submitted from the form
         if (
-            isset($_POST["quantity"][$gift_id] &&
-            isset($_POST["description"][$gift_id] &&
-            isset($_POST["color"][$gift_id] &&
-            isset($_POST["shop"][$gift_id] &&
-            isset($_POST["price"][$gift_id] && )
+            isset($_POST["quantity"][$gift_id]) &&
+            isset($_POST["description"][$gift_id]) &&
+            isset($_POST["color"][$gift_id]) &&
+            isset($_POST["shop"][$gift_id]) &&
+            isset($_POST["price"][$gift_id])
+            )
         {
             update_or_insert_gift_date("$connection, $gift_id");
         }
@@ -100,12 +101,12 @@
             //If this isn't the blank row for optionally adding a new gift,
             //or if it is the blank row and the user has actually typed
             //something in, display an error message.
-            if (!empty(%gift_id) ||
+            if (!empty($gift_id) ||
                strlen($quantity.
                       $description.
                       $color.
                       $shop.
-                      $price) )
+                      $price))
             {
                 echo "<font color='red'>".
                     "There must be no empty fields - not updating:<br />".
@@ -143,9 +144,7 @@
 
        //Create the table headings
        echo "\n<tr>" .
-            "\n\t"
+            "\n\t";
     }
-    
-
 ?>    
     

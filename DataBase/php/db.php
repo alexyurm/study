@@ -6,17 +6,20 @@
     $DB_databasename= "wedding";
     
     //Show an error and stop the script
-    // Was there an error during connection?
-    if (mysqli_connect_errno())
+    function showerror($connection)
     {
-        die("Error " . mysqli_connect_errno($connection) .
-        " : " .mysqli_connect_error($connection));
-    }
-    else
-    {
-        //No; display the error information for the active connection
-        die("Error " .mysqli_errno($connection) . ": "
-                     .mysqli_error($connection));
+        // Was there an error during connection?
+        if (mysqli_connect_errno())
+        {
+            die("Error " . mysqli_connect_errno($connection) .
+            " : " .mysqli_connect_error($connection));
+        }
+        else
+        {
+            //No; display the error information for the active connection
+            die("Error " .mysqli_errno($connection) . ": "
+                         .mysqli_error($connection));
+        }
     }
 
     //Secure the user data by escaping characters and shortening the 

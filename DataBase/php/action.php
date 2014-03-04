@@ -94,7 +94,7 @@
        //Get the matching gift row;
        //(there's only one since the gift_id is the primary key)
        //If we don't get exactly one answer, then we have a problem
-       for($matchedrows=0; ($row @ mysqli_fetch_array($result)); $matchedrows++;)
+       for($matchedrows=0; ($row = @mysqli_fetch_array($result)); $matchedrows++)
        {
           if ($matchedrows != 1)
           {
