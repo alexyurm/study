@@ -58,7 +58,8 @@
                                     Parameters: 1) link: Procedural style only: A link identifier returned by mysqli_connect() or mysqli_init()
                                                 2) escapestr: The string to be escaped. Characters encoded are NUL (ASCII 0), \n, \r, \, ', ", and Control-Z.
     urldecode -> 
-      
+    header();    
+  
     
 -   Errors Handling in PHP
     

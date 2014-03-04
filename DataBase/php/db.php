@@ -2,7 +2,7 @@
     //These are the DBMS credentials and the database name
     $DB_hostname = "localhost";
     $DB_username= "root";
-    $DB_password= "Hugo1207";
+    $DB_password= "mysql";
     $DB_databasename= "wedding";
     
     //Show an error and stop the script
@@ -50,7 +50,7 @@
     {
         session_start();
         
-        if (empty($_SESSION["username"]))
+        if (empty($_SESSION['username']))
         {
             //redirect to the login page
             header("Location: index.php");

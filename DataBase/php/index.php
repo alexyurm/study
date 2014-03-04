@@ -136,6 +136,7 @@
         // session variable, and redirect the browser to the gift list
         // page with a welcome message.
         session_start();
+        $_SESSION['username'] = $username;
         $message = "Welcome {$_SESSION['username']}! Please select gift suggestions".
         " from the list to add to your shopping list!";
         header("Location: list.php?message=" . urlencode($message));
