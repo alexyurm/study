@@ -40,27 +40,88 @@
 
 -   Built-in global functions
 
-    empty()
-    die()
-    mysqli_errno() -> Returns the error code for the most recent function call. It returns an int.
-    mysqli_error() -> Returns a string description of the last error. It returns a string.
-    mysqli_fetch_array -> Fetch a result row as an associative, a numeric array, or both
-    crypt — One-way string hashing. The whole format of this function is: string crypt ( string $str [, string $salt ] ).
+    -   empty() ->
+
+        Determine whether a variable is considered to be empty. A variable is considered empty if it does not exist or if its value equals FALSE. 
+        empty() does not generate a warning if the variable does not exist.
+
+    -   die()
+
+    -   mysqli_errno() -> Returns the error code for the most recent function call. It returns an int.
+
+    -   mysqli_error() -> Returns a string description of the last error. It returns a string.
+
+    -   mysqli_fetch_array -> Fetch a result row as an associative, a numeric array, or both
+
+    -   crypt — One-way string hashing. The whole format of this function is: string crypt ( string $str [, string $salt ] ).
             crypt() will return a hashed string using the standard Unix DES-based algorithm or alternative algorithms 
             that may be available on the system. The salt parameter is optional. However, crypt() creates weak password 
             without salt. PHP 5.6 or later raise E_NOTICE error without it. Make sure specify strong enough salt for better security.
-    get_magic_quotes_gpc()
-    stripslashes() -> Un-quotes quoted string. The function stripslashes is used to remove backslashes from data. One use for this 
+
+    -   get_magic_quotes_gpc()
+
+    -   stripslashes() -> Un-quotes quoted string. The function stripslashes is used to remove backslashes from data. One use for this 
                       function, is to display data to which addslashes has been applied. What this means is that stripslashes would change I\'m hungry into I'm hungry.
-    mysqli_real_escape_string() ->  Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection. The
+
+    -   mysqli_real_escape_string() ->  Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection. The
                                     Procedural style of this function is: string mysqli_real_escape_string ( mysqli $link , string $escapestr )
 
                                     Parameters: 1) link: Procedural style only: A link identifier returned by mysqli_connect() or mysqli_init()
                                                 2) escapestr: The string to be escaped. Characters encoded are NUL (ASCII 0), \n, \r, \, ', ", and Control-Z.
-    urldecode -> 
-    header();    
-  
-    
+
+    -   urldecode -> 
+
+    -   header(); -> Send a GET request
+
+    -   mysqli_fetch_array ->   The mysql_fetch_array( ) and mysqli_fetch_array( ) functions retrieve result rows
+                                from queries that produce output. These functions are typically used to retrieve the
+                                results output by an SQL SELECT statement.
+
+        You can access elements returned with mysqli_fetch_array( ) using either numeric or associative access.
+        
+        Example 1: Use numeric method to access elements in mysql table.
+        
+        ...
+        if (!($result = @ mysql_query("SELECT * FROM artist", $connection)))
+        die("Couldn't run query");
+
+        $len = @mysqli_num_fields($result);
+        
+        while ($row = @ mysql_fetch_array($result))
+        {
+            print "\n";
+            // Print out the columns
+            for($x=0; $x<$len; $x++)
+            print "{$row[$x]} ";
+        }
+        ...
+
+        Example 2: Use associative to access elements in mysql table.
+
+        Note: the function mysqli_num_fields returns the number of columns in the result.
+
+        // Run the query on the connection
+        if (!($result = @ mysql_query(
+        "SELECT * FROM artist, album WHERE artist.artist_id = album.artist_id",
+        $connection)))
+        {
+            die("Couldn't run query");
+        }
+
+        // Until there are no rows in the result set, fetch a row into
+        // the $row array.
+        while ($row = @ mysql_fetch_array($result))
+        {
+            print "\n";
+            // Print out the columns
+            print "{$row["artist_name"]} {$row["album_name"]}";
+        }
+
+    -   isset() -> Determine if a variable is set and is not NULL
+
+        If a variable has been declared is NULL/empty string, isset() still returns TRUE.
+
+        
 -   Errors Handling in PHP
     
     PHP is configured through a php.ini configuration file that includes two important
@@ -77,10 +138,38 @@
 
 Questions
 
-1)  A very strange statement:
+1)  A very strange statement(??):
 
     echo " | <a href='edit.php'>Edit gifts</a>";
 
     What is that '|' mean here?
 
+2)  PHP strings can be specified in 4 ways(!!):
+
+    1)  Single quoted strings will display things almost completely "as is." Variables and most escape sequences will not be interpreted. The exception is that to 
+        display a literal single quote, you can escape it with a back slash \', and to display a back slash, you can escape it with another backslash \\ (So yes, 
+        even single quoted strings are parsed).
+
+    2)  Double quote strings will display a host of escaped characters (including some regexes), and variables in the strings will be evaluated. An important point 
+        here is that you can use curly braces to isolate the name of the variable you want evaluated. For example let's say you have the variable $type and you what 
+        to echo "The $types are" That will look for the variable $types. To get around this use echo "The {$type}s are" You can put the left brace before or after 
+        the dollar sign. Take a look at string parsing to see how to use array variables and such.
+
+    3)  Heredoc string syntax works like double quoted strings. It starts with <<<. After this operator, an identifier is provided, then a newline. The string itself 
+        follows, and then the same identifier again to close the quotation. You don't need to escape quotes in this syntax(??).
+
+    4)  Nowdoc (since PHP 5.3.0) string syntax works essentially like single quoted strings. The difference is that not even single quotes or backslashes have to be 
+        escaped. A nowdoc is identified with the same <<< sequence used for heredocs, but the identifier which follows is enclosed in single quotes, e.g. <<<'EOT'. 
+        No parsing is done in nowdoc(??).
+
+3)  A very strange usage of strlen
+
+    
+    strlen(
+    $quantity.
+    $description.
+    $color.
+    $shop.
+    $price)
+    
     

@@ -44,7 +44,7 @@
             // a query to show all unreserved gifts (where username IS NULL)
             if ($show_user_selection == SHOW_UNRESERVED_GIFTS)
             {
-                $query = "SELECT * FROM gifts WHERE username IS NULL".
+                $query = "SELECT * FROM gifts WHERE username IS NULL ".
                     "ORDER BY description";
             }
             else
@@ -78,7 +78,7 @@
             else
             {
                 //Yes, so show the gifts as tables
-                echo "\n<table boarder=1 width=100%>";
+                echo "\n<table border=1 width=100%>";
                 
                 //Create some headings for the table
                 echo "\n<tr>" .
@@ -137,7 +137,6 @@
         <title>Jack and Jill's Wedding Gift Registry</title>
     </head>
     <body bgcolor='LIGHTBLUE'>
-
     <?php
         // Show a logout link
         echo "<a href='logout.php'>Logout</a>";
@@ -170,18 +169,12 @@
         
         echo "\n<h3>Here are some gift suggestions</h3>";
         // Show the gifts that are still unreserved
-        //showgifts($connection, SHOW_UNRESERVED_GIFTS);
+        showgifts($connection, SHOW_UNRESERVED_GIFTS);
         
         echo "\n<h3>Your Shopping List</h3>";
         // Show the gifts that have been reserved by this user
-        //showgifts($connection, SHOW_GIFTS_RESERVED_BY_THIS_USER);
+        showgifts($connection, SHOW_GIFTS_RESERVED_BY_THIS_USER);
 
 ?>
 </body>
 </html>
-
-
-
-
-
-    

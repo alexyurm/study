@@ -1,6 +1,6 @@
 <?php
 echo "\n<table width=\"60%\">";
-echo "\n<tr><td>\n<hr />"
+echo "\n<tr><td>\n<hr />";
 echo "\n<i>This is not really a wedding registry.
 It's a system that demonstrates the concepts of web database systems,
 and is downloadable source code that you can use freely under this

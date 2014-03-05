@@ -51,4 +51,61 @@
 
     Unless otherwise specified for a particular entity-header, the entity-headers in the PUT request SHOULD be applied to the resource created or modified by the PUT.
 
-    
+-   Differences between GET and POST
+
+    GET - Requests data from a specified resource
+    POST - Submits data to be processed to a specified resource
+
+    1) GET example:
+
+        Note that query strings (name/value pairs) is sent in the URL of a GET request:
+
+        /test/demo_form.asp?name1=value1&name2=value2
+
+        Some other notes on GET requests:
+
+        GET requests can be cached
+        GET requests remain in the browser history
+        GET requests can be bookmarked
+        GET requests should never be used when dealing with sensitive data
+        GET requests have length restrictions
+        GET requests should be used only to retrieve data
+
+    2) POST example
+
+    Note that query strings (name/value pairs) is sent in the HTTP message body of a POST request:
+
+    POST /test/demo_form.asp HTTP/1.1
+    Host: w3schools.com
+    name1=value1&name2=value2
+
+    Some other notes on POST requests:
+
+    POST requests are never cached
+    POST requests do not remain in the browser history
+    POST requests cannot be bookmarked
+    POST requests have no restrictions on data length
+
+-   Table tags
+
+    <tr> :  table row
+    <td> :  define a table data cell. The text in <td> elements are regular and left-aligned by default.
+    <th> :  define a table header cell. The text in <th> elements are bold and centered by default.
+
+-   HTML <a> href Attribute
+
+    The <a> defines a hyperlinke, which is used to link from one page to another.
+
+    The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
+
+    By default, links will appear as follows in all browsers:
+
+    An unvisited link is underlined and blue
+    A visited link is underlined and purple
+    An active link is underlined and red
+
+    Example:
+
+    The href attribute The href attribute specifies the link's destination:
+
+    <a href="http://www.w3schools.com">Visit W3Schools</a>

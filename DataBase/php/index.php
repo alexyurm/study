@@ -109,7 +109,7 @@
             //Fetch the matching row
             
             //If we don't get exactly one answer, then we have a problem
-            for($matchrows=0; ($tmprow = @ mysqli_fetch_array($result));$matchrows++)
+            for($matchrows=0; ($tmprow = @mysqli_fetch_array($result));$matchrows++)
             {
                 $row=$tmprow;
             }

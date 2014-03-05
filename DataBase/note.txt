@@ -1686,10 +1686,8 @@ Notes from Learning MySQL:
     It can also lead to ambiguity; for example, dropping or truncating a table will reset the counter, but de-leting selected rows (with a WHERE clause) 
     doesn’t reset the counter.
 
+-   Questions:
 
+1)  How to change your root password:
 
-
-   Built-in functions;
-   
-   MAX();
-   
+    mysqladmin mysqladmin -u root -p'oldpassword' password newpassword
