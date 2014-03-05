@@ -1375,6 +1375,8 @@ Notes from Learning MySQL:
     We are telling MySQL that the ways to group rows is by artist_name. The result is that rows for artists with the same name from a cluster - that is, each distinct
     name becomes one group. Once the rows are grouped, they're treated in the rest of the query as if they're one row.
 
+-   REPLACE statement
+
     
 
     

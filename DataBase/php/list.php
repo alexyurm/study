@@ -118,9 +118,9 @@
                         //Yes. So set up an embedded link the user can click
                         //to remove the gift to their shopping list by running
                         //action.php with action=remove
-                        echo "\n\t<td><a href=\"action.php?action=remove@" .
-                                "gift_id={$row["gift_id"]}\">".
-                                "Remove from shopping list</a></td>";
+                        echo "\n\t<td><a href=\"action.php?action=remove&" .
+                        "gift_id={$row["gift_id"]}\">".
+                        "Remove from Shopping List</a></td>";
                     }
                 }
                 echo "\n</table>";

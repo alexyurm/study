@@ -63,7 +63,7 @@
             "WHERE gift_id = {$gift_id} ".
             "AND username != '{$_SESSION['username']}'";
 
-            if (($result = @ mysqli_query($connection, $query))==FALSE)
+            if (($result = @mysqli_query($connection, $query))==FALSE)
             {
                 showerror($connection);
             }
@@ -83,24 +83,26 @@
    {
       //The user wants to remove an existing item from their shopping list. 
       //Create a query to retrieve the gift
-      $query= "SELECT * from gifts ".
-      "WHERE gift = {$gift_id}";
-
-       if (($result = @ mysqli_query($connection, $query))==FALSE)
+      
+      $query = "SELECT * from gifts ".
+      "WHERE gift_id = {$gift_id}";
+             
+       if (($result = @mysqli_query($connection, $query))==FALSE)
        {
            showerror($connection);
        }
        
+       //$query = "SELECT username, password FROM users WHERE username = '$username'";
+       
        //Get the matching gift row;
        //(there's only one since the gift_id is the primary key)
        //If we don't get exactly one answer, then we have a problem
-       for($matchedrows=0; ($row = @mysqli_fetch_array($result)); $matchedrows++)
+       for($matchedrows=0; ($row = @mysqli_fetch_array($result)); $matchedrows++);
+      
+       if ($matchedrows != 1)
        {
-          if ($matchedrows != 1)
-          {
-              die("We've just experienced a technical problem - ".
-              "please notify the administrator.");
-          }
+           die("We've just experienced a technical problem - ".
+           "please notify the administrator.");
        }
 
        //Double-check they actually have this gift reserved
