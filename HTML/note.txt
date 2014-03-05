@@ -109,3 +109,143 @@
     The href attribute The href attribute specifies the link's destination:
 
     <a href="http://www.w3schools.com">Visit W3Schools</a>
+
+-   CSS (Cascading Style Sheets)
+
+    -   Basic
+
+        CSS was introduced together with HTML 4, to provide a better way to style HTML elements.
+
+        CSS can be added to HTML in the following ways:
+
+        Inline - using the style attribute in HTML elements
+        Internal - using the <style> element in the <head> section
+        External - using an external CSS file
+
+        The preferred way to add CSS to HTML, is to put CSS syntax in separate CSS files.
+
+        CSS defines HOW HTML elements are to be displayed.
+
+        Styles are normally saved in external .css files. External style sheets enable you to change the appearance and layout of all the pages in a Web site, 
+        just by editing one single file!
+
+    -   More basic
+
+        -   Styles define how to display HTML elements
+        -   Styles were added to HTML 4.0 to solve a problem
+        -   External Style Sheets can save a lot of work
+        -   External Style Sheets are stored in CSS files
+
+    -   Syntax
+
+        A CSS rule has two main parts: a selector, and one or more declarations(seperated by semi-colon):
+
+        E.g.
+
+        h1  {color:blue; font-size;12px;}
+        
+        h1:             ->      Selector
+        color:blue      ->      Declaration(color is the property, and blue is the value)
+        font-size:12px  ->      Another Declaration(font-size is the property and 12px is the value)
+
+    -   In addition to setting a style for a HTML element, CSS allows you to specify your own selectors called "id" and "class".
+
+        1) The id Selector
+
+        The id selector is used to specify a style for a single, unique element.
+
+        E.g.
+
+        #para1
+        {
+            text-align:center;
+            color:red;
+        }
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+        #para1
+        {
+        text-align:center;
+        color:red;
+        } 
+        </style>
+        </head>
+
+        <body>
+        <p id="para1">Hello World!</p>
+        <p>This paragraph is not affected by the style.</p>
+        </body>
+        </html>
+    
+        2) The class Selector
+
+        The class selector is used to specify a style for a group of elements. Unlike the id selector the class selector is most often used on several elements.
+
+        This allows you to set a particular style for many HTML elements with the same class. The class selector uses the HTML class attribute, and is defined with a "."
+
+        In the example below, all HTML elements with class="center" will be center-aligned:
+
+        e.g.
+
+        .center {text-align:center;}
+
+        usage:
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+        .center
+        {
+        text-align:center;
+        }
+        </style>
+        </head>
+
+        <body>
+        <h1 class="center">Center-aligned heading</h1>
+        <p class="center">Center-aligned paragraph.</p> 
+        </body>
+        </html>
+
+    -   Three Ways to insert CSS
+
+        -   External style sheet
+        -   Internal style sheet
+        -   Inline style
+
+        1) External style sheet
+
+           An external style sheet is ideal when the style is applied to many pages. With an external style sheet, you can change the look of an entire 
+           Web site by changing one file. Each page must link to the style sheet using the <link> tag. The <link> tag goes inside the head section:
+
+           <head>
+           <link rel="stylesheet" type="text/css" href="mystyle.css">
+           </head>
+            
+           An external style sheet can be written in any text editor. The file should not contain any html tags. Your style sheet should be saved with 
+           a .css extension. An example of a style sheet file is shown below:
+
+           hr {color:sienna;}
+           p {margin-left:20px;}
+           body {background-image:url("images/background.gif");}
+
+           Note: Do not add a space between the property value and the unit (such as margin-left:20 px). The correct way is: margin-left:20px
+
+        2) Internal Style Sheet
+
+           An internal style sheet should be used when a single document has a unique style. You define internal styles in the head section of an HTML 
+           page, by using the <style> tag, like this:
+
+           <head>
+           <style>
+           hr {color:sienna;}
+           p {margin-left:20px;}
+           body {background-image:url("images/background.gif");}
+           </style>
+           </head>
+
+        3) Inline style
