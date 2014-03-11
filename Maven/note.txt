@@ -1,3 +1,28 @@
 -  Apache Maven Shade Plugin
 
    This plugin provides the capability to package the artifact in an uber-jar, including its dependencies and to shade - i.e. rename - the packages of some of the dependencies.
+
+Questions:
+
+-  export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=128m -Xss10M"
+
+   To get rid of the following compiling messages:
+
+   java.lang.StackOverflowError 
+        at sun.nio.cs.SingleByteEncoder.encodeArrayLoop(SingleByteEncoder.java:91) 
+        at sun.nio.cs.SingleByteEncoder.encodeLoop(SingleByteEncoder.java:130) 
+        at java.nio.charset.CharsetEncoder.encode(CharsetEncoder.java:544) 
+        at sun.nio.cs.StreamEncoder.implWrite(StreamEncoder.java:252) 
+        at sun.nio.cs.StreamEncoder.write(StreamEncoder.java:106) 
+        at java.io.OutputStreamWriter.write(OutputStreamWriter.java:190) 
+        at java.io.BufferedWriter.flushBuffer(BufferedWriter.java:111) 
+        at java.io.PrintStream.write(PrintStream.java:476) 
+        at java.io.PrintStream.print(PrintStream.java:619) 
+        at org.codehaus.plexus.logging.console.ConsoleLogger.info(ConsoleLogger.java:40) 
+        at org.codehaus.plexus.logging.AbstractLogger.info(AbstractLogger.java:56) 
+        at org.codehaus.plexus.archiver.AbstractArchiver$1.hasNext(AbstractArchiver.java:478) 
+        at org.codehaus.plexus.archiver.AbstractArchiver$1.hasNext(AbstractArchiver.java:481) 
+        at org.codehaus.plexus.archiver.AbstractArchiver$1.hasNext(AbstractArchiver.java:481) 
+        at org.codehaus.plexus.archiver.AbstractArchiver$1.hasNext(AbstractArchiver.java:481) 
+
+   I will keep looking at the root cause, but if someone has some insight I would appreciate it.
