@@ -106,6 +106,29 @@ class Interview {
          System.out.println("There is no such element." );
       }
    }
+
+   //Reverse a string. E.g.
+   //I do not eat dog -> dog eat not do I
+   public static char[] reverseString(char[] orig, int size) {
+      //Get the length of the array
+      char[size] result;
+      int wordLen = 0;
+      int writeStart = size;
+
+      for (int i = 0; i < size; i++) {
+         
+         if (char[i] != ' ' ) {
+            i++;
+            writeStart--;
+            wordLen++;
+         } else {
+            wordLen = 0;
+            
+         }
+      }
+
+      return orig;
+   }
    
 
    public static void main(String[] args) {
@@ -113,6 +136,9 @@ class Interview {
       //testFindMid();
       //testEqualTwoInt
       //testGetMthToLast();
+      char[] dog = {'I', ' ', 'd', 'o', ' ', 'n', 'o', 't', ' ', 'e', 'a', 't', ' ', 'd', 'o', 'g'};
+      System.out.println(reverseString(dog, 16));
+      //reverseString(dog);
       return;
    }
 }
