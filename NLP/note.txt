@@ -1,0 +1,26 @@
+Chapter 1. Introduction
+
+-   Phonetics and Phonology
+
+    Knowledge about linguistic sounds
+
+-   Morphology
+
+    Knowledge of meaningful components of words
+
+-   Syntax
+
+    Knowledge of the structural relationships between words
+
+-   Semantics
+
+    Knowledge of meaning
+
+-   Pragmatics
+
+    Knowledge of the relationship of meaning to the goals and inentions of
+    the speaker.
+
+-   Discourse
+
+    knowledge about linguistic units larger than a single utterance
