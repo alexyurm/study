@@ -3323,7 +3323,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
 66) Effective Java
 
-    Item 1: Consider static factory methods instead of constructors
+-   Item 1: Consider static factory methods instead of constructors
 
     Note: the static factory methods are not the ones in Design Pattern!
 
@@ -3432,7 +3432,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
     getType
     newType
 
-    Item 2: Consider a builder when faced with many constructor parameters
+-   Item 2: Consider a builder when faced with many constructor parameters
 
     Static factories and constructors share a limitation: they do not scale well to large
     numbers of optional parameters.
