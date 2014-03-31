@@ -41,13 +41,18 @@ Chapter 3 Types, Values and Variables
 -  Text
 
    A string is an immutable ordered sequence of 16-bit values, each of which typically represents a Unicode character.
+   JavaScript uses the UTF-16 encoding of the Unicode character set, and JavaScript strings are sequences of unsigned
+   16-bit values. The most commonly used Unicode characters (those from the “basic multilingual plane”) have codepoints 
+   that fit in 16 bits and can be represented by a single element of a string. Unicode characters whose codepoints do not 
+   fit in 16 bits are encoded following the rules of UTF-16 as a sequence (known as a “surrogate pair”) of two 16-bit values. 
+   This means that a JavaScript string of length 2 (two 16-bit values) might represent only a single Unicode character:
    
    e.g.
 
    var p = "π" //π is 1 character with 16-bit codepoint 0x03c0
-   var p = 'e' // e is 1 character with 17 bit codepoint 0x1d452
+   var e = 'e' // e is 1 character with 17 bit codepoint 0x1d452
    p.length // -> 1: p consists of 1 16-bit element.
-   e.length // -> 2: UTF-16 encoding of e is 2 16-bit values: "\ud835\udc52"
+   e.length // -> 2: UTF-16 encoding of e is 2 16-bit values: "\ud835\udc52" (??)
 
    Note: What is UTF-16?
 
@@ -74,13 +79,18 @@ Chapter 3 Types, Values and Variables
 
 -  Escape characters
 
-   -  \0    The NUL character(\u0000)
-   -  \n    Backspace(\u0008)
-   -  \t    Horizontal tab(\u0009)
-   -  \n    Newline(\u000A)
-   -  \v    Vertical tab(\u0008)
-   -  \f    Form feed(\u000C)
-   -  \r    Carriage return(\u000D)
+   -  \0        The NUL character(\u0000)
+   -  \b        Backspace(\u0008)
+   -  \t        Horizontal tab(\u0009)
+   -  \n        Newline(\u000A)
+   -  \v        Vertical tab(\u0008)
+   -  \f        Form feed(\u000C)
+   -  \r        Carriage return(\u000D)
+   -  \"        Double quote(\u0022)
+   -  \'        Single quote(\u0027)
+   -  \\        Backslash(\u005c)
+   -  \xXX      The Latin-1 character specified by the two hexadecimal digits XX
+   -  \xXXXX    The Unicode character specified by the four hexadecimal digits XXXX
 
 -  Pattern Matching(!!)
 
@@ -89,12 +99,12 @@ Chapter 3 Types, Values and Variables
    
    /^HTML/              //Match the letter H T M L at the start of a string
    /[1-9][0-9]*/        //Match a non-zero digit, followed by any # of digits.
-   /\bjavascript\b/i    //Match "javascript" as a word, case-insensitive
+   /\bjavascript\b/i    //Match "javascript" as a word, case-insensitive (?? what is "\b" used for here?)
 
    RegExp objects define a number of useful methods, and strings also have methods that accept RegExp arguments. E.g.
 
    var text = "testing: 1, 2, 3"; //Sample text
-   var pattern = /\d+/g    //Match all instances of one or more digits
+   var pattern = /\d+/g    //Match all instances of one or more digits (??why)
    pattern.text(text)      //-> true: a match exists
    text.search(pattern)    //-> 9: position of first match
    text.match(pattern)     //->["1", "2", "3"]: array of all matches
@@ -118,7 +128,9 @@ Chapter 3 Types, Values and Variables
    var N = new Number(n);
    var B = new Boolean(b);
 
--  Immutable Primitive Values and Mutable Object References
+   (??What are the Wrapper Objects used for)
+
+-  Immutable Primitive Values and Mutable Object References(!!)
 
    1) Primitive values are immutable. Such as:
 
@@ -160,7 +172,8 @@ Chapter 3 Types, Values and Variables
 
 -  Explicit Conversions
 
-   Although JavaScript performs many type conversions automatically, you may sometimes need to perform an explicit conversion to keep your code clearer.
+   Although JavaScript performs many type conversions automatically, you may sometimes need to perform an explicit conversion to keep your code clearer(!!I would
+   prefer this way).
    
    Number("3")       //->3
    String(false)     //->"false" Or use false.toString()
