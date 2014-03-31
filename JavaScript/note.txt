@@ -207,5 +207,4 @@ Chapter 13 JavaScript in Web Browsers
 -  The Window object is the main entry point to all client-side JavaScript features and APIs. It represents a web browser window or frame, and you can refer to it with
    the identifier window. 
    
-
    
