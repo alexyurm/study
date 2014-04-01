@@ -207,4 +207,40 @@ Chapter 13 JavaScript in Web Browsers
 -  The Window object is the main entry point to all client-side JavaScript features and APIs. It represents a web browser window or frame, and you can refer to it with
    the identifier window. 
    
+-  JavaScript is more central to web applications than it is to web documents, of course. JavaScript enhances web documents, but a well-designed document will continue
+   to work with JavaScript disabled. Web applications are, by definition, JavaScript programs that use the OS-type service provided by the web browser, and they would
+   not be expected to work with JavaScript disabled.
+
+-  Client-side JavaScript code is embedded within HTML document in four ways:
+
+   - Inline, between a pair of <script> and </script> tags;
+   - From an external file specified by the src attribute of a <script> tag;
+   - In an HTML event handler attribute, such as onclick or onmouseover;
+   - In a URL that uses the special javascript: protocol.
+
+-  The <script> tag supports a src attribute that specifies the URL of a file containing JavaScript code:
+
+   <script src="../../scripts/util.js"></script>
+
+   JavaScript file contains pure JavaScript, without <script> tags or any other HTML.
+   By convention, files of JavaScript code have names that end with .js.
+
+-  JavaScript code in a script is executed once: when the HTML file that contains it is loaded 
+   into the web browser.
+
+   In order to be interactive, a JavaScript program must define event handlers—JavaScript functions that 
+   are registered with the web browser and then invoked by the web browser in response to events (such as user input). 
+   
+   JavaScript code can register an event handler by assigning a function to a property (such as onclick or onmouseover) 
+   of an Element object that represents an HTML element in the document.
+
+   Event handler properties like onclick mirror HTML attributes with the same names, and it is possible to define
+   event handler that is invoked when the user toggles a checkbox in a form, you can specify the handler code as an
+   attribute of the HTML element that defines the checkbox.
+
+   <input type="checkbox name="options" value="giftwrap"
+    onchange="order.options.giftwrap=this.checked;">
+
+-  Another way that JavaScript code can be included on the client side is in a URL following the javascript: protocol specifier.
+
    
