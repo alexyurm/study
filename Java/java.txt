@@ -36,7 +36,7 @@ Chapter 2 Objects and Classes
    2) A nested class has access to the enclosing class's instance variables and methods, even if they are declared with private visibility.
    
    3) The enclosing class can directly access data in the nested class only if the data is declared public. In general, we've always said that public class is a bad idea
-      because it violates encapsulation. However, nested classes provide an exception to that rule. A 
+      because it violates encapsulation. However, nested classes provide an exception to that rule.
 
 Chapter 3  Primitives and References.
 
@@ -280,7 +280,7 @@ Chapter 7 inheritance and polymorphism
    any knowledge of the new Animal subtypes the Vet will be working on.(!!)
 
 -  If you want to protect a specific method from being overriden, mark the method with the "final" modifier. Mark the whole class as final if you want to guarantee that none
-   of the methods in that class will ever be overriden.
+   of the methods in that class will ever be overriden(!!).
 
 -  Overriding: The arguments and return types of your overriding method must look to the outside world exactly like the overriden method in the superclass. E.g.
 
@@ -404,7 +404,8 @@ Chapter 8 Serious Polymorphism
    If D calls a method defined in A (and does not override the method), and B and C override that method differently, this from which class does it inherit: B or C? It's 
    called the "diamond problem" because of the shape of the class inheritance diagram in this situation.
 
-   The way to handle that is very simple: make all the methods abstract(How to solve the DDD using abstract methods??).
+   The way to handle that is very simple: make all the methods abstract(How to solve the DDD using abstract methods?? I thought Java has already handled that by forcing
+    not allow to use multiple inheritance).
 
    Pet:
 
@@ -544,7 +545,7 @@ Chapter 9 Life and Death of an Object
       }
    }
 
-   The compiler gets involved in constructor-making in two ways:
+   The compiler gets involved in constructor-making in two ways(!!):
 
    1) If you don't provide a constructor, the compiler puts one in that looks like:
 
@@ -552,7 +553,7 @@ Chapter 9 Life and Death of an Object
          super();
       }
 
-   2) If you do provide a constructor but you do not put in the call to super():
+   2) If you do provide a constructor but you do not put in the call to super()(!!):
 
       The compiler will put a call to super() in each of your overloaded constructors(unless the constructor calls another overloaded constructor). The compiler-supplied 
       call looks like:

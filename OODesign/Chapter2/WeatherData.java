@@ -1,7 +1,13 @@
 /*
 *  This example shows how to use Java's built-in Observer Pattern
 *
+*   -   Observable is a class, thus creating 2 problems:
 *
+*   1)  If a class has already extended another class, no way you can subclass the Observable
+*   2)  the setChange is a protected method, therefore we cannot compose a Observable instance into your
+*       own object. This violates the principle 2: favour composition over inheritance(prefer loosely-coupled structure).
+*
+*   -   
 *
 *
 *

@@ -4,7 +4,7 @@
 *   Ths definition of Factory method: The Factory Method Pattern defines an interface for creating an object, but lets subclass
 *   decide which class to instantiate. Factory method lets a class defer instantiation to subclass.
 *
-*   There are three classes in this example to demonstrate the usage of Facory method.
+*   There are three classes in this example to demonstrate the usage of Factory method.
 *
 *   1.  Pizza(abstract) <--- CheesePizza(concrete), PepperoniPizza(concrete), ClamPizza(concrete) and VeggiePizza(concrete)
 *
