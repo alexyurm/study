@@ -1,0 +1,20 @@
+
+Step 1: Compile the Java class that uses C codes - HelloJNI.java
+
+javac HelloJNI.java
+
+Step 2: Create the C/C++ Header file - HelloJNI.h
+
+javah HelloJNI
+
+Step 3: To Compile the c program into an object file 
+
+gcc -c -I$(JAVA_HOME)/include HelloJNI.c
+
+Step 4: To create the static library linked by the Java program
+
+gcc -Wl -shared -o libhello.so HelloJNI.o
+
+Step 5: Run the Java program:
+
+java -Djava.library.path=. HelloJNI

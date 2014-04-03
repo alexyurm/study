@@ -113,3 +113,23 @@
       curl -i http://172.22.0.76/service/network_manager/status
 
       The above command sets HTTP GET to the specified URL
+
+17.   (!!) There are 3 different bash configure files in Ubuntu:
+
+      E.g. How to set JAVA_HOME environment variable in Ubuntu
+
+      Setting the JAVA_HOME variable can be done in several ways:
+
+      1. Globally and at System level, i.e. no user is required to be logged in. This is the prefered way if you are configuring a server and planning to use boot strapped 
+      program that needs JAVA_HOME variable.
+
+        /etc/environment
+        JAVA_HOME=/usr/lib/jvm/java-7-oracle
+
+      2. Globally and set for all logged in user, i.e. one user is needed to be logged in, to have the JAVA_HOME variable set.
+        
+        /etc/bash.bashrc
+
+      3. User specific. Then the variable is only set when the designated user is logged in.
+
+        /home/$USER/bash.bashrc 

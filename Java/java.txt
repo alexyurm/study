@@ -3321,7 +3321,19 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
     
 65) ImmutableList(??)
 
-66) Effective Java
+66) Can constructors throw exceptions in Java?
+
+    Yes, constructors can throw exceptions. Usually this means that the new object is immediately eligible for garbage collection (although it may 
+    not be collected for some time, of course). It's possible for the "half-constructed" object to stick around though, if it's made itself visible earlier in 
+    the constructor (e.g. by assigning a static field, or adding itself to a collection).
+
+    One thing to be careful of about throwing exceptions in the constructor: because the caller (usually) will have no way of using the new object, the 
+    constructor ought to be careful to avoid acquiring unmanaged resources (file handles etc) and then throwing an exception without releasing them. For 
+    example, if the constructor tries to open a FileInputStream and a FileOutputStream, and the first succeeds but the second fails, you should try to 
+    close the first stream. This becomes harder if it's a subclass constructor which throws the exception, of course... it all becomes a bit tricky. 
+    It's not a problem very often, but it's worth considering.
+
+67) Effective Java
 
 -   Item 1: Consider static factory methods instead of constructors
 
