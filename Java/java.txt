@@ -2145,12 +2145,13 @@ Chapter 19 Concurrency
 
    Allowing a thread to acquire the same lock more than once enables reentrant synchronization.
 
--  Atomic Access
+-  Atomic Access(??)
 
    In programming, an atomic access is one that effectively happens all at once. An atomic action cannot stop in the middle; it either happens completely, or it doesn't 
    happen at all. No side effects of an atomic action are visible until the action is complete.
 
-   - Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double).
+   - Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double?? Is it because long and double are more 
+    than 32-bits?).
    - Reads and writes are atomic for all variables declared volatile (including long and double variables).
 
    Atomic actions cannot be interleaved, so they can be used without fear of thread interference. However, this does not eliminate all need to synchronize atomic actions, 
@@ -2160,7 +2161,7 @@ Chapter 19 Concurrency
    led up the change(??).
 
    Using simple atomic variable access is more efficient than accessing these variables through synchronized code, but requires more care by the programmer to avoid memory 
-   consistency errors. Whether the extra effort is worthwhile depends on the size and complexity of the application.
+   consistency errors. Whether the extra effort is worthwhile depends on the size and complexity of the application(??).
 
 -  Liveness
 
@@ -2652,7 +2653,7 @@ Answer: It is "generics". <? super T> dest must be the type of class T or the su
 17) What are immutable objects(!!):
 
    Immutable objects are simply objects whose state (the object's data) cannot change after construction. Examples of immutable objects from the JDK
-   include String and Integer. Immutable objects greatly simpilify your program. Since they are:
+   include String and Integer(??). Immutable objects greatly simpilify your program. Since they are:
 
    -  are simple to construct, test, and use.
    -  are automatically thread-safe and have no synchronization issues
@@ -3018,17 +3019,6 @@ int i = indexFor(hash, table.length);//the index calculation function uses the s
          If the match is found, the entry e is replaced by the pair(K,V)
 
       3) Else, create a new entry and the pair<K,V> will become the first entry in the bucket.
-
--  What happens if the different values have the same hashCode(resolved)?
-
-   Given: V1 != V2 but V1.hashCode() == V2.hashCode().
-
-   If V1 is already in the hashtable, While we are trying to do put() for V2, then according to 
-
-   if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
-
-   V1 will be replaced by V2. This is very bad because we cannot retrieve V1 anymore. In other words, two different values V1 and V2 cannot co-exist in the same
-   hashtable if their hashcode is the same.
 
 -  An interesting way of defining an array(resolved).
 
@@ -3565,4 +3555,114 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
     It is an object whose state cannot be modified after it is created.
 
--   Enforce the singleton property
+-   How volatile works(!!)
+
+     public class Singleton {
+        private volatile static Singleton uniqueInstance; //The volatile keyword ensures that multiple threads handle the uniqueInstance variable correctly when it is being
+                                                          //initialized to the Singleton instance.
+
+        private Singleton() {}
+
+        public static Singleton getInstance() { //Check for an instance and if there isn't one, enter a synchronized block.
+           if (uniqueInstance == null) { //Note we only synchronized the first time through!
+              synchronized(Singleton.class) { //?? It passes Singleton.class to the sunchronized method??
+                 if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton(); //Once in the block, check again and if still null, create an instance
+                 }
+              }
+           }
+           return uniqueInstance;
+        }
+     }
+    
+    If we do not make uniqueInstance variable volatile then Thread which is creating instance of Singleton is not able to communicate other thread, that instance has been 
+    created until it comes out of the Singleton block, so if Thread A is creating Singleton instance and just after creation lost the CPU, all other thread will not 
+    be able to see value of _instance as not null and they will believe its still null. 
+
+    Why this can happen? 
+    
+    Because reader threads are not doing any locking and until writer thread comes out of synchronized block, memory will not be synchronized and value of uniqueInstance 
+    will not be updated in main memory. With Volatile keyword in Java this is handled by Java himself and such updates will be visible by all reader threads.
+
+    One of the most important thing in learning of volatile keyword is understanding when to use volatile variable in Java. Here are a couple examples to demonstrate when
+    to use volatile keywords:
+    
+    1) 
+
+    You can use Volatile variable if you want to read and write long and double variable atomically. 
+    long and double both are 64 bit data type and by default writing of long and double is not atomic and platform dependence.
+
+    2) 
+
+    Volatile variable can be used as an alternative way of achieving synchronization in Java in some cases, like Visibility. with volatile 
+    variable its guaranteed that all reader thread will see updated value of volatile variable once write operation  completed, without volatile keyword 
+    different reader thread may see different values.
+
+    3)
+
+    volatile variable can be used to inform compiler that a particular field is subject to be accessed by multiple threads, which will prevent compiler 
+    from doing any reordering or any kind of optimization which is not desirable in multi-threaded environment. Without volatile variable compiler can 
+    re-order code, free to cache value of volatile variable instead of always reading from main memory. Without volatile variable compiler can 
+    re-order code, free to cache value of volatile variable instead of always reading from main memory. like following example without volatile 
+    variable may result in infinite loop:
+
+    private boolean isActive = thread;
+    public void printMessage(){
+      while(isActive){
+         System.out.println("Thread is Active");
+      }
+    }
+
+    Important points on Volatile keyword in Java
+
+    1. volatile keyword in Java is only application to variable and using volatile keyword with class and method is illegal.
+
+    2. volatile keyword in Java guarantees that value of volatile variable will always be read from main memory and not from Thread's local cache.
+
+    3. In Java reads and writes are atomic for all variables declared using Java volatile keyword (including long and double variables).
+
+    4. Using Volatile keyword in Java on variables reduces the risk of memory consistency errors, because any write to a volatile variable in Java establishes a 
+    happens-before relationship with subsequent reads of that same variable.
+
+    5. From Java 5 changes to a volatile variable are always visible to other threads. What’s more it also means that when a thread reads a volatile variable in 
+    java, it sees not just the latest change to the volatile variable but also the side effects of the code that led up the change.
+
+    6. Reads and writes are atomic for reference variables are for most primitive variables (all types except long and double) even without use of volatile keyword in Java.
+
+    7. An access to a volatile variable in Java never has chance to block, since we are only doing a simple read or write, so unlike a synchronized block we will 
+    never hold on to any lock or wait for any lock.
+
+    8. Java volatile variable that is an object reference may be null.
+
+    9. Java volatile keyword doesn't mean atomic, its common misconception that after declaring volatile ++ will be atomic, to make the operation atomic you still 
+    need to ensure exclusive access using synchronized method or block in Java.
+
+    10. If a variable is not shared between multiple threads no need to use volatile keyword with that variable.
+
+-   What is happens-before relationship:
+
+    In computer science, the happened-before relation (denoted: ->)is a relation between the result of two events, such that if one event should happen before 
+    another event, the result must reflect that. Even if those events are in reality executed out of order (usually to optimize program flow).
+
+-   What are differences between wait and sleep method in java?
+
+    Another frequently asked thread interview question in Java mostly appear in phone interview. Only major difference is wait release the lock or monitor while 
+    sleep doesn't release any lock or monitor while waiting. Wait is used for inter-thread communication while sleep is used to introduce pause on execution. 
+    See my post wait vs sleep in Java for more differences.
+
+    A wait can be "woken up" by another process calling notify on the monitor which is being waited on whereas a sleep cannot. 
+    Also a wait (and notify) must happen in a block synchronized on the monitor object whereas sleep does not:
+
+    Object mon = ...;
+    synchronized (mon) {
+        mon.wait();
+    } 
+
+-   What is String pool(!!)?
+
+    String pool is a pool of Strings stored in Java heap memory. String Pool is possible only because String is immutable in Java and it's implementation of String
+    Interning concept(??). String Pool is also example of Flyweight design pattern.
+
+-   Why String is immutable or final in Java
+
+    

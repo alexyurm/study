@@ -691,3 +691,20 @@ Chapter 8 The Template Method Pattern
 
       void hook() {} A concrete method but it does nothing. Please see the following for the reason why we need an hook() method.
    }
+
+-   flyweight pattern
+
+    Flyweight design pattern is used when we need to create a lot of Objects of a class. Since every object consumes memory space that can be crucial for low memory 
+    devices, such as mobile devices or embedded systems, flyweight design pattern can be applied to reduce the load on memory by sharing objects.
+
+    Before we apply flyweight design pattern, we need to consider the following factors:
+
+    -   The number of Objects to be created by application should be huge.
+    -   The object creation is heavy on memory and it can be time consuming too.
+    -   The object properties can be divided into intrinsic and extrinsic properties, extrinsic properties of an Object should be defined by the client program.
+
+    To apply flyweight pattern, we need to divide Object property into intrinsic and extrinsic properties. Intrinsic properties make the Object unique 
+    whereas extrinsic properties are set by client code and used to perform different operations. For example, an Object Circle can have extrinsic 
+    properties such as color and width.
+
+    
