@@ -342,7 +342,9 @@ Chapter 7 QuickSort
 
    Divide: Partition (rearrange the array) A[p..r] into two (possibly empty) subarrays A[p..r-1] and A[q+1..r]. 
 
-   
+-   The running time of quicksort depends on whether the partitioning is balanced or unbalanced, which in turn depends on which elements are used for partitioning.
+    If the partitioning is balanced, the algorithm runs sysmptotically as fast as merge sort. If the partitioning is unbalanced, however, it can run asymptotically
+    as slowly as insertion sort.
 
 -  Maintaining the heap property
 

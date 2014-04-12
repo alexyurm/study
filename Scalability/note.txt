@@ -1,0 +1,124 @@
+MapReduce:
+
+-   Users implement interface of two functions:
+
+    -   map (in_key, in_value) ->
+    (inter_key, inter_value) list
+
+    -   reduce (inter_key, inter_value list) ->
+    (out_key, out_value) list
+
+-   Map phase:
+
+    -   Example 1: Explode Mapper
+
+        Explode function using the map method where 
+
+        let map(k,v) = foreach char c in v:
+            foreach char in v:
+                emit(k,c)
+
+        ("A", "cats") -> ("A", "c"), ("A", "a"),
+                            ("A", "t"), ("A", "s")
+
+    -   Example 2: Filter Mapper
+    
+        let map(k,v) = 
+            if (isPrime(v)) then emit(k, v)
+
+        ("foo", 7) -> ("foo", 7)
+        ("test", 10) -> (nothing)
+
+-   Reduce phase   
+
+    After the map phase is over, all the intermediate values for a given
+    output key are combined together into a list.
+
+    reduce() combines those intermediate values into one or more final
+    values for that same output key.
+
+    Example: Sum Reducer
+
+    let reduce(k, vals) = 
+        sum = 0
+        foreach int v in vals:
+            sum +=v
+        emit(k,sum)
+
+    ("A", [42, 100, 312] -> ("A", 454)
+    ("B", [12, 6, -2] -> ("B", 16)
+
+-   Parallism is the key of map-reduce
+
+    1)  map() functions run in parallel, creating different
+        intermediate values from different input data sets.
+        
+    2)  reduce() functions also run in parallel, each working on a
+        different output key
+
+    3)  All values are processed independently
+
+    4)  Bottlenect: reduce phase can't start until map phase is completely finished.
+
+    Let's take a look at the wordcount example:
+
+    map(String input_key, String input_value) :
+        //input_key : document name
+        //input_value : document contents
+        for each word w in input_value :
+            emit(w,1)
+
+    reduce(String output_key, Interator<int>intermediate_values) :
+        //output_key : a word
+        //output_values: a list of counts
+        int result = 0;
+        for each v in intermediate_values:
+            result +=v;
+        emit(output_key, result)
+
+-   Combining phase
+
+    -   Run on mapper nodes after map phase;
+    -   "Mini-reduce", only on local map output;
+    -   Used to save bandwidth before sending data to full reducer;
+    -   Reducer can be combiner if commutative & associative
+        - e.g. SumReducer
+
+-   The Hadoop Distributed File System(HDFS)
+
+    -   Based on Google's GFS
+    -   Redundant storage of massive amounts of data on cheap
+        and unreliable computers
+    -   Why not use an existing file system?
+
+        -   Different workload and design priorities;
+        -   Handles much bigger dataset sizes than other file systems
+
+    -   Assumptions
+
+    1) High component failure rates;
+    2) "Modest" number of HUGE files
+    
+        -   Just a few million
+        -   Each is 100MB or large; multiple-GB files typical
+    3)  Files are write-once, mostly appended to
+    4)  Large streaming reads
+    5)  High sustained thoughtput favored over low latency
+
+    -   Features of HDFS
+
+    -   Files stored as blocks
+
+        -   Much larger size than most filesystems (default is 64MB)
+        -   Reliability through replication
+
+            -   Each block replicated across 3+ DataNodes;
+
+        -   Single master(NameNode) coordinates access, metadata
+            -   Simple centralized management;
+
+        -   No data caching
+            -   Little benefit due to large data sets, streaming reads
+        
+        -   Familiar interface, but customize the API
+            -   Simplify the problem; focus on distributed apps
