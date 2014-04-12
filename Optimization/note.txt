@@ -1,0 +1,112 @@
+Chapter 2 Why use Multiarmed Bandit Algorithm?
+
+-  A short period of pure exploration, in which you assign equal number of users to Group A and B.
+
+-  A long period of pure exploitation, in which you send all of your users to the more successful version of your site and never come back to the option that seemed to be
+   inferior.
+
+   Why might this be a bad strategy?
+
+   -  It jumps discretely from exploration into exploitation, when you might be able to
+   smoothly transition between the two.
+
+   -  During the purely exploratory phase, it wastes resources exploring inferior options
+   in order to gather as much data as possible. But you shouldn’t want to gather data
+   about strikingly inferior options.
+
+   Bandit Algorithms provides solutions to both of these problems: (1) they smoothly decrease
+   the amount of exploring they do over time instead of requiring you to make a sudden jump
+   and (2) they focus your resources during exploration on the better options instead of wasting
+   time on the inferior options that over-explored during typical A/B testing.
+
+
+Note:
+
+   1. Exploitation
+
+   An algorithm for solving the Multiarmed Bandit Problem exploits if it plays the arm with the highest estimated value based on previous plays.
+
+   2. Exploration
+
+   An algorithm for solving the Multiarmed Bandit Problem explores if it plays any arm that does not have the highest estimated value based on previous plays. In other words,
+   exploration occurs whenever exploitation does not.
+
+   In summary, "It is the way of Operations Researchers talk about your need to balance experimentation with profit-maximization. We call experimentation exploration and we call
+   profit maximation exploitation".
+
+Chapter 3 The Epsilon-Greedy Algorithm
+
+-  In computer science, a greedy algorithm is an algorithm that always takes whatever
+   action seems best at the present moment, even when that decision might lead to bad
+   long term consequences. The epsilon-Greedy algorithm is almost a greedy algorithm
+   because it generally exploits the best available option, but every once in a while the
+   epsilon-Greedy algorithm explores the other available options.
+
+-  The definition of the algorithm
+
+   • With probability 1 – epsilon, the epsilon-Greedy algorithm exploits the best
+   known option.
+   • With probability epsilon / 2, the epsilon-Greedy algorithm explores the best
+   known option.
+   • With probability epsilon / 2, the epsilon-Greedy algorithm explores the worst
+   known option.
+
+-  What's Bandit Problem?
+
+   
+   •  We’re facing a complicated slot machine, called a bandit, that has a set of N arms
+   that we can pull on.
+
+   • When pulled, any given arm will output a reward. But these rewards aren’t reliable,
+   which is why we’re gambling: Arm 1 might give us 1 unit of reward only 1% of the
+   time, while Arm 2 might give us 1 unit of reward only 3% of the time. Any specific
+   pull of any specific arm is risky.
+
+   • Not only is each pull of an arm risky, we also don’t start off knowing what the reward
+   rates are for any of the arms. We have to figure this out experimentally by actually
+   pulling on the unknown arms.
+
+-  What makes a bandit problem special?
+
+   We only receive a small amount of the information about the rewards from each arm. Specifically, 
+   
+   We only find out about the reward that was given out by the arm we actually pulled.
+
+   • Every time we experiment with an arm that isn’t the best arm, we lose reward be‐
+   Whichever arm we pull, we miss out on information about the other arms that we
+   didn’t pull. Just like in real life, you only learn about the path you took and not the
+   paths you could have taken.
+
+
+   In fact, the situation is worse than that. Not only do we get only partial feedback about
+   the wisdom of our past decisions, we’re literally falling behind every time we don’t make
+   a good decision:
+
+   • Every time we experiment with an arm that isn’t the best arm, we lose reward be‐
+   cause we could, at least in principle, have pulled on a better arm.
+
+-  Implementing the Epsilon-Greddy Algorithm
+
+   Epsilon: 
+
+   This will be a floating point number that tells us the frequency with which we should
+   explore one of the available arms. If we set epsilon = 0.1, then we’ll explore the
+   available arms on 10% of our pulls.
+
+   counts:
+
+   A vector of integers of length N that tells us how many times we’ve played each of
+   the N arms available to us in the current bandit problem. If there are two arms, Arm
+   1 and Arm 2, which have both been played twice, then we’ll set counts = [2, 2].
+
+   values:
+
+   A vector of floating point numbers that defines the average amount of reward we’ve
+   gotten when playing each of the N arms available to us. If Arm 1 gave us 1 unit of
+   reward on one play and 0 on another play, while Arm 2 gave us 0 units of reward
+   on both plays, then we’ll set values = [0.5, 0.0].
+
+   
+
+   
+   

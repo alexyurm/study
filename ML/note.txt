@@ -1,0 +1,21 @@
+1. Introduction
+
+-  The deluge of data calls for automated methods of data analysis, 
+   which is what machine learning provides. We define machine learning
+   as a set of methods that can automatically detect patterns in data, and
+   then use the uncovered patterns to predict future data, or to perform
+   other kinds of decision making under uncertainty(such as planning how
+   to collect more data!).
+
+-  It should be noted, however, that even when one has an apparently massive
+   data set, the effective number of data points for certain cases of
+   interest might be quite small. For example, 20% of Google searches
+   each day have never been seen before. This means that the core
+   statistical issues that we discuss in this book, concerning generalizing
+   from relatively small samples sizes, are still very relevant even in
+   the big data era.
+
+-  Two main types of machine learning:
+
+   1) predictive
+   2) supervised learning
