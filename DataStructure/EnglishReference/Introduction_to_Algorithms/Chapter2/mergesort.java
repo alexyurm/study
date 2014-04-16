@@ -72,7 +72,7 @@ class MergeSort {
          A.add(arrayInteger[i]);
       }
 
-      mergesort(A, 0, A.size()-1);
+      mergesort(A, 0, A.size()-1); //p = 0, q = A.size()-1
       System.out.println(A);
    }
 }
