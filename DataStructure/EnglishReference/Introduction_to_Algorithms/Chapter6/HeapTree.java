@@ -63,7 +63,11 @@ class HeapTree {
    }
 
    public int left(int i) {
-      //assert i < n/2 : "Position has no left child"; //?? why i < n/2
+      //assert i < n/2 : "Position has no left child"; //?? why i < n/2. Because:
+      //(i * 2 + 1) <= (heapsize-1) -> 
+      // i <= (heapsize/2 - 1) -> 
+      //(i+1) <= (heapsize/2) -> 
+      //i < heapsize/2
       if ( i < heapSize/2) {
          return i*2+1;
       } else {
@@ -72,7 +76,11 @@ class HeapTree {
    }
 
    public int right(int i) {
-      //assert i < (n-1)/2 : "Position has no right child"; //?? why i < (n-1)/2
+      //assert i < (n-1)/2 : "Position has no right child"; //?? why i < (n-1)/2. Because:
+      //(i * 2 + 2) <= (heapsize-1) -> 
+      // i+1 <= (heapsize-1)/2 -> 
+      //(i+1) <= (heapsize-1)/2 -> 
+      // i < (heapsize-1)/2
       if (i < (heapSize-1)/2) {
          return i*2+2;
       } else {
@@ -189,7 +197,11 @@ class HeapTree {
    void buildmaxheap() {
       heapSize = n;
 
-      //Note: n/2-1 is the index of the last non-leaf element.
+      //Note: n/2-1 is the index of the last non-leaf element but why?? Because:
+      //if node x is a parent node, it must has at least a left child: (x*2+1) <= (heapSize-1)  -> 
+      //(x*2) <= heapSize-2     ->
+      //x <= heapSize/2 - 1     ->
+      //max(x) = (heapSize/2-1) and min(x) = 0
       for (int i = n/2-1; i >=0; i--) {
          maxheapify(i);
       }
