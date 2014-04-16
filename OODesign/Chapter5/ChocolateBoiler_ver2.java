@@ -2,6 +2,7 @@ class ChocolateBoiler {
    private boolean empty;
    private boolean boiled;
 
+   //static initializer method !!
    private static ChocolateBoiler uniqueCBInstance = new ChocolateBoiler(); //Go ahead and create an instance of Singleton in a static initializer. This can guarantee thread safe
    //because the JVM guarantees that the instance will be created before any thread access the static uniqueInstance variable.
 

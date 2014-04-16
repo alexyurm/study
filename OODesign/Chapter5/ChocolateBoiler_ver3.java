@@ -1,3 +1,7 @@
+/*
+* Singleton design pattern demonstration.
+*/
+
 class ChocolateBoiler {
    private boolean empty;
    private boolean boiled;
@@ -9,6 +13,7 @@ class ChocolateBoiler {
       boiled = false;
    }
 
+   //(double-check locking!!)
    public static ChocolateBoiler getInstance() {
          if (uniqueCBInstance == null) { //check for an instance and if there isn't one enter a synchronized block.
             synchronized(ChocolateBoiler.class) {
