@@ -5,9 +5,19 @@
 *
 *   -   A single object: Light
 *
-*   -   Command(interface) <-------------LightOnCommand(concrete class), LightOffCommand(concrete class), NoCommand(concrete class)
+*   -   Command(interface) <-------------LightOnCommand(concrete command), LightOffCommand(concrete command), NoCommand(concrete command)
+*
+*   -   Light(the so called receiver)
+*
+*   -   SimpleRemoteControl(invoker)
 *
 *   -   
+*
+*
+*
+*
+*
+*
 *
 */
 
@@ -63,12 +73,13 @@ class LightOffCommand implements Command {
    }
 }
 
+//the concrete command
 class NoCommand implements Command {
    public void execute() {} //do nothing.
    public void undo() {} //do nothing
 }
 
-//invoker in the common pattern-speak
+//invoker in the command pattern-speak
 class SimpleRemoteControl {
    Command slot;
    

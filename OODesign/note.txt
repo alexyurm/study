@@ -375,7 +375,7 @@ Chapter 6: Encapsulating Invocation
 
       All the methods are based on a single object: An Order Slip
 
-      We have a Diner with a Waitress who is decoupled from the Cook by an Order Slip, so what? 
+      We have a Dinner with a Waitress who is decoupled from the Cook by an Order Slip, so what? 
 
       Think of the Dinner as a model for an OO design pattern that allows us to seperate an object making a request from the objects that receive and execute those requests.
 
@@ -527,7 +527,7 @@ Chapter 7 the Adapter and Facade Patterns
 
       And today...
 
-      We are often faced with leagcy code that exposes the Enumerator interface, yet we'd like for our new code to only use Iterators. It looks like we need to build an adapter.
+      We are often faced with leagcy(old) code that exposes the Enumerator interface, yet we'd like for our new code to only use Iterators. It looks like we need to build an adapter.
 
       -  Adapting an Enumeration to an Iterator.
 
