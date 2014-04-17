@@ -734,7 +734,7 @@ Notes from Learning MySQL:
 
    You can also write LIMIT 10 OFFSET 5.
 
--  Joining Two tables;
+-  Joining Two tables(keywords: SELECT, INNER JOIN, USING);
 
    mysql> SELECT artist_name, album_name FROM artist INNER JOIN album
          -> USING (artist_id)
@@ -802,7 +802,7 @@ Notes from Learning MySQL:
         structure, you need to change the INSERT statements, and the function of the INSERT
         statement isn’t obvious unless you have the table structure at hand.
 
-    Suppose you know that the album table has three columns and you recall their names, but you forget their order, you can use the following approach:
+    Suppose you know that the album table has three columns and you recall their names, but you forget their order, you can use the following approach(!!):
 
     mysql> INSERT INTO album (artist_id, album_id, album_name)
     -> VALUES (7, 2, "Oedipus Schmoedipus");
@@ -886,7 +886,7 @@ Notes from Learning MySQL:
     • It’s actually identical to DELETE if you use InnoDB tables.
     • It does not work with locking or transactions(??).
 
--   UPDATE Statement
+-   UPDATE Statement (with the keyword: SET)
 
     The UPDATE statement is used to change data.
 
@@ -925,7 +925,7 @@ Notes from Learning MySQL:
 
     where the rows that need changing are updated.
 
--  CREATE clause:
+-  CREATE clause: (with the keywords: NOT NULL, DEFAULT, NOT EXISTS, AUTO_INCREMENT)
 
    Creating a database:
    
@@ -984,7 +984,7 @@ Notes from Learning MySQL:
    You can use SHOW CREATE TABLE statement for a table using the SHOW CREATE TABLE statement introduced in Chapter 5. This often shows you output that include some of the
    advanced features we just discussed.
 
--   ALTER statement
+-   ALTER statement (with the keyword: CHANGE, MODIFY, ADD, DROP)
 
     -   You can use the ALTER TABLE statement to add new columns to a table, removing existing columns, and change column names, types, and lengths.
 
@@ -1689,6 +1689,66 @@ Notes from Learning MySQL:
     doesn’t reset the counter.
 
 -   Questions:
+
+-   FOREIGN KEY(with the keyword: REFERENCES)
+
+    A FOREIGN KEY in one table points to a PRIMARY KEY in another table.
+
+    Let's illustrate the foreign key with an example. Look at the following two tables:
+
+    The "Persons" table:
+
+    P_Id	LastName	FirstName	Address	        City
+    1	    Hansen	    Ola	        Timoteivn 10	Sandnes
+    2	    Svendson	Tove	    Borgvn 23	    Sandnes
+    3	    Pettersen	Kari	    Storgt 20	    Stavanger
+
+    The "Orders" table:
+
+    O_Id	OrderNo	P_Id
+    1	    77895	3
+    2	    44678	3
+    3	    22456	2
+    4	    24562	1
+
+    Note that the "P_Id" column in the "Orders" table points to the "P_Id" column in the "Persons" table.
+
+    The "P_Id" column in the "Persons" table is the PRIMARY KEY in the "Persons" table.
+
+    The "P_Id" column in the "Orders" table is a FOREIGN KEY in the "Orders" table.
+
+    The FOREIGN KEY constraint is used to prevent actions that would destroy links between tables.
+
+    The FOREIGN KEY constraint also prevents invalid data from being inserted into the foreign key column, because it has to be one of the values 
+    contained in the table it points to.
+
+    -   SQL FOREIGN KEY Constraint on CREATE TABLE
+
+    The following SQL creates a FOREIGN KEY on the "P_Id" column when the "Orders" table is created:
+
+    CREATE TABLE Orders
+    (
+        O_Id int NOT NULL,
+        OrderNo int NOT NULL,
+        P_Id int,
+        PRIMARY KEY (O_Id),
+        FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
+    )
+
+    -   SQL FOREIGN KEY Constraint on ALTER TABLE
+
+    To create a FOREIGN KEY constraint on the "P_Id" column when the "Orders" table is already created, use the following SQL:
+
+    ALTER TABLE Orders
+    ADD FOREIGN KEY (P_Id)
+    REFERENCES Persons(P_Id)
+
+    -   To DROP a FOREIGN KEY Constraint
+
+    ALTER TABLE Orders
+    DROP FOREIGN KEY fk_PerOrders
+
+    
 
 1)  How to change your root password:
 
