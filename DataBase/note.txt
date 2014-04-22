@@ -1753,3 +1753,94 @@ Notes from Learning MySQL:
 1)  How to change your root password:
 
     mysqladmin mysqladmin -u root -p'oldpassword' password newpassword
+
+2)  What is DDL, DML, DCL, DQL and DTL
+
+    DDL(Data Definition Language): CREATE, ALTER, DROP
+    DML(Data Manipulation Language): INSERT, UPDATE, DELETE
+    DQL(Data Query Language): SELETE, SHOW, HELP
+    DCL(Data Control Language??): GRANT, REVOKE
+    DTL(Data Transaction Language??): START, TRANSACTION, COMMIT, ROLLBACK
+
+3)  How do you get the number of rows affected by query?
+
+    SELECT COUNT (user_id) FROM users would only return the number of user_id’s.
+
+4)  If the value in the column is repeatable, how do you find out the unique values? 
+
+    Use DISTINCT in the query, such as SELECT DISTINCT user_firstname FROM users; You can also ask for a number of distinct values by 
+    saying SELECT COUNT (DISTINCT user_firstname) FROM users;
+    
+5)  The checklist to improve sql query:
+
+    1.  run the query & check the execution plan 
+    2.  in the execution plan if we are seeing table scan it means there is not index created. we need to create index on that table ( the column which selected in select list) 
+    3.  if there is index is created but still ur getting table scan then need to check on which column the index has been created.. we need to make sure index has been 
+        created on the column which has int value .. coz the performance will hit if u have created index on Name column 
+    4.  from the execution plan we need to find how many hints we are getting based on that we need to modify the query.. hints are nothing but the suggestion for better 
+        performance. 
+    5.  there should not more index created on same table. else that will become problem. 
+    6.  what is the network speed .. that also matter for the performance issue.
+
+6)  Optimization
+
+    Database performance depends on several factors at the database level, such as:
+
+    tables, queries and configuration settings.
+
+    1)  Optimization at the Database level
+
+    -   Are the tables structured properly? In particular, do the columns have the right data types, and does each table have the appropriate columns for the type of work?
+    -   Are the right indexes in place to make queries efficient?
+    -   Are you using the appropriate storage engine for each table, and taking advantage of the strengths and features of each storage engine you use? In particular, 
+        the choice of a transactional storage engine such as InnoDB or a nontransactional one such as MyISAM can be very important for performance and scalability.
+
+    Note: In MySQL 5.5 and higher, InnoDB is the default storage engine for new tables. In practice, the advanced InnoDB performance features mean that InnoDB tables often 
+    outperform the simpler MyISAM tables, especially for a busy database.
+
+    -   Does each table use an appropriate row format? This choice also depends on the storage engine used for the table. In particular, compressed tables use less 
+    disk space and so require less disk I/O to read and write the data. Compression is available for all kinds of workloads with InnoDB tables, and for read-only MyISAM tables.
+
+    -   Does the application use an appropriate locking strategy? For example, by allowing shared access when possible so that database operations can run concurrently, and 
+    requesting exclusive access when appropriate so that critical operations get top priority. Again, the choice of storage engine is significant. The InnoDB storage 
+    engine handles most locking issues without involvement from you, allowing for better concurrency in the database and reducing the amount of experimentation and 
+    tuning for your code.
+
+    -   Are all memory areas used for caching sized correctly? That is, large enough to hold frequently accessed data, but not so large that they overload physical memory 
+    and cause paging. The main memory areas to configure are the InnoDB buffer pool, the MyISAM key cache, and the MySQL query cache.
+
+    2)  Optimizing SQL Statements
+
+    2.1) Optimizing SELECT Statements
+
+    The main considerations for optimizing queries are:
+
+    -   Set up indexes on columns used in the WHERE clause, to speed up evaluation, filtering, and the final retrieval of results. To avoid wasted disk space, construct 
+        a small set of indexes that speed up many related queries used in your application.
+
+    -   Minimize the number of table scans in your queries, particularly for big tables.
+
+    -   Keep table statistics up to date, so the optimizer has the information needed to construct an efficient execution plan(??).
+
+    -   Learn the tuning techniques, indexing techniques, and configuration parameters that are specific to the storage engine for each table. Both InnoDB and MyISAM 
+        have sets of guidelines for enabling and sustaining high performance in queries.
+
+    -   Isolate and tune any part of the query, such as a function call, that takes excessive time. Remember that such a function might get called millions of times 
+        for a big query or insert operation.
+
+    -   Avoid transforming the query in ways that make it hard to understand, especially if the optimizer(??) does some of the same transformations automatically.
+
+    -   If a performance issue is not easily solved by one of the basic guidelines, investigate the internal details of the specific query by reading the EXPLAIN 
+        plan and adjusting your indexes, WHERE clauses, join clauses, and so on. (When you reach a certain level of expertise, reading the EXPLAIN plan might be 
+        your first step for every query.)
+
+    -   Adjust the size and properties of the memory areas that MySQL uses for caching. With efficient use of the InnoDB buffer pool, MyISAM key cache, and the 
+        MySQL query cache, repeated queries run faster because the results are retrieved from memory the second and subsequent times.
+
+    -   Even for a query that runs fast using the cache memory areas, you might still optimize further so that they require less cache memory, making your application 
+        more scalable. Scalability means that your application can handle more simultaneous users, larger requests, and so on without experiencing a big drop in performance.
+
+    -   Deal with locking issues, where the speed of your query might be affected by other sessions accessing the tables at the same time.
+
+    
+    
