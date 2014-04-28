@@ -707,4 +707,30 @@ Chapter 8 The Template Method Pattern
     whereas extrinsic properties are set by client code and used to perform different operations. For example, an Object Circle can have extrinsic 
     properties such as color and width.
 
+-   Prototype Design Pattern
+
+    Intention:
+
+    -   Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype.
+    -   Co-opt one instance of a class for use as a breeder of all future instances.
+    -   The new operator is considered harmful.
+
+    Problem:
+
+    Application "hard wires" the class of object to create in each "new expression"
+
+    Discussion:
     
+    Declare an abstract class that specifies a pure virtual "clone" method, and, maintains a directionary of all "cloneable" concrete derived classes.
+    Any class that needs a "polymorphic constructor" capability: derives classes. Any class that needs a "polymorphic constructor" capability: derives
+    itself from the abstract base class, registers its prototypical instance, and implements the clone() operation.
+
+    The client then, instead of writing code that invokes the "new" operator on a hard-wired class name, calls a "clone" operation on the abstract base class, 
+    supplying a string or enumerated data type that designates the particular concrete derived class desired.
+
+    Example:
+
+    The Prototype pattern specifies the kind of objects to create using a prototypical instance. Prototypes of new products are often built prior to full 
+    production, but in this example, the prototype is passive and does not participate in copying itself. The mitotic division of a cell - resulting in two 
+    identical cells - is an example of a prototype that plays an active role in copying itself and thus, demonstrates the Prototype pattern. When a cell 
+    splits, two cells of identical genotvpe result. In other words, the cell clones itself.
