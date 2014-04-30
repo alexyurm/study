@@ -242,5 +242,96 @@ Chapter 13 JavaScript in Web Browsers
     onchange="order.options.giftwrap=this.checked;">
 
 -  Another way that JavaScript code can be included on the client side is in a URL following the javascript: protocol specifier.
+   This special protocol type specifies that the body of the URL is an arbitrary string of JavaScript to run by the JavaScript inter
+   preter. It is treated as a single line of code, which means that statements must be seperated by semicolons and that /*  */ comments
+   must be used in place by // comments. A JavaScript URL in a hyperlink might look like this:
 
-   
+   <a href="javascript:new Date().toLocalTimeString();">
+   Whait is it?
+   </a>
+
+   The "resource" identified by a javascript:URL is the return value of the executed code, converted to a string. If the return has an undefined
+   return value, the resource has no content. Some browsers such as Firefox uses the returned string as the content of a new document to display.
+   Other browsers (such as Chrome and Safari) do not allow URLs like the one above to overwrite the containing document - they just ignore the return
+   value of the code. They do, however, still support URLs like this one:
+
+   <a href="javascript:alert(new Date().toLocaleTimeString());">
+   Check the time without overwriting the document
+   </a>
+
+   Note: The alert() returns underfined. If you want to ensure that a javascript: URL does no overwrite the document, use the void operator to force an
+   invocation or assignment expression to be underfined:
+
+   <a href="javascript:void window.open('about:blank');">Open Window</a>
+
+   Without the use of void, the return value of the Window().open() method call would (in some browsers) be converted to a string and displayed, and the
+   current document would be overwritten by a document that contains this text:
+
+   [object Window]
+
+   Like HTML event handler, JavaScript URLs are a holdover from the early days of the Web and we should avoid using it. It still does have some useful role
+   to play outside of HTML documents. 
+
+   If you need to test a small snippet of JavaScript code, you can type a javascript: URL directly into the location bar of your browser. Another 
+   legitimate (and powerful) use of javascript: URLs is in browser bookmarks, as described below.
+
+-  Bookmarklets
+
+   If you bookmark a javascript: URL, you are saving a small script, known as a bookmarklet. A bookmarklet is a mini-program that can be easily 
+   launched from the browser’s menus or toolbar.
+
+   As long as a bookmarklet does not return a value, it can operate on whatever document is currently displayed without replacing that document
+   with new content.
+    
+   Consider the following Javascript: URL in <a> tag. Clicking the link opens a simple JavaScript expression evaluator that allows you to 
+   evaluate expressions and execute statements in the context of the page:
+
+   <a href='javascript:
+       var e = "", r = ""; /* Expression to evaluate the result */
+       do {
+           /* Display expression and result and ask for a new expression */
+           e = prompt("Expression: " + e + "\n" + r + "\n", e);
+           try {r = "Result: " + eval(e);} /* Try to evaluate the expression */
+           catch(ex) {r = ex;} /* Or remember the error instead */
+       } while(e); /* Continue until no expresison entered or Cancel clicked */
+       void 0; /* This prevents the current document from being overwritten */
+       '>
+   JavaScript Evaluator
+   </a>
+
+   Note that even though this JavaScript URL is written across multiple lines, the HTML parser treats it as a single line, and 
+   single-line // comments will not work in it. Also, remember that the code is all part of a single-quoted HTML attribute, 
+   so the code may not contain any single quotes.
+
+-  Execution of JavaScript Programs
+
+   JavaScript program consists of all the JavaScript code in a web page (inline scripts, HTML event handlers, and javascript: URLs) 
+   along with external JavaScript code referenced with the src attribute of a <script> tag. All of these separate bits of code
+   share a single global Window object. That means that they all see the same Document object, and they share the same set of global 
+   functions and variables: if a script defines a new global variable or function, that variable or function will be visible to any Java-
+   Script code that runs after the script does.
+
+   The embedded frame(using the <iframe> element), the JavaScript code in the embedded document has a different global object than the code
+   in the embedding document, and it can be considered a separate JavaScript program.
+
+   JavaScript program runs in two phases:
+
+   1)
+
+   In the first phase, the document content is loaded and the code from <script> elements (both inline scripts and external 
+   scripts) is run. 
+
+   2) 
+
+   Once the document is loaded and all scripts have run, JavaScript execution enters its
+   second phase. This phase is asynchronous and event-driven. During this event-driven
+   phase, the web browser invokes event handler functions (defined by HTML event han-
+   dler attributes, by scripts executed in the first phase, or by previously invoked event
+   handlers) in response to events that occur asynchronously. 
+
+   Note: Both core JavaScript and client-side JavaScript have a single-threaded execution model.
+   Scripts and event handlers are (or must appear to be) executed one at a time without
+   concurrency. This keeps JavaScript programming simple.
+
+-  Synchronous, Asynchronous, and Deferred Scripts.
+
