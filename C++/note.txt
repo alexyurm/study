@@ -84,4 +84,116 @@
 
 -   Shared_Pointer
 
-    
+-   What is a copy constructor
+
+    A copy constructor is a special constructor for a class/struct that is
+    used to make a copy of an existing instance. According to the C++
+    standard, the copy constructor for MyClass must have one of the
+    following signatures:
+
+    MyClass( const MyClass& other );
+    MyClass( MyClass& other );
+    MyClass( volatile const MyClass& other );
+    MyClass( volatile MyClass& other );
+
+    Note that none of the following constructors, despite the fact that
+    they could do the same thing as a copy constructor, are copy
+    constructors:
+
+    MyClass( MyClass* other );
+    MyClass( const MyClass* other );
+
+    or my personal favorite way to create an infinite loop in C++
+
+    MyClass( MyClass& other );
+
+    why this is better than this: MyClass ( MyClass other )(??);
+
+    -   When do you need to write a copy constructor??
+
+        First, you should understand that if you do not declare a copy
+        constructor, the compiler gives you one implicitly. The implicit
+        copy constructor does a member-wise copy of the source object.
+        For example, given the class:
+
+        class MyClass {
+            int x;
+            char c;
+            std::string s;
+        };
+
+        the compiler-provided copy constructor is exactly equivalent to:
+
+        MyClass::MyClass( const MyClass& other ) :
+           x( other.x ), c( other.c ), s( other.s )
+        {}
+
+        In many cases, this is sufficient. However, there are certain
+        circumstances where the member-wise copy version is not good enough.
+        By far, the most common reason the default copy constructor is not
+        sufficient is because the object contains raw pointers and you need
+        to take a "deep" copy of the pointer. That is, you don't want to 
+        copy the pointer itself; rather you want to copy what the pointer
+        points to. Why do you need to take "deep" copies? This is 
+        typically because the instance owns the pointer; that is, the
+        instance is responsible for calling delete on the pointer at some
+        point (probably the destructor). If two objects end up calling
+        delete on the same non-NULL pointer, heap corruption results.
+
+        Rarely you will come across a class that does not contain raw
+        pointers yet the default copy constructor is not sufficient.
+        An example of this is when you have a reference-counted object(??).
+        boost::shared_ptr<> is example.
+
+        When passing parameters by reference to functions or constructors, be very
+        careful about const correctness. Pass by non-const reference ONLY if
+        the function will modify the parameter and it is the intent to change
+        the caller's copy of the data, otherwise pass by const reference.
+
+-   Non-const references cannot bind to temporary objects(??)
+
+    There is a small clause in the C++ standard
+    that says that non-const references cannot bind to temporary objects.
+    A temporary object is an instance of an object that does not have a
+    variable name. For example:
+ 
+    std::string( "Hello world" );
+
+
+    is a temporary, because we have not given it a variable name. This
+    is not a temporary:
+
+     
+    std::string s( "Hello world" );
+
+    because the object's name is s.
+
+    What is the practical implication of all this? Consider the following:
+
+    // Improperly declared function:  parameter should be const reference:
+    void print_me_bad( std::string& s ) {
+        std::cout << s << std::endl;
+    }
+
+    // Properly declared function: function has no intent to modify s:
+    void print_me_good( const std::string& s ) {
+        std::cout << s << std::endl;
+    }
+
+    std::string hello( "Hello" );
+
+    print_me_bad( hello );  // Compiles ok; hello is not a temporary
+    print_me_bad( std::string( "World" ) );  // Compile error; temporary object
+    print_me_bad( "!" ); // Compile error; compiler wants to construct temporary
+                         // std::string from const char*
+
+    print_me_good( hello ); // Compiles ok
+    print_me_good( std::string( "World" ) ); // Compiles ok
+    print_me_good( "!" ); // Compiles ok 
+
+    Many of the STL containers and algorithms require that an object
+    be copyable. Typically, this means that you need to have the
+    copy constructor that takes a const reference, for the above
+    reasons.
+
+                    
