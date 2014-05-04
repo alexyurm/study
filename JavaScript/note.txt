@@ -335,3 +335,28 @@ Chapter 13 JavaScript in Web Browsers
 
 -  Synchronous, Asynchronous, and Deferred Scripts.
 
+   The only way that JavaScript code could affect the content of a document was to generate that content
+   on the fly while the document was loading. It did this using document.write().
+
+   E.g.
+
+   <h1>Table of Factorials</h1>
+   <script>
+   function factorial(n) {
+      if ( n<=1 ) return n;
+   else return n*factorial(n-1);
+   }
+
+   document.write("<table>") //Begin a HTML table
+   document.write("<tr><th>n</th><th>n!</th></tr>"); //Output table header
+   for(var i = 1; i <= 10; i++) {   //Output 10 rows
+       document.write("<tr><td>" + i + "</td><td>" + factorial(i) + </td></tr>");
+   }
+   
+   document.write("</table>"); //End of table
+   document.write("Generated at " + new Date()); //Output a timestamp
+   </script>
+
+   When a script passes text to document.write() , that text is added to the 
+   document input stream, and the HTML parser behaves as if the script element 
+   had been replaced by that text.
