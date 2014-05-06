@@ -360,3 +360,95 @@ Chapter 13 JavaScript in Web Browsers
    When a script passes text to document.write() , that text is added to the 
    document input stream, and the HTML parser behaves as if the script element 
    had been replaced by that text.
+
+   When a HTML parser encounters a <script> element, it must, by default, run the script before it can resume 
+   parsing and rendering the document. This is not much a problem for inline scripts, but if the script source 
+   code is in an external file specified with a src attribute, this means that the portions of the document that 
+   follow the script will not appear in the browser until the script has been downloaded and executed.
+
+   The <script> tag can have defer and async attributes, which (in browsers that support them) cause scripts
+   to be executed differently.
+
+   These are boolean attributes—they don’t have a value; they just need to be present on the <script> tag. HTML5 
+   says that these attributes are only meaningful when used in conjunction with the src attribute, but some 
+   browsers may support deferred inline scripts as well:
+
+   <script defer src="deferred.js"></script>
+   <script async src="async.js"></script>
+
+   Both the defer and async attributes are ways of telling the browser that the linked script
+   does not use document.write() and won’t be generating document content, and that
+   therefore the browser can continue to parse and render the document while down-
+   loading the script.
+
+   - defer
+   
+       This attribute causes the browser to defer execution of the script until after the document has been loaded and parsed
+       and is ready to be manipulated.
+
+   - async
+
+       The async attribute causes the browser to run the script as soon as possible but not to block document parsing while the 
+       script is being downloaded. If a <script> tag has both attributes, a browser that supports both will honor the async attribute 
+       and ignore the defer attribute.
+
+   
+   You can load and execute scripts asynchronously, even in browsers that do not support
+   the async attribute, by dynamically creating a <script> element and inserting it into the
+   document. 
+
+   
+   // Asynchronously load and execute a script from a specified URL
+   function loadasync(url) {
+       var head = document.getElementsByTagName("head")[0]; // Find document <head>
+       var s = document.createElement("script"); // Create a <script> element
+       s.src = url; // Set its src attribute
+       head.appendChild(s); // Insert the <script> into head
+   }
+
+-  Event-Driven JavaScript
+
+   You can use HTML to achieve the same but this kind of mixing of JavaScript code with HTML content is discouraged. Instead, the simplest 
+   way to register an event handler is usually assign a JavaScript function to a property of the target object, e.g.
+
+   window.onload = function() { ... };
+   document.getElementById("button1").onclick = function() { ... };
+   function handleResponse() { ... }
+   request.onreadystatechange = handleResponse;
+
+   Notice that event handler properties have names that, by convention, begin with "on" and are followed by the name of the event.
+   
+   In most browsers, for most kinds of events, event handlers are passed on object as an argument, and the perperties of this object
+   provide detail about the event. E.g. When a mouse button event is received, it would have property that specified which mouse button
+   was clicked.
+
+   Events whose targets are elements in a document often propagate up the document tree in a process known as “bubbling.” E.g. If a user-click
+   event is not handled(and its propagation stopped ) by a function registered on the button, the event bubbles up to whatever element the button
+   is nested within.
+
+   -   Add more event handlers
+
+       You have to use another event handler registration technique to do this. Most objects that can be event targets have a method named addEventListener(),
+       which allows the registration of multiple listeners:
+
+       window.addEventListener("load", function() {...}, false);
+       request.addEventListener("readystatechange", function() {...}, false);
+
+   -   Client-Side JavaScript Threading Model
+
+       Pro: no locks, deadlock, or race conditions.
+
+       Con: Javascript and event handlers must not run for too long because web browsers must stop responding to user input while scripts and event handlers
+            are executing.
+
+       Just incase you have to perform enough computation to cause a noticeable delay, you should allow the document to load fully before performing that 
+       computation, and you should be sure to notify the user that computation is underway and that the browser is not hung. If it is possible to break your 
+       computation down into discrete subtasks, you can use methods such as setTimeout() and setInterval() to run the subtasks in the background while updating 
+       a progress indicator that displays feedback to the user.
+
+       HTML5 defines a controlled form of concurrency called a “web worker.” A web worker is a background thread for performing computationally intensive 
+       tasks without freezing the user interface. 
+   
+   -   Client-Side JavaScript Timeline
+
+       This section explains the timeline of JavaScript program execution in more detail.
