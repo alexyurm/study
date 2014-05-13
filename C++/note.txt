@@ -17,6 +17,8 @@
 
    T value() const { return iValue; }
 
+   -> That tells 
+
 -  How does the c++ namespace work??
 
 -  How can I create a hash map with boost library?? probably using multimap??

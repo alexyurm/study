@@ -452,3 +452,8 @@ Chapter 13 JavaScript in Web Browsers
    -   Client-Side JavaScript Timeline
 
        This section explains the timeline of JavaScript program execution in more detail.
+
+       1.   The web browser creates a Document object and begins parsing the web page, adding Element objects. Adding Element objects and Text nodes to the document
+            as it parses HTML element and their texual content. The document.readyState property has the value "loading" at this stage.
+
+       2.   
