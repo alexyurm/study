@@ -39,7 +39,7 @@ Usage
    set nobackup
    set nowritebackup
    set noswapfile
-   set tabstop=3
+   set tabstop=4
    set shiftwidth=3
    set expandtab
    set nu
