@@ -148,3 +148,13 @@
          ff00::0 ip6-mcastprefix
          ff02::1 ip6-allnodes
          ff02::2 ip6-allrouters
+
+19.     The Virtualbox has some rendering problem on Chrome browser, to solve this: 
+
+        Add the line: --blacklist-accelerated-compositing 
+
+        at the end of each Exec apperance in the following file:
+
+        /usr/share/applications/google-chrome.desktop
+
+        
