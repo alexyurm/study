@@ -20,8 +20,6 @@
         
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
-        
-        <property>name="request_data_persistent"</property>
           
         <mapping resource="org/hibernate/tutorial/domain/Event.hbm.xml"/>
     </session-factory>  
