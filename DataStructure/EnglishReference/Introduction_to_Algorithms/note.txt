@@ -41,7 +41,7 @@ Chapter 2: Getting started
    Output:  An index i such that v = A[i] or the special value NIL if v does not appear in A
 
    Write pseudocode for linear search, which scans through the sequence, looking
-   for . Using a loop invariant, prove that your algorithm is correct. Make sure that
+   for. Using a loop invariant, prove that your algorithm is correct. Make sure that
    your loop invariant fulfills the three necessary properties.
 
    v = NIL
@@ -148,7 +148,7 @@ Chapter 3: Growth of functions
 
       Θ(g(n)) = {f(n): there exist positive constants c1, c2, and n0 such that 0<=c1g(n)<=f(n)<=c2g(n) for all n >= n0}.
 
-   -  Big O-notation     
+   -  Big O-notation
 
       O(g(n)) = {f(n): there exist positive constant c and n0 such that 0<=f(n)<=cg(n) for all n >= n0}
 
@@ -331,6 +331,8 @@ Chapter 6 Heap Sort
       MAXIMUM(s): returns the element of S with the largest key.
       EXTRACT-MAX(S): removes and returns the element of S with the largest key.
       INCREASE-KEY(S, x, k): increases the value of element x' key to the new value k, which is assumed to be at least as x's current key value.
+
+    -   
       
       
 
