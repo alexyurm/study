@@ -2435,7 +2435,209 @@ Chapter 19 Concurrency
    It indicates that the annotation type can be inherited from the super class. (This is not true by default). When the user queries the annotation type and the class has no annotation
    for this type, the class' superclass is queried for the annotation type. This annotation applies only to class declarations.
 
+-   Simple Logging Facade for Java(SLF4J)
 
+    SLF4J is a simple facade for logging systems allowing the end-user to plug-in the desired logging system at deployment time.
+
+    -   What does facade mean?
+
+        SLF4J is only a facade, meaning that it does not provide a complete logging solution. Operations such as configuring appenders(??) or setting logging levels cannot 
+        be performed with SLF4J. 
+
+    -   When should SLF4J be used?
+
+        In short, libraries and other embedded components should consider SLF4J for their logging needs because libraries cannot afford to impose their choice of 
+        logging framework on the end-user. On the other hand, it does not necessarily make sense for stand-alone applications to use SLF4J. Stand-alone applications 
+        can invoke the logging framework of their choice directly. In the case of logback, the question is moot because logback exposes its logger API via SLF4J.
+
+    -   To see which version of slf4j-api is pulled in by Maven, use the maven dependency plugin as follows
+
+        mvn dependency:tree
+
+    -   What about Maven transitive dependencies
+
+        As an author of a library built with Maven, you might want to test your application using a binding, say slf4j-log4j12 or logback-classic, without forcing 
+        log4j or logback-classic as a dependency upon your users. This is rather easy to accomplish.
+
+        Given that your library's code depends on the SLF4J API, you will need to declare slf4j-api as a compile-time (default scope) dependency.
+
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.7</version>
+        </dependency>
+
+        Limiting the transitivity of the SLF4J binding used in your tests can be accomplished by declaring the scope of the SLF4J-binding dependency as "test". 
+        Here is an example:
+
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>1.7.7</version>
+          <scope>test</scope>
+        </dependency>
+        
+        Thus, as far as your users are concerned you are exporting slf4j-api as a transitive dependency of your library, but not any SLF4J-binding or any underlying 
+        logging system. Note that as of SLF4J version 1.6, in the absence of an SLF4J binding, slf4j-api will default to a no-operation implementation.
+
+    -   Better yet, use parameterized messages:
+
+        There exists a very convenient alternative based on message formats. Assuming entry is an object, you can write:
+
+        Object entry = new SomeObject();
+        logger.debug("The entry is {}.", entry);
+
+        After evaluating whether to log or not, and only if the decision is affirmative, will the logger implementation format the message and replace the '{}' pair 
+        with the string value of entry. In other words, this form does not incur the cost of parameter construction in case the log statement is disabled.
+
+        The following two lines will yield the exact same output. However, the second form will outperform the first form by a factor of at least 30, in case of a 
+        disabled logging statement:
+
+        logger.debug("The new entry is "+entry+".");
+        logger.debug("The new entry is {}.", entry);
+
+        SLF4J uses its own message formatting implementation which differs from that of the Java platform. This is justified by the fact that SLF4J's implementation 
+        performs about 10 times faster but at the cost of being non-standard and less flexible.
+
+        SLF4J only cares about the formatting anchor, that is the '{' character immediately followed by '}'. Thus, in case your message contains the '{' or the '}' 
+        character, you do not have to do anything special unless the '}' character immediately follows '}'. For example,
+
+        logger.debug("Set {1,2} differs from {}", "3");
+
+        which will print as "Set {1,2} differs from 3".
+
+    -   How can I log the string contents of a single(possibly complex) object?
+
+        logger.debug("{}", complexObject);
+
+        The logging system will invoke complexObject.toString() method only after it has ascertained that the log statement was enabled. Otherwise, the cost of 
+        complexObject.toString() conversion will be advantageously avoided.
+
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
+        import org.slf4j.Marker;
+        import org.slf4j.MarkerFactory;
+
+        class Bar {
+          void foo() {
+            Marker fatal = MarkerFactory.getMarker("FATAL");
+            Logger logger = LoggerFactory.getLogger("aLogger");
+
+            try {
+              ... obtain a JDBC connection
+            } catch (JDBException e) {
+              logger.error(fatal, "Failed to obtain JDBC connection", e);
+            }
+          }
+        }
+
+        Markers add a new dimension with infinite possible values for processing log statements compared to five values, namely ERROR, WARN, INFO, DEBUG and TRACE, 
+        allowed by levels. At present time, only logback supports marker data. However, nothing prevents other logging frameworks from making use of marker data.
+
+    -   Should Logger members of a class be declared as static?
+
+        We used to recommend that loggers members be declared as instance variables instead of static. After further analysis, we no longer recommend one approach 
+        over the other.
+
+        Here is a summary of the pros and cons of each approach.
+
+        -   Advantages for declaring loggers as static
+
+            1.  common and well-established idiom
+            2.  less CPU overhead: loggers are retrieved and assigned only once, at hosting class initialization
+            3.  less memory overhead: logger declaration will consume one reference per class
+
+        -   Disadvantages for declaring loggers as static
+
+            1.  For libraries shared between applications, not possible to take advantage of repository selectors(??). It should be noted that if the SLF4J binding 
+                and the underlying API ships with each application (not shared between applications), then each application will still have its own logging environment.
+
+            2.  not IOC-friendly(?? what is IOC-friendly)
+
+        -   Advantages for declaring loggers as instance variables
+
+            1.  Possible to take advantage of repository selectors even for libraries shared between applications. However, repository selectors only work if the 
+                underlying logging system is logback-classic. Repository selectors do not work for the SLF4J+log4j combination.
+
+            Note: What does repository selector mean here?
+
+            In a seperate logging environment, each web-application can configure log4j in different ways such that settings of one web-application do not interfere 
+            with the settings of another. A variant of this problem is the separation of web-application logging and the logging of the container itself.
+
+            2.  IOC-friendly
+
+        -   Disadvantages for declaring loggers as instance variables
+
+            1.  Less common idiom than declaring loggers as static variables
+            2.  higher CPU overhead: loggers are retrieved and assigned for each instance of the hosting class
+            3.  higher memory overhead: logger declaration will consume one reference per instance of the hosting class
+
+-   Java Class Loader
+
+    -   What is Java Class Loader?
+
+        It is a part of the Java Runtime Environment that dynamically loads Java classes into the Java Virtual Machine.
+
+    -   When the JVM is started, three class loaders are used:
+
+        1)  Bootstrap class loader
+
+            The bootstrap class loader loads the core Java libraries located in the <JAVA_HOME>/jre/lib directory. This class loader, which is part of the 
+            core JVM, is written in native code.
+            
+        2)  Extensions class loader
+
+            The extensions class loader loads the code in the extensions directories (<JAVA_HOME>/jre/lib/ext,[6] or any other directory specified by the 
+            java.ext.dirs system property). It is implemented by the sun.misc.Launcher$ExtClassLoader class.
+
+        3)  System class loader
+
+            The system class loader loads code found on java.class.path, which maps to the CLASSPATH environment variable. This is implemented by the 
+            sun.misc.Launcher$AppClassLoader class.
+
+    -   Enter java.lang.ClassLoader
+
+        It’s important to realize that each classloader is itself an object–an instance of a class that extends java.lang.ClassLoader. Every class is loaded by 
+        one of those instances and developers are free to subclass java.lang.ClassLoader to extend the manner in which the JVM loads classes.
+
+        There might be a little confusion: if a classloader has a class and every class is loaded by a classloader, then what comes first? We need an understanding 
+        of the mechanics of a classloader (by proxy of examining its API contract) and the JVM classloader hierarchy.
+
+        First, here is the API, with some less relevant parts omitted:
+        
+        package java.lang;
+ 
+        public abstract class ClassLoader {
+         
+           public Class loadClass(String name);
+           protected Class defineClass(byte[] b);
+         
+           public URL getResource(String name);
+           public Enumeration getResources(String name);
+         
+           public ClassLoader getParent()
+        }
+
+        By far, the most important method of java.lang.ClassLoader is the loadClass method, which takes the fully qualified name of the class to be loaded and 
+        returns an object of class Class.
+
+        public class A {
+            public void doSomething() {
+            B b = new B();
+            b.doSomethingElse();
+             }
+	    }
+
+        (!!)
+        The statement B b = new B() is semantically equivalent to B b = A.class.getClassLoader().loadClass(“B”).newInstance()
+
+        As we see, every object in Java is associated with its class (A.class) and every class is associated with classloader (A.class.getClassLoader()) 
+        that was used to load the class.
+
+        When we instantiate a ClassLoader, we can specify a parent classloader as a constructor argument. If the parent classloader isn’t specified explicitly, 
+        the virtual machine’s system classloader will be assigned as a default parent. And with this note, let’s examine the classloader hierarchy of a JVM more 
+        closely.
+        
 
 Questions
 
@@ -3145,6 +3347,22 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
     The native keyword is applied to a method to indicate that the method is implemented in native code using JNI
 
+    (Please take a look at the example inside the jni folder)
+
+    The naming convention is like: Java_THECLASSPATH_METHODNAME
+
+    E.g.
+
+    JNIEXPORT void JNICALL Java_com_disternet_debox_iaccess_DeboxAccessService_installJavaService
+
+    note: 
+
+    class path name:    com_disternet_debox_iaccess_DeboxAccessService
+    method name:        installJavaService
+
+    So that in the code of DeboxAccessService, you can call installJavaService directly since the class path name is the same. Or else you have to call
+    it indirectly: THECLASSPATH.METHODNAME
+
 60) An interesting definition:
 
     public native boolean execute(int aServiceId, String aCmd, NativeParam ... aParam);
@@ -3665,4 +3883,9 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
 -   Why String is immutable or final in Java
 
-    
+-   An interesting definition:
+
+    public WebSocket createSocket(ProtocolHandler handler, HttpRequestPacket requestPacket,
+            WebSocketListener... listeners) {
+
+    (??) what is ... means here

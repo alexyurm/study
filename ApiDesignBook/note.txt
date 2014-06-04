@@ -43,7 +43,7 @@ Use HTTP verbs to operate on the collections and elements.
 
 Concrete names are better than abstract
 
-E.g. an API that accesses content in various forms - blgos, videos, news articles,
+E.g. an API that accesses content in various forms - blogs, videos, news articles,
 and so on. An api that models everything at the highest level of abstraction - 
 as /items or /assets loses the opportunity to paint a tangible picture for developers
 to know what they can do with this API.
@@ -83,7 +83,7 @@ When you boil it down, there are really only 3 outcomes in the interaction betwe
 an app and an API:
 
 1) Everything worked - success
-2) The application did something wrong - client error
+2) The client application did something wrong - client error
 3) The API did something wrong - server error
 
 Start by using the following 3 codes.
@@ -119,21 +119,122 @@ needed.", "errorCode" : 12345, "more info":
 
 -  Tips for versioning
 
-Versioning is one of the most important considerations when designing your Web API.
+    Versioning is one of the most important considerations when designing your Web API. Let's look at how three top API providers handle versioning:
 
--   Never release an API withput a version and make the version mandatory.
+    Twilio:         /2010-04-01/Accounts
 
-    1) Specify the version with a 'v' prefix. Move it all the way to the left in the URL so that is has the highest scope.
+    Note: No idea the timestamp is the release date or compile date?
 
-    e.g. /v1/dogs
+    salesforce.com: /services/data/v20.0/sobjects/Account
 
-    2) Use a simple ordinal number. Don't use the dot notation like v1.2 because it implies a granularily of versioning that doesn't work well with APIs--
-    it's an interface not an implementation. Stick with v1, v2 and so on.
+    Note: the ".0" implies that the current version is not stable enougth.
 
-    3) Should version and format be in URLs or headers?
+    Facebook:       ?v=1.0
 
--   How many versions should you maintain?
+    Note: This is problamatic because as soon as Facebook forced the API up to the next version, all the apps that didn't 
+    include the version number broke and had to pulled back and version numbers added.
 
-    At least one version back.
+    -   Never release an API withput a version and make the version MANDATORY.
 
--   For how long should you maintain a version?
+        1) Specify the version with a 'v' prefix. Move it all the way to the left in the URL so that is has the highest scope.
+
+        e.g. /v1/dogs
+
+        2) Use a simple ordinal number. Don't use the dot notation like v1.2 because it implies a granularily of versioning that doesn't work well with APIs--
+        it's an interface not an implementation. Stick with v1, v2 and so on.
+
+        3) Should version and format be in URLs or headers?
+
+    -   How many versions should you maintain?
+
+        At least one version back.
+
+    -   For how long should you maintain a version?
+
+        Give developers at least one cycle to react before obsoleting a version.
+
+        It depends on your: 
+
+        1) developer's development platform
+        2) application type
+        3) application user
+
+        E.g. Sometime it takes 6 months, and sometimes takes 2 years. Mobile apps take longer to rev' than web apps. (why??)
+
+    -   Should version and formats be in URLs or headers?
+
+        Lots of prefer putting the version in the headers for many reasons:
+        
+        1) it leverages the HTTP standard(??)
+
+        2) it solves the inter-dependant apis(??)
+
+        3) it's intellectually consistent with Fielding's versions(??)
+
+        4) and more...
+
+        Simple rules we follow:
+
+        1) If it changes the logic you write to handel the response, put it in the URL so you can see it easily.
+
+        2) If it doesn't change the logics for each response, like OAuth information, put it in the header.
+
+    -   Pagination and partial response
+
+        -   Partial responses
+
+            Partial response allows you to give developers just the information they need. Let's take a look at some of the examples:
+
+            -   Linkedin
+
+            /people:(id,first-name,last-name,industry)
+
+            This request returns the id, first-name, last-name and the industry.
+
+            Linkedin just does partial selection using the terse:(...) syntax which is not self-evident. Plus it's difficult for a developer to reverse
+            engineer the meaning using a search engine(??).
+
+            -   Facebook
+
+                /joe.smith/friends?fields=id,name,picture
+
+            -   Google
+
+                ?fields=title,media:group(media:thumbnail)
+
+                Google and Facebook have a similar approach, which works well.
+
+                As you see in this example, you can put some sub-objects in responses to pull in other information from additional resources.
+
+            -   Add optional fields in a comma-delimited list.
+
+                /dogs?fields=name, color, location
+
+                The partial selection syntax can also be used to include associated cutting down on the number of requests needed to get the required information.
+
+        -   Make it easy for developers to paginate objects in a database.
+
+                -   Facebook uses "offset" and "limit"
+
+                -   Twitter uses "page" and "rpp" (records per page)
+
+                -   Linkedin uses "start" and "count".
+
+            -   Use "offset" and "limit".
+
+                -   Meta data
+
+                    We also recommand to include meta-date in each response that is paginated that indicated to the developer the total number of records available.
+
+                -   What about defaults?
+
+                    The loose rule of thumb for default pagination is limit=10 with offset=0.
+
+                    The pagination defaults are of course dependant on your data size:
+
+                    If your resources are large, you probably want to limit it to fewer tha 10;
+            
+
+            
+
+        
