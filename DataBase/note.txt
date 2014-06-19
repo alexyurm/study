@@ -1,4 +1,4 @@
-Chapter1 The World of DataBase Systems
+
 
 -  DBMS: database management system
 

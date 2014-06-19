@@ -136,6 +136,11 @@
     to look up information in the MySQL manual list of error codes and messages at http:
     //dev.mysql.com/doc/mysql/en/Error-handling.html
 
+-   Using namespace: Alising/Importing
+
+    The ability to refer to an external fully qualified name with an alias, or importing, is an important feature of namespaces. This is similar to the ability of 
+    unix-based filesystems to create symbolic links to a file or to a directory.
+
 Questions
 
 1)  A very strange statement(??):
@@ -172,4 +177,88 @@ Questions
     $shop.
     $price)
     
-    
+4)  when you declare a property within a class, you may assign a default value to it.
+    The value you use must be a constant and not the result of a function or expression.
+    Example 5-20 shows a few valid and invalid assignments.
+
+    Example 5-20. Valid and invalid property declarations
+
+    <?php
+    class Test
+    {
+        public $name = "Paul Smith"; //Valid
+        public $age = 42; //Valid
+        public $time = time(); //Invalid - calls a function
+        public $score = $level * 2; //Invalid - uses an expression
+    }
+    ?>
+
+5)  difference between $this and self
+
+    Use $this to refer to the current object. Use self to refer to the current class. 
+    In other words, use  $this->member for non-static members, use self::$member for static members.
+
+6)  Subclass constructors
+
+    When you extend a class and declare your own constructor, you should be aware that
+    PHP will not automatically call the constructor method of the parent class. To be certain
+    that all initialization code is executed, subclasses should always call the parent con-
+    structors,
+
+    E.g.
+
+    <?php
+    $object = new Tiger();
+    echo "Tigers have...<br>";
+    echo "Fur: " . $object->fur . "<br />";
+    echo "Stripes: " . $object->stripes;
+
+    class Wildcat
+    {
+        public $fur; // Wildcats have fur
+    }
+
+    function __construct()
+    {
+        $this->fur = "TRUE";
+    }
+
+    class Tiger extends Wildcat
+    {
+        public $stripes; // Tigers have stripes
+    }
+    ?> 
+
+    To verify that both
+    constructors have been called, the program outputs the following:
+
+    Tigers have...
+    Fur: TRUE
+    Stripes: TRUE
+
+-   Arrays
+
+    -   Numerically Indexed Arrays
+
+        <?php
+            $paper[] = "Copier";
+            $paper[] = "Inkjet";
+            $paper[] = "Laser";
+            $paper[] = "Photo";
+
+            print_r($paper);
+        ?>
+
+        So the output will be: 
+        
+        Array
+        (
+            [0] => Copier
+            [1] => Inkjet
+            [2] => Laser
+            [3] => Photo
+        )
+
+    -   Associated Arrays
+
+        
