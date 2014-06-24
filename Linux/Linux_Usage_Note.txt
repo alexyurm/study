@@ -157,4 +157,54 @@
 
         /usr/share/applications/google-chrome.desktop
 
-        
+20.     Change to another use through command line. E.g.
+
+        sudo su - postgres
+
+21.     File: /etc/passwd
+
+        this file stores essential information, which is required during login. i.e. user account information
+        To understand the fields in /etc/passwd, please look at:
+
+        alexyu:x:1000:1000:alexyu,,,:/home/alexyu:/bin/bash
+            |  |   |   |     |              |           | 
+            |  |   |   |     |              |           |
+            1  2   3   4     5              6           7
+
+        1.  Username: it is used when user logs in, it should be 1 and 32 characters in length
+        2.  Password: an x character indicates that encrypted password.
+        3.  User ID(UID): Each user must be assigned a user ID(UID), UID 0(zero) is reserved for
+            root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are
+            reserved by system for administrative and system accounts/groups.
+        4.  Group ID(GID): The primary group ID
+        5.  User ID Info: The comment field. It allows you to add extra information about the users
+            such as user's full name, phone number etc. This field is used by finger command(??).
+        6.  Home directory: The absolute path to the directory the user will be in when they login. If
+            this directory does not exist then the users directory becomes /
+        7.  Command/shell: The absolute path command or shell (bin/bash). Typically, this is a shell.
+            Please note that it does not have to be a shell.
+
+        -   Common commands:
+
+        1)  See User list
+
+            $ cat /etc/passwd
+
+        2)  To search for a username called tom, enter:
+
+            $ grep tom /etc/passwd
+
+22. Command to add a new user:
+
+    sudo adduser jahan
+
+23. Command to delete a user:
+
+    sudo userdel jahan 
+
+24. sudo command options
+
+    -u
+
+    the -u (user) option causes sudo to run the specified command as a user other than root. To specify 
+    a uid instead of a username, use #uid.

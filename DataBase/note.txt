@@ -1843,4 +1843,174 @@ Notes from Learning MySQL:
     -   Deal with locking issues, where the speed of your query might be affected by other sessions accessing the tables at the same time.
 
     
+
+
+
+
+
+
+-   PostgreSQL
+
+    -   Pro:
+
+        1)  You can have functions written in several different languages participating in one query.
+        2)  You can even define aggregate functions with nothing but SQL, unlike mysql and SQL server, no compilation
+            is required to build an aggregate function in PostgreSQL.
+        3)  The custom type support of PostgreSQL is sophisticated and very easy to use.
+
+    -   Con:
+
+        1)  Not good for embeddable database such as SQLite or Firebird.
+        2)  So, if you’re using shared-hosting, you’re probably better off with MySQL.
+
+    -   The basics
+
+        Tools:
+
+        psql - the command-line interface for writing queries and managing PostgreSQL.
+        pgAdmin - This is the widely used, free, graphical administration tool for PostgreSQL.
+        PHPPgAdmin - PHPPgAdmin, pictured in Figure 1-2, is a free, web-based administration 
+                     tool patterned after the popular PHPMyAdmin for MySQL.
+        pg_ctl - is a utility to initialize, start, stop or control a PostgresSQL server.
+
+    -   Database Administration
+
+        -   three configuration files which are stored in my Ubuntu machine: /etc/postgresql/9.3/main
+
+            -   postgresql.conf - postgresql.conf controls general settings, such as how much memory to allocate...
+
+            -   pg_hba.conf - controls security. It manages access to the server, dictating which users can login 
+                into which databases, which IPs or groups of IPs are permitted to connect and the authentication 
+                scheme expected.
+
+            -   pg_ident.conf - the mapping file that maps an authenticated OS login to a PostgreSQL user.
+
+            Many, but not all changes, to configuration files require restarting the postgres service, you need to 
+            reload the the configuration:
+
+            pg_ctl reload -D your_data_directory_here
+
+            You can also log in as a super user on any database and run this SQL statement:
+            
+            SELECT pg_reload_conf();
+
+        -   Creating an Account That Can Log in
+
+            there is only one kind of an account and that is a role. The roles who have login rights are called
+            users. The containing roles are called groups.
+
+            postgres is an account that is created when you first initialize the PostgreSQL data cluster. 
+            It has a companion database called postgres.
+
+            User with login rights that can create database objects
+
+            CREATE ROLE leo LOGIN PASSWORD 'lion!king'
+            CREATEDB VALID UNTIL 'infinity';
+
+            The 'infinity' is optional and assumed if not specified. You could instead put in a valid date at 
+            which you want the account to expire. You can only create a super user if you are a super user yourself:
+        
+            CREATE ROLE regina LOGIN PASSWORD 'queen!penultimate'
+            SUPERUSER VALID UNTIL '2020-10-20 23:00';
+
+        -   Creating Group Roles
+
+            Group roles are generally roles that have no login rights but have other roles as members.
+
+            We can create a group role with this SQL DCL statement:
+            CREATE ROLE jungle INHERIT;
+            
+            And add a user or other group role to the group with this statement:
+            GRANT jungle TO leo;
+
+        -   Databases and Management
+
+            -   Creating and Using a Template Database
+
+                CREATE DATABASE mydb;
+
+                The owner of the database will be the logged in user and is a copy of template1 database.
+
+            -   Creating and Using a Template Database
+
+                A template database is, as the name suggests, a database that serves as a template for other databases.
+
+                You can use any database as template for another. Use a flag to denote a database as a template. The
+                difference is the database marked as template can't be deleted and can be used by any user having
+                CREATEDB rights as a template for their new database.
+
+                The template1 database that is used as the default when no template is specified, doesn’t allow you 
+                to change encodings. As such, if you want to create a database with an encoding and collation different 
+                from your default, or you installed extensions in template1 you don’t want in this database, you may 
+                want to use template0 instead.
+
+                CREATE DATABASE mydb TEMPLATE template0;
+
+                If we wanted to make our new database a template, we would run this SQL statement
+                as a super user:
+
+                UPDATE pg_database SET datistemplate=true WHERE datname='mydb';
+
+        -   Organizing Your Database Using Schemas
+
+            
+
+    -   Extra notes:
+
+            -   To quit psql:
+
+                Type \q and then press ENTER to quit psql.
+
+            -   It looks the default database files are stored in
+            
+                /var/lib/postgresql/9.3/main
+
+                How can I find this out?
+
+                SHOW data_directory;
+
+            -   restart postgresql:
+
+                1)  login as the Linux user: postgres
+
+                    sudo su postgres                    
+
+                2)  run restart:
+
+                    pg_ctl restart -D /var/lib/postgresql/9.3/main/
+
+            -   psql -U
+
+                -U only specifies the postgres user but NOT the Linux user.
+
+            -   Install the following packages in Ubuntu to begin with postgresSQL:
+
+                sudo apt-get install postgresql
+                sudo apt-get install postgresql-client
+                sudo apt-get install postgresql-contrib
+                sudo apt-get install postgis
+                sudo apt-get install php5-pgsql
+
+            -   Analog of mysql commands in postgres:
+
+                mysql:          SHOW TABLES
+                postgresql:     \d
+                postgresql:     SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+
+                What is information_schema.tables??
+
+                mysql:          SHOW DATABASES
+                postgresql:     \l
+                postgresql:     SELECT datname FROM database;
+
+                mysql:          SHOW COLUMNS
+                postgresql:     \d table
+                postgresql:     SELECT column_name FROM information_schema.tables:
+
+                mysql:          DESCRIBE TABLE
+                postgresql:     \d+table
+                postgresql:     SELECT column_name FROM information_schema.tables:
     
+            -   The Schema
+                
+                The information schema itself is a schema named information_schema. This schema automatically exists

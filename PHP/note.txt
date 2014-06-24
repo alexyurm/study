@@ -261,4 +261,33 @@ Questions
 
     -   Associated Arrays
 
-        
+-   difference between die() and exit()
+
+    They are the same.
+
+-   How to enable the php parsing in Apache httpd:
+
+    In most cases, we'll want to modify the way that Apache serves files when a directory is requested. Currently, 
+    if a user requests a directory from the server, Apache will first look for a file called index.html. We want 
+    to tell our web server to prefer PHP files, so we'll make Apache look for an index.php file first.
+
+    To do this, type this command to open the dir.conf file in a text editor with root privileges:
+
+    sudo vi /etc/apache2/mods-enabled/dir.conf
+
+    The file will look like:
+
+    <IfModule mod_dir.c>
+        DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+    </IfModule>
+
+    We want to move the PHP index file highlighted above to the first position after the DirectoryIndex 
+    specification, like this:
+
+    <IfModule mod_dir.c>
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+    </IfModule>
+
+    Save this file and restart httpd server:
+
+    sudo service apache2 restart
