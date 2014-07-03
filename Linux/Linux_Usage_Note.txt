@@ -104,7 +104,9 @@
 
 15.   Release Cache memory:
 
-        sudo free && sync && echo 3 > /proc/sys/vm/drop_caches && free
+      su
+
+      free && sync && echo 3 > /proc/sys/vm/drop_caches && free
 
 16.   Using curl command to send HTTP requests
 

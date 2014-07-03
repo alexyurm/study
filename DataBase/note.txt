@@ -969,6 +969,10 @@ Notes from Learning MySQL:
 
    -  Foreign key constraints
 
+        In the context of relational database, a foreign key is a field (or collection of fields) in one table that
+        uniquely identifies a row of another table. In other words, a foreign key is a column or a combination of
+        columns that is used to establish and enforces a link between two tables.
+
         With foreign key support, you can tell MySQL that a row in a table shouldn’t exist without another matching row in another table.
         
         For example, you could use it to stop you from adding a new album for an artist who doesn't exist.
@@ -2014,3 +2018,30 @@ Notes from Learning MySQL:
             -   The Schema
                 
                 The information schema itself is a schema named information_schema. This schema automatically exists
+
+-   Mapping Objects to Relational Databases: O/R Mapping in detail
+
+    -   The article link:
+
+        http://www.agiledata.org/essays/mappingObjects.html#ShadowData
+
+    -   Basic Concepts
+
+        An attribute will map to zero or more columns in a relational database. Remember, not all attributes are
+        persistent. For example, a Student object may have an averageMark attribute that is needed within your
+        application but isn't saved to the database because it's calculated by the application.
+
+        The easiest mapping is a property mapping of a single attribute to a single eolumn. It is even simpler when
+        each have the same basic types.
+
+    -   Shadow Information and Scaffolding
+
+        Shadow information is any data that objects need to maintain, above and beyond their normal domain data, 
+        to persist themselves.
+
+        This typically includes primary key information, particularly when the primary key is a surrogate key that 
+        has no business meaning, concurrency control markings such as timestamps or incremental counters, and 
+        versioning numbers. To persist an order object properly the Order class would need to implement shadow 
+        attributes that maintain these values.
+
+        
