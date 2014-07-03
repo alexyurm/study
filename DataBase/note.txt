@@ -2047,15 +2047,88 @@ Notes from Learning MySQL:
     -   Mapping Inheritance Structures
 
         Relational databases do not natively support inheritance, forcing you to map the inheritance structures within your
-        object schema to your data schema. There are three primary solution for mapping inheritance into a relational database, 
-        and a fourth supplementary technique that goes beyond inheritance mapping. These techniques are:
+        object schema to your data schema. There are three primary solution for mapping inheritance into a 
+        relational database.
 
         One example: 
 
-        Person <--------    Customer
-        Person <--------    
+        -   three Classes:
+
+            name            members
+
+            Person          name
+            Customer        preferences  
+            Employee        salary
+            Executive       bonus
+    
+            and their relationships are:
+
+                    (inherited from)
+            Person      <--------    Customer
+            Person      <--------    Employee   <--------   Executive
         
 
         -   Mapping Hierachy To A Single Table
 
-            - 
+                Class Schema                Data Schema
+                
+                Person                      Person
+                PersonPOID<<PK>>            PersonOID<<PK>>
+                PersonType                  PersonType
+                Name                --->    Name
+                Preferences                 Preferences
+                Salary                      Bonus
+
+            Two columns have been added to the table - PersonPOID and PersonType. The first one is the primary key,
+            the second one is a code indicating whether the person is a customer, an employee or perhaps both.
+
+            For the column PersonType, applying "Replace Type Code With Boolean" can resolve the problem when the 
+            number of types and combinations begin to grow.
+
+            A refactored approach:
+
+                Class Schema                Data Schema
+                
+                Person                      Person
+                PersonPOID<<PK>>            PersonOID<<PK>>
+                IsCostomer                  IsCustomer
+                IsEmployee                  IsEmployee
+                IsExecutive                 IsExecutive
+                Name                --->    Name
+                Preferences                 Preferences
+                Salary                      Salary
+                                            Bonus
+
+        -   Mapping Each Concrete Class To Its Own Table
+
+            The data for the Customer class is stored in two tables, Customer and Person, therefore to retrieve 
+            this data you would need to join the two tables (or do two separate reads, one to each table).
+
+
+        -   Mapping Each Class To Its Own Table
+
+            The same as the above method except we create table even for the abstract class.
+
+        -   Comparing The Strategies
+
+            None of these mapping strategies are ideal for all situations. My experience is that the easiest 
+            strategy to work with is to have one table per hierarchy at first, then if you need to refactor 
+            your schema according.Sometimes I’ll start by applying the one table per class strategy whenever my team is 
+            motivated to work with a “pure design approach”. I stay away from using one table per concrete class because 
+            it typically results in the need to copy data back and forth between tables, forcing me to refactor it 
+            reasonably early in the life of the project anyway.
+        
+    -   Mapping Object Relationships
+
+        Three types of object relationships that you need to map: 1) association; 2) aggregation; and 3) composition.
+        For now, I am going to treat these types of relationship the same - they are mapped the same way although
+        there are interesting nuances when it comes to referential integrity.
+    
+        There are two categories of object relationships that you need to be concerned with when mapping. The 
+        first category is based on multiplicity and it includes three types.
+
+        -   One-to-one relationships
+
+        -   One-to-many relationships
+
+        -   Many-to-many relationships
