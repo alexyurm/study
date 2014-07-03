@@ -2044,4 +2044,18 @@ Notes from Learning MySQL:
         versioning numbers. To persist an order object properly the Order class would need to implement shadow 
         attributes that maintain these values.
 
+    -   Mapping Inheritance Structures
+
+        Relational databases do not natively support inheritance, forcing you to map the inheritance structures within your
+        object schema to your data schema. There are three primary solution for mapping inheritance into a relational database, 
+        and a fourth supplementary technique that goes beyond inheritance mapping. These techniques are:
+
+        One example: 
+
+        Person <--------    Customer
+        Person <--------    
         
+
+        -   Mapping Hierachy To A Single Table
+
+            - 
