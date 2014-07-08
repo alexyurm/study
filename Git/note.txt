@@ -327,3 +327,6 @@ It actually creates a new section for dropwizard in .get/config. Please see belo
 	remote = origin
 	merge = refs/heads/dropwizard
 
+-   Ignore changes on your local file
+
+    -   
