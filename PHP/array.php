@@ -8,11 +8,11 @@
     print_r($paper);
     */
     
-    $papar['copier'] = "Copier & Multipurpose";
-    $papar['inkjet'] = "Inkjet Printer";
-    $papar['laser'] = "Laser Printer";
-    $papar['photo'] = "Photographic Paper";
+    $paper['copier'] = "Copier & Multipurpose";
+    $paper['inkjet'] = "Inkjet Printer";
+    $paper['laser'] = "Laser Printer";
+    $paper['photo'] = "Photographic Paper";
 
-    print_r($papar);
+    print_r($paper);
     
 ?>

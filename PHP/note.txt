@@ -292,6 +292,18 @@ Questions
 
     sudo service apache2 restart
 
--   A very interesting statement:
+-   htmlspecialchars
 
+    This is a php standard string function that converts special characters to HTML entities
     
+    Certain characters have special significance in HTML, and should be represented by HTML entities if they are 
+    to preserve their meanings. This function returns a string with these conversions made. 
+
+    The translations performed are:
+
+    '&' (ampersand) becomes '&amp;'
+    '"' (double quote) becomes '&quot;' when ENT_NOQUOTES is not set.
+    "'" (single quote) becomes '&#039;' (or &apos;) only when ENT_QUOTES is set.
+    '<' (less than) becomes '&lt;'
+    '>' (greater than) becomes '&gt;'
+        

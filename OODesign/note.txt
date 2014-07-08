@@ -734,3 +734,10 @@ Chapter 8 The Template Method Pattern
     production, but in this example, the prototype is passive and does not participate in copying itself. The mitotic division of a cell - resulting in two 
     identical cells - is an example of a prototype that plays an active role in copying itself and thus, demonstrates the Prototype pattern. When a cell 
     splits, two cells of identical genotvpe result. In other words, the cell clones itself.
+
+-   Chapter X: Side Notes
+
+    -   Association
+
+        In object-oriented programming, association defines a relationship between classes of objects that allows one
+        object instance to cause another to perform an action on its behalf.
