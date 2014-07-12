@@ -210,3 +210,7 @@
 
     the -u (user) option causes sudo to run the specified command as a user other than root. To specify 
     a uid instead of a username, use #uid.
+
+25. How to do Remote edit with local editor (Linux)
+
+    sshfs user@host:remote_dir /path/to/mount_point
