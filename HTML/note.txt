@@ -147,6 +147,20 @@
         -   External Style Sheets can save a lot of work
         -   External Style Sheets are stored in CSS files
 
+    -   CSS3 has been split into "modules"
+
+        Some of the most important CSS3 modules are:
+
+        Selectors
+        Box Model
+        Backgrounds and Borders
+        Image Values and Replaced Content
+        Text Effects
+        2D/3D Transformations
+        Animations
+        Multiple Column Layout
+        User Interface
+
     -   Syntax
 
         A CSS rule has two main parts: a selector, and one or more declarations(seperated by semi-colon):
