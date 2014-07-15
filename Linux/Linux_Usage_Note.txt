@@ -214,3 +214,7 @@
 25. How to do Remote edit with local editor (Linux)
 
     sshfs user@host:remote_dir /path/to/mount_point
+
+    e.g.
+
+    sshfs alexyu@96.49.157.118:/var/www/aioptify.com /home/alexyu/Desktop/aioptify.com/
