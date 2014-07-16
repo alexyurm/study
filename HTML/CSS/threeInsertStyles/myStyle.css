@@ -1,0 +1,5 @@
+hr {color: sienna;}
+/*  Do not add a space between the property value and the unit, 
+    (such as margin-left: 20 px;) */
+p {margin-left: 20px;}
+body {background-image: url("images/background.gif");}
