@@ -218,3 +218,7 @@
     e.g.
 
     sshfs alexyu@96.49.157.118:/var/www/aioptify.com /home/alexyu/Desktop/aioptify.com/
+
+26. To simulate how apt-get install is going to do. try this. e.g. php5
+
+    apt-cache policy php5
