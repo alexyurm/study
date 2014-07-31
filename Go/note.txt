@@ -1,0 +1,44 @@
+How to Write Go Code
+
+-  Code organization
+
+    -   Workspaces
+
+    Go code must be kept inside a workspace. A workspace is the root
+    directory of your project.
+
+    -   sub-folders
+
+        src -   contains Go source file organized into packages
+        pkg -   contains package objects
+        bin -   contains executable commands
+
+-   The GoPATH environment variable
+
+    The GOPATH environment variable specifies the location of your 
+    workspace. E.g.
+
+    $ mkdir $HOME/go
+    $ export GOPATH=$HOME/go
+    $ export PATH=$PATH:$GOPATH/bin
+
+    (note: $HOME/go is your project root directory)
+
+-   Package paths
+
+    -   Standard libraries' packages
+
+    The packages from the standard libraries are given short paths such as
+    "fmt", and "net/http".
+
+    -   Your own packages
+
+    For your own packages, you MUST choose a base path that is unlikely to
+    collide with future additions to the standard library or other external
+    libraries.
+
+    If you keep your code in a source repository somewhere, then you should
+    use the root of that source repository as your base path.
+
+    For instance, if you have a GitHub account at github.com/user, that
+    should be your base path.

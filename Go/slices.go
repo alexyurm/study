@@ -55,4 +55,11 @@ func main() {
     b := make([]int, 0, 5)
     printSlice("b", b)
     c := b[:2]
+    printSlice("c", c)
+    d := c[2:5]
+    printSlice("d", d)
+
+    func printSlice(s stringm x[]int) {
+        fmt.Printf("%s len=%d cap=%d %v\n", s, len(x), cap(x), x)
+    }
 }
