@@ -4,5 +4,6 @@ Design Pattern (!!)
 Big Data Processing(!!)
 MongoDb
 MySql
+Postgres
 Discrete Math
 Agile
