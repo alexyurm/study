@@ -222,3 +222,15 @@
 26. To simulate how apt-get install is going to do. try this. e.g. php5
 
     apt-cache policy php5
+
+27. Solving the font display problem in Chrome
+
+    sudo vi /etc/fonts/conf.d/49-sansserif.conf
+
+    change the line:
+
+    <edit name="family" mode="append_last">
+    <string>serif</string>
+    </edit>
+
+    
