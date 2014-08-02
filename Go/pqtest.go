@@ -11,37 +11,106 @@ import (
     "log"
     //"os"
     //"regexp"
-    //"strings"
+    "strings"
+    "strconv"
+    "encoding/json"
 )
 
-func main() {
-    db, err := sql.Open("postgres", "host=/var/run/postgresql user=aioptify dbname=aioptify password=gocanadago sslmode=disable")
+type Message struct {
+    Name string
+    Body string
+    Time int64
+}
 
+type Advertiser struct {
+    id int
+    email string
+    password string
+    username string
+    ints []int
+    strs []string
+    msg Message
+}
+
+func pgArrayToIntArray(pgArray string) []int {
+    strArray := strings.Split(strings.Trim(pgArray, "{}"), ",")
+    
+    if (len(strArray) == 0) {
+        return nil
+    } else {
+        intArray := make([]int, len(strArray))
+        var e error
+        for i := range strArray {
+            intArray[i], e = strconv.Atoi(strArray[i])
+        }
+
+        if (e != nil) {
+            log.Fatal(e)
+        }
+        
+        return intArray
+    }
+}
+
+func pgArrayToStringArray(pgArray string) []string {
+    strArray := strings.Split(strings.Trim(pgArray, "{}"), ",")
+    if (len(strArray) == 0) {
+        return nil
+    } else {
+        return strArray
+    }
+}
+
+func main() {
+    db, err := sql.Open("postgres", "host=/var/run/postgresql user=aioptify password=gocanadago dbname=aioptify sslmode=disable")
     defer db.Close()
-    //defer cleaup(db)
 
     if err != nil {
         fmt.Println("cannot open aioptify db!!\n")
+        log.Fatal(err)
     } else {
-        fmt.Println("Successfully open aioptify db\n")
-        //rows, err := db.Query("SELECT * from advertisers");
-        rows, err := db.Query("SELECT * from advertisers");
+        //Part1: fetch data from a table
+        rows, err := db.Query("SELECT id, email, password, username, ints, strings, ext from advertisers");
 
         if err != nil {
             log.Fatal(err)        
         }
 
-        for rows.Next() {
-            var username, email, passwd string
-            var id int
+        var advertisers []Advertiser
 
-            if err := rows.Scan(&username, &email, &passwd, &id); err != nil {
+        for rows.Next() {
+            var a Advertiser
+            var ints, strs string
+            var m_bytes []byte
+
+            if err := rows.Scan(&a.id, &a.email, &a.password, &a.username, &ints, &strs, &m_bytes); err != nil {
                 log.Fatal(err)    
             }
-            fmt.Printf("the username is %s\n", username)
-            fmt.Printf("the email is %s\n", email)
-            fmt.Printf("the passwd is %s\n", passwd)
-            fmt.Printf("the id is %d\n", id)
+
+            a.strs = pgArrayToStringArray(strs)
+            a.ints = pgArrayToIntArray(ints)
+            json.Unmarshal(m_bytes, &a.msg)
+
+            advertisers = append(advertisers, a)
+
+            fmt.Println(advertisers[0])
+        }
+
+        //Part2: insert data to a table
+        var b Advertiser
+        b.email = "heidiminmin@gmail.com"
+        b.password = "1238"
+        b.username = "heidi"
+        b.ints = append(b.ints, 444)
+        b.ints = append(b.ints, 555)
+        b.strs = append(b.strs, "eee")
+        b.strs = append(b.strs, "fff")
+        
+        result, err := db.Exec("INSERT INTO advertisers (email, password, username) VALUES (?, ?, ?)",
+        if err != nil {
+            log.Fatal(err)
+        } else {
+            fmt.Println(result)
         }
     }
 }
