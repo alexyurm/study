@@ -52,6 +52,47 @@ func pgArrayToIntArray(pgArray string) []int {
     }
 }
 
+func intArrayToPgArray(intArray []int) string {
+    
+    if len(intArray) == 0 {
+        return "{}"
+    } else {
+        var pgArray string
+        pgArray += "{"
+
+        for i := range intArray {
+            pgArray += strconv.Itoa(intArray[i])
+            pgArray += ","
+        }
+
+        size := len(pgArray)
+        pgArray = pgArray[:size-1]
+        pgArray += "}"
+
+        return pgArray
+    }
+}
+
+func stringArrayToPgArray(strArray []string) string {
+     if len(strArray) == 0 {
+        return "{}"
+    } else {
+        var pgArray string
+        pgArray += "{"
+
+        for i := range strArray {
+            pgArray += strArray[i]
+            pgArray += ","
+        }
+
+        size := len(pgArray)
+        pgArray = pgArray[:size-1]
+        pgArray += "}"
+
+        return pgArray
+    }
+}
+
 func pgArrayToStringArray(pgArray string) []string {
     strArray := strings.Split(strings.Trim(pgArray, "{}"), ",")
     if (len(strArray) == 0) {
@@ -80,37 +121,64 @@ func main() {
 
         for rows.Next() {
             var a Advertiser
-            var ints, strs string
+            var ints, strs sql.NullString
             var m_bytes []byte
 
             if err := rows.Scan(&a.id, &a.email, &a.password, &a.username, &ints, &strs, &m_bytes); err != nil {
-                log.Fatal(err)    
+                log.Fatal(err)
             }
 
-            a.strs = pgArrayToStringArray(strs)
-            a.ints = pgArrayToIntArray(ints)
-            json.Unmarshal(m_bytes, &a.msg)
+            if strs.Valid {
+                a.strs = pgArrayToStringArray(strs.String)
+            }
+
+            if ints.Valid {
+                a.ints = pgArrayToIntArray(ints.String)
+            }
+            
+            if len(m_bytes) != 0 {
+                err := json.Unmarshal(m_bytes, &a.msg)
+                if err != nil {
+                    log.Fatal(err)
+                }
+            }
 
             advertisers = append(advertisers, a)
-
-            fmt.Println(advertisers[0])
         }
 
         //Part2: insert data to a table
         var b Advertiser
         b.email = "heidiminmin@gmail.com"
-        b.password = "1238"
+        b.password = "123823"
         b.username = "heidi"
         b.ints = append(b.ints, 444)
         b.ints = append(b.ints, 555)
         b.strs = append(b.strs, "eee")
         b.strs = append(b.strs, "fff")
+        //Name string
+        //Body string
+        //Time int64
+        b.msg.Name = "Heidi"
+        b.msg.Body = "good bye!"
+        b.msg.Time = 12345
+
+        stmt, err := db.Prepare("INSERT INTO advertisers(email,password,username, ints, strings, ext) VALUES($1,$2,$3,$4,$5,$6)")
+        if err != nil {
+            log.Fatal(err)
+        }
         
-        result, err := db.Exec("INSERT INTO advertisers (email, password, username) VALUES (?, ?, ?)",
+        bytes, err := json.Marshal(b.msg)
+        
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        res, err := stmt.Exec(b.email, b.password, b.username, intArrayToPgArray(b.ints), stringArrayToPgArray(b.strs), bytes)
+
         if err != nil {
             log.Fatal(err)
         } else {
-            fmt.Println(result)
+            fmt.Println(res)
         }
     }
 }
