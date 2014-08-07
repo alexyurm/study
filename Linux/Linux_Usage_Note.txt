@@ -233,4 +233,6 @@
     <string>serif</string>
     </edit>
 
-    
+28. Solve annoying "System Program Problem Detected" problem.
+
+    sudo sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
