@@ -4,6 +4,8 @@ Installation
 
 -  Step 1: Install Exuberant ctags;
 
+   sudo apt-get install ctags
+
 -  Step 2: in vimrc file, add the following lines;
 
    set tags=./tags;
