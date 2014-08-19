@@ -92,9 +92,22 @@
 
             2) bottom-up method
 
-            step 1: we sort the particular subproblem by size and solve them in size order, smallest first. When solving a particular subproblem, 
-                    we have already solved all of the smaller subproblems its solution depends upon, and we have saved their solutions. We solve 
-                    each sub-problem only once, and when we first see it, we have already solved all of its prerequisite subproblems.
+            we sort the particular subproblem by size and solve them in size order, smallest first. When solving a particular subproblem, 
+            we have already solved all of the smaller subproblems its solution depends upon, and we have saved their solutions. We solve 
+            each sub-problem only once, and when we first see it, we have already solved all of its prerequisite subproblems.
+
+            Comparing to MEMORIZED method, the bottom-up version is even simpler
+
+            BOTTOM-UP-CUT-ROD(p, n)
+            1   let r[0..r] be a new array
+            2   r[0] = 0
+            3   for j = 1 to n
+            4       q = -inf
+            5       for i = 1 to j
+            6           q = max(q, p[i] + r[j-i])
+            7       r[j] = q
+            8   return r[n]
+            
         
 */ 
 
@@ -155,6 +168,23 @@ public class dynamic {
         return q;
     }
 
+    public static int bottom_up_cut_rod(int p[], int n) {
+        //Let r[0..n] be a new array
+        int[] r = new int[n+1];
+        r[0] = 0;
+        
+        int q;
+        for (int j = 1; j <= n; j++) {
+            q = Integer.MIN_VALUE;
+            for (int i = 1; i <= j; i++) {
+                q = Math.max(q, p[i] + r[j-i]);
+            }
+            r[j] = q;
+        }
+
+        return r[n];
+    }
+
     public static void main(String[] args) {
 
         /*
@@ -165,7 +195,8 @@ public class dynamic {
         //The length is 11
         int[] p = new int[]{0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
         
-        int q = memorized_cut_rod(p, 3);
+        //int q = memorized_cut_rod(p, 3);
+        int q = bottom_up_cut_rod(p, 3);
 
         System.out.println("q = " + q);
     }
