@@ -27,6 +27,32 @@ Algorithms and Data Structure
 
 8. Given am InOrder traversal and PreOrder traversal of a binary tree, rebuild the tree.
 
+9. You are given a matrix in any favorable data structure format. We want you to write a program to print the matrix in counter-clockwise order. See below as example: 
+
+   INPUT:
+
+   // 123
+
+   // 123
+
+   // 123
+
+   // ------
+
+   OUTPUT:
+
+   // 1,1,1,2,3,3,3,2,2
+
+   //
+
+   (0,0)-->(1,0)->(2,0)
+
+   (2,1)->(2,2)->(1,2)-->(0,2)-
+
+   (0,1)->(1,1)
+
+    
+
 Note:
 
 1. If you cannot think of an optimized solution, think of a "slow" solution first and think about how to optimize that solution.
