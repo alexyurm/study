@@ -3783,7 +3783,7 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
         public static Singleton getInstance() { //Check for an instance and if there isn't one, enter a synchronized block.
            if (uniqueInstance == null) { //Note we only synchronized the first time through!
-              synchronized(Singleton.class) { //?? It passes Singleton.class to the sunchronized method??
+              synchronized(Singleton.class) { //?? It passes Singleton.class to the synchronized method??
                  if (uniqueInstance == null) {
                     uniqueInstance = new Singleton(); //Once in the block, check again and if still null, create an instance
                  }
@@ -3956,8 +3956,18 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         The information learned from the object allocation behavior can be used to enhance the performance of the JVM. Therefore, the heap is broken up into smaller parts 
         or generations. The heap parts are: Young Generation, Old or Tenured Generation, and Permanent Generation.
 
-            
+    -   
 
-            
+-   Error: (??)
 
+    problem10.java:484: generic array creation
+          BinNode[] nodes = new BinNode<Integer>[13];
+                            ^
     
+    But doing the following is fine:
+
+    BinNode[] nodes = new BinNode[13];
+
+    BinNode<Integer> node_0 = new BinNode<Integer>(15, 0);
+    nodes[0] = node_0
+    ...

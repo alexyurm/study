@@ -51,8 +51,35 @@ Algorithms and Data Structure
 
    (0,1)->(1,1)
 
+10.  You are given a binary search tree, how you serialize and deserialize it? what kind of traversal works
+
+     Note: first of all, we need to understand what is serialization and deserialization in BST
+
+     Serialization: it is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory
+                    or transmitted across a network connection link to be "resurrected" later in the same or another computer environment.
+
+                    Three ordering serialization: 1) preorder; 2) inorder; 3) postorder.
+
+     Deserialization: The process of converting a sequence of bits back into a tree data structure
+
+11. You are given an array of integers where most of them have been repeated even number of times except one which has been repeated odd number of times. 
+    How can we find the number which appears odd number of times?
+
+12. Amazon has logging problem. Each log file has history of all system access records and each access record has size from 1 to 255 bytes. Assuming we have 10 millions 
+    records but there are repetitions (3millions distinct records). You need to find out the 10 most popular records for all queries and system has just 1GB memory. 
+
+13. Two strings are called anagram if one of them is a rearrangement of the other one like "dog" and "god". Write an algorithm that takes two string and determined if they 
+    are anagram or not.
     
 
 Note:
 
 1. If you cannot think of an optimized solution, think of a "slow" solution first and think about how to optimize that solution.
+
+
+
+Mathematics:
+
+1.  Out of a thousand identical buckets filled with water, exactly one contains a poison. Th poison will kill a pig in exactly 30 minutes. If you must
+    locate the poisoned bucket within one hour, what is the minimum number of pigs needed?
+
