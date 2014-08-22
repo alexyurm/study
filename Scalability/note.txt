@@ -5,7 +5,7 @@ MapReduce:
     -   map (in_key, in_value) ->
     (inter_key, inter_value) list
 
-    -   reduce (inter_key, inter_value list) ->
+    -   reduce ((inter_key, inter_value) list) ->
     (out_key, out_value) list
 
 -   Map phase:
@@ -122,3 +122,103 @@ MapReduce:
         
         -   Familiar interface, but customize the API
             -   Simplify the problem; focus on distributed apps
+
+-   99% big data interview questions killer
+
+    -   What is big data processing
+
+        Big data processing is nothing but about the storage, processing and operation on huge amount of data. Because the data volumn is so huge therefore
+        there is no way to finish processing in short time or cannot those data in memory at one take.
+
+    -   thumb of rule
+
+        divide and conquer!
+
+        there are a couple methods to deal with big data processing:
+
+        1.  divide and conquer/hashmap + hash stastics + hash/quick/merge sort
+        2.  Double bucket partition
+        3.  Bloom filter/Bigmap
+        4.  Trie Tree/Database/倒排索引(??)
+        5.  外排序(??)
+        6.  Mapreduce/Hadoop
+
+    -   Part 1: from set/map to hashtable/hash_map/hash_set
+
+        -   Introduction
+
+            There two types of STL(ISO standard type library)
+
+            1)  Sequential Containers
+
+                vector/list/deque/stack/queue/heap
+
+            2)  Relational Containers
+
+                RB-tree
+                |
+                v
+                set 
+                |
+                v
+                multiset
+
+                RB-tree
+                |
+                v
+                map(using RB-tree):
+                |
+                v
+                multimap
+
+                hash
+                |
+                v
+                hashtable-----> hash_multimap
+                |       |    
+                v       ----> hash_multiset
+                hash_map
+
+                What is relational container? Similar to relational database, every data unit or element has a pair of a key and a value. When inserting an element, RB-tree or
+                hash table uses a specific rule that is based on the key value to put that element into a proper position.
+
+        -   set/map/multiset/multimap
+
+            1) set and map are both based on the data structure called RB-Tree
+
+               same: both do not allow two elements have the same value(for set) or key (for map)
+               diff: set only has value but not key; map has both value and key
+
+               multiset/multimap are very similar to set/map execpts that they allow repetitive value(for set)/key(for map)(??). That is all the insert operations are based on
+               RB-Tree's insert_equal() but not insert_unique()(??).
+
+            2) hash_set/hash_map/hash_multiset/hash_multimap
+
+               Unlike set/map, all hash data structures are based on hash table. Therefore, there is no "auto-sorting" feature in them.
+
+
+        Part 2:  divide and conquer/hashmap + hash stastics + hash/quick/merge sort
+
+                Problem 1: 
+
+                Given a big file that each row has one ip address, find out the most frequent one.
+
+                Step 1: divide
+
+                Because the data is too big and the memory is very limited, the only thing we can do is to divide the big file into smaller files
+
+                Step 2: hashmap
+
+                Now we have smaller files. For each of those smaller files, we can use hash_map(ip, value) to do freq stastics
+
+                Step 3: heap/quick sorting
+
+                We can use a specific algorithm to sort those ip addresses.
+
+                In practice, we can use %1000 to divide the whole file into 1000 smaller files. Noted that every ip address is 32-bit long.
+
+                There are a couple things to note:
+
+                1) Mod 1000 forces the same ip address only exist in a single file
+
+                
