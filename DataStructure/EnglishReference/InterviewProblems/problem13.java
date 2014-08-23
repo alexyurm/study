@@ -82,6 +82,7 @@ public class problem13 {
             }
         }
 
+	//Do we really need sum??
         if (sum != 0) {
             return false;
         } else {
