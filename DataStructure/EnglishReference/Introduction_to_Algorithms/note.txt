@@ -620,6 +620,62 @@ Chapter 21: Bloom Filter
     and bits are set in the filter.  Moreover, the filter expressing the reunion of two sets is simply computed as the bit-wise OR applied over the two 
     corresponding Bloom filters.
 
+-   Chapter 22: Consistent Hashing
+
+    -    Web caching problem:
+
+	    One classic problem: There are N machines that used as web content caching systems. Design an algorithm to balance the workload. That means distribute the
+	    caching requests uniformally to each of N machines.
+
+	    One simple way: hash(object)%N
+
+	    There are two situations to think about the above solution:
+
+	    1) if one cache system m is down, all the caching contents stored in m do not exist any more. Therefore, we need to remove machine m and redo all the mapping:
+
+	    hash(object)%(N-1)
+
+	    2) Because there are more demands for web caching, we need to add 1 more machine. So now the mapping becomes：
+
+	    hash(object)%(N+1)
+
+	    If 1) or 2) happens, suddenly all caching effects are gone! This is disastrous because all the requests are rushing to the backend server. 
+
+    -    Monotonicity(??)
+
+         Monotonicity is one of the benchmark to evaluate the good/bad of a hash function. What is that? If some contents have been hashed into their corresponding
+         buckets, and some new buckets are being created, the hash function must safisfy: the original contents(not all of them) will be rehashed into those newly created buckets instead
+	 of the other buckets in the old buckets poll.
+
+    -    Balance
+
+	 Balance is another benchmark to evaulate a hash function. It means to take the best effort to distribute the contents uniformally into the buckets.
+
+    -    consistent hashing
+
+	 1. round table architecture. (e.g. 2.^32 as the numerical bucket space)
+         2. both contents and the cache share the same numerical bucket space. They are both dipicted as nodes at the rim of the round table.
+         3. move the content clock-wisely until it hits a cache node.
+	 4. if one cache node is B dead, all the content nodes which depend on B are moving clock-wisely to the next cache node C.
+         5. if we need to add one cache node, we need to do remapping. All the nodes that are sitting between the new node and the new node's previous 
+            cache node (counter-clockwisely)
+	 6. To achieve high balance, we introduct intermediate nodes, so that one cache node can have multiple virtual nodes. And now the content nodes
+	    map to virtual nodes instead of cache nodes. How can we compute virtual nodes's bucket locations? We can use the ip of the cache node plus
+	    the suffix. E.g.
+
+	    Assume cache A's ip address is: 202.168.14.241, the way we compute two virtual nodes for cache A is:
+
+            Hash("202.168.14.241#1"); //cache A1
+            Hash("202.168.14.241#2"); //cache A2
+
+	Note: Please write a java program to demonstrate the consistent hash idea(!!)
+
+	 
+
+
+
+
+
 -   Math
 
     One prominent feature of Bloom filters is that there is a clear tradeoff between the size of the filter and the rate of false positives.
