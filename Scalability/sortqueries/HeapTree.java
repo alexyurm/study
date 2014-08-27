@@ -147,7 +147,7 @@ class HeapTree {
          if (l != -1) {
             if(l <= heapSize && A[l] > A[largest]) {
                largest = l;
-            } 
+            }
          }
 
          if (r != -1) {
@@ -155,13 +155,6 @@ class HeapTree {
                largest = r;
             }
          }
-
-         if (largest != current) {
-             int temp = A[largest];
-             A[largest] = A[current];
-             A[current] = temp;
-         }
-
       } while (largest != current);
    }
 
@@ -214,14 +207,6 @@ class HeapTree {
       }
    }
 
-   void buildmaxheap2() {
-      heapSize = n;
-
-      for (int i = n/2-1; i >=0; i--) {
-         maxheapify2(i);
-      }
-   }
-
    /** Since the maximum element of the array is stored at the root A[0], we can put it into its correct final position */
    //  by exchanging it with A[n-1], where n = A.length. This the new root element might violate the children of the max-heap
    //  property. The way to resolve this issue is following:
@@ -244,20 +229,6 @@ class HeapTree {
       }
    }
 
-   void heapsort2() {
-       buildmaxheap2();
-       for (int i = n-1; i > 0; i--) { //this also takes O(lg(n)*n)
-
-        int temp = A[0];
-        A[0] = A[i]; //The biggest element(root) goes to the last of the heap
-        A[i] = temp;
-
-        heapSize--;
-        maxheapify2(0);
-     }
-
-   }
-
    void showArray() {
       for (int i = 0; i < A.length; i++) {
          if (i+1 == A.length) {
@@ -276,7 +247,7 @@ class HeapTree {
       //int[] A = new int[]{4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
       int[] A = new int[]{5, 13, 2, 25, 7, 17, 20, 8, 4};
       HeapTree ht = new HeapTree(A);
-      ht.heapsort2();
+      ht.heapsort();
       ht.showArray();
 
       return;

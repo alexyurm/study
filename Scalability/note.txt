@@ -199,26 +199,45 @@ MapReduce:
 
         Part 2:  divide and conquer/hashmap + hash stastics + hash/quick/merge sort
 
-                Problem 1: 
+                -   Problem 1: 
 
-                Given a big file that each row has one ip address, find out the most frequent one.
+                    Given a big file that each row has one ip address, find out the most frequent one.
 
-                Step 1: divide
+                    Step 1: divide
 
-                Because the data is too big and the memory is very limited, the only thing we can do is to divide the big file into smaller files
+                    Because the data is too big and the memory is very limited, the only thing we can do is to divide the big file into smaller files
 
-                Step 2: hashmap
+                    Step 2: hashmap
 
-                Now we have smaller files. For each of those smaller files, we can use hash_map(ip, value) to do freq stastics
+                    Now we have smaller files. For each of those smaller files, we can use hash_map(ip, value) to do freq stastics
 
-                Step 3: heap/quick sorting
+                    Step 3: heap/quick sorting
 
-                We can use a specific algorithm to sort those ip addresses.
+                    We can use a specific algorithm to sort those ip addresses.
 
-                In practice, we can use %1000 to divide the whole file into 1000 smaller files. Noted that every ip address is 32-bit long.
+                    In practice, we can use %1000 to divide the whole file into 1000 smaller files. Noted that every ip address is 32-bit long.
 
-                There are a couple things to note:
+                    There are a couple things to note:
 
-                1) Mod 1000 forces the same ip address only exist in a single file
+                    1) Mod 1000 forces the same ip address only exist in a single file
 
-                
+                -   Problem 2:
+
+                    Each query is nothing but a string of characters. Amazon has logging problem. Each log file has history of all system access records and 
+                    each access record has size from 1 to 255 bytes. Assuming we have 10 millions records but there are repetitions (3millions distinct records). 
+                    You need to find out the 10 most popular records for all queries and system has just 1GB memory. 
+
+                    Solution: 
+
+                    Even though there are 10 million queries, but there are 3 million repetitions: we can think about if we can put the 3 million entries in
+                    the memory. At Maximum, it takes: 3 million * 255 bytes = 0.75GB.
+
+                    Step1: Maintain a hash_map (Query, Value), read each query, if the query is not in the map table, then add map(query, 1) into the map table; if the
+                    query exists in the map table, do: (query, value++)
+
+                    step2: do heap sorting
+
+                    Maintain a size of k = 10 small root heap(what is root heap). Traverse through all of those 3 million hash_map elements and compare them to
+                    the top 10 heap roots
+
+                    
