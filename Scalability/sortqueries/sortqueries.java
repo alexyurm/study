@@ -5,6 +5,133 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
+class topQueue {
+    private MyEntry[] entries;
+    private int heapSize;
+
+    public topQueue() {
+        entries = null;
+        heapSize = 0;
+    }
+
+    public topQueue(MyEntry[] entries) {
+        this.entries = entries.clone();
+        heapSize = entries.length;
+        minheapify(0);
+    }
+
+    public int left(int i) {
+      //assert i < n/2 : "Position has no left child"; //?? why i < n/2. Because:
+      //(i * 2 + 1) <= (heapsize-1) -> 
+      // i <= (heapsize/2 - 1) -> 
+      //(i+1) <= (heapsize/2) -> 
+      //i < heapsize/2
+      if ( i < heapSize/2) {
+         return i*2+1;
+      } else {
+         return -1;
+      }
+   }
+
+   public int right(int i) {
+      //assert i < (n-1)/2 : "Position has no right child"; //?? why i < (n-1)/2. Because:
+      //(i * 2 + 2) <= (heapsize-1) -> 
+      // i+1 <= (heapsize-1)/2 -> 
+      //(i+1) <= (heapsize-1)/2 -> 
+      // i < (heapsize-1)/2
+      if (i < (heapSize-1)/2) {
+         return i*2+2;
+      } else {
+         return -1;
+      }
+   }
+
+   public static int parent(int i) {
+      //return (int)(Math.ceil((double)i/2))-1;
+      //assert i > 0 : "Position has no parent";
+      if (i > 0) {
+         return (i-1)/2;
+      } else {
+         return -1;
+      }
+   }
+
+   void minheapify(int i) {
+      int smallest = i;
+      int l, r, current;
+
+      current = smallest; //assume the the current node is the largest
+      l = left(current);
+      r = right(current);
+
+      if (l != -1) {
+          //if((l <= heapSize) && (values[l].compareTo(values[largest]) > 0)) {
+          if ((l <= heapSize) && entries[l].getValue().compareTo(entries[smallest].getValue()) < 0) {
+              smallest = l;
+          }
+      }
+
+      if (r != -1) {
+          //if((r <= heapSize) && (values[r].compareTo(values[largest]) > 0)) {
+          if ((r <= heapSize) && entries[r].getValue().compareTo(entries[smallest].getValue()) < 0) {
+              smallest = r;
+          }
+      }
+
+      if (smallest != i) {
+          MyEntry temp = entries[smallest];
+          entries[smallest] = entries[i];
+          entries[i] = temp;
+          minheapify(smallest); //Recurssion occurs here. Remember "largest" is the index of left or right
+      } 
+  }
+
+   public MyEntry heapMin() {
+       if (heapSize != 0) {
+          System.out.println("heap underflow");
+          return entries[0];
+       } else {
+          return null;
+       }
+   }
+
+   public MyEntry heapExtractMin() {
+      if (heapSize < 1) {
+         System.out.println("heap underflow");
+         return null;
+      } else {
+         MyEntry min = entries[0];
+         entries[0] = entries[heapSize-1];
+         heapSize = heapSize - 1;
+         minheapify(0);
+         return min;
+      }
+   }
+
+   public void insertKey(MyEntry entry) {
+
+      print();
+      System.out.println();
+      System.out.print("inserting...");
+      entry.print();
+
+      if (entry.getValue().compareTo(entries[0].getValue()) > 0) {
+          entries[0] = entry;
+          minheapify(0);
+      }
+   }
+
+   public void print() {
+       if (heapSize == 0) {
+           System.out.println("nothing to print");
+       } else {
+           for (int i = 0; i < heapSize; i++) {
+               entries[i].print();
+           }
+       }
+   }
+}
+
 class HeapTree {
    
    MyEntry[] entries;
@@ -67,7 +194,6 @@ class HeapTree {
    //  of height as O(h)(??). This takes O(lg(n)).
    /*
    */
-   
    void maxheapify(int i) {
        int largest = i;
        int l, r, current;
@@ -233,6 +359,7 @@ public class sortqueries {
             }
                        
             //step2: do hash sort on hmap
+            /*
             Set set = hmap.entrySet();
             ArrayList aList = new ArrayList(set);
             int size = aList.size();
@@ -254,6 +381,30 @@ public class sortqueries {
                     entry.print();
                 }
             }
+            */
+            Set<Map.Entry<String, Integer>> set = hmap.entrySet();
+            MyEntry[] entrys = new MyEntry[set.size()];
+            int i = 0;
+            for (Map.Entry<String, Integer> element : set) {
+                entrys[i] = new MyEntry(element.getKey(), element.getValue());
+                //entrys[i].print();
+                i++;
+            }
+
+            int top = 6;
+            MyEntry[] first = Arrays.copyOfRange(entrys, 0, top);
+            MyEntry[] second = Arrays.copyOfRange(entrys, top, entrys.length);
+
+            topQueue tQueue = new topQueue(first);
+
+            for (MyEntry entry : second) {
+                tQueue.insertKey(entry);
+            }
+
+            tQueue.print();
+
+            
+
             
         } catch (IOException e) {
             e.printStackTrace();

@@ -97,11 +97,13 @@ class max_p_queue {//max-priority queue
    }
 
    //Returns the element of S with the largest key
+   //It takes O(1)
    public double heapMax() {
       return A[0];
    }
    
    //Extract the largest element and returns
+   //It takes O(lgn) as it only calls one time of maxheapity(0)
    public double heapExtractMax()
    {
       if (heapSize < 1) {
@@ -117,6 +119,7 @@ class max_p_queue {//max-priority queue
    }
 
    //Increase the key value of ith element(it takes log(n) computation time)
+   //It takes O(lgn) as it traces the path from the updated node to the root.
    public boolean increaseKey(double key, int i) {
       if (key < A[i]) {
          System.out.println("new key is smaller than current key");
@@ -134,6 +137,8 @@ class max_p_queue {//max-priority queue
    }
 
    //Insert an element into the heap
+   //The procedure first expands the max-heap by adding to the tree a new leaf whose key is -inf.
+   //Then it calls "increaseKey" to set the key of this new node to its correct value and maintain the max-heap prpoerty.
    public void insert(double key) {
       n++;
       heapSize++;
