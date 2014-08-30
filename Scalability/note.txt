@@ -221,7 +221,7 @@ MapReduce:
 
                     1) Mod 1000 forces the same ip address only exist in a single file
 
-                -   Problem 2:
+                -   Problem 2: (hashmap + heap)
 
                     Each query is nothing but a string of characters. Amazon has logging problem. Each log file has history of all system access records and 
                     each access record has size from 1 to 255 bytes. Assuming we have 10 millions records but there are repetitions (3millions distinct records). 
@@ -230,14 +230,32 @@ MapReduce:
                     Solution: 
 
                     Even though there are 10 million queries, but there are 3 million repetitions: we can think about if we can put the 3 million entries in
-                    the memory. At Maximum, it takes: 3 million * 255 bytes = 0.75GB.
+                    the memory. At Maximum, it takes: 3 million * 255 bytes = 0.75GB. 
 
                     Step1: Maintain a hash_map (Query, Value), read each query, if the query is not in the map table, then add map(query, 1) into the map table; if the
-                    query exists in the map table, do: (query, value++)
+                    query exists in the map table, do: (query, value++). This step takes O(n) time complexity, where n = 10 million.
 
                     step2: do heap sorting
 
-                    Maintain a size of k = 10 small root heap(what is root heap). Traverse through all of those 3 million hash_map elements and compare them to
-                    the top 10 heap roots
+                    Maintain a size of k = 10 small root heap. Traverse through all of those 3 million hash_map elements and compare them to
+                    the top 10 heap roots. In practice, We can follow the following steps:
+        
+                    2.1 Put the first k=10 elements into the heap, and do "buildminheap". So now, the root of the heap is the smallest node and all the elements are
+                        satisfy with the min heap tree requirement.
+                    2.2 Insert the rest elements(3 million-k) in to the heap. If inserting element is larger than the root, use it to replace the root, then
+                        do minheapify(0). 
+                    
+                    The final k elements in the heap are now the biggest elements. step 2 takes O(n'*log(k)) where n'=3 million. 
+
+                    step1 + step2 = O(n) + O(n'*log(k)) = O(n*log(k)).
+
+                    We take advantage of the small heap in step 2.2 where each insert operation takes log(k).(!!). For the actual implementation, please refer to
+                    the folder "sortqueries".
+
+                
+
+                    
+
+                    
 
                     

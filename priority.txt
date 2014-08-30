@@ -1,3 +1,4 @@
+Discrete Math(!!)
 Java Programming (!!)
 Introduction to Algorithm(Data Structure in Java) (!!)
 Design Pattern (!!)
@@ -5,5 +6,4 @@ Big Data Processing(!!)
 MongoDb
 MySql
 Postgres
-Discrete Math
 Agile
