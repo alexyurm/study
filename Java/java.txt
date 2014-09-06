@@ -3904,7 +3904,6 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
 
         There are three components of the JVM that are focused on when running performance. 
 
-
         The heap is where your object data is stored. This area is then managed by the garbage collector selected at startup. Most tuning options relate to 
         sizing the heap and choosing the most appropriate garbage collector for your situation. The JIT compiler also has a big impact on performance but 
         rarely requires tuning with the newer versions of the JVM.
@@ -3957,6 +3956,17 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         or generations. The heap parts are: Young Generation, Old or Tenured Generation, and Permanent Generation.
 
     -   
+
+-   jdk and jre setup for Ubuntu
+
+    java    -   the binary file under jre. To install, do: sudo apt-get install openjdk-7-jre
+    jdk     -   the binary file under jdk. To install, do: sudo apt-get install openjdk-7-jdk
+
+    Also, you may need to use the following command to change the default java version:
+
+    sudo update-alternatives --config java
+
+    Eclipse will use the default java version, but you may take a look at "Window -> Preferences -> Java -> Compiler"
 
 -   Error: (??)
 
