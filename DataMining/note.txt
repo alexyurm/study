@@ -1,0 +1,84 @@
+Chapter 1 Preface
+
+-   What is data mining
+
+    Data mining is the process of transfering raw data to useful infomation.
+    
+    Three phases: 1) preprocessing; 2) data mining; 3) postprocessing
+
+-   Problems in data mining
+
+    -   Scalable
+
+        e.g. data is too big to put into the memory.
+
+        We need new software/hardware to store/access/process the data
+
+    -   High dimensional
+
+    -   Complicated data
+
+    -   Data ownership and distribution
+
+    -   Non-tradional analysis
+
+-   Data mining area
+
+    Data mining is the intersect area among: 1) Stastics; 2) AI, Machine Learning, 
+    Pattern Recognition; 3) DataBase, Parallel Computing, Distributed Computing
+
+-   Data mining missions
+
+    -   Prediction
+
+        Input:  explanatory variable(or called independent variable)
+        Output: target variable(or dependent variable)
+
+    -   Description
+
+        This target is to describe the relationships among data:
+
+        -   Association
+        -   Trend
+        -   Cluster
+        -   Tracking
+        -   Anormal
+
+-   Predictive modeling
+
+    The model for prediction. There are two types: 
+
+    1) classfication;
+
+    It is used to predict discrete target variables. E.g. Predict a web user whether he/she will buy books on line. There are only two
+    variables: buy or no buy and they are discrete.
+
+    2) regression
+
+    It is used to predict continuous target variables. E.g. predict the future price of a stock.
+
+-   Association Analysis
+
+    It is used to find out strong association among data. E.g. Understand the relationships among different elements in a climat system.
+
+-   Cluster analysis
+
+    It is the task of grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense or another)
+    to each other than to those in other groups(clusters). E.g. In social networks, clustering may be used to recognize communities within large groups
+    of people.
+
+-   Anomaly detection
+
+    This task is to recognize a data that its features are different from other data. E.g. detect credit card fraud.
+
+Chapter 2 Data
+
+-   Some features of data are critical to data mining:
+
+    -   Type
+    -   Quality
+    -   Easy for preprocessing
+    -   Use relationships among data to do analysis
+
+-   Anomaly 
+    
