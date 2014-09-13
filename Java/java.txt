@@ -3981,3 +3981,10 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
     BinNode<Integer> node_0 = new BinNode<Integer>(15, 0);
     nodes[0] = node_0
     ...
+
+-   SortedSet<E> and TreeMap<K,V>
+
+    Same:   Both data structures provide the same ordering mechanisim so that the elements are ordered using their natural ordering, or by a Comparator
+            typically provided at sorted set creation time.
+
+    Diff:   TreeMap only allows sorting based on the value V. There is no such restriction on SortedSet.

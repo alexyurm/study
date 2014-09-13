@@ -9,7 +9,7 @@ Chapter 2: Exploring Android App Development: The Lingo of Android and Building 
 -  DVM(Dalvik Virtual Machine) is the technology used to optimize the Java
    code and other assets(XML, audio images, etc.) into a highly optimized
    binary format, A .DEX file for your application in the root of your
-   project inside your Android APK file.
+   project inside your Android APK file(??).
 
 -  Android uses the term Activity to describe the "front-end" screens of
    your application that your users view.
