@@ -583,13 +583,36 @@ Chapter 15: Dynamic Programming
 
 Chapter 16: Greddy Algorithm
 
-Chapter 21: Bloom Filter
+Chapter 36: Bloom Filter
 
 -   What is it?
 
     Bloom filters are compact data structures for probabilistic representation of a set in order to support membership queries (i.e. queries that ask: 
     “Is element X in set Y?”).  This compact representation is the payoff for allowing a small rate of false positives in membership queries; that is, 
     queries might incorrectly recognize an element as member of the set.
+
+    A Bloom Filter is an implementation of a set which allows a certain probability of false positive when determining if a given object is a member of the set
+    , in return for a reduction of memory required for the set. It is essentially an extension of the idea of using hash codes as an index to a BitSet for
+    the purpose of duplicate elimination.
+
+    It effectively works as follows:
+
+    -   We allocate m bits to represent the set data;
+    -   We write a hash function that, instead of a single hash code, produces k hash codes for a given object;
+    -   To add an object to the set, we derive bit indexes from all k hash codes and set those bits;
+    -   To determine if an object is in the set, we again calculate the corresponding hash codes and bit indexes, and say that it is present if and only
+        if all corresponding bits are set.
+
+    The margin of error (or false positive rate) comes from the fact that we add more and more objects to the set, we increase the likelihood of "accidently" 
+    setting a combination of bits that corresponds to an object that isn't actually in the set. In an example of using a bloom filter to represent a set of
+    strings, we find that allocating 8 bits per item gives us a false positive rate of around 4.9% with 2 hash codes and 2.3% with 4 hash codes. Within certain
+    parameters, we can achieve a certain false positive rate either by increasing the number of bits per item (hence overall memory used) or by increasing
+    the number of hash codes hash codes (and hence CPU usage required per lookup).
+
+    Bloom filters are useful for "weeding out" items. For example, when placed on top of a database query, they can be used to avoid database "hits" for items
+    that we know in advance (because our Bloom filters reports that they are not present)  . 
+
+    
 
 -   Constructing Bloom Filters
 

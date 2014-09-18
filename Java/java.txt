@@ -3988,3 +3988,17 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
             typically provided at sorted set creation time.
 
     Diff:   TreeMap only allows sorting based on the value V. There is no such restriction on SortedSet.
+
+-   Lesson: Basic I/O
+
+    -   I/O Streams
+
+        Byte Streams
+        Character Streams
+        Buffered Streams
+        Scanning and Formatting Streams
+        I/O from the Command Line
+        Data Streams
+        Object Streams
+
+    

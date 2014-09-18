@@ -2141,3 +2141,72 @@ Notes from Learning MySQL:
     LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
     RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
     FULL JOIN: Return all rows when there is a match in ONE of the tables
+
+-   Notes from "Introduction to database stanford"
+
+    -   Chapter 1 Introduction
+
+        -   7 Features of a typical database:
+
+            -   Massive
+            -   Persistent
+            -   Safe
+            -   Multi-user
+            -   Convenient
+            -   Efficient
+            -   Reliable
+
+        -   Key concepts
+
+            -   Data Model -> How the data is structured. E.g. relational data model
+            -   Schema versus data
+            -   Data definition language (DDL) -> used for setup schema
+            -   Data manipulation or query language(DML) -> Querying and Modifying the dataabse
+
+    -   Chapter 2 Relational Model
+
+        -   Terms
+
+            -   Database = set of named relations (or tables)
+            -   Each relation has a set of named attributes (or columns)
+            -   Each tuple (or row) has a value for each attribute
+            -   Schema - structural description of relations in database
+            -   Instance - actual contents at given point in time
+            -   NULL - special value for "unknown" or "undefined"
+            -   Key - attribute whose value is unique in each tuple
+
+        -   Querying Relational Databases
+
+            -   Steps in creating and using a relational database
+                
+                1.  Design schema; create using DDL
+                2.  "Bulk load" initial data - > data maybe located outside of DMBS such as in a file
+                3.  Repeat: execute queries and modifications
+
+            -   Ad-hoc queries in high-level language
+
+                E.g. 
+
+                -   All students with GPA > 3.7 applying to Stanford and MIT only
+                -   All engineering departments in CA < 500 applicants
+                -   College with highest average accept rate over last 5 years
+
+                1.  Some easy to pose; some a bit harder
+                2.  Some easy for DBMs to execute efficiently; some harder
+
+                Note(!!): 1 and 2 are NOT correlated
+
+            -   Queries return relations("compositional(??)", "closed(??)")
+
+            -   Two Query languages
+
+                -   Relational Algebra - fornmal
+
+                -   SQL - actual/implemented. The Relational Algebra is actuall the foundation of SQL.
+
+    -   Chapter 5 Relational Algebra
+
+            -   
+            
+
+    
