@@ -252,7 +252,10 @@ MapReduce:
                     We take advantage of the small heap in step 2.2 where each insert operation takes log(k).(!!). For the actual implementation, please refer to
                     the folder "sortqueries".
 
-                
+                -   Problem 3: 
+
+                    Within a file which is 1GB, each line is nothing but a word. Each word is less equal or less than 16 bytes. Your machine only has 1 MB ram. Get the
+                    top 100 highest frequent words.
 
                     
 
