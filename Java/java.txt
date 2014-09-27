@@ -4001,4 +4001,62 @@ Veggie veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() 
         Data Streams
         Object Streams
 
+-   What are Static classes??
+
+    Static classes are nested classes that act like top-level classes, even if they appear somewhere in the middle or the bottom of the program hierachy(within
+    a class). Static classes do not need the reference of the outer class. They act like an outer class within themselves. Normal non-static nested classes, on
+    the other hand, need reference of the outer class. In other words, static classes are independent of the outer class, while other inner classes are dependent
+    on the outer class.
+
+    class Car {
+       class SUVs {
+       }
+       static class sedans {
+       }
+    }
+
+    Here, the keyword "static" ensures that the class sedan will be treated as an outer class. Static classes can only access static members of an outer class,
+    where non-static nested classes can interact with both static and non-static members of an outer class. This functionality allows static nested classes to
+    interact with other parts of the program and provides code re-usability.
+
+    -   Declaring an Object within a Static Class
+
+    You can access a static class by using the name of its outer class. For example, 
+
+    car.sedans
+
+    You can create an object for the static class only by accessing it through the outer class(which is true for all nested classes.) You can use the syntax:
+
+    car.sedan outdatesedan = new car.sedans();
+
+    -   Implementing the Concept of static classes in Java
+
+    class Car{
+      public static String message = “meant for transportation”;
+      static class sedans {
+         public void printMessage ()
+         {
+            System.out.println (“Cars are” + message);
+         }
+      }  
+    }
+
+    Class Main
+    {
+       Public static void main (String args[]) {
+          car.sedans text = new car.sedans();
+          text.printMessage();
+       }
+    }
+    Output: Cars are meant for transportation.
+
+    Here, we have declared message as a static string variable. Because it is static, the static class “sedans” is able to access it. When the compiler encounters 
+    the System.out.println line, it will print the “Cars are meant for transportation” line of text on screen.
+
     
+
+-   Relationship between HashSet and HashMap
+
+    Surprisingly, HashSet is actually HashMap except that the all entries' value uses the same static default values called PRESENT:
+
+    private static final Object PRESENT = new Object();
