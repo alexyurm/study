@@ -63,6 +63,12 @@
 
         -   Using dynamic programming for optimal rod cutting
 
+            The dynamic-programming method works as follows: Having observed that a naive recursive solution is inefficient because it
+            solves the same sub-problems repeatedly, we arrange for each subproblem to be solved only once, saving its solution. If we
+            need to refer to this subproblem's solution again later, we can just look it up, rather than recompute it. It serves an
+            example of a time-memory trade-off. It transfers a exponential solution into a polynomial time when the number of distinct
+            subproblems involved is polynomial in the input size and we can solve each subproblem in polynomal time.
+
             There are usually two equivalent ways to implement a dynamic-programming approach:
 
             1) top-down with memorization
@@ -80,7 +86,7 @@
 
             MEMORIZED-CUT-ROD-AUX(p,n,r)
             1   if r[n]>=0
-            2       return r[n]
+            2       return r[n] //return the result right away as it has been computed before
             3   if n == 0
             4        q = 0
             5   else q = -inf
