@@ -72,6 +72,27 @@ Chapter 2: Getting started
    an algorithm whose running time has a higher order of growth might take less time for small inputs than an apgorithm whose running time has a lower order of growth. But for large
    inputs, a O(n.^2) algorithm, for example, will run more quickly in the worst case than a O(n.^3) algorithm.
 
+-   Growth of Functions
+
+    -   Asymptotic notation
+
+        We will use asympotic notation primarily to describe the running time of algorithms.
+
+    -   Delta notation (asymptotically tight bound)
+
+        delta(g(n)) = {f(n): there exists c1, c2 and n0 such that c1*g(n)<=f(n)<=c2*g(n) for all n >= n0}
+
+        f(n) is sandwiched between c1*g(n) and c2*g(n)
+
+        The definition of delta(g(n)) requires that every member f(n) be asymptotically nonnegative consequently the function g(n) itself must be asymptotically
+        nonnegative.
+
+        For any quadratic function f(n) = a.^2*n + b*n +c, formally we take the constant c1=a/4 and c2=7a/4 and n0=2*max(|b|/a, sqrt(|c|/a))
+
+    -   Big-O notation (asymptotically upper bound)
+
+        O(g(n)) = {f(n): there exists c n0 such that f(n)<=c*g(n) for all n >= n0}
+
 -  Designing algorithms
 
    The divide-and-conquer approach: Recursion functions are one of those functions that can call itself recursively one or more time to deal with closely related sub problems.
