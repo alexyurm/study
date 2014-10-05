@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+</body>
+
+<p id="demo"></p>
+
+<script>
+
+var person = {
+    firstName:  "John", 
+    lastName:   "Doe", 
+    age:        50,
+    eyeColor:   "blue",
+    fullName:   function() {return this.firstName + " " +
+                                this.lastName;}
+};
+
+/*
+
+There are two ways to access the object properties
+
+person.lastName;
+person["lastName"]; 
+
+*/
+
+//document.getElementById("demo").innerHTML = 
+//person.firstName + " is " + person["age"] + " years old.";
+
+document.getElementById("demo").innerHTML = person.fullName();
+</script>
+
+
+</html>

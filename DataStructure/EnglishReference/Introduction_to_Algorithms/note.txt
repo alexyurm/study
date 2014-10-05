@@ -91,7 +91,31 @@ Chapter 2: Getting started
 
     -   Big-O notation (asymptotically upper bound)
 
-        O(g(n)) = {f(n): there exists c n0 such that f(n)<=c*g(n) for all n >= n0}
+        O(g(n)) = {f(n): there exists c n0 such that 0<=f(n)<=c*g(n) for all n >= n0}
+
+        -   o-notation
+
+            The bound 2*n.^2 = O(n.^2) is asymptotically tight, but the bound 2*n = O(n.^2) is not. We use o-notation to denote an upper bound that is not
+            asymptotically tight("little-omega of g of n").
+
+            o(g(n)) = {f(n): for any positive constant c > 0, there exists a constant n0 > 0 such that 0<=f(n)<c*g(n) for all n>=n0}.
+
+            for example, 2n = o(n.^2), but 2n.^2 != o(n.^2).
+
+    -   Omega notation (asymptotically upper bound)
+
+        O(g(n)) = {f(n): there exists c n0 such that 0<=c*g(n)<=f(n) for all n >= n0}
+
+        -   w-notation
+
+            We use w-notation to denote a lower bound that is not asymptotically tight:
+
+            w(g(n)) = {f(n): for any positive constant c > 0, there exists a constant n0 > 0 such that 0<=c*g(n) < f(n) for all n>=n0}.
+
+            for example, n.^2/2 = w(n), but n.^2/2 != w(n.^2).
+
+            
+        
 
 -  Designing algorithms
 

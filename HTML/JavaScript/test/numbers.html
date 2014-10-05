@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+
+/*
+
+JavaScript Numbers are Always 64-bit Floating Point(double precision), 
+following the international IEEE 754 standard. This format stores
+numbers in 64 bits, where the number(the fraction) is stored in bits
+0 to 51, the exponent in bits 52 to 62, and the sign in bit 63.
+
+-   Precision
+
+    Integers (numbers without a period exponent notation) are considered
+    accurate up to 15 digits.
+
+    The maximum number of 2.^53-1 = 0xFFFFFFFFFFFFF = 4503599627370495(16
+    decimal digits)
+
+    var x = 999999999999999;   // x will be 999999999999999
+    var y = 9999999999999999;  // y will be 10000000000000000
+
+    The maximum number of decimals is 17, but floating point arthmetic
+    is not always 100% accurate:
+
+    Example: 
+
+    var x = 0.2 + 0.1; // x will be 0.30000000000000004
+
+    To solve the problem, it helps to multiply and divide:
+
+    Example:
+
+    var x = (0.2 * 10 + 0.1 * 10) / 10; //x will be 0.3
+
+    Infinity(or -infinity) is the value JavaScript will return if
+    you calculate a number outside the largest possible number
+
+    var myNumber = 2;
+    while (myNumber != Infinity) {
+        myNumber = myNumber * myNumber;
+    }
+
+-   NaN - Not a Number
+
+    NaN is a JavaScript reserved word indicating that a value is not
+    a number. Trying to do arithmetic with a non-numeric string will
+    result in NaN(Not a Number):
+
+    Example
+
+    var x = 100 / "Apple"; //x will be NaN (Not a Number)
+
+    However, if the string contains a numeric value, the result
+    will be a number:
+
+    Example
+
+    var x = 100 / "10"; // x will be 10
+
+    You can use the global JavaScript function is NaN() to find out
+    if a value is a number.
+
+    Example
+
+    var x = 100 / "Apple";
+    isNaN(x); //returns true because x is Not a Number
+
+    NaN is a number: typeOf NaN returns number.
+    
+    typeof NaN; //returns "number"
+
+-   Numbers can be Objects too
+*/
+
+
+</script>
+
+<p>Floating point arithmetic is not always 100% accurate.</p>
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    //x = 0.2 + 0.1;
+    //x = (0.2*10 + 0.1*10) / 10;
+    //document.getElementById("demo").innerHTML = "0.2 + 0.1 = " + x;
+
+    //You can use the toString() method to output numbers as 
+    //base 16(hex), base 8 (octal), or base 2 (binary)
+    /*
+    var myNumber = 128;
+    myNumber.toString(16);
+    myNumber.toString(8);
+    myNumber.toString(2);
+    document.getElementById("demo").innerHTML = "128.toString(16) = " + myNumber.toString(16);
+    */
+
+    var myNumber = 2;
+    var txt = "";
+    while (myNumber != Infinity) {
+        myNumber = myNumber * myNumber;
+        txt = txt + myNumber + "</br>"
+    }
+    document.getElementById("demo").innerHTML = txt;
+
+    
+}
+</script>
+
+</body>
+</html>
